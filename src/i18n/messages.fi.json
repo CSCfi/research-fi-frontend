@@ -1221,6 +1221,21 @@
         "download_publication_list_button_title": "Lataa julkaisuluettelo",
         "publication_list_note_title": "Huomio",
         "publication_list_note_text": "Julkaisut profiilityökalussa eivät välttämättä täytä julkaisuluettelon vaatimuksia. Tarkista viitetietojen oikeellisuus ennen kuin jaat tai lähetät luettelon eteenpäin.",
-        "cvTool": "CV-työkalu"
+        "cvTool": "CV-työkalu",
+        "aitta_aiGeneratedDescription": "Tekoälyavusteinen kuvaus",
+        "aitta_aiGeneratedTextMayContainErrors": "Tekoälyn luoma teksti voi sisältää asiavirheitä. Muistathan tarkastaa tekstin.",
+        "aitta_closeToBackgroundButtonText": "Sulje taustalle",
+        "aitta_demoDescription": "Tämä on demotarkoituksiin luotu tutkimustoiminnan kuvaus, joka sisältää tietoja affiliaatioista, tuotoksista, saavutuksista ja aktiviteeteista. Se kuvaa asiantuntijan uraa ja motivaatioita.",
+        "aitta_descriptionFromOtherDataSources": "Kuvaus muista tietolähteistä",
+        "aitta_generateAndCreateLocalizationsButtonText": "Käytä ja luo kieliversiot",
+        "aitta_generateDescriptionButtonText": "Luo kuvaus",
+        "aitta_generateNewDescriptionButtonText": "Luo uusi kuvaus",
+        "aitta_generatingDescriptionInfoText": "Luodaan kuvausta. Tämä voi viedä pari minuuttia",
+        "aitta_infoText": "Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja.\nTietojasi ei käytetä kielimallin kouluttamiseen eikä niitä säilytetä CSC:n Aitta-palvelussa.",
+        "aitta_languageVersionInfo": "Kieliversiot luodaan automaaattisesti tarkastamasi kuvauksen pohjalta.",
+        "aitta_selectDescriptionLanguageTitle": "Valitse kuvauksen kieli",
+        "aitta_selectDescriptionSourceTitle": "Valitse kuvaus",
+        "aitta_useDescriptionButtonText": "Käytä kuvausta",
+        "aitta_youHaveNotSelectedAnyPublicData": "Et ole vielä valinnut julkisesti näytettäviä tietoja"
     }
 }

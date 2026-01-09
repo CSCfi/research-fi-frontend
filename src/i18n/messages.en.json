@@ -1219,7 +1219,22 @@
         "download_publication_list_button_title": "Download the publication list",
         "publication_list_note_title": "Note",
         "publication_list_note_text": "Publications in the profile may not always meet the requirements for the publication list. Please verify the accuracy of the reference details before sharing or sending the list.",
-        "cvTool": "CV tool"
+        "cvTool": "CV tool",
+        "aitta_aiGeneratedDescription": "AI-assisted description",
+        "aitta_aiGeneratedTextMayContainErrors": "Text created by artificial intelligence can contain factual errors. Remember to check the text.",
+        "aitta_closeToBackgroundButtonText": "Close to background",
+        "aitta_demoDescription": "This is a demo-generated description of research activities that includes information about affiliations, outputs, achievements, and activities. It describes the career and motivations of an expert.",
+        "aitta_descriptionFromOtherDataSources": "Description from other information scources",
+        "aitta_generateAndCreateLocalizationsButtonText": "Use and create language versions",
+        "aitta_generateDescriptionButtonText": "Create description",
+        "aitta_generateNewDescriptionButtonText": "Create a new description",
+        "aitta_generatingDescriptionInfoText": "Creating description. This can take a few of minutes.",
+        "aitta_infoText": "You can create a description of your research activities using artificial intelligence. Only your profile information published on Research.fi is used to create the description.\nYour data is not used to train the language model and is not stored in CSC's Aitta service.",
+        "aitta_languageVersionInfo": "Language versions are created automatically based on the description you reviewed.",
+        "aitta_selectDescriptionLanguageTitle": "Select language of the description",
+        "aitta_selectDescriptionSourceTitle": "Select description",
+        "aitta_useDescriptionButtonText": "Use description",
+        "aitta_youHaveNotSelectedAnyPublicData": "You have not yet selected publicly displayed information"
     }
 }
 

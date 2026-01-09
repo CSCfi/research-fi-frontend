@@ -1221,6 +1221,21 @@
         "download_publication_list_button_title": "Ladda ner publikationsförteckningen",
         "publication_list_note_title": "Obs",
         "publication_list_note_text": "Publikationerna i profilen uppfyller inte alltid kraven för publikationslistan. Kontrollera att referensuppgifterna är korrekta innan du delar eller skickar listan vidare.",
-        "cvTool": "CV-verktyg"
+        "cvTool": "CV-verktyg",
+        "aitta_aiGeneratedDescription": "AI-assisterad beskrivning",
+        "aitta_aiGeneratedTextMayContainErrors": "Text som skapas av artificiell intelligens kan innehålla sakfel. Glöm inte att kontrollera texten.",
+        "aitta_closeToBackgroundButtonText": "Stäng i bakgrunden",
+        "aitta_demoDescription": "Detta är en beskrivning av forskningsverksamhet skapad för demoändamål som innehåller information om affiliationer, resultat, prestationer och aktiviteter. Den beskriver expertens karriär och motivation.",
+        "aitta_descriptionFromOtherDataSources": "Beskrivning av andra informationskällor",
+        "aitta_generateAndCreateLocalizationsButtonText": "Använd och skapa språkversioner",
+        "aitta_generateDescriptionButtonText": "Skapa beskrivning",
+        "aitta_generateNewDescriptionButtonText": "Skapa ny beskrivning",
+        "aitta_generatingDescriptionInfoText": "Skapar beskrivning. Det kan ta ett par minuter.",
+        "aitta_infoText": "Du kan skapa en beskrivning av din forskningsverksamhet med hjälp av artificiell intelligens. För att skapa beskrivningen används endast uppgifter från din profil som publicerats på Forsking.fi.\nDina uppgifter används inte för att utbilda språkmodellen och lagras inte i CSC:s Aitta-tjänst.",
+        "aitta_languageVersionInfo": "Språkversionerna skapas automatiskt utifrån den beskrivning som du har kontrollerat.",
+        "aitta_selectDescriptionLanguageTitle": "Välj språk för beskrivningen",
+        "aitta_selectDescriptionSourceTitle": "Välj beskrivningen",
+        "aitta_useDescriptionButtonText": "Använd beskrivning",
+        "aitta_youHaveNotSelectedAnyPublicData": "Du har ännu inte valt den information som ska visas offentligt"
     }
 }
