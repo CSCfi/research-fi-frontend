@@ -39,7 +39,7 @@ import { TertiaryButtonComponent} from '@shared/components/buttons/tertiary-butt
   templateUrl: './modal-template.component.html',
   styleUrl: './modal-template.component.scss'
 })
-export class ModalTemplateComponent   implements OnInit, AfterViewInit, OnDestroy
+export class ModalTemplateComponent implements OnInit, AfterViewInit, OnDestroy
 {
   mobile: boolean;
   displayExtraContent = false;

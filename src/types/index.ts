@@ -82,6 +82,7 @@ export type DialogAction = {
   flexStart?: boolean;
   action?: any;
   tertiary?: boolean;
+  disabled?: boolean;
 };
 
 // MyData

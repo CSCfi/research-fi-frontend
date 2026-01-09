@@ -107,7 +107,6 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
     };
 
     if (this.useNewTemplate === true) {
-      console.log('Using new template', this.actions, spreadActions);
       this.dialogRef = this.dialog.open(ModalTemplateComponent, {
         ...(this.small ? smallDialogSettings : dialogSettings),
         autoFocus: true,
@@ -135,7 +134,6 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
       });
     }
     else {
-      console.log('Using dialog');
       this.dialogRef = this.dialog.open(DialogTemplateComponent, {
         ...(this.small ? smallDialogSettings : dialogSettings),
         autoFocus: true,

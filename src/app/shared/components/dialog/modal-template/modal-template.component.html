@@ -99,18 +99,21 @@
                         *ngIf="action.primary"
                         (click)="doAction(action)"
                         [content]="action.label"
+                        [disabled]="action.disabled"
                 ></app-primary-action-button>
 
                 <app-secondary-button
                         *ngIf="!action.primary"
                         (click)="doAction(action)"
                         [content]="action.label"
+                        [disabled]="action.disabled"
                 ></app-secondary-button>
 
                 <app-tertiary-button
                         *ngIf="action.tertiary"
                         (click)="doAction(action)"
                         [content]="action.label"
+                        [disabled]="action.disabled"
                 ></app-tertiary-button>
               </div>
             </ng-container>
@@ -127,18 +130,21 @@
                   *ngIf="action.primary && !action.tertiary"
                   (click)="doAction(action)"
                   [content]="action.label"
+                  [disabled]="action.disabled"
           ></app-primary-action-button>
 
           <app-secondary-button
                   *ngIf="!action.primary && !action.tertiary"
                   (click)="doAction(action)"
                   [content]="action.label"
+                  [disabled]="action.disabled"
           ></app-secondary-button>
 
           <app-tertiary-button
                   *ngIf="action.tertiary"
                   (click)="doAction(action)"
                   [content]="action.label"
+                  [disabled]="action.disabled"
           ></app-tertiary-button>
         </div>
       </ng-container>
