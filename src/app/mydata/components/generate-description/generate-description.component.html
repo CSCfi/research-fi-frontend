@@ -19,25 +19,37 @@
   </div>
 
   <!-- Content -->
-  <div *ngIf="currentlyVisibleBiographiesObs$.getValue().fi.length < 1 && currentlyVisibleBiographiesObs$.getValue().en.length < 1 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1" class="row pt-2 pb-3 justify-content-between">
+  <div *ngIf="currentlyVisibleBiographiesObs$.getValue().fi.length < 1 && currentlyVisibleBiographiesObs$.getValue().en.length < 1 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1"
+       class="row pt-2 pb-3 justify-content-between">
     <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0"
          i18n="@@youHaveNotSelectedAnyPublicData">
       {{ noPublicDataText }}
     </div>
   </div>
 
-  <div *ngIf="(currentlyVisibleBiographiesObs$.getValue().fi.length > 0 || currentlyVisibleBiographiesObs$.getValue().en.length > 0 && currentlyVisibleBiographiesObs$.getValue().sv.length > 0) && !((enTranslationOngoing$ | async) && (svTranslationOngoing$ | async))" class="row">
+  <div *ngIf="(currentlyVisibleBiographiesObs$.getValue().fi.length > 0 || currentlyVisibleBiographiesObs$.getValue().en.length > 0 && currentlyVisibleBiographiesObs$.getValue().sv.length > 0) && !((enTranslationOngoing$ | async) && (svTranslationOngoing$ | async))"
+       class="row">
     <div class="mb-2 d-flex flex-row font-weight-500">{{ languageVersionsTitle }}:
       <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 0)}" role="button"
            tabindex="0" (keydown.enter)="setSelectLanguageTab(0, false)" (click)="setSelectLanguageTab(0, false)">FI
       </div>
-      <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 1), 'disabled': currentlyVisibleBiographiesObs$.getValue().en.length < 1}" role="button"
-           tabindex="0" (keydown.enter)="currentlyVisibleBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1, false) : undefined" (click)="currentlyVisibleBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1, false) : undefined">EN
+      <div class="lang-tab-button"
+           [ngClass]="{'selected': (selectedLanguageTab === 1), 'disabled': currentlyVisibleBiographiesObs$.getValue().en.length < 1}"
+           role="button"
+           tabindex="0"
+           (keydown.enter)="currentlyVisibleBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1, false) : undefined"
+           (click)="currentlyVisibleBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1, false) : undefined">
+        EN
       </div>
-      <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 2), 'disabled': currentlyVisibleBiographiesObs$.getValue().sv.length < 1}" role="button"
-           tabindex="0" (keydown.enter)="currentlyVisibleBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2, false) : undefined" (click)="currentlyVisibleBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2, false) : undefined">SV
+      <div class="lang-tab-button"
+           [ngClass]="{'selected': (selectedLanguageTab === 2), 'disabled': currentlyVisibleBiographiesObs$.getValue().sv.length < 1}"
+           role="button"
+           tabindex="0"
+           (keydown.enter)="currentlyVisibleBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2, false) : undefined"
+           (click)="currentlyVisibleBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2, false) : undefined">
+        SV
       </div>
-      <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true" role="button" class="select-language-button"
+      <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true && userEditedBiographiesObs$.getValue().fi.length > 0 && (userEditedBiographiesObs$.getValue().en.length > 0 || userEditedBiographiesObs$.getValue().sv.length > 0)" role="button" class="select-language-button"
            tabindex="0" (keydown.enter)="openDialog('selectLanguageVersions')"
            (click)="openDialog('selectLanguageVersions')">
         {{ selectLanguageVersionsText }}
@@ -59,10 +71,28 @@
 
   <div *ngIf="keywordsSelectedInDraft" class="row">
     <h3 id="mock-data-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}</h3>
-    <div>{{selectedKeywordsStr}}</div>
+    <div>{{ selectedKeywordsStr }}</div>
   </div>
 
-  <div class="language-versions-info-box" *ngIf="isBiographyAiGeneratedObs$ && (enTranslationOngoing$ | async) || (svTranslationOngoing$ | async)">
+  <div class="language-versions-info-box"
+       *ngIf="(biographyGenerationOngoing$ | async) === true">
+    <div class="d-flex flex-row additional-info-wrap">
+      <div class="info-circle-wrap d-flex flex-column">
+        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+      </div>
+
+      <div>
+        <div>{{ generatingDescriptionInfoText }}</div>
+      </div>
+    </div>
+    <div class="d-flex flex-row justify-content-center mt-2">
+        <app-svg-sprites [iconName]="'create-new-diamond'"
+                         cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
+    </div>
+  </div>
+
+  <div class="language-versions-info-box"
+       *ngIf="isBiographyAiGeneratedObs$ && (enTranslationOngoing$ | async) || (svTranslationOngoing$ | async)">
     <div class="d-flex flex-row additional-info-wrap">
       <div class="info-circle-wrap d-flex flex-column">
         <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
@@ -79,7 +109,7 @@
   </div>
 
   <div class="language-versions-info-box"
-       *ngIf="(isBiographyAiGeneratedObs$ | async) === false">
+       *ngIf="(generateBiographyRequested$ | async) === true && (biographyGenerationOngoing$ | async) === false && this.contentCreationStep === 3 && (isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$| async) && !(svTranslationOngoing$ | async)">
     <div class="d-flex flex-row additional-info-wrap">
       <div class="info-circle-wrap d-flex flex-column">
         <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
@@ -87,14 +117,17 @@
 
       <div>
         <h3>{{ researchDescriptionGenerationDone }}</h3>
-        <app-secondary-button (keydown.enter)="openDialog('reviewAndCreateLanguageVersionsButtonText')"
-                              (click)="openDialog('reviewAndCreateLanguageVersions')" content="{{reviewAndCreateLanguageVersionsButtonText}}"></app-secondary-button>
       </div>
+    </div>
+    <div class="d-flex flex-row justify-content-center mt-2">
+      <app-secondary-button (keydown.enter)="openDialog('reviewAndCreateLanguageVersions')"
+                            (click)="openDialog('reviewAndCreateLanguageVersions')"
+                            content="{{reviewAndCreateLanguageVersionsButtonText}}"></app-secondary-button>
     </div>
   </div>
 
   <div class="language-versions-info-box"
-       *ngIf="(isBiographyAiGeneratedObs$ | async) === true &&  !(enTranslationOngoing$| async) && !(svTranslationOngoing$ | async) && (aiGeneratedBiographiesObs$.getValue().en.length > 0 && langVersionEnUsed$.getValue() === false) && (aiGeneratedBiographiesObs$.getValue().sv.length > 0 && langVersionSvUsed$.getValue() === false)">
+       *ngIf="(translationsRequested$ | async) === true  && (isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$| async) && !(svTranslationOngoing$ | async) && (aiBioFromBackendObs$.getValue().en.length > 0 && langVersionEnUsed$.getValue() === false) && (aiBioFromBackendObs$.getValue().sv.length > 0 && langVersionSvUsed$.getValue() === false)">
     <div class="d-flex flex-row additional-info-wrap">
       <div class="info-circle-wrap d-flex flex-column">
         <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
@@ -104,13 +137,14 @@
         <h3>{{ languageVersionsGenerationDone }}</h3>
         <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
         <app-secondary-button (keydown.enter)="openDialog('selectLanguageVersions')"
-                              (click)="openDialog('selectLanguageVersions')" content="{{selectLanguageVersionsText}}"></app-secondary-button>
+                              (click)="openDialog('selectLanguageVersions')"
+                              content="{{selectLanguageVersionsText}}"></app-secondary-button>
       </div>
     </div>
   </div>
 
   <div class="language-versions-info-box"
-       *ngIf="(isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$ | async) && !(svTranslationOngoing$ | async) && userEditedBiographiesObs$.getValue().en.length > 0 && userEditedBiographiesObs$.getValue().sv.length > 0 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1">
+       *ngIf="(isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$ | async) && !(svTranslationOngoing$ | async) && userEditedBiographiesObs$.getValue().en.length > 0 && userEditedBiographiesObs$.getValue().sv.length > 0 && currentlyVisibleBiographiesObs$.getValue().en.length < 1 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1">
     <div class="d-flex flex-row additional-info-wrap">
       <div class="info-circle-wrap d-flex flex-column">
         <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
@@ -120,7 +154,8 @@
         <h3>{{ notAllLanguageVersionsSelectedTitle }}</h3>
         <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
         <app-secondary-button (keydown.enter)="openDialog('selectLanguageVersions')"
-                              (click)="openDialog('selectLanguageVersions')" content="{{selectLanguageVersionsText}}"></app-secondary-button>
+                              (click)="openDialog('selectLanguageVersions')"
+                              content="{{selectLanguageVersionsText}}"></app-secondary-button>
       </div>
     </div>
   </div>
@@ -135,7 +170,8 @@
               <div class="modal-width-prefer-wrapper"></div>
               <label class="datasource-label">{{ selectDescriptionSourceTitle }}</label>
               <div class="d-flex flex-row">
-                <app-simple-dropdown [options]="descriptionOptions" [selection]="descriptionSource" (onSelected)="selectDescriptionSource($event)"
+                <app-simple-dropdown [options]="descriptionOptions" [selection]="descriptionSource"
+                                     (onSelected)="selectDescriptionSource($event)"
                                      aria-labelledby="datasource-label"
                                      [disabled]="biographyGenerationOngoing$ | async"></app-simple-dropdown>
               </div>
@@ -143,19 +179,19 @@
                 <div *ngIf="contentCreationStep === 1" class="content-container">
                   <div class="mb-3">{{ aitta_modalIntroText }}</div>
 
-                  <label class="language-select-label">{{ selectDescriptionLanguageTitle }}</label>
+                  <!--<label class="language-select-label">{{ selectDescriptionLanguageTitle }}</label>-->
                   <div class="d-flex flex-row">
+                    <!-- Not vailable in api, so disabled
                     <app-simple-dropdown [options]="descriptionLanguages"
                                          (onSelected)="selectDescriptionLanguage($event)"
                                          aria-labelledby="language-select-label"
-                                         class="language-dropdown"></app-simple-dropdown>
+                                         class="language-dropdown"></app-simple-dropdown>-->
                     <app-secondary-button (click)="generateBiography()" content="{{generateDescriptionButtonText}}"
                                           [svgSymbolName]="'create-new-diamond'"
                                           [svgCssClass]="'create-new-diamond-icon'"
                                           class="ms-3"></app-secondary-button>
                   </div>
-                  <div class="d-flex flex-column">
-                    <label id="mock-data-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}</label>
+                  <div class="d-flex flex-column mt-2">
                     <mat-checkbox aria-labelledby="mock-data-checkbox-label" [checked]="useMockData" color="primary"
                                   (change)=toggleUseMockData()>
                       {{ useMockDataLabel }}
@@ -170,11 +206,12 @@
                   </div>
                 </div>
 
-                <div *ngIf="contentCreationStep === 3" class="content-container">
+                <div *ngIf="contentCreationStep === 3 && !(biographyGenerationOngoing$ | async)"
+                     class="content-container">
                   <div class="d-flex flex-column">
                     <label class="biography-label">{{ editDescriptionLabel }}</label>
                     <textarea aria-labelledby="biography-label"
-                              (change)="biographyFieldTextChange($event, 0, true)">{{ aiGeneratedBiographies['fi'] }}</textarea>
+                              (change)="biographyFieldTextChange($event, 0, true)">{{ aiBioFromBackendObs$.getValue().fi }}</textarea>
                   </div>
                   <div class="d-flex flex-row additional-info-wrap">
                     <div class="info-circle-margin d-flex flex-column justify-content-center">
@@ -183,6 +220,22 @@
                     <div>
                       <div class="info-text-paragraph">{{ aiGeneratedTextMayContainErrors }}</div>
                       <div class="info-text-paragraph">{{ languageVersionInfo }}</div>
+                    </div>
+                  </div>
+                  <br/>
+                  <div class="d-flex justify-content-between flex-row">
+                    <div>
+                      <app-secondary-button (click)="generateBiography()" content="{{generateNewDescriptionButtonText}}"
+                                            [svgSymbolName]="'create-new-diamond'"
+                                            [svgCssClass]="'create-new-diamond-icon'"
+                                            [disabled]="biographyGenerationOngoing$ | async"
+                                            class="ms-3"></app-secondary-button>
+                    </div>
+                    <div>
+                      <mat-checkbox aria-labelledby="mock-data-checkbox-label" [checked]="useMockData" color="primary"
+                                    (change)=toggleUseMockData()>
+                        {{ useMockDataLabel }}
+                      </mat-checkbox>
                     </div>
                   </div>
                 </div>
@@ -220,7 +273,7 @@
                 </ng-container>
               </div>
             </div>
-            <div class="d-flex flex-column">
+            <div *ngIf="selectedKeywordsStr.length > 0" class="d-flex flex-column">
               <label id="keywords-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}</label>
               <mat-checkbox aria-labelledby="keywords-checkbox-label" [checked]="keywordsSelected" color="primary"
                             (change)=toggleKeywordsSelected()>

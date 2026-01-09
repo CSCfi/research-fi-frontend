@@ -29,8 +29,9 @@ export class BiographyService implements OnDestroy {
   public generatedBiographyData = new BehaviorSubject<any>(undefined);
   public biographyGenerationOngoing = new BehaviorSubject<boolean | undefined>(undefined);
   public translationsRequested = new BehaviorSubject<boolean>(false);
-  public enTranslationOngoing = new BehaviorSubject<boolean>(false);
-  public svTranslationOngoing = new BehaviorSubject<boolean>(false);
+  public enTranslationOngoing = new BehaviorSubject<boolean | undefined>(undefined);
+  public svTranslationOngoing = new BehaviorSubject<boolean | undefined>(undefined);
+  public clearDataRequested = new BehaviorSubject<boolean>(false);
 
   public enTranslation = new BehaviorSubject<string>('');
   public svTranslation = new BehaviorSubject<string>('');
@@ -81,17 +82,29 @@ export class BiographyService implements OnDestroy {
     });
   }
 
+  public clearData(){
+    this.clearDataRequested.next(true);
+    this.translationsRequested.next(false);
+    this.biographyGenerationOngoing.next(false);
+    this.enTranslationOngoing.next(false);
+    this.svTranslationOngoing.next(false);
+    this.generatedBiographyData.next('');
+    this.enTranslation.next('')
+    this.svTranslation.next('');
+  }
+
+  public artificialDelayResolve(time, val) {
+    return new Promise(resolve => setTimeout(resolve, time, val));
+  }
+
   public async generateBiography(isMock: boolean): Promise<any> {
     const mockBiography = 'Tämä on demotarkoituksiin luotu tutkimustoiminnan kuvaus, joka sisältää tietoja affiliaatioista, tuotoksista, saavutuksista ja aktiviteeteista. Se kuvaa asiantuntijan uraa ja motivaatioita.';
     if (isMock) {
       this.biographyGenerationOngoing.next(true);
-      setTimeout(() => {
-        return new Promise((resolve, reject) => {
-          this.biographyGenerationOngoing.next(false);
-          this.generatedBiographyData.next(mockBiography);
-          resolve(mockBiography);
-        });
-      }, 3000);
+      return this.artificialDelayResolve(3000, mockBiography).then(() => {
+        this.generatedBiographyData.next(mockBiography);
+        this.biographyGenerationOngoing.next(false);
+      });
     } else {
       await this.updateToken();
       this.biographyGenerationOngoing.next(true);
@@ -107,13 +120,11 @@ export class BiographyService implements OnDestroy {
 
     if (isMock) {
       this.enTranslationOngoing.next(true);
-      setTimeout(() => {
-        return new Promise((resolve) => {
-          this.enTranslation.next(enTranslationMock);
-          this.enTranslationOngoing.next(false);
-          resolve(enTranslationMock);
-        });
-      }, 3000);
+      return this.artificialDelayResolve(3000, enTranslationMock).then(() => {
+        this.enTranslation.next(enTranslationMock);
+        this.enTranslationOngoing.next(false);
+      });
+
     } else {
       await this.updateToken();
       this.enTranslationOngoing.next(true);
@@ -132,13 +143,11 @@ export class BiographyService implements OnDestroy {
 
     if (isMock) {
       this.svTranslationOngoing.next(true);
-      setTimeout(() => {
-        return new Promise((resolve) => {
-          this.svTranslation.next(svTranslationMock);
-          this.svTranslationOngoing.next(false);
-          resolve(svTranslationMock);
-        });
-      }, 3500);
+      return this.artificialDelayResolve(3000, svTranslationMock).then(() => {
+        this.svTranslation.next(svTranslationMock);
+        this.svTranslationOngoing.next(false);
+      });
+
     } else {
       await this.updateToken();
       this.enTranslationOngoing.next(true);
