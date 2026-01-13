@@ -1,5 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, HostListener, QueryList } from '@angular/core';
-import { FocusKeyManager } from '@angular/cdk/focus-key-manager.d';
+import { ActiveDescendantKeyManager, FocusKeyManager } from '@angular/cdk/a11y';
+import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
+import { ListKeyManager } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'my-list',
@@ -14,10 +16,10 @@ export class ListComponent implements AfterContentInit {
   }
 
   // 1. Query all child elements
-  @ContentChildren(ListItem) items: QueryList<ListItem>;
+  @ContentChildren(ListItemComponent) items: QueryList<ListItemComponent>;
 
   // FocusKeyManager instance
-  private keyManager: FocusKeyManager<ListItem>;
+  private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
   ngAfterContentInit() {
 
