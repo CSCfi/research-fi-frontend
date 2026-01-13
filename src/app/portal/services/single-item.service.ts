@@ -53,6 +53,7 @@ export class SingleItemService {
   }
 
   constructPayload(field, term) {
+    console.log('consturcting payload', field, term);
     const res = {
       query: {
         match_phrase: {
@@ -113,7 +114,7 @@ export class SingleItemService {
     return this.http
       .post<Search>(
         this.infrastructureApiUrl,
-        this.constructPayload('nameFi', decodeURIComponent(id)) // Decode escaped url characters with actual characters, elasticsearch match query doesn't work properly with escaped characters
+        this.constructPayload('urn', 'urn:nbn:fi:' + id) // Decode escaped url characters with actual characters, elasticsearch match query doesn't work properly with escaped characters
       )
       .pipe(
         map((data: any) => this.searchAdapter.adapt(data, 'infrastructures'))
