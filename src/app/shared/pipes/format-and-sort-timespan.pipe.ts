@@ -60,7 +60,7 @@ export class FormatAndSortTimespanPipe implements PipeTransform {
       });
 
       // Sort items with empty timing to last
-      const timingExists = [];
+      let timingExists = [];
       const noTiming = [];
       sorted.items.forEach(item => {
         if (item.timing === '') {
@@ -70,10 +70,19 @@ export class FormatAndSortTimespanPipe implements PipeTransform {
           timingExists.push(item);
         }
       });
+
+      if (dataType === this.groupTypes.activitiesAndRewards) {
+        timingExists = timingExists.sort(timingSort);
+      }
+
       sorted.items = timingExists.concat(noTiming);
       return sorted;
     }
   }
+}
+
+function timingSort(a, b){
+  return a.timing > b.timing ? -1 :  a.timing < b.timing ? 1 : 0;
 }
 
 function customSort(a, b) {
