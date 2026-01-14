@@ -49,6 +49,8 @@ export class FormatAndSortTimespanPipe implements PipeTransform {
           // End date missing
         } else if (item.endDate.year === 0) {
           dataType === this.groupTypes.activitiesAndRewards ? item.timing = item.startDate.year?.toString() : item.timing = item.startDate.year + ' - ' + presentLocalization;
+          dataType === this.groupTypes.funding ? item.timing = item.startDate.year?.toString() : undefined;
+          dataType === this.groupTypes.funding ? item.year = item.startDate.year?.toString() : undefined;
         }
         // Regular case
         else {
