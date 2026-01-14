@@ -43,7 +43,6 @@
       <!-- DATASETS YEAR (NOT FIRST) -->
       <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
         {{sortedItems.slice(0, itemDisplayCount)[i].year}}
-        <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
 
       <!-- SHARED ROW CONTENT -->
