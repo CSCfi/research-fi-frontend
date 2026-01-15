@@ -1106,7 +1106,7 @@
         "automaticPublsihingInfoTextBullet2": "See detailed specification",
         "automaticPublishingIsPossible": "Automatic publishing of information is now available",
         "automaticPublsihingInfoText1": "Changes made in data sources can be automatically published on your profile.",
-        "automaticPublishingCheckboxLabel": "Automatically publish updated information.",
+        "automaticPublishingCheckboxLabel": "Publish new data automatically.",
         "automaticPublishingCheckboxLabel2": "Data sources: Research.fi and ORCID",
         "automaticPublishingCheckboxActiveAdditionalInfo": "Since there are two data sources, some duplicates may appear in your profile, for example in the activity information. You can manually hide the duplicates in your profile.",
         "automaticPublishingHeader": "Automatic data publishing",
