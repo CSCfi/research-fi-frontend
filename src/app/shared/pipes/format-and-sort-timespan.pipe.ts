@@ -22,6 +22,13 @@ export class FormatAndSortTimespanPipe implements PipeTransform {
         sorted.items = sorted.items.map(item => {
           item.startDate = {year: item.startYear ? item.startYear : 0};
           item.endDate = {year: item.endYear ? item.endYear : 0};
+          if (item.startDate.year) {
+            item.year = item.startDate.year;
+          } else if (item.endDate.year) {
+            item.year = item.endDate.year;
+          } else {
+            item.year = 0;
+          }
           return item;
         });
       }
@@ -75,9 +82,21 @@ export class FormatAndSortTimespanPipe implements PipeTransform {
         timingExists = timingExists.sort(timingSort);
       }
 
+      if (dataType === this.groupTypes.funding) {
+        timingExists = timingExists.sort(endDateSort);
+      }
+
       sorted.items = timingExists.concat(noTiming);
       return sorted;
     }
+  }
+}
+
+function endDateSort(a, b){
+  if (a.startYear === b.startYear) {
+    return a.endYear > b.endYear ? 1 : a.endYear < b.endYear ? -1 : 0;
+  } else {
+    return 0;
   }
 }
 
@@ -97,9 +116,9 @@ function customSort(a, b) {
   }
   // Other end year is present
   else if (a.endDate.year > 0) {
-    // B is "present day" (bigger)
+
     return 1;
-  } // A is "present day" (bigger)
+  }
   else return -1;
 }
 

@@ -1101,7 +1101,7 @@
         "noPeerReviewedPublications": "Ei vertaisarvioituja julkaisuja",
         "automaticPublishingAccountSettingsInfoText1": " Kun ominaisuus on valittu, tietolähteissä tehdyt lisäykset näkyvät automaattisesti profiilissasi.",
         "automaticPublishingCheckboxActiveAdditionalInfo": "Koska tietolähteitä on kaksi, profiilissasi saattaa ilmetä joitakin kaksoiskappaleita esimerkiksi aktiviteetti-tiedostoista. Pystyt piilottamaan kaksoiskappaleet manuaalisesti profiilissasi.",
-        "automaticPublishingCheckboxLabel": "Julkaise päivittyneet tiedot automaattisesti.",
+        "automaticPublishingCheckboxLabel": "Julkaise uudet tiedot automaattisesti.",
         "automaticPublishingCheckboxLabel2": "Tietolähteet: Tiedejatutkimus.fi ja ORCID",
         "automaticPublishingHeader": "Tietojen automaattinen julkaiseminen",
         "automaticPublishingIsPossible": "Tietojen automaattinen julkaiseminen on nyt mahdollista",
@@ -1221,6 +1221,7 @@
         "download_publication_list_button_title": "Lataa julkaisuluettelo",
         "publication_list_note_title": "Huomio",
         "publication_list_note_text": "Julkaisut profiilityökalussa eivät välttämättä täytä julkaisuluettelon vaatimuksia. Tarkista viitetietojen oikeellisuus ennen kuin jaat tai lähetät luettelon eteenpäin.",
-        "cvTool": "CV-työkalu"
+        "cvTool": "CV-työkalu",
+        "grantYearMissing": "Myöntövuosi puuttuu"
     }
 }

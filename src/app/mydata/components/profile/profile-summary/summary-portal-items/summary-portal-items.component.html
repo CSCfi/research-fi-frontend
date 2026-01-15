@@ -25,7 +25,6 @@
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
 
-
       <div *ngIf="item?.nonOpenCaptionRow && highlightOpenness" class="year-caption mt-4"><h3>{{otherPublications}}</h3></div>
 
       <!-- PUBLICATION YEAR CAPTION (FIRST)-->
@@ -41,8 +40,20 @@
       </div>
 
       <!-- DATASETS YEAR (NOT FIRST) -->
-      <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
+      <div *ngIf="fieldType !== FieldTypes.activityFunding && fieldType !== FieldTypes.activityFundingOrcid && i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
         {{sortedItems.slice(0, itemDisplayCount)[i].year}}
+      </div>
+
+      <!-- FUNDINGS YEAR (FIRST) -->
+      <div *ngIf="(fieldType === FieldTypes.activityFunding || fieldType === FieldTypes.activityFundingOrcid) && i === 0" class="year-caption">
+        <span *ngIf="sortedItems[i].year === 0">{{grantYearMissing}}</span>
+        <span *ngIf="sortedItems[i].year > 0">{{sortedItems[i].year}}</span>
+      </div>
+
+      <!-- FUNDINGS YEAR (NOT FIRST) -->
+      <div *ngIf="(fieldType === FieldTypes.activityFunding || fieldType === FieldTypes.activityFundingOrcid) && i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
+        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].year === 0">{{grantYearMissing}}</span>
+        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].year > 0">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
 
       <!-- SHARED ROW CONTENT -->

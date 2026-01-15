@@ -1106,7 +1106,7 @@
         "automaticPublsihingInfoTextBullet2": "See detailed specification",
         "automaticPublishingIsPossible": "Automatic publishing of information is now available",
         "automaticPublsihingInfoText1": "Changes made in data sources can be automatically published on your profile.",
-        "automaticPublishingCheckboxLabel": "Automatically publish updated information.",
+        "automaticPublishingCheckboxLabel": "Publish new data automatically.",
         "automaticPublishingCheckboxLabel2": "Data sources: Research.fi and ORCID",
         "automaticPublishingCheckboxActiveAdditionalInfo": "Since there are two data sources, some duplicates may appear in your profile, for example in the activity information. You can manually hide the duplicates in your profile.",
         "automaticPublishingHeader": "Automatic data publishing",
@@ -1219,7 +1219,8 @@
         "download_publication_list_button_title": "Download the publication list",
         "publication_list_note_title": "Note",
         "publication_list_note_text": "Publications in the profile may not always meet the requirements for the publication list. Please verify the accuracy of the reference details before sharing or sending the list.",
-        "cvTool": "CV tool"
+        "cvTool": "CV tool",
+        "grantYearMissing": "Grant year is missing"
     }
 }
 
