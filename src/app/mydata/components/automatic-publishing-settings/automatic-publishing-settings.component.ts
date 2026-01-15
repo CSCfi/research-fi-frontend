@@ -23,7 +23,7 @@ export class AutomaticPublishingSettingsComponent implements OnInit {
   automaticPublishingIsPossible = $localize`:@@automaticPublishingIsPossible:Tietojen automaattinen julkaiseminen on nyt mahdollista`;
 
 
-  automaticPublishingAccountSettingsInfoText1 = $localize`:@@automaticPublishingAccountSettingsInfoText1:Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.`;
+  automaticPublishingAccountSettingsInfoText1 = $localize`:@@automaticPublishingAccountSettingsInfoText1: Kun ominaisuus on valittu, tietolähteissä tehdyt lisäykset näkyvät automaattisesti profiilissasi.`;
 
 
   automaticPublsihingInfoText1 = $localize`:@@automaticPublsihingInfoText1:Tietolähteissä tehdyt muutokset voidaan julkaista automaattisesti profiilissasi.`;
