@@ -1099,7 +1099,7 @@
         "sortByYear": "vuoden mukaan",
         "sortByOpenness": "avoimen saatavuuden mukaan",
         "noPeerReviewedPublications": "Ei vertaisarvioituja julkaisuja",
-        "automaticPublishingAccountSettingsInfoText1": "Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.",
+        "automaticPublishingAccountSettingsInfoText1": " Kun ominaisuus on valittu, tietolähteissä tehdyt lisäykset näkyvät automaattisesti profiilissasi.",
         "automaticPublishingCheckboxActiveAdditionalInfo": "Koska tietolähteitä on kaksi, profiilissasi saattaa ilmetä joitakin kaksoiskappaleita esimerkiksi aktiviteetti-tiedostoista. Pystyt piilottamaan kaksoiskappaleet manuaalisesti profiilissasi.",
         "automaticPublishingCheckboxLabel": "Julkaise päivittyneet tiedot automaattisesti.",
         "automaticPublishingCheckboxLabel2": "Tietolähteet: Tiedejatutkimus.fi ja ORCID",

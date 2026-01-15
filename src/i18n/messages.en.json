@@ -1101,7 +1101,7 @@
         "disableAutomaticPublishing": "Disable automatic publishing",
         "automaticPublishingModalTitle": "Do you want to enable automatic publishing?",
         "automaticPublishingTitle": "Automatic publishing of information",
-        "automaticPublishingAccountSettingsInfoText1": "When this feature is enabled, changes made in data sources will automatically appear in your profile.",
+        "automaticPublishingAccountSettingsInfoText1": "Once the feature is selected, additions made in the data sources will automatically appear in your profile.",
         "automaticPublsihingInfoTextBullet1": "The description of your research activities and some contact details are not included in automatic publishing.",
         "automaticPublsihingInfoTextBullet2": "See detailed specification",
         "automaticPublishingIsPossible": "Automatic publishing of information is now available",

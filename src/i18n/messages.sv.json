@@ -1103,7 +1103,7 @@
         "disableAutomaticPublishing": "Inaktivera automatisk publicering",
         "automaticPublishingModalTitle": "Vill du aktivera automatisk publicering?",
         "automaticPublishingTitle": "Automatisk publicering av information",
-        "automaticPublishingAccountSettingsInfoText1": "När den här funktionen är aktiverad visas ändringar i datakällorna automatiskt i din profil.",
+        "automaticPublishingAccountSettingsInfoText1": "När funktionen är vald visas tillägg som gjorts i datakällorna automatiskt i din profil.",
         "automaticPublsihingInfoTextBullet1": "Beskrivningen av din forskningsverksamhet och vissa kontaktuppgifter ingår inte i den automatiska publiceringen.",
         "automaticPublsihingInfoTextBullet2": "Se detaljerad specifikation",
         "automaticPublishingIsPossible": "Automatisk publicering av information är nu möjlig",
