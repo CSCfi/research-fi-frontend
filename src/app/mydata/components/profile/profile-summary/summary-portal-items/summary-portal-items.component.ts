@@ -58,6 +58,7 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
   noPeerReviewedPublications = $localize`:@@noPeerReviewedPublications:Ei vertaisarvioituja julkaisuja`;
 
   publicationYearMissing = $localize`:@@publicationYearMissing:Julkaisuvuosi puuttuuu`;
+  grantYearMissing = $localize`:@@grantYearMissing:Myöntövuosi puuttuuu`;
 
   showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
   showLessPrefix = $localize`:@@showLess:Näytä vähemmän`;
@@ -162,10 +163,6 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
 
     else {
       if (this.fieldType === FieldTypes.activityDataset) {
-        dataCopy.items = dataCopy.items.sort(this.comparePublicationYearsDatasetOrFunding).reverse();
-      }
-
-      if (this.fieldType === FieldTypes.activityFunding) {
         dataCopy.items = dataCopy.items.sort(this.comparePublicationYearsDatasetOrFunding).reverse();
       }
 
