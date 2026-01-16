@@ -170,7 +170,7 @@ export class PublicationFilterService {
       label: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
       hasSubFields: false,
       open: true,
-      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.`,
+      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Muut tunnistetut julkaisukanavat = eivät arvioinnin perusteella joltain osin täytä tason 1 vaatimuksia tai ovat uusia.`,
     },
     {
       field: 'openAccess',
@@ -497,7 +497,7 @@ export class PublicationFilterService {
       (item) =>
         (item = {
           // label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).label : '',
-          label: item.key === ' ' ? $localize`:@@noInfo:Ei tietoa` : item.key,
+          label: item.key === ' ' ? $localize`:@@noInfo:Ei tietoa` : item.key === '0' ? $localize`:@@otherIdentifiedPublicationChannels:Muut tunnistetut julkaisukanavat` : item.key,
           key: item.key === ' ' ? 'noVal' : 'j' + item.key,
 
           doc_count: item.doc_count,

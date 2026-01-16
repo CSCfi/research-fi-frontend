@@ -669,7 +669,7 @@ export class ActiveFiltersComponent
                   }
                   case 'j0': {
                     val.translation =
-                      $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 0';
+                      $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': ' + $localize`:@@otherIdentifiedPublicationChannels:Muut tunnistetut julkaisukanavat`;
                     break;
                   }
                 }
