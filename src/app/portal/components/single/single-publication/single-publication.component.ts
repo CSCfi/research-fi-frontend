@@ -642,10 +642,6 @@ export class SinglePublicationComponent
       return this.responseData.publications[0][item.field]?.length > 0;
     };
 
-    if (this.responseData.publications[0]?.jufoClassCode === '0') {
-        this.responseData.publications[0].jufoClassCode = $localize`:@@otherIdentifiedPublicationChannels:Muut tunnistetut julkaisukanavat`;
-    }
-
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
     // this.authorFields = this.authorFields.filter(item => checkEmpty(item));
