@@ -179,6 +179,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   @ViewChildren('servicesRefs') private servicesRefs: QueryList<ElementRef>;
 
   idSub: Subscription;
+  servicesRefsSub: Subscription;
   infoExpand: boolean[] = [];
   serviceExpand: boolean[] = [];
   showService: boolean[] = [];
@@ -238,7 +239,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         }
       }
     );
-    this.servicesRefs.changes.subscribe(() => {
+    this.servicesRefsSub = this.servicesRefs.changes.subscribe(() => {
       if (!this.positionInitialized) {
         const elTopPosition = this.servicesRefs.get(1).nativeElement.getBoundingClientRect().top;
         this.viewportScroller.scrollToPosition([0, elTopPosition]);
@@ -252,6 +253,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
     this.dataSub?.unsubscribe();
+    this.servicesRefsSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
