@@ -1221,7 +1221,8 @@
         "publication_list_note_title": "Note",
         "publication_list_note_text": "Publications in the profile may not always meet the requirements for the publication list. Please verify the accuracy of the reference details before sharing or sending the list.",
         "cvTool": "CV tool",
-        "grantYearMissing": "Grant year is missing"
+        "grantYearMissing": "Grant year is missing",
+        "infrastructuresBetaBannerText": "Research.fi portal is currently undergoing a renewal of research infrastructures and the associated data transfer processes in collaboration with the data‑providing organizations. As a result of this renewal, there may be gaps in data coverage."
     }
 }
 
