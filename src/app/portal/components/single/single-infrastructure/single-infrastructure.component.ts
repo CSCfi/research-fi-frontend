@@ -194,6 +194,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   dataSub: Subscription;
   private selectedServiceUrn: string;
   private positionInitialized = false;
+  private selectedServiceIndex: number = undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -240,8 +241,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       }
     );
     this.servicesRefsSub = this.servicesRefs.changes.subscribe(() => {
-      if (!this.positionInitialized) {
-        const elTopPosition = this.servicesRefs.get(1).nativeElement.getBoundingClientRect().top;
+      if (!this.positionInitialized && this.selectedServiceIndex) {
+        const elTopPosition = this.servicesRefs.get(this.selectedServiceIndex).nativeElement.getBoundingClientRect().top;
         this.viewportScroller.scrollToPosition([0, elTopPosition]);
         //this.servicesRefs.get(1).nativeElement.click();
         this.positionInitialized = true;
@@ -356,6 +357,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         if (service.urn?.length > 11) {
           if (service.urn.substring(11, service.urn.length) === this.selectedServiceUrn) {
             this.showService[openedInd] = true;
+            this.selectedServiceIndex = openedInd;
           }
         }
         openedInd += 1;
