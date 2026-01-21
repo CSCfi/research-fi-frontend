@@ -33,7 +33,7 @@ export class InfraServiceAdapter implements Adapter<InfraService> {
   adapt(item: any): InfraService {
     const servicePoints: ServicePoint[] = [];
 
-    item.servicePoints.forEach((sp) => {
+    item?.servicePoints?.forEach((sp) => {
       servicePoints.push(this.spa.adapt(sp));
     });
 
