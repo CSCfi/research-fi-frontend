@@ -649,7 +649,6 @@ export class SinglePublicationComponent
       checkEmpty(item)
     );
     this.typeFields = this.typeFields.filter((item) => checkEmpty(item));
-
     // Jufo code 0 must be shown, so exception added. Check empty function cannot be used, since in interprets 0 as empty.
     this.mediumFields = this.mediumFields.filter((item) => item.field !== 'jufoClassCode' ? checkEmpty(item) : checkIfValueExists(item));
     this.linksFields = this.linksFields.filter((item) => checkEmpty(item));

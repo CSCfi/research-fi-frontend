@@ -550,7 +550,8 @@
         "pTypeFTooltip": "Publication type A-G categories according to Ministry of Education and Culture Publication data collection.",
         "pCountryFTooltip": "The publisher of the domestic publication is Finnish or it is primarily published in Finland. The publisher of the international publication is not Finnish or it is primarily published elsewhere than in Finland.",
         "pLangFTooltip": "Language in which the publication is written.",
-        "pJufoFTooltip": "Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category 0 is for publication channels that have been evaluated but do not meet all of the level 1 criteria. The publication forum classification level is determined by the publication year of the publication.",
+        "pJufoFTooltip": "Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category Other identified publication channels = is for publication channels that have been evaluated but do not meet all of the level 1 criteria or are new.",
+        "otherIdentifiedPublicationChannels": "Other identified publication channels",
         "intCoPublicationTooltip": "Some of the publication’s authors come from research organizations outside of Finland.",
         "fYearFTooltip": "Year for which funding was granted. In funding covering several years, the first year of funding.",
         "fOrgFTooltip": "Organization in which the beneficiary works or to which the funding is granted.",
@@ -1101,12 +1102,12 @@
         "disableAutomaticPublishing": "Disable automatic publishing",
         "automaticPublishingModalTitle": "Do you want to enable automatic publishing?",
         "automaticPublishingTitle": "Automatic publishing of information",
-        "automaticPublishingAccountSettingsInfoText1": "When this feature is enabled, changes made in data sources will automatically appear in your profile.",
+        "automaticPublishingAccountSettingsInfoText1": "Once the feature is selected, additions made in the data sources will automatically appear in your profile.",
         "automaticPublsihingInfoTextBullet1": "The description of your research activities and some contact details are not included in automatic publishing.",
         "automaticPublsihingInfoTextBullet2": "See detailed specification",
         "automaticPublishingIsPossible": "Automatic publishing of information is now available",
         "automaticPublsihingInfoText1": "Changes made in data sources can be automatically published on your profile.",
-        "automaticPublishingCheckboxLabel": "Automatically publish updated information.",
+        "automaticPublishingCheckboxLabel": "Publish new data automatically.",
         "automaticPublishingCheckboxLabel2": "Data sources: Research.fi and ORCID",
         "automaticPublishingCheckboxActiveAdditionalInfo": "Since there are two data sources, some duplicates may appear in your profile, for example in the activity information. You can manually hide the duplicates in your profile.",
         "automaticPublishingHeader": "Automatic data publishing",
@@ -1219,7 +1220,8 @@
         "download_publication_list_button_title": "Download the publication list",
         "publication_list_note_title": "Note",
         "publication_list_note_text": "Publications in the profile may not always meet the requirements for the publication list. Please verify the accuracy of the reference details before sharing or sending the list.",
-        "cvTool": "CV tool"
+        "cvTool": "CV tool",
+        "grantYearMissing": "Start year missing"
     }
 }
 

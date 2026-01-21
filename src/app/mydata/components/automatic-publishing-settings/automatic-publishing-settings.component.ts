@@ -23,7 +23,7 @@ export class AutomaticPublishingSettingsComponent implements OnInit {
   automaticPublishingIsPossible = $localize`:@@automaticPublishingIsPossible:Tietojen automaattinen julkaiseminen on nyt mahdollista`;
 
 
-  automaticPublishingAccountSettingsInfoText1 = $localize`:@@automaticPublishingAccountSettingsInfoText1:Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.`;
+  automaticPublishingAccountSettingsInfoText1 = $localize`:@@automaticPublishingAccountSettingsInfoText1: Kun ominaisuus on valittu, tietolähteissä tehdyt lisäykset näkyvät automaattisesti profiilissasi.`;
 
 
   automaticPublsihingInfoText1 = $localize`:@@automaticPublsihingInfoText1:Tietolähteissä tehdyt muutokset voidaan julkaista automaattisesti profiilissasi.`;
@@ -32,7 +32,7 @@ export class AutomaticPublishingSettingsComponent implements OnInit {
 
   automaticPublsihingInfoTextBullet2Link = 'https://wiki.eduuni.fi/x/cbJqJ';
 
-  automaticPublishingCheckboxLabel1 = $localize`:@@automaticPublishingCheckboxLabel:Julkaise päivittyneet tiedot automaattisesti.`;
+  automaticPublishingCheckboxLabel1 = $localize`:@@automaticPublishingCheckboxLabel:Julkaise uudet tiedot automaattisesti.`;
   automaticPublishingCheckboxLabel2 = $localize`:@@automaticPublishingCheckboxLabel2:Tietolähteet: Tiedejatutkimus.fi ja ORCID`;
 
   automaticPublishingCheckboxActiveAdditionalInfo = $localize`:@@automaticPublishingCheckboxActiveAdditionalInfo:Koska tietolähteitä on kaksi, profiilissasi saattaa ilmetä joitakin kaksoiskappaleita esimerkiksi aktiviteetti-tiedostoista. Pystyt piilottamaan kaksoiskappaleet manuaalisesti profiilissasi.`;

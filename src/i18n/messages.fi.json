@@ -432,7 +432,8 @@
         "peerReviewedTooltip": "Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.",
         "pCountryFTooltip": "Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa. ",
         "pLangFTooltip": "Kieli, jolla julkaisu on kirjoitettu. ",
-        "pJufoFTooltip": "Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan. ",
+        "pJufoFTooltip": "Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Muut tunnistetut julkaisukanavat = eivät arvioinnin perusteella joltain osin täytä tason 1 vaatimuksia tai ovat uusia.",
+        "otherIdentifiedPublicationChannels": "Muut tunnistetut julkaisukanavat",
         "publication2.openAccess.A.title": "Avoimesti saatavilla: ",
         "publication2.openAccess.A.description": "Julkaisu on avoimesti saatavilla kustantajan palvelussa.",
         "publication2.openAccess.B.title": "Ei avoin: ",
@@ -1099,9 +1100,9 @@
         "sortByYear": "vuoden mukaan",
         "sortByOpenness": "avoimen saatavuuden mukaan",
         "noPeerReviewedPublications": "Ei vertaisarvioituja julkaisuja",
-        "automaticPublishingAccountSettingsInfoText1": "Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.",
+        "automaticPublishingAccountSettingsInfoText1": " Kun ominaisuus on valittu, tietolähteissä tehdyt lisäykset näkyvät automaattisesti profiilissasi.",
         "automaticPublishingCheckboxActiveAdditionalInfo": "Koska tietolähteitä on kaksi, profiilissasi saattaa ilmetä joitakin kaksoiskappaleita esimerkiksi aktiviteetti-tiedostoista. Pystyt piilottamaan kaksoiskappaleet manuaalisesti profiilissasi.",
-        "automaticPublishingCheckboxLabel": "Julkaise päivittyneet tiedot automaattisesti.",
+        "automaticPublishingCheckboxLabel": "Julkaise uudet tiedot automaattisesti.",
         "automaticPublishingCheckboxLabel2": "Tietolähteet: Tiedejatutkimus.fi ja ORCID",
         "automaticPublishingHeader": "Tietojen automaattinen julkaiseminen",
         "automaticPublishingIsPossible": "Tietojen automaattinen julkaiseminen on nyt mahdollista",
@@ -1221,6 +1222,7 @@
         "download_publication_list_button_title": "Lataa julkaisuluettelo",
         "publication_list_note_title": "Huomio",
         "publication_list_note_text": "Julkaisut profiilityökalussa eivät välttämättä täytä julkaisuluettelon vaatimuksia. Tarkista viitetietojen oikeellisuus ennen kuin jaat tai lähetät luettelon eteenpäin.",
-        "cvTool": "CV-työkalu"
+        "cvTool": "CV-työkalu",
+        "grantYearMissing": "Aloitusvuosi puuttuu"
     }
 }
