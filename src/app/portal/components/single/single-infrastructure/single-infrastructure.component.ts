@@ -241,7 +241,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       }
     );
     this.servicesRefsSub = this.servicesRefs.changes.subscribe(() => {
-      if (!this.positionInitialized && this.selectedServiceIndex) {
+      if (!this.positionInitialized && this.selectedServiceIndex !== undefined) {
         const elTopPosition = this.servicesRefs.get(this.selectedServiceIndex).nativeElement.getBoundingClientRect().top;
         this.viewportScroller.scrollToPosition([0, elTopPosition]);
         //this.servicesRefs.get(1).nativeElement.click();
