@@ -59,7 +59,7 @@
     "docx": "^9.5.1",
     "express": "^4.18.2",
     "file-saver": "^2.0.5",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "ngx-bootstrap": "20.0.2",
     "ngx-countup": "^13.0.0",
     "ngx-pipes": "^3.2.2",
