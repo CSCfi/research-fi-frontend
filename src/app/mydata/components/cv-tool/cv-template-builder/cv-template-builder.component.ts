@@ -80,7 +80,8 @@ export class CvTemplateBuilderComponent {
     return translations.getTranslation(this.langCode, translationKey);
   }
 
-  public buildCvTemplate(lang: string, profileData: any, orcidId: string, filterVisible: boolean, isPublicationList: boolean, citationStyle: number): Document {
+  public buildCvTemplate(lang: string, profileData: any, orcidId: string, filterVisible: boolean, isPublicationList: boolean, citationStyle: number, orderByPublicationType: boolean): Document {
+
     let cvData: cvDataFormatted = cvDataformatter.formatCvData(lang, profileData, orcidId, filterVisible);
     this.langCode = lang;
 
@@ -395,13 +396,28 @@ export class CvTemplateBuilderComponent {
 
               // Citation validation is disabled
               //this.createBulletBlue(this.getTranslation('publication_list_bullet2')),
-              ...this.createPublicationRows(cvData.publications, citationStyle)
+              ...this.createPublicationRows(cvData.publications, citationStyle, orderByPublicationType)
             ]
           }
         ]
       });
       return publicationListTemplate;
     }
+  }
+
+  private comparePublicationTypeCodes(a, b) {
+    a?.publicationTypeCode?.length > 0 ? a.publicationTypeCodeSorted = a.publicationTypeCode : a.publicationTypeCodeSorted = 'ZZ';
+    b?.publicationTypeCode?.length > 0 ? b.publicationTypeCodeSorted = b.publicationTypeCode : b.publicationTypeCodeSorted = 'ZZ';
+
+    a.publicationTypeCodeShort = a.publicationTypeCodeSorted.substring(0,1);
+    b.publicationTypeCodeShort = b.publicationTypeCodeSorted.substring(0,1);
+    if (a.publicationTypeCodeSorted < b.publicationTypeCodeSorted) {
+      return -1;
+    }
+    if (a.publicationTypeCodeSorted > b.publicationTypeCodeSorted) {
+      return 1;
+    }
+    return 0;
   }
 
   private comparePublicationYearsPublications(a, b) {
@@ -440,7 +456,7 @@ export class CvTemplateBuilderComponent {
     return '';
   }
 
-  private createPublicationRows(publicationsData, citationStyle: number) {
+  private createPublicationRows(publicationsData, citationStyle: number, orderByPublicationType: boolean) {
     let orcidPublications = [];
     let ttvPublications = [];
     let formattedPublications: docx.Paragraph[] = [];
@@ -453,23 +469,47 @@ export class CvTemplateBuilderComponent {
       }
     });
 
-    orcidPublications = orcidPublications.sort(this.comparePublicationYearsPublications).reverse();
-    ttvPublications = ttvPublications.sort(this.comparePublicationYearsPublications).reverse();
-
     formattedPublications.push(this.createBaseParagraph(''));
 
-    ttvPublications.forEach((publication) => {
-      formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
-      formattedPublications.push(this.createBaseParagraph(''));
-    });
+    let unsortedPublications = [];
 
-    formattedPublications = formattedPublications.concat(this.createBulletBlue(this.getTranslation('publication_list_bullet_orcid')));
-    formattedPublications.push(this.createBaseParagraph(''));
+    if (orderByPublicationType === true) {
+      ttvPublications = ttvPublications.sort(this.comparePublicationTypeCodes);
 
-    orcidPublications.forEach((publication) => {
-      formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
-      formattedPublications.push(this.createBaseParagraph(''));
-    });
+      for (let i = 0; i < ttvPublications.length; i++) {
+        if (i === 1) {
+          formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames(ttvPublications[i].publicationTypeCodeShort)));
+        }
+
+        unsortedPublications.push(ttvPublications[i]);
+
+        if (i + 1 < ttvPublications.length) {
+          if (ttvPublications[i].publicationTypeCodeShort !== ttvPublications[i+1].publicationTypeCodeShort) {
+            // Sort previous publication class publications and add them after previously created caption
+            unsortedPublications.sort(this.comparePublicationYearsPublications).reverse().forEach(publication => {
+              formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
+              formattedPublications.push(this.createBaseParagraph(''));
+            });
+            unsortedPublications = [];
+            // Add next caption
+            formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames(ttvPublications[i+1].publicationTypeCodeShort)));
+          }
+        }
+        else {
+          // On last publication
+          formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(unsortedPublications[0], citationStyle)));
+          formattedPublications.push(this.createBaseParagraph(''));
+          unsortedPublications = [];
+        }
+      }
+    } else {
+      ttvPublications = ttvPublications.sort(this.comparePublicationYearsPublications).reverse();
+
+      ttvPublications.forEach((publication) => {
+        formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
+        formattedPublications.push(this.createBaseParagraph(''));
+      });
+    }
 
     return formattedPublications;
   }
@@ -625,6 +665,43 @@ export class CvTemplateBuilderComponent {
     return ret;
   }
 
+
+  private getPublicationTypeClassNames(className: string) {
+    if (className) {
+      switch (className) {
+        case 'A':
+          return this.getTranslation('publication_list_title_publicationtypeA');
+          break;
+        case 'B':
+          return this.getTranslation('publication_list_title_publicationtypeB');
+          break;
+        case 'C':
+          return this.getTranslation('publication_list_title_publicationtypeC');
+          break;
+        case 'D':
+          return this.getTranslation('publication_list_title_publicationtypeD');
+          break;
+        case 'E':
+          return this.getTranslation('publication_list_title_publicationtypeE');
+          break;
+        case 'F':
+          return this.getTranslation('publication_list_title_publicationtypeF');
+          break;
+        case 'G':
+          return this.getTranslation('publication_list_title_publicationtypeG');
+          break;
+        case 'I':
+          return this.getTranslation('publication_list_title_publicationtypeI');
+          break;
+        case 'Z':
+          return this.getTranslation('publication_list_title_publicationtype_others');
+          break;
+        default:
+          return this.getTranslation('publication_list_title_publicationtype_others');
+      }
+    }
+  }
+
   private capitalizeFirstLetter(value: any): unknown {
     if (!value || value.length === 0) {
       return '';
@@ -637,6 +714,14 @@ export class CvTemplateBuilderComponent {
       text: text,
       heading: HeadingLevel.HEADING_1
     });
+  }
+
+  public createHeadingLevel2(text: string): Paragraph {
+    return (new docx.Paragraph({
+      text: text,
+      heading: HeadingLevel.HEADING_2,
+      style: 'heading2'
+    }));
   }
 
   private createMainLevelParagraph(elements: cvTopLevelParagraph) {

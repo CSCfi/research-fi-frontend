@@ -1221,8 +1221,11 @@
         "publication_list_note_title": "Note",
         "publication_list_note_text": "Publications in the profile may not always meet the requirements for the publication list. Please verify the accuracy of the reference details before sharing or sending the list.",
         "cvTool": "CV tool",
-        "grantYearMissing": "Grant year is missing",
-        "infrastructuresBetaBannerText": "Research.fi portal is currently undergoing a renewal of research infrastructures and the associated data transfer processes in collaboration with the data‑providing organizations. As a result of this renewal, there may be gaps in data coverage."
+        "grantYearMissing": "Start year missing",
+        "publication_list_order_buttons_title": "Select the sort order of the publication list",
+        "publication_list_radio_buttons_sort_year": "By year",
+        "publication_list_radio_buttons_sort_publication_type": "By Ministry of Education and Culture publication type classification",
+        "publication_list_radio_buttons_sort_publication_type_info": "Publication type A–G, I in accordance with the Ministry of Education and Culture publication data collection"
     }
 }
 

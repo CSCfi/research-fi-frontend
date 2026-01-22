@@ -90,6 +90,42 @@
                       {{ target }}
                     </mat-radio-button>
                   </mat-radio-group>
+                  <br/>
+                  <h4 class="mt-3"
+                      id="publication_list_radio_buttons_title">{{ publication_list_order_buttons_title }}</h4>
+                  <mat-radio-group
+                          aria-labelledby="publication_list_radio_buttons_title"
+                          class="form-group"
+                          required="true"
+                  >
+                    <div class="flex flex-column">
+                      <div>
+                      <mat-radio-button
+                              class="radio-button"
+                              [value]="publication_list_order_targets[0]"
+                              [checked]="orderByPublicationType === false"
+                              (change)="orderByPublicationType = !orderByPublicationType"
+                      >
+                        {{ publication_list_order_targets[0] }}
+                      </mat-radio-button>
+                      </div>
+                      <div class="d-flex flex-row">
+                      <mat-radio-button
+                              class="radio-button"
+                              [value]="publication_list_order_targets[1]"
+                              [checked]="orderByPublicationType === true"
+                              (change)="orderByPublicationType = !orderByPublicationType"
+                      >
+                        {{ publication_list_order_targets[1] }}
+                      </mat-radio-button>
+                        <div class="publication-type-info-circle">
+                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+                        </div>
+                      </div>
+                    </div>
+
+                  </mat-radio-group>
+
                   <app-primary-action-button
                           class="my-3"
                           content="{{download_publication_list_button_title}}"
@@ -104,7 +140,6 @@
 
                   <div class="note-box-wrap my-3">
                     <div class="note-box">
-
                       <div class="d-flex flex-row">
                         <div class="info-circle-pad">
                           <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
