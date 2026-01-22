@@ -511,6 +511,15 @@ export class CvTemplateBuilderComponent {
       });
     }
 
+    // Add Orcid publication
+    formattedPublications = formattedPublications.concat(this.createBulletBlue(this.getTranslation('publication_list_bullet_orcid')));
+    formattedPublications.push(this.createBaseParagraph(''));
+
+    orcidPublications.forEach((publication) => {
+      formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
+      formattedPublications.push(this.createBaseParagraph(''));
+    });
+
     return formattedPublications;
   }
 
