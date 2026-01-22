@@ -686,7 +686,16 @@ const translations_fi = {
   "publication_list_title": "Julkaisuluettelo",
   "publication_list_preface1": "*Huom: Sinisellä merkityt tekstit sisältävät ohjeita ja lisätietoja. Poista kaikki siniset tekstit ennen julkaisuluettelon lähettämistä.",
   "publication_list_bullet1": "Viitetiedot perustuvat eri lähteistä tuotuihin tietoihin, eikä niiden oikeellisuutta voida taata. Käyttäjää pyydetään tarkistamaan kaikki tiedot huolellisesti. ORCID-palvelusta tuodut julkaisutiedot on sijoitettu tiedoston loppuun, ja niissä on havaittu erityisen paljon puuttuvia tietoja.",
-  "publication_list_bullet_orcid": "Alla olevassa listassa näkyvät ORCID-palvelusta tuodut julkaisutiedot."
+  "publication_list_bullet_orcid": "Alla olevassa listassa näkyvät ORCID-palvelusta tuodut julkaisutiedot.",
+  "publication_list_title_publicationtypeA": "A Vertaisarvioidut tieteelliset artikkelit",
+  "publication_list_title_publicationtypeB": "B Vertaisarvioimattomat tieteelliset kirjoitukset",
+  "publication_list_title_publicationtypeC": "C Tieteelliset kirjat",
+  "publication_list_title_publicationtypeD": "D Ammattiyhteisölle suunnatut julkaisut",
+  "publication_list_title_publicationtypeE": "E Suurelle yleisölle suunnatut julkaisut",
+  "publication_list_title_publicationtypeF": "F Julkinen taiteellinen ja taideteollinen toiminta",
+  "publication_list_title_publicationtypeG": "G Opinnäytteet",
+  "publication_list_title_publicationtypeI": "I Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset",
+  "publication_list_title_publicationtype_others": "OKM:n mukainen julkaisutyyppiluokitus puuttuu"
 };
 
 const translations_sv = {
@@ -783,7 +792,16 @@ const translations_sv = {
   "publication_list_title": "Publikationsförteckning",
   "publication_list_preface1": "*Texter markerade med blått innehåller instruktioner och tilläggsinformation. Ta bort alla blåa texter innan publikationslistan skickas vidare.",
   "publication_list_bullet1": "Referensuppgifterna baseras på information från olika källor, och deras korrekthet kan inte garanteras. Användaren uppmanas att granska alla uppgifter noggrant. Publikationsuppgifter hämtade från ORCID-tjänsten finns längst ner i filen, och dessa poster har visat sig innehålla särskilt många brister.",
-  "publication_list_bullet_orcid": "Listan nedan visar publikationsuppgifter från ORCID-tjänsten."
+  "publication_list_bullet_orcid": "Listan nedan visar publikationsuppgifter från ORCID-tjänsten.",
+  "publication_list_title_publicationtypeA": "A Referentgranskade vetenskapliga artiklar",
+  "publication_list_title_publicationtypeB": "B Icke-referentgranskade vetenskapliga artiklar",
+  "publication_list_title_publicationtypeC": "C Vetenskapliga böcker",
+  "publication_list_title_publicationtypeD": "D Publikationer avsedda för en yrkesgrupp",
+  "publication_list_title_publicationtypeE": "E Publikationer för allmänheten",
+  "publication_list_title_publicationtypeF": "F Offentlig konstnärlig och konstindustriell verksamhet",
+  "publication_list_title_publicationtypeG": "G Lärdomsprov",
+  "publication_list_title_publicationtypeI": "I Audiovisuellt publikationer samt data-och kommunikationstekniska program",
+  "publication_list_title_publicationtype_others": "Undervisnings‑ och kulturministeriets publikationstypklassificering saknas"
 };
 
 const translations_en = {
@@ -880,7 +898,16 @@ const translations_en = {
   "publication_list_title": "Publication list",
   "publication_list_preface1": "*Texts marked in blue contain instructions and additional information. Please remove all blue text before submitting the publication list.",
   "publication_list_bullet1": "The reference data is based on information imported from various sources, and its accuracy cannot be guaranteed. Users are requested to carefully review all entries. Publication data imported from the ORCID service is listed at the end of the file, and these entries have been found to contain a particularly high number of missing details.",
-  "publication_list_bullet_orcid": "The list below shows publication data retrieved from the ORCID service."
+  "publication_list_bullet_orcid": "The list below shows publication data retrieved from the ORCID service.",
+  "publication_list_title_publicationtypeA": "A Peer-reviewed scientific articles",
+  "publication_list_title_publicationtypeB": "B Non-refereed scientific articles",
+  "publication_list_title_publicationtypeC": "C Scientific books (monographs)",
+  "publication_list_title_publicationtypeD": "D Publications intended for professional communities",
+  "publication_list_title_publicationtypeE": "E Publications intended for the general public",
+  "publication_list_title_publicationtypeF": "F Public artistic and design activities",
+  "publication_list_title_publicationtypeG": "G Theses",
+  "publication_list_title_publicationtypeI": "I Audiovisual publications and ICT applications",
+  "publication_list_title_publicationtype_others": "The Ministry of Education and Culture publication type classification is missing"
 };
 
 export function getTranslations(language: string) {

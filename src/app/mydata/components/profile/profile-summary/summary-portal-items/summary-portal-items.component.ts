@@ -57,8 +57,8 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
   showOnlyPeerReviewed  = $localize`:@@showOnlyPeerReviewed:Näytä vain vertaisarvioidut`;
   noPeerReviewedPublications = $localize`:@@noPeerReviewedPublications:Ei vertaisarvioituja julkaisuja`;
 
-  publicationYearMissing = $localize`:@@publicationYearMissing:Julkaisuvuosi puuttuuu`;
-  grantYearMissing = $localize`:@@grantYearMissing:Myöntövuosi puuttuuu`;
+  publicationYearMissing = $localize`:@@publicationYearMissing:Julkaisuvuosi puuttuu`;
+  grantYearMissing = $localize`:@@grantYearMissing:Aloitusvuosi puuttuu`;
 
   showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
   showLessPrefix = $localize`:@@showLess:Näytä vähemmän`;

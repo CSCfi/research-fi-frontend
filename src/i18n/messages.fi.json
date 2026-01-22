@@ -1223,7 +1223,10 @@
         "publication_list_note_title": "Huomio",
         "publication_list_note_text": "Julkaisut profiilityökalussa eivät välttämättä täytä julkaisuluettelon vaatimuksia. Tarkista viitetietojen oikeellisuus ennen kuin jaat tai lähetät luettelon eteenpäin.",
         "cvTool": "CV-työkalu",
-        "grantYearMissing": "Myöntövuosi puuttuu",
-        "infrastructuresBetaBannerText": "Tiedejatutkimus.fi -portaalissa uudistetaan tutkimusinfrastruktuureita ja niihin liittyvää tiedonsiirtoa yhdessä tietoa toimittavien organisaatioiden kanssa. Uudistuksesta johtuen tietojen kattavuudessa on puutteita."
+        "grantYearMissing": "Aloitusvuosi puuttuu",
+        "publication_list_order_buttons_title": "Valitse julkaisuluettelon järjestys",
+        "publication_list_radio_buttons_sort_year": "Vuoden mukaan",
+        "publication_list_radio_buttons_sort_publication_type": "OKM:n julkaisuluokituksen mukaan",
+        "publication_list_radio_buttons_sort_publication_type_info": "OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A-G, I"
     }
 }
