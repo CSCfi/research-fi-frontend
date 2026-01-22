@@ -90,10 +90,16 @@ export class CvToolComponent implements OnInit {
   publicationListTargets = ['APA', 'Chicago', 'MLA']
   publicationListInitialSelections = [true, false, false];
 
+  publication_list_order_buttons_title = $localize`:@@publication_list_order_buttons_title:Valise julkaisuluettelon järjestys`;
+  publication_list_order_targets = [$localize`:@@publication_list_radio_buttons_sort_year:Vuoden mukaan`, $localize`:@@publication_list_radio_buttons_sort_publication_type:OKM:n julkaisuluokituksen mukaan`]
+  publication_list_radio_buttons_sort_publication_type_info = $localize`:@@publication_list_radio_buttons_sort_publication_type_info:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A-G, I`;
+
   download_publication_list_button_title = $localize`:@@download_publication_list_button_title:Lataa julkaisuluettelo`;
 
   publication_list_note_title = $localize`:@@publication_list_note_title:Huomio`;
   publication_list_note_text = $localize`:@@publication_list_note_text:from-localizations-file`;
+
+  orderByPublicationType = false;
 
   profileData: any;
   orcidId: string;
@@ -129,14 +135,14 @@ export class CvToolComponent implements OnInit {
 
   generateCv(cvContent?:
              CvContent) {
-    docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), false, this.citationStyleSelection)).then((blob) => {
+    docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), false, this.citationStyleSelection, this.orderByPublicationType)).then((blob) => {
       this.cvFileName = this.fullName + "_-_" + translations.getTranslation(this.langAbbreviations[this.langSelection], 'cv_title').replaceAll(' ', '_') + ".docx";
       saveAs(blob, this.cvFileName);
     });
   }
 
   generatePublicationsList(cvContent?: CvContent) {
-    docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), true, this.citationStyleSelection)).then((blob) => {
+    docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), true, this.citationStyleSelection, this.orderByPublicationType)).then((blob) => {
       this.publicationListFileName = this.fullName + "_-_" + translations.getTranslation(this.langAbbreviations[this.langSelection], 'publication_list_title').replaceAll(' ', '_') + '_(' + this.citationStyles[this.citationStyleSelection] + ')' + ".docx";
       saveAs(blob, this.publicationListFileName);
     });
