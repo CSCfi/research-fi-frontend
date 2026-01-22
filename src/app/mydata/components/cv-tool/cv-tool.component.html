@@ -114,6 +114,7 @@
                               class="radio-button"
                               [value]="publication_list_order_targets[1]"
                               [checked]="orderByPublicationType === true"
+                              (change)="orderByPublicationType = !orderByPublicationType"
                       >
                         {{ publication_list_order_targets[1] }}
                       </mat-radio-button>
