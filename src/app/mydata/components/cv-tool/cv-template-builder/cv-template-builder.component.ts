@@ -515,7 +515,7 @@ export class CvTemplateBuilderComponent {
       formattedPublications = formattedPublications.concat(this.createBulletBlue(this.getTranslation('publication_list_bullet_orcid')));
       formattedPublications.push(this.createBaseParagraph(''));
     } else {
-      this.createHeadingLevel2(this.getPublicationTypeClassNames('Z'));
+      formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames('Z')));
     }
 
     orcidPublications.forEach((publication) => {
