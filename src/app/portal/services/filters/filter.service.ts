@@ -55,6 +55,7 @@ export type Filters = {
   decisionMaker: string[];
   callId: string[];
   approvalDate: string[];
+  identifiedTopics: string[];
 };
 
 @Injectable({
@@ -85,6 +86,7 @@ export class FilterService {
   sectorFilter: string[];
   topicFilterFundings: string[];
   topicFilterProjects: string[];
+  identifiedTopicFilterPublication: string[];
   organizationFilter: string[];
   keywordFilterPersons: string[];
   positionFilter: string[];
@@ -135,6 +137,7 @@ export class FilterService {
     status: [],
     typeOfFundingId: [],
     approvalYear: [],
+    identifiedTopics: [],
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -194,6 +197,8 @@ export class FilterService {
       internationalCollaboration: mapFilter(source.internationalCollaboration),
       okmDataCollection: mapFilter(source.okmDataCollection),
       coPublication: mapFilter(source.coPublication),
+      identifiedTopics: mapFilter(source.identifiedTopics),
+
       // Fundings
       funder: mapFilter(source.funder),
       typeOfFunding: mapFilter(source.typeOfFunding),
@@ -208,8 +213,10 @@ export class FilterService {
       // Datasets
       dataSource: mapFilter(source.dataSource),
       accessType: mapFilter(source.accessType),
+
       // Infrastructures
       type: mapFilter(source.type),
+
       // Funding calls
       date: mapFilter(source.date),
       status: mapFilter(source.status),
@@ -273,6 +280,11 @@ export class FilterService {
       'publicationStatusCode.keyword',
       '9'
     );
+    this.identifiedTopicFilterPublication = this.basicFilter(
+      filter.identifiedTopics,
+      'identifiedTopics.keyword'
+    );
+
     // Funding
     this.funderFilter = this.basicFilter(
       filter.funder,
@@ -294,6 +306,7 @@ export class FilterService {
       filter.topic,
       'keywords.keyword.keyword'
     );
+
     // Datasets
     this.dataSourceFilter = this.basicFilter(
       filter.dataSource,
@@ -313,8 +326,10 @@ export class FilterService {
       filter.field,
       'fieldsOfScience.field_id.keyword'
     );
+
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
+
     // FundingCalls
     this.dateFilter = this.filterByDateRange(filter.date);
     this.statusFilter = this.filterByStatus(filter.status);
@@ -927,6 +942,10 @@ export class FilterService {
       ...basicFilter('publication', this.internationalCollaborationFilter),
       ...basicFilter('publication', this.okmDataCollectionFilter),
       ...basicFilter('publication', this.coPublicationFilter),
+
+      // TODO: check if need nested filter
+      ...basicFilter('publication', this.identifiedTopicFilterPublication),
+
       // Persons
       ...basicFilter('person', this.keywordFilterPersons),
       ...nestedFilter('person', this.organizationFilter, 'activity.affiliations.sector.organization'),

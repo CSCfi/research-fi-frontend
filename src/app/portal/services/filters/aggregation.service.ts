@@ -324,6 +324,22 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.identifiedTopics = {
+          filter: {
+            bool: {
+              filter: filterActive('identifiedTopics')
+            }
+          },
+          aggs: {
+            idTopics: {
+              terms: {
+                field: 'identifiedTopics.keyword',
+                order: { _key: 'asc' },
+                size: 200,
+              },
+            },
+          },
+        };
         payLoad.aggs.countryCode = {
           filter: {
             bool: {

@@ -204,6 +204,13 @@ export class PublicationFilterService {
         $localize`:@@noOpenAccessDataInfo:Julkaisun avoimen saatavuuden tilaa ei ole raportoitu.` +
         '</p>',
     },
+    {
+      field: 'identifiedTopics',
+      label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: false,
+    },
   ];
 
   singleFilterData = [
@@ -224,6 +231,22 @@ export class PublicationFilterService {
     private staticDataService: StaticDataService
   ) {}
 
+  private mapKeywords(keywords) {
+    const source = cloneDeep(keywords) || [];
+    const output = [...source.buckets];
+
+    // Sort based on doc_count and then alphabetically based on label
+    output.sort((a, b) => {
+      if (a.doc_count === b.doc_count) {
+        return a.key.localeCompare(b.key);
+      } else {
+        return b.doc_count - a.doc_count;
+      }
+    });
+
+    return output;
+  }
+
   shapeData(data, activeFilters?) {
     const source = data.aggregations;
     // Year
@@ -236,6 +259,12 @@ export class PublicationFilterService {
         (item) => item.filtered.filterCount.doc_count > 0
       )
     );
+
+    // Identified topic
+    source.identifiedTopics.buckets = this.mapKeywords(
+      source.identifiedTopics.idTopics
+    );
+
     // Publication Type
     source.publicationType.buckets = this.separatePublicationClass(
       source.publicationType.publicationTypes.buckets

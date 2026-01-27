@@ -488,6 +488,12 @@ export class ActiveFiltersComponent
                 }
               }
 
+              if (val.category === 'identifiedTopic') {
+                this.activeFilters.find(
+                  (item) => item.category === 'identifiedTopic'
+                ).translation = $localize`:@@identifiedTopic:Tunnistettu aihe`;
+              }
+
               if (val.category === 'internationalCollaboration') {
                 this.activeFilters.find(
                   (item) => item.category === 'internationalCollaboration'
