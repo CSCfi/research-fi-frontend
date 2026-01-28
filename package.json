@@ -78,7 +78,7 @@
     "@angular-eslint/schematics": "19.8.1",
     "@angular-eslint/template-parser": "19.8.1",
     "@angular/build": "^20.3.2",
-    "@angular/cli": "^20.3.2",
+    "@angular/cli": "^20.3.15",
     "@angular/compiler-cli": "^20.3.1",
     "@angular/language-service": "^20.3.1",
     "@ni/xliff-to-json-converter": "^1.1.8",
