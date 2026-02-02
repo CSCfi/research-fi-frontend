@@ -57,7 +57,7 @@ objects:
       strategy:
         type: Docker
         dockerStrategy:
-          dockerfilePath: service_break_page/Dockerfile
+          dockerfilePath: service_break_page/Dockerfile-qa
       output:
         to:
           kind: ImageStreamTag
