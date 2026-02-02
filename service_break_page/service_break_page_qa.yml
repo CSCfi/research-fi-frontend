@@ -1,0 +1,123 @@
+# This file is part of the research.fi service
+#
+# Copyright 2026 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  labels:
+    app: nginx-service-break-page-qa
+    template: nginx-service-break-page-qa
+  name: nginx-service-break-page-qa
+  annotations:
+    description: Nginx service break page
+    iconClass: icon-nginx
+objects:
+
+  # Service
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: nginx-service-break-page-qa
+      labels:
+        app: nginx-service-break-page-qa
+      annotations:
+        description: Nginx service break page
+    spec:
+      ports:
+        - name: nginx-service-break-page-qa
+          port: 8080
+          targetPort: 8080
+      selector:
+        app: nginx-service-break-page-qa
+
+  # ImageStream
+  - apiVersion: image.openshift.io/v1
+    kind: ImageStream
+    metadata:
+      name: nginx-service-break-page-qa
+      labels:
+        app: nginx-service-break-page-qa
+
+  # BuildConfig using Docker build strategy
+  - apiVersion: build.openshift.io/v1
+    kind: BuildConfig
+    metadata:
+      name: nginx-service-break-page-qa
+      labels:
+        app: nginx-service-break-page-qa
+    spec:
+      source:
+        git:
+          uri: https://github.com/CSCfi/research-fi-frontend.git
+          ref: devel
+        contextDir: .
+      strategy:
+        type: Docker
+        dockerStrategy:
+          dockerfilePath: service_break_page/Dockerfile
+      output:
+        to:
+          kind: ImageStreamTag
+          name: nginx-service-break-page-qa:latest
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+
+  # Deployment config
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: nginx-service-break-page-qa
+      labels:
+        app: nginx-service-break-page-qa
+    spec:
+      selector:
+        matchLabels:
+          app: nginx-service-break-page-qa
+      template:
+        metadata:
+          labels:
+            app: nginx-service-break-page-qa
+        spec:
+          containers:
+            - name: nginx-service-break-page-qa
+              image: image-registry.openshift-image-registry.svc:5000/researchfi-qa/nginx-service-break-page-qa
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+      replicas: 1
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - nginx-service-break-page-qa
+            from:
+              kind: ImageStreamTag
+              name: nginx-service-break-page-qa:latest
+      strategy:
+        type: RollingUpdate
+
+ # Route
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: nginx-service-break-page-qa
+      labels:
+        app: nginx-service-break-page-qa
+    spec:
+      host: researchfi-service-break-qa.2.rahtiapp.fi
+      to:
+        kind: Service
+        name: nginx-service-break-page-qa
+        weight: 100
+      port:
+        targetPort: nginx-service-break-page-qa
+      tls:
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect
+      wildcardPolicy: None
