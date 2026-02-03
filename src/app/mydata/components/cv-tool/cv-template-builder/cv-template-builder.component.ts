@@ -434,8 +434,8 @@ export class CvTemplateBuilderComponent {
 
     if (publication.dataSources[0].registeredDataSource === 'ORCID') {
       if (citationStyle === 0) {
-        const publicationYearStrApa = publication['publicationYear']?.length > 0 ? ' (' + publication['publicationYear'] + ').' : '';
-        const publicationNameStrApa = publication['publicationName']?.length > 0 ? ' ' + publication['publicationName'] + '.' : '';
+        const publicationYearStrApa = publication['publicationYear']?.length > 0 ? ' (' + publication['publicationYear'] + '). ' : '';
+        const publicationNameStrApa = publication['publicationName']?.length > 0 ? publication['publicationName'] + '.' : '';
         return publication['authorsText'] + publicationYearStrApa + publicationNameStrApa + publicationDoiStr;
       } else if (citationStyle === 1) {
         const publicationYearStrChicago = publication['publicationYear']?.length > 0 ? publication['publicationYear'] + '. ' : '';
