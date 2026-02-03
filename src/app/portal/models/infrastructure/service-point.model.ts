@@ -18,8 +18,7 @@ export class ServicePoint {
     public emailAddress: string,
     public infoUrl: ServicePoint[],
     public accessPolicyUrl: string,
-    public internationalInfraUrl: string,
-    public urn: string
+    public internationalInfraUrl: string
   ) {}
 }
 
@@ -37,8 +36,7 @@ export class ServicePointAdapter implements Adapter<ServicePoint> {
       item.servicePointEmailAddress,
       this.utils.checkTranslation('servicePointInfoUrl', item),
       this.utils.checkTranslation('servicePointAccessPolicyUrl', item),
-      item.servicePointInternationalInfraUrl,
-      item.urn
+      item.servicePointInternationalInfraUrl
     );
   }
 }

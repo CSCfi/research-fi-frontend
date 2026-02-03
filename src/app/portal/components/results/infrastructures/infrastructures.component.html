@@ -30,7 +30,7 @@
       *ngFor="let infra of resultData?.infrastructures; let i = index"
     >
       <ng-template #infrastructureNameColumns>
-        <a [routerLink]="infra.urn | handleInfrastructureLink">
+        <a [routerLink]="infra.id | handleInfrastructureLink">
           <h4
             class="result-title"
             [innerHtml]="infra.name?.trim() | highlight: input"

@@ -31,6 +31,13 @@ export class InfrastructureFilterService {
       limitHeight: true,
     },
     {
+      field: 'type',
+      label: $localize`:@@serviceType:Palvelun tyyppi`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+    },
+    {
       field: 'field',
       label: $localize`:@@fieldOfScience:Tieteenala`,
       hasSubFields: false,

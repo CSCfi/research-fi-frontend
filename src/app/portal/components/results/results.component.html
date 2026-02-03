@@ -133,43 +133,6 @@ Copyright 2019 Ministry of Education and Culture, Finland
       </div>
     </ng-container>
 
-    <ng-container *ngIf="tab === 'infrastructures' && infrastructuresBetaBannerVisible">
-      <div class="row">
-        <div class="row py-2 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
-          <div class="row gx-0 col-12 col-lg-9 justify-content-start align-content-center">
-            <div class="d-flex">
-              <div class="mx-3 d-flex flex-column justify-content-center">
-                <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-banner"></app-svg-sprites>
-              </div>
-              <div *ngIf="tab === 'infrastructures'" class="me-3" i18n="@@infrastructuresBetaBannerText">
-                Tiedejatutkimus.fi -portaalissa uudistetaan tutkimusinfrastruktuureita ja niihin liittyvää tiedonsiirtoa yhdessä tietoa toimittavien organisaatioiden kanssa. Uudistuksesta johtuen tietojen kattavuudessa on puutteita.
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-lg-auto pe-lg-0 d-flex flex-row my-lg-3 mt-4 mb-1 justify-content-between">
-            <div class="d-flex flex-column justify-content-center">
-              <a [href]="infrastructuresBetaBannerLink" target="_blank">
-              <app-primary-action-button
-                      role="link"
-                      content="Lue lisää"
-                      i18n-content="@@spReadMore"
-                      tabindex="-1">
-              </app-primary-action-button>
-              </a>
-            </div>
-            <div class="d-flex flex-column justify-content-center pe-3">
-              <a
-                      tabindex="0"
-                      (click)="tab === hideInfrastructuresBetaBanner()"
-                      href="javascript:void(0)">
-                <strong i18n="@@close">Sulje</strong>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-
     <!-- Left sidebar -->
     <div class="col-lg-4 col-xl-3">
       <!-- Tab label and total count -->

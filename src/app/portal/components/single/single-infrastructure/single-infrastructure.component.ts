@@ -13,9 +13,9 @@ import {
   OnDestroy,
   LOCALE_ID,
   Inject,
-  DOCUMENT, QueryList, ViewChildren, AfterViewInit, inject
+  DOCUMENT
 } from '@angular/core';
-import { NgIf, NgFor, NgClass, NgSwitch, ViewportScroller } from '@angular/common';
+import { NgIf, NgFor, NgClass, NgSwitch } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -53,10 +53,10 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     SingleResultLinkComponent,
     RelatedLinksComponent,
     ShareComponent,
-    SvgSpritesComponent,
+    SvgSpritesComponent
   ]
 })
-export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   public singleId: any;
   responseData: Search;
   searchTerm: string;
@@ -65,92 +65,91 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   stringHasContent = UtilityService.stringHasContent;
   private metaTags = MetaTags.singleInfrastructure;
   private commonTags = MetaTags.common;
-  viewportScroller = inject(ViewportScroller);
 
   tab = 'infrastructures';
   infoFields = [
     {
       label: $localize`:@@infraAcronym:Lyhenne`,
       field: 'acronym',
-      tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`
+      tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`,
     },
     {
       label: $localize`:@@infraDescription:Infrastruktuurin kuvaus`,
       field: 'description',
-      tooltip: $localize`:@@infraDescriptionTooltip:Kuvaus kertoo yleisesti tutkimusinfrastruktuurista.`
+      tooltip: $localize`:@@infraDescriptionTooltip:Kuvaus kertoo yleisesti tutkimusinfrastruktuurista.`,
     },
     {
       label: $localize`:@@scientificDescription:Tieteellinen kuvaus`,
       field: 'scientificDescription',
-      tooltip: $localize`:@@scientificDescriptionTooltip:Kertoo tutkimusinfrastruktuurin tieteellisistä sovelluskohteista ja käyttötarkoituksista.`
+      tooltip: $localize`:@@scientificDescriptionTooltip:Kertoo tutkimusinfrastruktuurin tieteellisistä sovelluskohteista ja käyttötarkoituksista.`,
     },
     {
       label: $localize`:@@infraStartYear:Toiminta alkanut`,
       field: 'startYear',
-      tooltip: $localize`:@@infraStartYearTooltip:Koko tutkimusinfrastruktuurin käyttöönottovuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta, jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun`
+      tooltip: $localize`:@@infraStartYearTooltip:Koko tutkimusinfrastruktuurin käyttöönottovuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta, jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun`,
     },
     { label: $localize`:@@infraEndYear:Toiminta päättynyt`, field: 'endYear' },
     {
       label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`,
       field: 'responsibleOrganization',
-      tooltip: $localize`:@@responsibleOrganizationTooltip:Tutkimusinfrastruktuurin kotiorganisaatio, joka vastaa siitä kokonaisuudessaan. Infrastruktuureilla voi olla myös muita organisaatioita, jotka vastaavat joistain palveluista.`
+      tooltip: $localize`:@@responsibleOrganizationTooltip:Tutkimusinfrastruktuurin kotiorganisaatio, joka vastaa siitä kokonaisuudessaan. Infrastruktuureilla voi olla myös muita organisaatioita, jotka vastaavat joistain palveluista.`,
     },
     {
       label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`,
-      field: 'participantOrganizations'
+      field: 'participantOrganizations',
     },
     {
       label: $localize`:@@keywords:Avainsanat`,
       field: 'keywordsString',
-      tooltip: $localize`:@@infraKeywordsTooltip:Tutkimusinfrastruktuuria, sen palveluita ja toimintaa kuvailevia avainsanoja.`
-    }
+      tooltip: $localize`:@@infraKeywordsTooltip:Tutkimusinfrastruktuuria, sen palveluita ja toimintaa kuvailevia avainsanoja.`,
+    },
   ];
 
   serviceFields = [
     {
       label: $localize`:@@serviceDescription:Palvelun kuvaus`,
       field: 'description',
-      tooltip: $localize`:@@serviceDescriptionTooltip:Palvelun tarkempi kuvaus`
+      tooltip: $localize`:@@serviceDescriptionTooltip:Palvelun tarkempi kuvaus`,
     },
     {
       label: $localize`:@@scientificDescription:Tieteellinen kuvaus`,
-      field: 'scientificDescription'
+      field: 'scientificDescription',
     },
     {
       label: $localize`:@@serviceType:Palvelun tyyppi`,
       field: 'type',
-      tooltip: $localize`:@@serviceTypeTooltip:Tutkimusinfrastruktuurien palvelut jaetaan kolmeen eri tyyppiin: aineistoon, laitteistoon tai palveluun. Valittu tyyppi kuvaa parhaiten palvelua.`
-    }
+      tooltip: $localize`:@@serviceTypeTooltip:Tutkimusinfrastruktuurien palvelut jaetaan kolmeen eri tyyppiin: aineistoon, laitteistoon tai palveluun. Valittu tyyppi kuvaa parhaiten palvelua.`,
+    },
   ];
 
   servicePointContactFields = [
     { label: $localize`Kuvaus`, field: 'description' },
     { label: $localize`Sähköpostiosoite`, field: 'emailAddress' },
     { label: $localize`Puhelinnumero`, field: 'phoneNumber' },
-    { label: $localize`Vierailuosoite`, field: 'visitingAddress' }
+    { label: $localize`Vierailuosoite`, field: 'visitingAddress' },
   ];
 
   servicePointInfoFields = [
     { label: $localize`Käyttöehdot`, field: 'accessPolicyUrl' },
     { label: $localize`Linkki`, field: 'infoUrl' },
-    { label: $localize`Koordinoiva organisaatio`, field: 'coOrg' }
+    { label: $localize`Koordinoiva organisaatio`, field: 'coOrg' },
   ];
 
   fieldsOfScience = [
     {
       label: $localize`:@@fieldsOfScience:Tieteenalat`,
-      field: 'fieldsOfScienceString'
-    }
+      field: 'fieldsOfScienceString',
+    },
   ];
 
   classificationFields = [
     {
       label: $localize`Suomen Akatemian tiekartalla`,
       field: 'finlandRoadmap',
-      tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`
+      tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`,
     },
     { label: $localize`ESFRI-luokitus`, field: 'ESFRICode' },
-    { label: $localize`MERIL-luokitus`, field: 'merilCode' }
+    { label: $localize`MERIL-luokitus`, field: 'merilCode' },
   ];
 
   contactFields = [
@@ -158,7 +157,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     { label: $localize`Kuvaus`, field: 'contactDescription' },
     { label: $localize`Sähköpostiosoite`, field: 'email' },
     { label: $localize`Puhelinnumero`, field: 'phoneNumber' },
-    { label: $localize`Vierailuosoite`, field: 'address' }
+    { label: $localize`Vierailuosoite`, field: 'address' },
   ];
 
   otherFields = [
@@ -166,9 +165,9 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     { label: $localize`Osa kansainvälistä infrastruktuuria`, field: '?' },
     {
       label: $localize`Edeltävä tutkimusinfrastruktuuri`,
-      field: 'replacingInfrastructure'
+      field: 'replacingInfrastructure',
     },
-    { label: $localize`Lisätietoja`, field: '?' }
+    { label: $localize`Lisätietoja`, field: '?' },
   ];
 
   linkFields = [{ field: 'homepage' }];
@@ -176,10 +175,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
-  @ViewChildren('servicesRefs') private servicesRefs: QueryList<ElementRef>;
-
   idSub: Subscription;
-  servicesRefsSub: Subscription;
   infoExpand: boolean[] = [];
   serviceExpand: boolean[] = [];
   showService: boolean[] = [];
@@ -192,9 +188,6 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   relatedData: {};
   focusSub: Subscription;
   dataSub: Subscription;
-  private selectedServiceUrn: string;
-  private positionInitialized = false;
-  private selectedServiceIndex: number = undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -218,9 +211,6 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.idSub = this.singleService.currentId.subscribe((id) =>
       this.getData(id)
     );
-    this.route.queryParamMap.subscribe(params => {
-      this.selectedServiceUrn = params.get('service');
-    });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
@@ -240,21 +230,12 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         }
       }
     );
-    this.servicesRefsSub = this.servicesRefs.changes.subscribe(() => {
-      if (!this.positionInitialized && this.selectedServiceIndex !== undefined) {
-        const elTopPosition = this.servicesRefs.get(this.selectedServiceIndex).nativeElement.getBoundingClientRect().top;
-        this.viewportScroller.scrollToPosition([0, elTopPosition]);
-        //this.servicesRefs.get(1).nativeElement.click();
-        this.positionInitialized = true;
-      }
-    });
   }
 
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
     this.dataSub?.unsubscribe();
-    this.servicesRefsSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
@@ -296,7 +277,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
           this.filterData();
         }
       },
-      error: (error) => (this.errorMessage = error as any)
+      error: (error) => (this.errorMessage = error as any),
     });
   }
 
@@ -349,26 +330,15 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         .filter((x) => x);
     });
 
-    let openedInd = 0;
-
     source.services = source.services
       .map((service) =>
-      {
-        if (service.urn?.length > 11) {
-          if (service.urn.substring(11, service.urn.length) === this.selectedServiceUrn) {
-            this.showService[openedInd] = true;
-            this.selectedServiceIndex = openedInd;
-          }
-        }
-        openedInd += 1;
-        return UtilityService.objectHasContent(service) ? service : undefined
-      }
+        UtilityService.objectHasContent(service) ? service : undefined
       )
       .filter((x) => x);
 
     // Related data
     this.relatedData = {
-      organizations: [source.responsibleOrganizationId]
+      organizations: [source.responsibleOrganizationId],
     };
   }
 
