@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import {
   PrimaryActionButtonComponent
 } from '@shared/components/buttons/primary-action-button/primary-action-button.component';
@@ -20,6 +20,7 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
 import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
+import { TooltipDirective } from 'ngx-bootstrap/tooltip';
 
 export interface cvEducation {
   dateOfDegree?: string;
@@ -48,7 +49,9 @@ export interface CvContent {
     MydataSideNavigationComponent,
     BannerDividerComponent,
     SvgSpritesComponent,
-    StickyFooterComponent
+    StickyFooterComponent,
+    NgIf,
+    TooltipDirective
   ],
   templateUrl: './cv-tool.component.html',
   styleUrl: './cv-tool.component.scss'

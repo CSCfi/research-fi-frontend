@@ -23,42 +23,44 @@
             <div class="row gx-0">
               <div class="col-12 col-md-6 d-flex mb-3 align-items-stretch">
                 <div class="row bordered-section">
-                  <h3 class="my-3">CV</h3>
-                  <h4 class="mt-2" id="import_radio_buttons_title">{{ import_radio_buttons_title }}</h4>
-                  <mat-radio-group
-                          aria-labelledby="import_radio_buttons_title"
-                          class="form-group"
-                          required="true"
-                  >
-                    <mat-radio-button
-                            class="radio-button"
-                            *ngFor="let target of importTargets; let i = index"
-                            [value]="target"
-                            [checked]="importInitialSelections[i]"
-                            (change)="changeImportSelection(i)"
+                  <div class="cv-buttons-wrap">
+                    <h3 class="my-3">CV</h3>
+                    <h4 class="mt-2" id="import_radio_buttons_title">{{ import_radio_buttons_title }}</h4>
+                    <mat-radio-group
+                            aria-labelledby="import_radio_buttons_title"
+                            class="form-group"
+                            required="true"
                     >
-                      {{ target }}
-                    </mat-radio-button>
-                  </mat-radio-group>
+                      <mat-radio-button
+                              class="radio-button"
+                              *ngFor="let target of importTargets; let i = index"
+                              [value]="target"
+                              [checked]="importInitialSelections[i]"
+                              (change)="changeImportSelection(i)"
+                      >
+                        {{ target }}
+                      </mat-radio-button>
+                    </mat-radio-group>
 
-                  <h4 class="mt-3" id="language_radio_buttons_title">{{ language_radio_buttons_title }}</h4>
-                  <mat-radio-group
-                          aria-labelledby="language_radio_buttons_title"
-                          class="form-group"
-                          required="true"
-                  >
-                    <mat-radio-button
-                            class="radio-button"
-                            *ngFor="let target of langTargets; let i = index"
-                            [value]="target"
-                            [checked]="langInitialSelections[i]"
-                            (change)="changeLangSelection(i)"
+                    <h4 class="mt-3" id="language_radio_buttons_title">{{ language_radio_buttons_title }}</h4>
+                    <mat-radio-group
+                            aria-labelledby="language_radio_buttons_title"
+                            class="form-group"
+                            required="true"
                     >
-                      {{ target }}
-                    </mat-radio-button>
-                  </mat-radio-group>
+                      <mat-radio-button
+                              class="radio-button"
+                              *ngFor="let target of langTargets; let i = index"
+                              [value]="target"
+                              [checked]="langInitialSelections[i]"
+                              (change)="changeLangSelection(i)"
+                      >
+                        {{ target }}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
                   <app-primary-action-button
-                          class="my-3 mt-5"
+                          class="my-3"
                           content="{{download_cv_button_title}}"
                           [svgSymbolName]="'download'"
                           [svgCssClass]="'download-icon primary-button-icon'"
@@ -100,25 +102,36 @@
                   >
                     <div class="flex flex-column">
                       <div>
-                      <mat-radio-button
-                              class="radio-button"
-                              [value]="publication_list_order_targets[0]"
-                              [checked]="orderByPublicationType === false"
-                              (change)="orderByPublicationType = !orderByPublicationType"
-                      >
-                        {{ publication_list_order_targets[0] }}
-                      </mat-radio-button>
+                        <mat-radio-button
+                                class="radio-button"
+                                [value]="publication_list_order_targets[0]"
+                                [checked]="orderByPublicationType === false"
+                                (change)="orderByPublicationType = !orderByPublicationType"
+                        >
+                          {{ publication_list_order_targets[0] }}
+                        </mat-radio-button>
                       </div>
                       <div class="d-flex flex-row">
-                      <mat-radio-button
-                              class="radio-button"
-                              [value]="publication_list_order_targets[1]"
-                              [checked]="orderByPublicationType === true"
-                      >
-                        {{ publication_list_order_targets[1] }}
-                      </mat-radio-button>
+                        <mat-radio-button
+                                class="radio-button"
+                                [value]="publication_list_order_targets[1]"
+                                [checked]="orderByPublicationType === true"
+                                (change)="orderByPublicationType = !orderByPublicationType"
+                        >
+                          {{ publication_list_order_targets[1] }}
+                        </mat-radio-button>
                         <div class="publication-type-info-circle">
-                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+                          <ng-template #tooltipTemplate>
+                            <div [innerHtml]="publication_list_radio_buttons_sort_publication_type_info"></div>
+                          </ng-template>
+                          <span
+                                  [tooltip]="tooltipTemplate"
+                                  tabindex="0"
+                                  placement="top"
+                                  #elem
+                          >
+                            <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+                        </span>
                         </div>
                       </div>
                     </div>

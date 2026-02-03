@@ -103,7 +103,7 @@
               *ngFor="let service of item.services; let i = index"
             >
               <ng-container>
-                <div class="d-flex" (click)="toggleService(i)">
+                <div class="d-flex" (click)="toggleService(i)" #servicesRefs>
                 <h3
                   class="header ms-2 trHeader subtitle service-name"
                   [ngClass]="showService[i] ? 'open' : 'closed'"
