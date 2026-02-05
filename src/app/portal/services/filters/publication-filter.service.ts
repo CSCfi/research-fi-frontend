@@ -206,7 +206,7 @@ export class PublicationFilterService {
     },
     {
       field: 'topic',
-      label: $localize`:@@keywordsFilter:Avainsanat`,
+      label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
       hasSubFields: false,
       open: true,
       limitHeight: false,
