@@ -696,7 +696,8 @@ const translations_fi = {
   "publication_list_title_publicationtypeF": "F Julkinen taiteellinen ja taideteollinen toiminta",
   "publication_list_title_publicationtypeG": "G Opinnäytteet",
   "publication_list_title_publicationtypeI": "I Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset",
-  "publication_list_title_publicationtype_others": "OKM:n mukainen julkaisutyyppiluokitus puuttuu"
+  "publication_list_title_publicationtype_others": "OKM:n mukainen julkaisutyyppiluokitus puuttuu",
+  "publication_list_bullet_orcid_publicationtype_others": "Alla olevassa listassa näkyvät julkaisut, joilla ei ole OKM:n julkaisutyyppiluokitusta, sekä ORCID-palvelusta tuodut julkaisut."
 };
 
 const translations_sv = {
@@ -803,7 +804,8 @@ const translations_sv = {
   "publication_list_title_publicationtypeF": "F Offentlig konstnärlig och konstindustriell verksamhet",
   "publication_list_title_publicationtypeG": "G Lärdomsprov",
   "publication_list_title_publicationtypeI": "I Audiovisuellt publikationer samt data-och kommunikationstekniska program",
-  "publication_list_title_publicationtype_others": "Undervisnings‑ och kulturministeriets publikationstypklassificering saknas"
+  "publication_list_title_publicationtype_others": "Undervisnings‑ och kulturministeriets publikationstypklassificering saknas",
+  "publication_list_bullet_orcid_publicationtype_others": "I listan nedan visas publikationer som saknar OKM:s klassificering av publikationstyper samt publikationer som har importerats från ORCID-tjänsten."
 };
 
 const translations_en = {
@@ -910,7 +912,8 @@ const translations_en = {
   "publication_list_title_publicationtypeF": "F Public artistic and design activities",
   "publication_list_title_publicationtypeG": "G Theses",
   "publication_list_title_publicationtypeI": "I Audiovisual publications and ICT applications",
-  "publication_list_title_publicationtype_others": "The Ministry of Education and Culture publication type classification is missing"
+  "publication_list_title_publicationtype_others": "The Ministry of Education and Culture publication type classification is missing",
+  "publication_list_bullet_orcid_publicationtype_others": "The list below shows publications that do not have an OKM publication type classification, as well as publications imported from the ORCID service."
 };
 
 export function getTranslations(language: string) {

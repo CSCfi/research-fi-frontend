@@ -456,6 +456,7 @@ export class CvTemplateBuilderComponent {
   }
 
   private createPublicationRows(publicationsData, citationStyle: number, orderByPublicationType: boolean) {
+
     let orcidPublications = [];
     let ttvPublications = [];
     let formattedPublications: docx.Paragraph[] = [];
@@ -476,7 +477,7 @@ export class CvTemplateBuilderComponent {
       ttvPublications = ttvPublications.sort(this.comparePublicationTypeCodes);
 
       for (let i = 0; i < ttvPublications.length; i++) {
-        if (i === 1) {
+        if (i === 0) {
           formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames(ttvPublications[i].publicationTypeCodeShort)));
         }
 
@@ -502,6 +503,7 @@ export class CvTemplateBuilderComponent {
         }
       }
     } else {
+      // Ordered by publication year, not by type
       ttvPublications = ttvPublications.sort(this.comparePublicationYearsPublications).reverse();
 
       ttvPublications.forEach((publication) => {
@@ -515,7 +517,10 @@ export class CvTemplateBuilderComponent {
       formattedPublications = formattedPublications.concat(this.createBulletBlue(this.getTranslation('publication_list_bullet_orcid')));
       formattedPublications.push(this.createBaseParagraph(''));
     } else {
-      formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames('Z')));
+      // Ordered by publication year orcid caption
+      if (orcidPublications.length > 0) {
+        formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames('Z')));
+      }
     }
 
     orcidPublications.forEach((publication) => {
@@ -706,10 +711,10 @@ export class CvTemplateBuilderComponent {
           return this.getTranslation('publication_list_title_publicationtypeI');
           break;
         case 'Z':
-          return this.getTranslation('publication_list_title_publicationtype_others');
+          return this.getTranslation('publication_list_bullet_orcid_publicationtype_others');
           break;
         default:
-          return this.getTranslation('publication_list_title_publicationtype_others');
+          return this.getTranslation('publication_list_bullet_orcid_publicationtype_others');
       }
     }
   }
