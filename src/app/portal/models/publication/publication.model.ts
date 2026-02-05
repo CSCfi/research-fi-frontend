@@ -77,7 +77,8 @@ export class Publication {
     public selfArchivedData: any[],
     public completions: string[],
     public publicationChannel: string,
-    public citations: string[]
+    public citations: string[],
+    public identifiedTopics?: string[],
   ) {}
 }
 
