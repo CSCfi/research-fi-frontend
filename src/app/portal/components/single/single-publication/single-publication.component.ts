@@ -380,6 +380,7 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+    { label: $localize`:@@identifiedTopic:Tunnistettu aihe`, field: 'identifiedTopics' },
     {
       label: $localize`:@@fieldsOfArt:Taiteenalat`,
       field: 'artPublicationFieldsOfArtString',
@@ -676,11 +677,15 @@ export class SinglePublicationComponent
       source.languages = languages.map((x) => x[key]);
     }
 
+
     // Link with targeted search for keywords
     // We need to espace parentheses because these are registered in Angular router as secondary segments.
     // Broweser check is for SSR build. Current Node version doesn't support replaceAll function
+
     if (keywords?.length > 0 && this.appSettingsService.isBrowser) {
-      source.keywords = keywords
+      source.identifiedTopics = source.keywords.filter(item => item?.scheme === 'topic').map((item) => item.keyword.trim());
+
+      source.keywords = keywords.filter(item => item?.scheme === 'Avainsana')
         .map(
           (x) =>
             '<a href="/results/publications/' +
