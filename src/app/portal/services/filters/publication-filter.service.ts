@@ -204,6 +204,13 @@ export class PublicationFilterService {
         $localize`:@@noOpenAccessDataInfo:Julkaisun avoimen saatavuuden tilaa ei ole raportoitu.` +
         '</p>',
     },
+    {
+      field: 'topic',
+      label: $localize`:@@keywordsFilter:Avainsanat`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: false,
+    },
   ];
 
   singleFilterData = [
@@ -223,6 +230,22 @@ export class PublicationFilterService {
     private filterMethodService: FilterMethodService,
     private staticDataService: StaticDataService
   ) {}
+
+  private mapKeywords(keywords) {
+    const source = cloneDeep(keywords) || [];
+    const output = [...source.buckets];
+
+    // Sort based on doc_count and then alphabetically based on label
+    output.sort((a, b) => {
+      if (a.doc_count === b.doc_count) {
+        return a.key.localeCompare(b.key);
+      } else {
+        return b.doc_count - a.doc_count;
+      }
+    });
+
+    return output;
+  }
 
   shapeData(data, activeFilters?) {
     const source = data.aggregations;
@@ -276,6 +299,7 @@ export class PublicationFilterService {
     source.okmDataCollection.buckets = this.getOkmCollectedAmount(
       source.okmDataCollection.publicationStatusCodes.buckets
     );
+    source.topic.buckets = this.mapKeywords(source.topic.scheme.buckets[1].keywords);
     source.shaped = true;
     return source;
   }
