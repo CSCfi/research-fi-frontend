@@ -85,6 +85,7 @@ export class FilterService {
   sectorFilter: string[];
   topicFilterFundings: string[];
   topicFilterProjects: string[];
+  topicFilterPublications: string[];
   organizationFilter: string[];
   keywordFilterPersons: string[];
   positionFilter: string[];
@@ -273,6 +274,11 @@ export class FilterService {
       'publicationStatusCode.keyword',
       '9'
     );
+    this.topicFilterPublications = this.basicFilter(
+      filter.topic,
+      'keywords.keyword.keyword'
+    );
+
     // Funding
     this.funderFilter = this.basicFilter(
       filter.funder,
@@ -294,6 +300,7 @@ export class FilterService {
       filter.topic,
       'keywords.keyword.keyword'
     );
+
     // Datasets
     this.dataSourceFilter = this.basicFilter(
       filter.dataSource,
@@ -927,6 +934,7 @@ export class FilterService {
       ...basicFilter('publication', this.internationalCollaborationFilter),
       ...basicFilter('publication', this.okmDataCollectionFilter),
       ...basicFilter('publication', this.coPublicationFilter),
+      ...nestedFilter('publication', this.topicFilterPublications, 'keywords'),
       // Persons
       ...basicFilter('person', this.keywordFilterPersons),
       ...nestedFilter('person', this.organizationFilter, 'activity.affiliations.sector.organization'),
