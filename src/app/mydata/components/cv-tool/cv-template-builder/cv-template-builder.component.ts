@@ -706,10 +706,10 @@ export class CvTemplateBuilderComponent {
           return this.getTranslation('publication_list_title_publicationtypeI');
           break;
         case 'Z':
-          return this.getTranslation('publication_list_title_publicationtype_others');
+          return this.getTranslation('publication_list_bullet_orcid_publicationtype_others');
           break;
         default:
-          return this.getTranslation('publication_list_title_publicationtype_others');
+          return this.getTranslation('publication_list_bullet_orcid_publicationtype_others');
       }
     }
   }
