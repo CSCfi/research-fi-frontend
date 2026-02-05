@@ -209,6 +209,7 @@ export class PublicationFilterService {
       label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
       hasSubFields: false,
       open: true,
+      tooltip: $localize`:@@identifiedTopicInfoText: Koneoppimisen avulla tutkimustietovarannossa olevien julkaisujen tiedoista muodostettu aiheluokittelu. Julkaisu liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista julkaisuista ei ole riittävästi tietoa aiheen päättelyyn.`,
       limitHeight: false,
     },
   ];

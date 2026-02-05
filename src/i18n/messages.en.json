@@ -392,6 +392,7 @@
         "sfTypeOfFundingTooltip": "Method of funding research. Instruments of funding include research grants, project funding and research infrastructure funding. Instruments are often specific to each funder.",
         "fundingCountByIdentifiedTopic": "Division of projects by identified topic",
         "identifiedTopic": "Identified topic",
+        "identifiedTopicInfoText": "A subject classification created using machine learning based on information on publications in the research information database. Each publication is associated with the topic it most likely addresses. For some publications, there is not enough information to infer the topic.",
         "identifiedTopics": "Identified topics",
         "identifiedTopicsTooltip": "Comprehensive topic categorisation, spanning all grants in the Hub, is formed with the help of machine learning. Then each grant is assigned the topic it most likely addresses. There is not enough information on all grants to identify the topic.",
         "fieldOfScienceTooltip": "The Statistics Finland’s Fields of science classification. One grant may involve multiple fields of science. Not all funders use fields of science.",
