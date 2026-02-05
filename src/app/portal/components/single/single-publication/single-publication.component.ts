@@ -380,7 +380,9 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
-    { label: $localize`:@@identifiedTopic:Tunnistettu aihe`, field: 'identifiedTopics' },
+    { label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
+      field: 'identifiedTopics',
+      tooltip: $localize`:@@identifiedTopicInfoText: Koneoppimisen avulla tutkimustietovarannossa olevien julkaisujen tiedoista muodostettu aiheluokittelu. Julkaisu liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista julkaisuista ei ole riittävästi tietoa aiheen päättelyyn.` },
     {
       label: $localize`:@@fieldsOfArt:Taiteenalat`,
       field: 'artPublicationFieldsOfArtString',
