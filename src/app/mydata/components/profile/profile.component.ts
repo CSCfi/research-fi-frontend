@@ -190,19 +190,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileData = parsedDraft;
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
-        this.profileService.clearCurrentProfileData();
-        this.profileService
-          .fetchProfileDataFromBackend()
-          .then(
-            (value) => {
-              if (value) {
-                this.profileService.setCurrentProfileData(
-                  cloneDeep(value.profileData)
-                );
-                this.profileData = clone(value.profileData);
-              }
-            });
-        this.profileService.setEditorProfileName(this.route.snapshot.data.myDataProfile.name);
+        this.profileData = cloneDeep(this.profileService.currentProfileData);
+
+        // Refetch needed after save
+        if (!this.profileService.currentProfileData) {
+          this.profileService.clearCurrentProfileData();
+          this.profileService
+            .fetchProfileDataFromBackend()
+            .then(
+              (value) => {
+                if (value) {
+                  this.profileService.setCurrentProfileData(
+                    cloneDeep(value.profileData)
+                  );
+                  this.profileData = cloneDeep(value.profileData);
+                }
+              });
+          this.profileService.setEditorProfileName(this.route.snapshot.data.myDataProfile.name);
+        }
       }
       this.fullName = this.profileService.currentEditorProfileName;
       //this.highlightOpennessInitialState$ = this.draftService.highlightOpennessPayloadSubObs;
