@@ -522,7 +522,8 @@ export class CvTemplateBuilderComponent {
     } else {
       // Ordered by publication year orcid caption
       if (orcidPublications.length > 0) {
-        formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames('Z')));
+        formattedPublications.push(this.createBulletBlue(this.getPublicationTypeClassNames('Z')));
+        formattedPublications.push(this.createBaseParagraph(''));
       }
     }
 
