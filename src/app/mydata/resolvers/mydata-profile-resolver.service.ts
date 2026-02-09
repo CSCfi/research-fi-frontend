@@ -44,6 +44,7 @@ export class MyDataProfileResolverService  implements OnDestroy {
                   name: getName(value.profileData),
                   profileData: value.profileData,
                 });
+                this.profileService.setEditorProfileName(getName(value.profileData));
               }
             },
             (reason) => {
