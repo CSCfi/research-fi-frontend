@@ -485,7 +485,7 @@ export class CvTemplateBuilderComponent {
 
         if (i + 1 < ttvPublications.length) {
           if (ttvPublications[i].publicationTypeCodeShort !== ttvPublications[i+1].publicationTypeCodeShort) {
-            // Sort previous publication class publications and add them after previously created caption
+            // Publication type changed. Sort previous publication class publications and add them after previously created caption
             unsortedPublications.sort(this.comparePublicationYearsPublications).reverse().forEach(publication => {
               formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
               formattedPublications.push(this.createBaseParagraph(''));
@@ -496,9 +496,12 @@ export class CvTemplateBuilderComponent {
           }
         }
         else {
-          // On last publication
-          formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(unsortedPublications[0], citationStyle)));
-          formattedPublications.push(this.createBaseParagraph(''));
+          // On last publication(s)
+          unsortedPublications.sort(this.comparePublicationYearsPublications).reverse().forEach(publication => {
+            formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
+            formattedPublications.push(this.createBaseParagraph(''));
+          });
+
           unsortedPublications = [];
         }
       }
