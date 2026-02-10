@@ -57,38 +57,38 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-    selector: 'app-results',
-    templateUrl: './results.component.html',
-    styleUrls: ['./results.component.scss'],
-    imports: [
-        SearchBarComponent,
-        TabNavigationComponent,
-        NgIf,
-        PrimaryActionButtonComponent,
-        RouterLink,
-        SecondaryButtonComponent,
-        ResultCountComponent,
-        NgClass,
-        NgTemplateOutlet,
-        SortComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        FundingCallCategoryFiltersComponent,
-        ActiveFiltersComponent,
-        SearchResultsComponent,
-        NgFor,
-        FiltersComponent,
-        MatFormField,
-        MatLabel,
-        MatSelect,
-        MatOption,
-        VisualisationComponent,
-        DialogComponent,
-        ClickOutsideDirective,
-        AsyncPipe,
-        SvgSpritesComponent
-    ]
+  selector: 'app-results',
+  templateUrl: './results.component.html',
+  styleUrls: ['./results.component.scss'],
+  imports: [
+    SearchBarComponent,
+    TabNavigationComponent,
+    NgIf,
+    PrimaryActionButtonComponent,
+    RouterLink,
+    SecondaryButtonComponent,
+    ResultCountComponent,
+    NgClass,
+    NgTemplateOutlet,
+    SortComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    FundingCallCategoryFiltersComponent,
+    ActiveFiltersComponent,
+    SearchResultsComponent,
+    NgFor,
+    FiltersComponent,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    VisualisationComponent,
+    DialogComponent,
+    ClickOutsideDirective,
+    AsyncPipe,
+    SvgSpritesComponent
+  ]
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   breakpointObserver$ = inject(BreakpointObserver);
@@ -201,6 +201,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   mydataLoginSnackbarVisible = false;
   betaSearchBannerVisible = false;
   projectInfoBannerVisible = false;
+  infrastructuresBetaBannerVisible = false;
+  infrastructuresBetaBannerLink = 'https://wiki.eduuni.fi/x/awgtBQ';
 
   private metaTagsList = [
     MetaTags.publications,
@@ -288,6 +290,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       if (sessionStorage.getItem('projectInfoBannerVisible')) {
         this.projectInfoBannerVisible = true;
+      }
+      if (sessionStorage.getItem('infrastructuresBetaBannerVisible')) {
+        this.infrastructuresBetaBannerVisible = true;
       }
     }
 
@@ -668,6 +673,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.projectInfoBannerVisible = false;
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.removeItem('projectInfoBannerVisible');
+    }
+  }
+
+  hideInfrastructuresBetaBanner() {
+    this.infrastructuresBetaBannerVisible = false;
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.removeItem('infrastructuresBetaBannerVisible');
     }
   }
 
