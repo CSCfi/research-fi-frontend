@@ -50,25 +50,25 @@ import { DialogEventsService } from '@shared/services/dialog-events.service';
 type DomainObject = { label: string; locale: string; url: string };
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    imports: [
-        NgClass,
-        NgIf,
-        RouterLink,
-        DialogComponent,
-        CloseButtonComponent,
-        NgFor,
-        RouterLinkActive,
-        ClickOutsideDirective,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        PrimaryActionButtonComponent,
-        SvgSpritesComponent
-    ]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  imports: [
+    NgClass,
+    NgIf,
+    RouterLink,
+    DialogComponent,
+    CloseButtonComponent,
+    NgFor,
+    RouterLinkActive,
+    ClickOutsideDirective,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    PrimaryActionButtonComponent,
+    SvgSpritesComponent
+  ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
@@ -310,6 +310,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       sessionStorage.setItem('researchersLoginSnackbarVisible', 'true');
       sessionStorage.setItem('projectInfoBannerVisible', 'true');
       sessionStorage.setItem('betaSearchBannerVisible', 'true');
+      sessionStorage.setItem('infrastructuresBetaBannerVisible', 'true');
     }
 
     // Subscribe to consent status and set consent. This is also used in linking between language versions

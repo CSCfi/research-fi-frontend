@@ -17,7 +17,8 @@ export class InfraService {
     public scientificDescription: string,
     public acronym: string,
     public type: string,
-    public servicePoints: ServicePoint[]
+    public servicePoints: ServicePoint[],
+    public urn: string,
   ) {}
 }
 
@@ -32,7 +33,7 @@ export class InfraServiceAdapter implements Adapter<InfraService> {
   adapt(item: any): InfraService {
     const servicePoints: ServicePoint[] = [];
 
-    item.servicePoints.forEach((sp) => {
+    item?.servicePoints?.forEach((sp) => {
       servicePoints.push(this.spa.adapt(sp));
     });
 
@@ -42,7 +43,8 @@ export class InfraServiceAdapter implements Adapter<InfraService> {
       this.utils.checkTranslation('serviceScientificDescription', item),
       item.serviceAcronym,
       this.utils.translateInfraServiceType(item.serviceType),
-      servicePoints
+      servicePoints,
+      item.urn
     );
   }
 }
