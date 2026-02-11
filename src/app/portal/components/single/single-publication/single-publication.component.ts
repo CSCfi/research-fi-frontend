@@ -381,7 +381,7 @@ export class SinglePublicationComponent
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
     { label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
-      field: 'identifiedTopics',
+      field: 'identifiedTopic',
       tooltip: $localize`:@@identifiedTopicInfoText: Koneoppimisen avulla tutkimustietovarannossa olevien julkaisujen tiedoista muodostettu aiheluokittelu. Julkaisu liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista julkaisuista ei ole riittävästi tietoa aiheen päättelyyn.` },
     {
       label: $localize`:@@fieldsOfArt:Taiteenalat`,
@@ -685,7 +685,7 @@ export class SinglePublicationComponent
     // Broweser check is for SSR build. Current Node version doesn't support replaceAll function
 
     if (keywords?.length > 0 && this.appSettingsService.isBrowser) {
-      source.identifiedTopics = source.keywords.filter(item => item?.scheme === 'topic').map((item) => item.keyword.trim());
+      source.identifiedTopic = source.keywords.filter(item => item?.scheme === 'topic').map((item) => item.keyword.trim());
 
       source.keywords = keywords.filter(item => item?.scheme === 'Avainsana')
         .map(
