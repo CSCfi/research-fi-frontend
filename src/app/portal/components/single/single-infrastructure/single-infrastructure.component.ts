@@ -353,16 +353,16 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
     source.services = source.services
       .map((service) =>
-      {
-        if (service.urn?.length > 11) {
-          if (service.urn.substring(11, service.urn.length) === this.selectedServiceUrn) {
-            this.showService[openedInd] = true;
-            this.selectedServiceIndex = openedInd;
+        {
+          if (service.urn?.length > 11) {
+            if (service.urn.substring(11, service.urn.length) === this.selectedServiceUrn) {
+              this.showService[openedInd] = true;
+              this.selectedServiceIndex = openedInd;
+            }
           }
+          openedInd += 1;
+          return UtilityService.objectHasContent(service) ? service : undefined
         }
-        openedInd += 1;
-        return UtilityService.objectHasContent(service) ? service : undefined
-      }
       )
       .filter((x) => x);
 
