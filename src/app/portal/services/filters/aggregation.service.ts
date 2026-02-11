@@ -333,7 +333,7 @@ export class AggregationService {
               terms: {
                 field: 'identifiedTopics.topic.keyword',
                 exclude: ' ',
-                size: 10,
+                size: 500,
                 order: {
                   _key: 'asc',
                 },
@@ -343,7 +343,7 @@ export class AggregationService {
                   terms: {
                     field: 'identifiedTopics.topics.keyword',
                     exclude: ' ',
-                    size: 250,
+                    size: 500,
                   },
                   aggs: {
                     filtered: {
