@@ -205,7 +205,7 @@ export class PublicationFilterService {
         '</p>',
     },
     {
-      field: 'topic',
+      field: 'identifiedTopic',
       label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
       hasSubFields: false,
       open: true,
@@ -232,7 +232,7 @@ export class PublicationFilterService {
     private staticDataService: StaticDataService
   ) {}
 
-  private mapKeywords(keywords) {
+  private mapIdentifiedTopics(keywords) {
     const source = cloneDeep(keywords) || [];
     const output = [...source.buckets];
 
@@ -300,7 +300,7 @@ export class PublicationFilterService {
     source.okmDataCollection.buckets = this.getOkmCollectedAmount(
       source.okmDataCollection.publicationStatusCodes.buckets
     );
-    source.topic.buckets = this.mapKeywords(source.topic.scheme.buckets[1].keywords);
+    source.identifiedTopic.buckets = this.mapIdentifiedTopics(source.identifiedTopic.topics);
     source.shaped = true;
     return source;
   }

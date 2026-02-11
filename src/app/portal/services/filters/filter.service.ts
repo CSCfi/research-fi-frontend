@@ -55,6 +55,7 @@ export type Filters = {
   decisionMaker: string[];
   callId: string[];
   approvalDate: string[];
+  identifiedTopic: string[];
 };
 
 @Injectable({
@@ -136,6 +137,7 @@ export class FilterService {
     status: [],
     typeOfFundingId: [],
     approvalYear: [],
+    identifiedTopic: [],
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -217,6 +219,7 @@ export class FilterService {
       typeOfFundingId: mapFilter(source.typeOfFundingId),
       approvalYear: mapFilter(source.approvalYear),
       decisionMaker: mapFilter(source.decisionMaker),
+      identifiedTopic: mapFilter(source.identifiedTopic),
     };
   }
 
@@ -275,8 +278,8 @@ export class FilterService {
       '9'
     );
     this.topicFilterPublications = this.basicFilter(
-      filter.topic,
-      'keywords.keyword.keyword'
+      filter.identifiedTopic,
+      'identifiedTopics.topic.keyword'
     );
 
     // Funding
@@ -934,7 +937,7 @@ export class FilterService {
       ...basicFilter('publication', this.internationalCollaborationFilter),
       ...basicFilter('publication', this.okmDataCollectionFilter),
       ...basicFilter('publication', this.coPublicationFilter),
-      ...nestedFilter('publication', this.topicFilterPublications, 'keywords'),
+      ...nestedFilter('publication', this.topicFilterPublications, 'identifiedTopics'),
       // Persons
       ...basicFilter('person', this.keywordFilterPersons),
       ...nestedFilter('person', this.organizationFilter, 'activity.affiliations.sector.organization'),

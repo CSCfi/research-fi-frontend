@@ -131,6 +131,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     internationalCollaboration: any[];
     organization: any[];
     related: any[];
+    identifiedTopic: any[];
   };
   fundingFilters: {
     funder: any[];
