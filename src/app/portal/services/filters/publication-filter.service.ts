@@ -204,6 +204,14 @@ export class PublicationFilterService {
         $localize`:@@noOpenAccessDataInfo:Julkaisun avoimen saatavuuden tilaa ei ole raportoitu.` +
         '</p>',
     },
+    {
+      field: 'identifiedTopic',
+      label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
+      hasSubFields: false,
+      open: true,
+      tooltip: $localize`:@@identifiedTopicInfoText: Koneoppimisen avulla tutkimustietovarannossa olevien julkaisujen tiedoista muodostettu aiheluokittelu. Julkaisu liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista julkaisuista ei ole riittävästi tietoa aiheen päättelyyn.`,
+      limitHeight: false,
+    },
   ];
 
   singleFilterData = [
@@ -223,6 +231,22 @@ export class PublicationFilterService {
     private filterMethodService: FilterMethodService,
     private staticDataService: StaticDataService
   ) {}
+
+  private mapIdentifiedTopics(keywords) {
+    const source = cloneDeep(keywords) || [];
+    const output = [...source.buckets];
+
+    // Sort based on doc_count and then alphabetically based on label
+    output.sort((a, b) => {
+      if (a.doc_count === b.doc_count) {
+        return a.key.localeCompare(b.key);
+      } else {
+        return b.doc_count - a.doc_count;
+      }
+    });
+
+    return output;
+  }
 
   shapeData(data, activeFilters?) {
     const source = data.aggregations;
@@ -276,6 +300,7 @@ export class PublicationFilterService {
     source.okmDataCollection.buckets = this.getOkmCollectedAmount(
       source.okmDataCollection.publicationStatusCodes.buckets
     );
+    source.identifiedTopic.buckets = this.mapIdentifiedTopics(source.identifiedTopic.topics);
     source.shaped = true;
     return source;
   }

@@ -324,6 +324,46 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.identifiedTopic = {
+          nested: {
+            path: 'identifiedTopics',
+          },
+          aggs: {
+            topics: {
+              terms: {
+                field: 'identifiedTopics.topic.keyword',
+                exclude: ' ',
+                size: 500,
+                order: {
+                  _key: 'asc',
+                },
+              },
+              aggs: {
+                keywords: {
+                  terms: {
+                    field: 'identifiedTopics.topics.keyword',
+                    exclude: ' ',
+                    size: 500,
+                  },
+                  aggs: {
+                    filtered: {
+                      reverse_nested: {},
+                      aggs: {
+                        filterCount: {
+                          filter: {
+                            bool: {
+                              filter: filterActiveNested('identifiedTopics'),
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
         payLoad.aggs.countryCode = {
           filter: {
             bool: {

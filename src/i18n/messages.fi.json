@@ -889,6 +889,7 @@
         "FAField": "Teemat",
         "fthemesTooltip": "Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan myöntämiä rahoituksia.",
         "identifiedTopic": "Tunnistettu aihe",
+        "identifiedTopicInfoText": "Koneoppimisen avulla tutkimustietovarannossa olevien julkaisujen tiedoista muodostettu aiheluokittelu. Julkaisu liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista julkaisuista ei ole riittävästi tietoa aiheen päättelyyn.",
         "FAResearchFields": "Suomen Akatemian tutkimusalat",
         "fresearchFieldTooltip": "Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.",
         "iYearFTooltip": "Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.",
@@ -1224,6 +1225,10 @@
         "publication_list_note_text": "Julkaisut profiilityökalussa eivät välttämättä täytä julkaisuluettelon vaatimuksia. Tarkista viitetietojen oikeellisuus ennen kuin jaat tai lähetät luettelon eteenpäin.",
         "cvTool": "CV-työkalu",
         "grantYearMissing": "Aloitusvuosi puuttuu",
-        "infraRenewalInfoBannerText": "Tiedejatutkimus.fi -portaalissa uudistetaan tutkimusinfrastruktuureita ja niihin liittyvää tiedonsiirtoa yhdessä tietoa toimittavien organisaatioiden kanssa. Uudistuksesta johtuen tietojen kattavuudessa on puutteita."
+        "publication_list_order_buttons_title": "Valitse julkaisuluettelon järjestys",
+        "publication_list_radio_buttons_sort_year": "Vuoden mukaan",
+        "publication_list_radio_buttons_sort_publication_type": "OKM:n julkaisuluokituksen mukaan",
+        "publication_list_radio_buttons_sort_publication_type_info": "OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A-G, I",
+      "infraRenewalInfoBannerText": "Tiedejatutkimus.fi -portaalissa uudistetaan tutkimusinfrastruktuureita ja niihin liittyvää tiedonsiirtoa yhdessä tietoa toimittavien organisaatioiden kanssa. Uudistuksesta johtuen tietojen kattavuudessa on puutteita."
     }
 }
