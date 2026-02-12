@@ -434,8 +434,8 @@ export class CvTemplateBuilderComponent {
 
     if (publication.dataSources[0].registeredDataSource === 'ORCID') {
       if (citationStyle === 0) {
-        const publicationYearStrApa = publication['publicationYear']?.length > 0 ? ' (' + publication['publicationYear'] + ').' : '';
-        const publicationNameStrApa = publication['publicationName']?.length > 0 ? ' ' + publication['publicationName'] + '.' : '';
+        const publicationYearStrApa = publication['publicationYear']?.length > 0 ? ' (' + publication['publicationYear'] + '). ' : '';
+        const publicationNameStrApa = publication['publicationName']?.length > 0 ? publication['publicationName'] + '.' : '';
         return publication['authorsText'] + publicationYearStrApa + publicationNameStrApa + publicationDoiStr;
       } else if (citationStyle === 1) {
         const publicationYearStrChicago = publication['publicationYear']?.length > 0 ? publication['publicationYear'] + '. ' : '';
@@ -456,6 +456,7 @@ export class CvTemplateBuilderComponent {
   }
 
   private createPublicationRows(publicationsData, citationStyle: number, orderByPublicationType: boolean) {
+
     let orcidPublications = [];
     let ttvPublications = [];
     let formattedPublications: docx.Paragraph[] = [];
@@ -476,7 +477,7 @@ export class CvTemplateBuilderComponent {
       ttvPublications = ttvPublications.sort(this.comparePublicationTypeCodes);
 
       for (let i = 0; i < ttvPublications.length; i++) {
-        if (i === 1) {
+        if (i === 0) {
           formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames(ttvPublications[i].publicationTypeCodeShort)));
         }
 
@@ -484,7 +485,7 @@ export class CvTemplateBuilderComponent {
 
         if (i + 1 < ttvPublications.length) {
           if (ttvPublications[i].publicationTypeCodeShort !== ttvPublications[i+1].publicationTypeCodeShort) {
-            // Sort previous publication class publications and add them after previously created caption
+            // Publication type changed. Sort previous publication class publications and add them after previously created caption
             unsortedPublications.sort(this.comparePublicationYearsPublications).reverse().forEach(publication => {
               formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
               formattedPublications.push(this.createBaseParagraph(''));
@@ -495,13 +496,17 @@ export class CvTemplateBuilderComponent {
           }
         }
         else {
-          // On last publication
-          formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(unsortedPublications[0], citationStyle)));
-          formattedPublications.push(this.createBaseParagraph(''));
+          // On last publication(s)
+          unsortedPublications.sort(this.comparePublicationYearsPublications).reverse().forEach(publication => {
+            formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
+            formattedPublications.push(this.createBaseParagraph(''));
+          });
+
           unsortedPublications = [];
         }
       }
     } else {
+      // Ordered by publication year, not by type
       ttvPublications = ttvPublications.sort(this.comparePublicationYearsPublications).reverse();
 
       ttvPublications.forEach((publication) => {
@@ -515,7 +520,11 @@ export class CvTemplateBuilderComponent {
       formattedPublications = formattedPublications.concat(this.createBulletBlue(this.getTranslation('publication_list_bullet_orcid')));
       formattedPublications.push(this.createBaseParagraph(''));
     } else {
-      formattedPublications.push(this.createHeadingLevel2(this.getPublicationTypeClassNames('Z')));
+      // Ordered by publication year orcid caption
+      if (orcidPublications.length > 0) {
+        formattedPublications.push(this.createBulletBlue(this.getPublicationTypeClassNames('Z')));
+        formattedPublications.push(this.createBaseParagraph(''));
+      }
     }
 
     orcidPublications.forEach((publication) => {
@@ -706,10 +715,10 @@ export class CvTemplateBuilderComponent {
           return this.getTranslation('publication_list_title_publicationtypeI');
           break;
         case 'Z':
-          return this.getTranslation('publication_list_title_publicationtype_others');
+          return this.getTranslation('publication_list_bullet_orcid_publicationtype_others');
           break;
         default:
-          return this.getTranslation('publication_list_title_publicationtype_others');
+          return this.getTranslation('publication_list_bullet_orcid_publicationtype_others');
       }
     }
   }

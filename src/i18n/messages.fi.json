@@ -889,6 +889,7 @@
         "FAField": "Teemat",
         "fthemesTooltip": "Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan myöntämiä rahoituksia.",
         "identifiedTopic": "Tunnistettu aihe",
+        "identifiedTopicInfoText": "Koneoppimisen avulla tutkimustietovarannossa olevien julkaisujen tiedoista muodostettu aiheluokittelu. Julkaisu liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista julkaisuista ei ole riittävästi tietoa aiheen päättelyyn.",
         "FAResearchFields": "Suomen Akatemian tutkimusalat",
         "fresearchFieldTooltip": "Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.",
         "iYearFTooltip": "Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.",
