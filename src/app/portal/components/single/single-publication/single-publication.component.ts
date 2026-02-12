@@ -381,7 +381,7 @@ export class SinglePublicationComponent
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
     { label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
-      field: 'identifiedTopic',
+      field: 'identifiedTopics',
       tooltip: $localize`:@@identifiedTopicInfoText: Koneoppimisen avulla tutkimustietovarannossa olevien julkaisujen tiedoista muodostettu aiheluokittelu. Julkaisu liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista julkaisuista ei ole riittävästi tietoa aiheen päättelyyn.` },
     {
       label: $localize`:@@fieldsOfArt:Taiteenalat`,
@@ -667,6 +667,7 @@ export class SinglePublicationComponent
     const countries = source.countries;
     const languages = source.languages;
     const keywords = source.keywords;
+    const identifiedTopics = source.identifiedTopics;
     const author = source.author;
 
     if (countries?.length > 0) {
@@ -685,10 +686,7 @@ export class SinglePublicationComponent
     // Broweser check is for SSR build. Current Node version doesn't support replaceAll function
 
     if (keywords?.length > 0 && this.appSettingsService.isBrowser) {
-      source.identifiedTopic = source.keywords.filter(item => item?.scheme === 'topic').map((item) => item.keyword.trim());
-
-      source.keywords = keywords.filter(item => item?.scheme === 'Avainsana')
-        .map(
+      source.keywords = keywords.map(
           (x) =>
             '<a href="/results/publications/' +
             x.keyword.replaceAll(/\(/g, '%28').replaceAll(/\)/g, '%29').trim() +
@@ -697,6 +695,10 @@ export class SinglePublicationComponent
             '</a>'
         )
         .join('; ');
+    }
+
+    if (identifiedTopics?.length > 0 && this.appSettingsService.isBrowser) {
+      source.identifiedTopics = identifiedTopics.map(idTopic => idTopic.topic.trim()).join('; ');
     }
 
     // Get authors per organization

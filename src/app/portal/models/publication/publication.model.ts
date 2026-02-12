@@ -78,7 +78,7 @@ export class Publication {
     public completions: string[],
     public publicationChannel: string,
     public citations: string[],
-    public identifiedTopic?: string[],
+    public identifiedTopics?: any,
   ) {}
 }
 
@@ -401,7 +401,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.completions,
       channel,
       citations,
-      item.identifiedTopic
+      item.identifiedTopics
     );
   }
 }
