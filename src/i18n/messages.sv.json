@@ -393,6 +393,7 @@
         "sfTypeOfFundingTooltip": "Sätt att finansiera forskning. Typer av finansiering är till exempel forskningsbidrag, projektfinansiering och forskningsinfrastrukturfinansiering. Finansieringstyper är ofta finansiärspecifika.",
         "fundingCountByIdentifiedTopic": "Fördelning av projekt efter identifierat ämne",
         "identifiedTopic": "Identifierade tema",
+        "identifiedTopicInfoText": "En ämnesklassificering som har skapats med hjälp av maskininlärning utifrån uppgifter om publikationer i forskningsdatabasen. Publikationen kopplas till det ämne som den sannolikt behandlar. För vissa publikationer finns det inte tillräckligt med information för att fastställa ämnet.",
         "identifiedTopics": "Identifierade teman",
         "identifiedTopicsTooltip": "Med hjälp av maskininlärning bildas en ämneskategorisering från bidragsinformation. Finansiering relaterar till ämnet det i stor sannolikheten handlar. Vissa bidrag innehåller inte tillräckligt information för att identifiera teman.",
         "fieldOfScienceTooltip": "Statistikcentralens klassificering av vetenskapsområden. Beviljade finansiering kan omfatta flera vetenskapsområden. Vissa finansiärer använder inte vetenskapsområden.",

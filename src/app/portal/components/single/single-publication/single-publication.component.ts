@@ -380,6 +380,9 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+    { label: $localize`:@@identifiedTopic:Tunnistettu aihe`,
+      field: 'identifiedTopics',
+      tooltip: $localize`:@@identifiedTopicInfoText: Koneoppimisen avulla tutkimustietovarannossa olevien julkaisujen tiedoista muodostettu aiheluokittelu. Julkaisu liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista julkaisuista ei ole riittävästi tietoa aiheen päättelyyn.` },
     {
       label: $localize`:@@fieldsOfArt:Taiteenalat`,
       field: 'artPublicationFieldsOfArtString',
@@ -664,6 +667,7 @@ export class SinglePublicationComponent
     const countries = source.countries;
     const languages = source.languages;
     const keywords = source.keywords;
+    const identifiedTopics = source.identifiedTopics;
     const author = source.author;
 
     if (countries?.length > 0) {
@@ -676,12 +680,13 @@ export class SinglePublicationComponent
       source.languages = languages.map((x) => x[key]);
     }
 
+
     // Link with targeted search for keywords
     // We need to espace parentheses because these are registered in Angular router as secondary segments.
     // Broweser check is for SSR build. Current Node version doesn't support replaceAll function
+
     if (keywords?.length > 0 && this.appSettingsService.isBrowser) {
-      source.keywords = keywords
-        .map(
+      source.keywords = keywords.map(
           (x) =>
             '<a href="/results/publications/' +
             x.keyword.replaceAll(/\(/g, '%28').replaceAll(/\)/g, '%29').trim() +
@@ -690,6 +695,10 @@ export class SinglePublicationComponent
             '</a>'
         )
         .join('; ');
+    }
+
+    if (identifiedTopics?.length > 0 && this.appSettingsService.isBrowser) {
+      source.identifiedTopics = identifiedTopics.map(idTopic => idTopic.topic.trim()).join('; ');
     }
 
     // Get authors per organization

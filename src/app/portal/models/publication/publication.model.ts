@@ -77,7 +77,8 @@ export class Publication {
     public selfArchivedData: any[],
     public completions: string[],
     public publicationChannel: string,
-    public citations: string[]
+    public citations: string[],
+    public identifiedTopics?: any,
   ) {}
 }
 
@@ -399,7 +400,8 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.selfArchivedData,
       item.completions,
       channel,
-      citations
+      citations,
+      item.identifiedTopics
     );
   }
 }
