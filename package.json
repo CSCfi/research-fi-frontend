@@ -51,7 +51,7 @@
     "@angular/router": "^20.3.1",
     "@angular/ssr": "^20.3.6",
     "@dotenvx/dotenvx": "^1.6.4",
-    "angular-auth-oidc-client": "^14.1.5",
+    "angular-auth-oidc-client": "^20.0.2",
     "bootstrap": "^5.3.3",
     "d3-scale-chromatic": "^2.0.0",
     "d3-zoom": "^2.0.0",
