@@ -55,6 +55,8 @@ export class Funding {
     public additionalOrgs: { name: string; orgId: number }[],
     public totalFundingAmount: number,
     public council?: Council,
+    public owsTitles?: string[],
+    public owsDescriptions?: string[],
   ) {}
 }
 
@@ -231,6 +233,17 @@ export class FundingAdapter implements Adapter<Funding> {
       }));
     }
 
+    let owsTitles = [];
+    item.projectNameUnd?.trim() ? owsTitles.push(item.projectNameUnd) : undefined;
+    item.projectNameSv?.trim() ? owsTitles.push(item.projectNameSv) : undefined;
+    item.projectNameEn?.trim() ? owsTitles.push(item.projectNameEn) : undefined;
+    item.projectNameFi?.trim() ? owsTitles.push(item.projectNameFi) : undefined;
+
+    let owsDescriptions = [];
+    item.projectDescriptionSv?.trim() ? owsDescriptions.push(item.projectDescriptionSv) : undefined;
+    item.projectDescriptionEn?.trim() ? owsDescriptions.push(item.projectDescriptionEn) : undefined;
+    item.projectDescriptionFi?.trim() ? owsDescriptions.push(item.projectDescriptionFi) : undefined;
+
     return new Funding(
       item.mainProjectId || item.projectId,
       this.utils.checkTranslation('projectName', item),
@@ -256,7 +269,9 @@ export class FundingAdapter implements Adapter<Funding> {
       relatedFundings,
       additionalOrgs,
       totalFundingAmount,
-      item.council?.length > 0 ? item.council[0] : undefined
+      item.council?.length > 0 ? item.council[0] : undefined,
+      owsTitles,
+      owsDescriptions
     );
   }
 }

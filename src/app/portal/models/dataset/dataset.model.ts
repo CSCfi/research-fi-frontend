@@ -60,7 +60,9 @@ export class Dataset {
     public fairdataUrl: string,
     public url: string,
     public datasetVersions: any[],
-    public datasetRelations: any[]
+    public datasetRelations: any[],
+    public owsTitles?: string[],
+    public owsDescriptions?: string[],
   ) {}
 }
 
@@ -357,6 +359,18 @@ export class DatasetAdapter implements Adapter<Dataset> {
       }))
       .sort((a, b) => b.versionNumber - a.versionNumber);
 
+    let owsTitles = [];
+    item.nameUnd ? owsTitles.push(item.nameUnd) : undefined;
+    item.nameSv ? owsTitles.push(item.nameSv) : undefined;
+    item.nameEn ? owsTitles.push(item.nameEn) : undefined;
+    item.nameFi ? owsTitles.push(item.nameFi) : undefined;
+
+    let owsDescriptions = [];
+    item.descriptionUnd ? owsDescriptions.push(item.descriptionUnd) : undefined;
+    item.descriptionSv ? owsDescriptions.push(item.descriptionSv) : undefined;
+    item.descriptionEn ? owsDescriptions.push(item.descriptionEn) : undefined;
+    item.descriptionFi ? owsDescriptions.push(item.descriptionFi) : undefined;
+
     return new Dataset(
       item.identifier,
       this.utils.checkTranslation('name', item),
@@ -385,7 +399,9 @@ export class DatasetAdapter implements Adapter<Dataset> {
       item.fairdataUrl,
       url,
       datasetVersions,
-      datasetRelationsByTypes
+      datasetRelationsByTypes,
+      owsTitles,
+      owsDescriptions
     );
   }
 }

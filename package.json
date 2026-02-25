@@ -53,6 +53,7 @@
     "@dotenvx/dotenvx": "^1.6.4",
     "angular-auth-oidc-client": "^14.1.5",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.5.1",
     "d3-scale-chromatic": "^2.0.0",
     "d3-zoom": "^2.0.0",
     "d3v4": "^4.2.2",

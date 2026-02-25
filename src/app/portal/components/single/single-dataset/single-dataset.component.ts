@@ -37,33 +37,35 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { OwsRelatedPieChartComponent } from '@shared/components/piechart/ows-related-pie-chart.component';
 
 @Component({
     selector: 'app-single-dataset',
     templateUrl: './single-dataset.component.html',
     styleUrls: ['./single-dataset.component.scss'],
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        SecondaryButtonComponent,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        NgClass,
-        TooltipModule,
-        DatasetAuthorComponent,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        MatProgressSpinner,
-        SafeUrlPipe,
-        SvgSpritesComponent
-    ]
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    SecondaryButtonComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    NgClass,
+    TooltipModule,
+    DatasetAuthorComponent,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    MatProgressSpinner,
+    SafeUrlPipe,
+    SvgSpritesComponent,
+    OwsRelatedPieChartComponent
+  ]
 })
 export class SingleDatasetComponent implements OnInit {
   public singleId: any;

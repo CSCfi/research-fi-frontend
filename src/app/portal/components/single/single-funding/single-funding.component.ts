@@ -36,32 +36,34 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { OwsRelatedPieChartComponent } from '@shared/components/piechart/ows-related-pie-chart.component';
 
 @Component({
     selector: 'app-single-funding',
     templateUrl: './single-funding.component.html',
     styleUrls: ['./single-funding.component.scss'],
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        NgClass,
-        NgSwitch,
-        NgSwitchDefault,
-        OrcidComponent,
-        NgSwitchCase,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        DatePipe,
-        ThousandSeparatorPipe,
-        SvgSpritesComponent
-    ]
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    NgClass,
+    NgSwitch,
+    NgSwitchDefault,
+    OrcidComponent,
+    NgSwitchCase,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    DatePipe,
+    ThousandSeparatorPipe,
+    SvgSpritesComponent,
+    OwsRelatedPieChartComponent
+  ]
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;
