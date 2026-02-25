@@ -1,0 +1,33 @@
+.simple-pagination-wrap {
+  margin-top: 15px;
+}
+
+.page-num-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50px;
+  text-align: center;
+  height: 27px;
+  cursor: pointer;
+  color: var(--purple-primary, #4546B9);
+
+  &.selected {
+    color: black;
+    background: var(--purple-bg, #E8E8F5);
+    border-radius: 4px;
+    text-decoration: underline;
+  }
+}
+
+.selected-page-button {
+  height: 15px;
+  width: 15px;
+}
+.pagination-chevron-wrap {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: -2px;
+  cursor: pointer;
+}

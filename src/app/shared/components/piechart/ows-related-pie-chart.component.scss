@@ -1,0 +1,120 @@
+.main-content-frame {
+  background: #e8e8f5;
+  padding: 15px;
+  margin-bottom: 15px;
+  .mdc-checkbox__background {
+    op: 2px !important;
+  }
+
+  .mdc-checkbox {
+    padding: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  --mat-checkbox-state-layer-size: 22;
+  -mat-checkbox-touch-target-size: 10px;
+  --mat-form-field-filled-with-label-container-padding-top: 0px
+}
+
+.white-frame {
+  background: #fff;
+  padding: 15px;
+}
+
+.light-purple-frame {
+  padding: 10px 15px;
+  border-radius: 4px;
+  background: var(--purple-light-bg, #F7F7FB);
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 395px;
+}
+
+.ows-chart-legend {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.ows-legend-text-wrap {
+  //width: 100px;
+}
+
+.ows-pie-canvas {
+  max-width: 160px !important;
+  max-height: 160px !important;
+}
+
+.ows-chart-badges {
+  padding: 15px;
+}
+
+.ows-chart-badge {
+  height: 21px;
+  padding: 0px 10px;
+  //min-width: 85px;
+  background: #dbffdb;
+  margin-bottom: 4px;
+  border-radius: 30px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.7803921569);
+  //border: 2px solid #014C07;
+  //border: 2px solid rgba(0,0,0,0.4);
+}
+
+.badge-checkbox-padder {
+  margin: -2px 7px 0px 0px;
+}
+
+.pie-chart-wrapper {
+  max-width: 260px !important;
+  display: block;
+}
+
+.ows-chart-badges .inactive {
+  background: transparent !important;
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.7803921569);
+}
+
+.category-circle {
+  display: flex;
+  align-self: flex-start;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  margin: 6px 10px;
+  border-radius: 10px;
+  background: blue;
+}
+
+.result-link-texts {
+  font-size: 14px;
+  margin-bottom: 8px;
+  word-break: break-word;
+  .document-href {
+    color: #4546b9;
+    cursor: pointer;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.ext-link-popover {
+  font-weight: normal !important;
+  font-size: 12px !important;
+  color: #fff !important;
+  &.category-name {
+    font-weight: bold !important;
+  }
+}
+
+.hit-count-caption {
+  margin-top: 3px;
+  margin-left: 8px;
+}

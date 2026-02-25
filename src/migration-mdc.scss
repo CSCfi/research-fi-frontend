@@ -217,7 +217,7 @@ mat-chip-option {
 .mdc-checkbox {
   width: 16px !important;
   height: 16px !important;
-  padding: 12px 10px !important;
+  padding: 12px 10px;
   --mat-checkbox-selected-checkmark-color: #fff;
   --mat-checkbox-selected-icon-color: #4546b9;
 }
