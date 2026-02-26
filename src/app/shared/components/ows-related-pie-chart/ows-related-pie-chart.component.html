@@ -11,16 +11,18 @@
           @for (item of labelData; track item; let idx = $index) {
             <div class="d-flex flex-row ows-chart-legend justify-content-between">
               <div class="badge-checkbox-padder">
-                <mat-checkbox [checked]="badgeSelectionData[idx] === false" color="primary" (change)=onLegendClick(idx)>
+                <mat-checkbox [checked]="badgeSelectionData[idx] === false" color="primary" (change)="onLegendClick(idx, $event)" (click)="onLegendCheckboxClick(idx, $event)">
                 </mat-checkbox>
               </div>
-              <div [ngStyle]="{'background': colorData[idx], 'color': textColorData[idx]}"
-                   (click)="onLegendClick(idx)"
-                   class="ows-chart-badge">{{ item | capitalizeFirstLetter }}
+              <div class="d-flex justify-content-start">
+                <div [ngStyle]="{'background': colorData[idx], 'color': textColorData[idx]}"
+                     (click)="onLegendClick(idx, $event)"
+                     class="ows-chart-badge">{{ item | capitalizeFirstLetter }}
+                </div>
               </div>
               <div class="ows-legend-text-wrap d-flex flex-row justify-content-end">
-                <!--<div class="ms-3">{{ percentageData[idx] }} %</div>-->
-                <div class="ms-2">({{ hitCountData[idx] }})</div>
+                <div class="ms-2 legend-number-box">{{ percentageData[idx] }}%</div>
+                <div class="ms-2 legend-number-box">({{ hitCountData[idx] }})</div>
               </div>
             </div>
           }
@@ -28,18 +30,25 @@
       </div>
     </div>
     <div class="light-purple-frame mt-3">
-      <div class="d-flex flex-row"><div><h2>Hakutulokset</h2></div><div class="hit-count-caption">{{currentPageNumber * paginationPageSize - paginationPageSize + 1}} - {{currentPageNumber * paginationPageSize}}</div></div>
+      <div class="d-flex flex-row">
+        <div><h2>Hakutulokset</h2></div>
+        <div class="hit-count-caption">{{ currentPageNumber * paginationPageSize - paginationPageSize + 1 }}
+          - {{ currentPageNumber * paginationPageSize }}
+        </div>
+      </div>
       @for (document of visibleDocuments; track document; let idx = $index) {
         <div class="d-flex flex-row">
           <span [tooltip]="categoryTooltipTemplate"
                 tabindex="0"
-                  placement="top"
-                  #elem
-                        >
+                placement="top"
+                #elem
+          >
             <div [ngStyle]="{'background': document.catColor}" class="category-circle"></div>
           </span>
           <ng-template #categoryTooltipTemplate>
-            <a class="ext-link-popover category-name"><div [innerHtml]="document.category | capitalizeFirstLetter"></div></a>
+            <a class="ext-link-popover category-name">
+              <div [innerHtml]="document.category | capitalizeFirstLetter"></div>
+            </a>
           </ng-template>
           <div class="result-link-texts d-flex flex-column">
             <span [tooltip]="linkTooltipTemplate" class="tooltip-popover-wrap"
@@ -48,9 +57,13 @@
                   #elem>
             <div>{{ document.url | trimUrlStart }}</div>
             </span>
-               <a class="document-href" [innerHtml]="document.title" (click)="navigateToUrl(document.url)"><div></div></a>
+            <a class="document-href" [innerHtml]="document.title" (click)="navigateToUrl(document.url)">
+              <div></div>
+            </a>
             <ng-template #linkTooltipTemplate>
-              <a class="ext-link-popover" [innerHtml]="document.url + ' '"><div></div></a>
+              <a class="ext-link-popover" [innerHtml]="document.url + ' '">
+                <div></div>
+              </a>
             </ng-template>
 
           </div>
