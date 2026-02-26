@@ -1,4 +1,4 @@
-import { Component, input, OnInit, output } from '@angular/core';
+import { Component, input, OnInit, output, effect } from '@angular/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { toObservable } from '@angular/core/rxjs-interop';
@@ -16,6 +16,12 @@ export class SimplePaginationComponent implements OnInit {
   public elementCount = input.required<number>({ alias: 'elementCount' });
   public pageSize = input.required<number>({ alias: 'pageSize' });
 
+  constructor() {
+    effect(() => {
+      this.initContent();
+    });
+  }
+
   public allPageNumbers = [];
   public visiblePageNumbers = [];
   public selectedPage = 1;
@@ -27,6 +33,7 @@ export class SimplePaginationComponent implements OnInit {
   }
 
   initContent(){
+    this.allPageNumbers = [];
     const numberOfPages = Math.ceil(this.elementCount() / this.pageSize());
     for (let i = 1; i < numberOfPages + 1; i++) {
       this.allPageNumbers.push(i);

@@ -38,7 +38,6 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
   public textColorData: string[] = [];
   public colorDataDimmed: string[] = [];
   public badgeSelectionData: boolean[] = [false, false, false, false, false];
-  public checkboxSelectionData: boolean[] = [false, false, false, false, false];
 
   public responseDocuments: any;
   public visibleDocuments: any[];
@@ -73,10 +72,6 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       this.responseData = data;
       this.initChart();
     });
-  }
-
-  isNoCategoriesSelected() {
-    return this.badgeSelectionData.every(item => item === true);
   }
 
   initChart() {
@@ -134,20 +129,45 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
     this.createChart(this.labelData, this.hitCountData, this.colorData);
   }
 
-  onLegendClick(clickIndex: number) {
+  isNoCategoriesSelected() {
+    return this.badgeSelectionData.every(item => item === true);
+  }
+  isAllCategoriesSelected() {
+    return this.badgeSelectionData.every(item => item === false);
+  }
+
+  // Test to prevent checkbox click problem
+  onLegendCheckboxClick(value, $event) {
+    if (this.badgeSelectionData[value] === false) {
+      $event.target.checked = true;
+    }
+  }
+
+  onLegendClick(clickIndex: number, $event: any) {
     this.chart.destroy();
 
 
-
-
-    for (let i = 0; i < this.badgeSelectionData.length; i++) {
-      this.badgeSelectionData[clickIndex] = !this.badgeSelectionData[clickIndex];
-      this.colorData[clickIndex] = this.getCategoryColor(this.labelData[clickIndex], this.badgeSelectionData[clickIndex], false);
+    // If all categories are selected, select only one category
+    if (this.isAllCategoriesSelected()) {
+      for (let i = 0; i < this.badgeSelectionData.length; i++) {
+        if (i !== clickIndex) {
+          this.badgeSelectionData[i] = true;
+          this.colorData[i] = this.getCategoryColor(this.labelData[i], this.badgeSelectionData[i], false);
+        } else {
+          this.badgeSelectionData[i] = false;
+          this.colorData[i] = this.getCategoryColor(this.labelData[i], this.badgeSelectionData[i], false);
+        }
+      }
+    } else {
+      // Possible to select multiple categories, if one already selected
+      for (let i = 0; i < this.badgeSelectionData.length; i++) {
+          this.badgeSelectionData[clickIndex] = !this.badgeSelectionData[clickIndex];
+          this.colorData[clickIndex] = this.getCategoryColor(this.labelData[clickIndex], this.badgeSelectionData[clickIndex], false);
+        }
     }
 
     if (this.isNoCategoriesSelected()) {
-
-      // Reset category colors to default
+      // Reset category colors to default, if no categories are selected
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
         this.badgeSelectionData[i] = false;
         this.colorData[i] = this.getCategoryColor(this.labelData[i], this.badgeSelectionData[i], false);
@@ -156,7 +176,6 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       // Nothing selected, reset all
       this.badgeSelectionData.map(item => item = false);
     }
-
 
     const selectedCategories = this.getSelectedCategoryNames();
 
@@ -213,6 +232,7 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
         ]
       },
       options: {
+        cutout: '60%',
         animation: false,
         responsive: true,
         plugins: {

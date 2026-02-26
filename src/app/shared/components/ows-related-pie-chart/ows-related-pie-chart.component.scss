@@ -42,8 +42,9 @@
 }
 
 .ows-pie-canvas {
-  max-width: 160px !important;
-  max-height: 160px !important;
+  max-width: 150px;
+  max-height: 150px;
+  margin-top: 16px;
 }
 
 .ows-chart-badges {
@@ -65,6 +66,11 @@
 
 .badge-checkbox-padder {
   margin: -2px 7px 0px 0px;
+}
+
+.legend-number-box {
+  width: 30px;
+  text-align: right;
 }
 
 .pie-chart-wrapper {
