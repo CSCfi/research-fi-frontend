@@ -152,12 +152,10 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
   }
 
   onLegendClick(clickIndex: number, $event: any) {
-    console.log('Legend click', clickIndex);
     this.chart.destroy();
 
     // If all categories are selected, select only one category
     if (this.isAllCategoriesSelected()) {
-      console.log('All categories selected before', this.badgeSelectionData);
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
         if (i === clickIndex) {
           this.badgeSelectionData[i] = true;
@@ -167,7 +165,6 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
           this.colorData[i] = this.getCategoryColor(this.labelData[i], this.badgeSelectionData[i], false);
         }
       }
-      console.log('All categories selected after', this.badgeSelectionData);
       this.cd.markForCheck();
       this.cd.detectChanges();
     } else {
@@ -182,7 +179,6 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
 
     // If all categories are selected, select only one category
     if (this.isNoCategoriesSelected()) {
-      console.log('No categories selected', this.badgeSelectionData);
 
       // Reset category colors to default, if no categories are selected
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
@@ -193,7 +189,6 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       // Nothing selected, reset (activate) all
       this.cd.markForCheck();
       this.cd.detectChanges();
-      console.log('No categories selected after', this.badgeSelectionData);
     }
 
     const selectedCategories = this.getSelectedCategoryNames();
