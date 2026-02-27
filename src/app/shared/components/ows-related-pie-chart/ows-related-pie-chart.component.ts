@@ -128,7 +128,7 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
         this.percentageData.push(catItem.count);
       });
       this.totalHitCountDisplay$.next(this.totalHitCount);
-      this.percentageData = this.percentageData.map(item => item > 0 ? Math.round((100 / this.totalHitCount) * item * 10) / 10 : 0);
+      this.percentageData = this.percentageData.map(item => item > 0 ? Math.round((100 / this.totalHitCount) * item) : 0);
       //this.percentageData = this.percentageData.map(item => item > 0 ? Math.round((100 / this.totalHitCount) * item * 10) / 10 : 0);
       this.filteredDocuments = [...this.responseDocuments];
       this.paginationDocCount$.next(this.filteredDocuments.length);
