@@ -92,7 +92,7 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       this.responseDocuments = [...this.responseData.documents];
 
       this.responseDocuments = this.responseDocuments.map(document => {
-        document.catColor = this.getCategoryColor(document.category, false, false);
+        document.catColor = this.getCategoryColor(document.category, true, false);
         return document;
       });
       this.visibleDocuments = [...this.responseDocuments];
