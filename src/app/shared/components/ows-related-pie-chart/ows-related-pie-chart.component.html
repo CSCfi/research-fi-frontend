@@ -2,16 +2,20 @@
   <div class="white-frame">
     <h2>Viittaukset muissa palveluissa</h2>
     <div class="light-purple-frame">
-      <div class="mb-3">Viittauksia yhteensä: {{ totalHitCount }}</div>
-      <div class="d-flex flex-row justify-content-start chart-container">
-        <div>
+      <div class="mb-2">Viittauksia yhteensä: {{ totalHitCount }}</div>
+
+      <div class="row d-flex flex-row justify-content-between chart-container">
+        <div class="d-flex flex-row justify-content-center gx-0 col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6">
           <canvas class="ows-pie-canvas" #chartRef></canvas>
         </div>
-        <div class="d-flex flex-column ows-chart-badges justify-content-center">
+
+        <div class="d-flex flex-column ows-chart-badges justify-content-between gx-0 col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6">
           @for (item of labelData; track item; let idx = $index) {
             <div class="d-flex flex-row ows-chart-legend justify-content-between">
+              <div class="d-flex flex-row">
               <div class="badge-checkbox-padder">
-                <mat-checkbox [checked]="badgeSelectionData[idx] === false" color="primary" (change)="onLegendClick(idx, $event)" (click)="onLegendCheckboxClick(idx, $event)">
+                <mat-checkbox [(ngModel)]="checkboxSelectionData[idx]" color="primary"
+                              (click)="onLegendClick(idx, $event)">
                 </mat-checkbox>
               </div>
               <div class="d-flex justify-content-start">
@@ -20,9 +24,11 @@
                      class="ows-chart-badge">{{ item | capitalizeFirstLetter }}
                 </div>
               </div>
+              </div>
               <div class="ows-legend-text-wrap d-flex flex-row justify-content-end">
-                <div class="ms-2 legend-number-box">{{ percentageData[idx] }}%</div>
-                <div class="ms-2 legend-number-box">({{ hitCountData[idx] }})</div>
+                <div class="legend-number-box">{{ percentageData[idx] }}%</div>
+                <div class="legend-number-box">({{ hitCountData[idx] }})
+                </div>
               </div>
             </div>
           }

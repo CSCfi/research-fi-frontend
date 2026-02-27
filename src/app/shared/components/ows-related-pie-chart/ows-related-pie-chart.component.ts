@@ -1,16 +1,20 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import Chart from 'chart.js/auto';
-import { AsyncPipe, NgIf, NgStyle } from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
 import { OwsSearchService } from '@shared/services/ows-search.service';
 import { BehaviorSubject } from 'rxjs';
-import { pull } from 'lodash-es';
 import { SimplePaginationComponent } from '@shared/components/simple-pagination/simple-pagination.component';
 import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { Funding } from '@portal/models/funding/funding.model';
 import { TrimUrlStartPipe } from '@shared/pipes/trim-url-start.pipe';
-import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { TooltipDirective } from 'ngx-bootstrap/tooltip';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'ows-related-pie-chart',
@@ -21,10 +25,11 @@ import { TooltipDirective } from 'ngx-bootstrap/tooltip';
     CapitalizeFirstLetterPipe,
     MatCheckbox,
     TrimUrlStartPipe,
-    TooltipDirective
+    TooltipDirective,
+    FormsModule
   ],
   templateUrl: './ows-related-pie-chart.component.html',
-  styleUrl: './ows-related-pie-chart.component.scss'
+  styleUrl: './ows-related-pie-chart.component.scss',
 })
 export class OwsRelatedPieChartComponent implements AfterViewInit {
 
@@ -37,7 +42,8 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
   public colorData: string[] = [];
   public textColorData: string[] = [];
   public colorDataDimmed: string[] = [];
-  public badgeSelectionData: boolean[] = [false, false, false, false, false];
+  public badgeSelectionData: boolean[] = [true, true, true, true, true];
+  public checkboxSelectionData: boolean[] = [true, true, true, true, true];
 
   public responseDocuments: any;
   public visibleDocuments: any[];
@@ -79,7 +85,7 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       this.responseDocuments = [...this.responseData.documents];
 
       this.responseDocuments = this.responseDocuments.map(document => {
-        document.catColor = this.getCategoryColor(document.category, false, false);
+        document.catColor = this.getCategoryColor(document.category, true, false);
         return document;
       });
       this.visibleDocuments = [...this.responseDocuments];
@@ -108,14 +114,15 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       sortedCategories.forEach(catItem => {
         this.labelData.push(catItem.id);
         this.hitCountData.push(catItem.count);
-        this.colorData.push(this.getCategoryColor(catItem.id, false, false));
-        this.colorDataDimmed.push(this.getCategoryColor(catItem.id, true, false));
+        this.colorData.push(this.getCategoryColor(catItem.id, true, false));
+        this.colorDataDimmed.push(this.getCategoryColor(catItem.id, false, false));
         this.textColorData.push(this.getCategoryColor(catItem.id, false, true));
         this.totalHitCount += catItem.count;
         this.percentageData.push(catItem.count);
       });
       this.totalHitCountDisplay$.next(this.totalHitCount);
-      this.percentageData = this.percentageData.map(item => item > 0 ? Math.round((100 / this.totalHitCount) * item * 10) / 10 : 0);
+      this.percentageData = this.percentageData.map(item => item > 0 ? Math.round((100 / this.totalHitCount) * item) : 0);
+
       this.filteredDocuments = [...this.responseDocuments];
       this.paginationDocCount$.next(this.filteredDocuments.length);
       this.updateChart();
@@ -130,27 +137,22 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
   }
 
   isNoCategoriesSelected() {
-    return this.badgeSelectionData.every(item => item === true);
-  }
-  isAllCategoriesSelected() {
     return this.badgeSelectionData.every(item => item === false);
   }
 
-  // Test to prevent checkbox click problem
-  onLegendCheckboxClick(value, $event) {
-    if (this.badgeSelectionData[value] === false) {
-      $event.target.checked = true;
-    }
+  isAllCategoriesSelected() {
+    return this.badgeSelectionData.every(item => item === true);
   }
 
   onLegendClick(clickIndex: number, $event: any) {
+    console.log('Legend click', clickIndex);
     this.chart.destroy();
-
 
     // If all categories are selected, select only one category
     if (this.isAllCategoriesSelected()) {
+      console.log('All categories selected before', this.badgeSelectionData);
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
-        if (i !== clickIndex) {
+        if (i === clickIndex) {
           this.badgeSelectionData[i] = true;
           this.colorData[i] = this.getCategoryColor(this.labelData[i], this.badgeSelectionData[i], false);
         } else {
@@ -158,23 +160,27 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
           this.colorData[i] = this.getCategoryColor(this.labelData[i], this.badgeSelectionData[i], false);
         }
       }
+      console.log('All categories selected after', this.badgeSelectionData);
     } else {
       // Possible to select multiple categories, if one already selected
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
-          this.badgeSelectionData[clickIndex] = !this.badgeSelectionData[clickIndex];
-          this.colorData[clickIndex] = this.getCategoryColor(this.labelData[clickIndex], this.badgeSelectionData[clickIndex], false);
-        }
+        this.badgeSelectionData[clickIndex] = !this.badgeSelectionData[clickIndex];
+        this.colorData[clickIndex] = this.getCategoryColor(this.labelData[clickIndex], this.badgeSelectionData[clickIndex], false);
+      }
     }
 
+    // If all categories are selected, select only one category
     if (this.isNoCategoriesSelected()) {
+      console.log('No categories selected', this.badgeSelectionData);
+
       // Reset category colors to default, if no categories are selected
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
-        this.badgeSelectionData[i] = false;
+        this.badgeSelectionData[i] = true;
         this.colorData[i] = this.getCategoryColor(this.labelData[i], this.badgeSelectionData[i], false);
       }
 
-      // Nothing selected, reset all
-      this.badgeSelectionData.map(item => item = false);
+      // Nothing selected, reset (activate) all
+      console.log('No categories selected after', this.badgeSelectionData);
     }
 
     const selectedCategories = this.getSelectedCategoryNames();
@@ -183,26 +189,28 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       return selectedCategories.some(catName => catName === document.category);
     });
 
+    this.checkboxSelectionData = [...this.badgeSelectionData]
+
     this.updateChart();
   }
 
   getSelectedCategoryNames() {
     let ret = [];
     for (let i = 0; i < this.badgeSelectionData.length; i++) {
-      if (this.badgeSelectionData[i] === false) {
+      if (this.badgeSelectionData[i] === true) {
         ret.push(this.labelData[i]);
       }
     }
     return ret;
   }
 
-  getCategoryColor(catName: string, isDimmed: boolean, isTextColor: boolean) {
+  getCategoryColor(catName: string, isActive: boolean, isTextColor: boolean) {
     let catNum = this.CATEGORYNAMES.findIndex(elem => elem === catName);
     if (catNum !== -1) {
       if (isTextColor) {
         return this.CATEGORYTEXTCOLORS[catNum];
       } else {
-        return isDimmed ? this.CATEGORYCOLORSDIMMED[catNum] : this.CATEGORYCOLORS[catNum];
+        return isActive ? this.CATEGORYCOLORS[catNum] : this.CATEGORYCOLORSDIMMED[catNum];
       }
     } else return 'Undefined';
   }
