@@ -1,24 +1,18 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
-  ViewEncapsulation
 } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { OwsSearchService } from '@shared/services/ows-search.service';
 import { BehaviorSubject } from 'rxjs';
-import { pull } from 'lodash-es';
 import { SimplePaginationComponent } from '@shared/components/simple-pagination/simple-pagination.component';
 import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { Funding } from '@portal/models/funding/funding.model';
 import { TrimUrlStartPipe } from '@shared/pipes/trim-url-start.pipe';
-import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { TooltipDirective } from 'ngx-bootstrap/tooltip';
 import { FormsModule } from '@angular/forms';
 
@@ -36,7 +30,6 @@ import { FormsModule } from '@angular/forms';
   ],
   templateUrl: './ows-related-pie-chart.component.html',
   styleUrl: './ows-related-pie-chart.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OwsRelatedPieChartComponent implements AfterViewInit {
 
@@ -73,7 +66,7 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
   @Input() inputData: any[];
   @Input() dataSource: string;
 
-  constructor(private owsSearchService: OwsSearchService, private cd: ChangeDetectorRef) {
+  constructor(private owsSearchService: OwsSearchService) {
   }
 
   ngAfterViewInit(): void {
@@ -129,7 +122,7 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       });
       this.totalHitCountDisplay$.next(this.totalHitCount);
       this.percentageData = this.percentageData.map(item => item > 0 ? Math.round((100 / this.totalHitCount) * item) : 0);
-      //this.percentageData = this.percentageData.map(item => item > 0 ? Math.round((100 / this.totalHitCount) * item * 10) / 10 : 0);
+
       this.filteredDocuments = [...this.responseDocuments];
       this.paginationDocCount$.next(this.filteredDocuments.length);
       this.updateChart();
@@ -152,10 +145,12 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
   }
 
   onLegendClick(clickIndex: number, $event: any) {
+    console.log('Legend click', clickIndex);
     this.chart.destroy();
 
     // If all categories are selected, select only one category
     if (this.isAllCategoriesSelected()) {
+      console.log('All categories selected before', this.badgeSelectionData);
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
         if (i === clickIndex) {
           this.badgeSelectionData[i] = true;
@@ -165,20 +160,18 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
           this.colorData[i] = this.getCategoryColor(this.labelData[i], this.badgeSelectionData[i], false);
         }
       }
-      this.cd.markForCheck();
-      this.cd.detectChanges();
+      console.log('All categories selected after', this.badgeSelectionData);
     } else {
       // Possible to select multiple categories, if one already selected
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
         this.badgeSelectionData[clickIndex] = !this.badgeSelectionData[clickIndex];
         this.colorData[clickIndex] = this.getCategoryColor(this.labelData[clickIndex], this.badgeSelectionData[clickIndex], false);
-        this.cd.markForCheck();
-        this.cd.detectChanges();
       }
     }
 
     // If all categories are selected, select only one category
     if (this.isNoCategoriesSelected()) {
+      console.log('No categories selected', this.badgeSelectionData);
 
       // Reset category colors to default, if no categories are selected
       for (let i = 0; i < this.badgeSelectionData.length; i++) {
@@ -187,8 +180,7 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
       }
 
       // Nothing selected, reset (activate) all
-      this.cd.markForCheck();
-      this.cd.detectChanges();
+      console.log('No categories selected after', this.badgeSelectionData);
     }
 
     const selectedCategories = this.getSelectedCategoryNames();
@@ -200,7 +192,6 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
     this.checkboxSelectionData = [...this.badgeSelectionData]
 
     this.updateChart();
-    this.cd.markForCheck();
   }
 
   getSelectedCategoryNames() {
