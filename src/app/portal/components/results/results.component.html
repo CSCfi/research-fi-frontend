@@ -114,11 +114,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
               </app-primary-action-button>
             </div>
             <div class="d-flex flex-column justify-content-center me-3">
-            <app-secondary-button
-                    content="Ohjeet"
-                    i18n-content="@@instructions"
-                    (click)="showLoginInfoDialog = true">
-            </app-secondary-button>
+              <app-secondary-button
+                      content="Ohjeet"
+                      i18n-content="@@instructions"
+                      (click)="showLoginInfoDialog = true">
+              </app-secondary-button>
             </div>
             <div class="d-flex flex-column justify-content-center me-3">
               <a
@@ -141,7 +141,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
               <div class="mx-3 d-flex flex-column justify-content-center">
                 <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-banner"></app-svg-sprites>
               </div>
-              <div *ngIf="tab === 'infrastructures'" class="me-3" i18n="@@infrastructuresBetaBannerText">
+              <div *ngIf="tab === 'infrastructures'" class="me-3" i18n="@@infraRenewalInfoBannerText">
                 Tiedejatutkimus.fi -portaalissa uudistetaan tutkimusinfrastruktuureita ja niihin liittyvää tiedonsiirtoa yhdessä tietoa toimittavien organisaatioiden kanssa. Uudistuksesta johtuen tietojen kattavuudessa on puutteita.
               </div>
             </div>
@@ -149,12 +149,12 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <div class="col-12 col-lg-auto pe-lg-0 d-flex flex-row my-lg-3 mt-4 mb-1 justify-content-between">
             <div class="d-flex flex-column justify-content-center">
               <a [href]="infrastructuresBetaBannerLink" target="_blank">
-              <app-primary-action-button
-                      role="link"
-                      content="Lue lisää"
-                      i18n-content="@@spReadMore"
-                      tabindex="-1">
-              </app-primary-action-button>
+                <app-primary-action-button
+                        role="link"
+                        content="Lue lisää"
+                        i18n-content="@@spReadMore"
+                        tabindex="-1">
+                </app-primary-action-button>
               </a>
             </div>
             <div class="d-flex flex-column justify-content-center pe-3">
@@ -342,10 +342,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <div class="row">
         <div class="col-3">
           <div
-                  #info
-                  *ngIf="showInfo"
-                  class="info p-3"
-                  [ngClass]="mobile ? 'right' : 'left'"
+            #info
+            *ngIf="showInfo"
+            class="info p-3"
+            [ngClass]="mobile ? 'right' : 'left'"
           >
             <strong class="d-block pb-2" i18n="@@additionalInfo"
             >Lisätietoa</strong
@@ -402,15 +402,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
           ></app-active-filters>
           <app-visualisation
-                  #visualisationsRef
-                  [data]="visualData"
-                  [tab]="tab"
-                  [visIdx]="visIdx"
-                  [percentage]="percentage"
-                  [loading]="visualLoading"
-                  [searchTerm]="searchTerm"
-                  [searchTarget]="searchTargetName"
-                  [visualisationType]="visualisationType"
+            #visualisationsRef
+            [data]="visualData"
+            [tab]="tab"
+            [visIdx]="visIdx"
+            [percentage]="percentage"
+            [loading]="visualLoading"
+            [searchTerm]="searchTerm"
+            [searchTarget]="searchTargetName"
+            [visualisationType]="visualisationType"
           ></app-visualisation>
           <div class="row vis-info">
             <div class="col">
@@ -451,7 +451,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     "
                           i18n="@@asCountFunding"
                   >
-                      Rahoitusmyöntöjen määrä
+                    Rahoitusmyöntöjen määrä
                   </button>
                   <button
                           class="col-6 vis-style-toggle ttv-button"
@@ -537,7 +537,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             tabindex="0"
             (clickOutside)="onClickedOutside($event)"
     >
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
       <a>{{ additionalInfo }} </a>
     </div>
   </ng-template>

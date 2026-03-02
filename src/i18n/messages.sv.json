@@ -1228,6 +1228,7 @@
         "publication_list_order_buttons_title": "Välj sorteringsordning för publikationsförteckningen",
         "publication_list_radio_buttons_sort_year": "Efter år",
         "publication_list_radio_buttons_sort_publication_type": "Enligt Undervisnings‑ och kulturministeriets publikationstypklassificering",
-        "publication_list_radio_buttons_sort_publication_type_info": "Publikationstyp A–G, I i enlighet med Undervisnings‑ och kulturministeriets insamling av publikationsuppgifter"
+        "publication_list_radio_buttons_sort_publication_type_info": "Publikationstyp A–G, I i enlighet med Undervisnings‑ och kulturministeriets insamling av publikationsuppgifter",
+        "infraRenewalInfoBannerText": "Forskning.fi‑portalen förnyas forskningsinfrastrukturerna och den tillhörande dataöverföringen i samarbete med de organisationer som tillhandahåller information. Till följd av förnyelsen förekommer brister i datatäckningen."
     }
 }

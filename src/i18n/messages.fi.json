@@ -1228,6 +1228,7 @@
         "publication_list_order_buttons_title": "Valitse julkaisuluettelon järjestys",
         "publication_list_radio_buttons_sort_year": "Vuoden mukaan",
         "publication_list_radio_buttons_sort_publication_type": "OKM:n julkaisuluokituksen mukaan",
-        "publication_list_radio_buttons_sort_publication_type_info": "OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A-G, I"
+        "publication_list_radio_buttons_sort_publication_type_info": "OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A-G, I",
+      "infraRenewalInfoBannerText": "Tiedejatutkimus.fi -portaalissa uudistetaan tutkimusinfrastruktuureita ja niihin liittyvää tiedonsiirtoa yhdessä tietoa toimittavien organisaatioiden kanssa. Uudistuksesta johtuen tietojen kattavuudessa on puutteita."
     }
 }
