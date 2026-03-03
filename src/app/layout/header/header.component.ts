@@ -160,7 +160,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   routeEvent(router: Router) {
     this.routeSub = router.events.subscribe((e) => {
-      console.log('ROUTE EVENT', e);
       //this.toggleNavbar();
       //this.dropdownOpen = false;
       //this.navbarOpen = false;
@@ -479,7 +478,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.oidcSecurityService.authorize();
   }
 
-/*  // Alert user if draft data in session storage
+  // Alert user if draft data in session storage
   @HostListener('window:beforeunload', ['$event'])
   public checkForDraftData() {
     if (
@@ -489,5 +488,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
         sessionStorage.getItem(Constants.draftPublicationPatchPayload))
     )
       return false;
-  }*/
+  }
 }
