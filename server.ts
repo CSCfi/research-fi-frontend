@@ -27,7 +27,11 @@ export function app(): express.Express {
   const browserDistFolder = resolve(serverDistFolder, `../../browser/${lang}`);
   const indexHtml = join(serverDistFolder, 'index.server.html');
 
-  const commonEngine = new CommonEngine();
+  let options: CommonEngineOptions = {};
+
+  options.allowedHosts = ['tiedejatutkimus.fi', 'research.fi', 'forskning.fi', '*.2.rahtiapp.fi'];
+
+  const commonEngine = new CommonEngine(options);
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
