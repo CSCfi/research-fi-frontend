@@ -80,7 +80,6 @@
                   "maximumWarning": "8kb"
                 }
               ],
-              "sourceMap": true,
               "outputHashing": "all",
               "optimization": {
                 "scripts": true,
