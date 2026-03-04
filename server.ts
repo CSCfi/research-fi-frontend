@@ -1,5 +1,5 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { CommonEngine } from '@angular/ssr/node';
+import { CommonEngine, CommonEngineOptions } from '@angular/ssr/node';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { basename, dirname, join, resolve } from 'node:path';
@@ -49,6 +49,7 @@ export function app(): express.Express {
      * Discard baseUrl as we will provide it with langPath
      */
     const { protocol, originalUrl, headers } = req;
+    console.log(req.headers);
     commonEngine
       .render({
         bootstrap,
