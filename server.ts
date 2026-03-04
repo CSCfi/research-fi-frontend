@@ -1,5 +1,5 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { CommonEngine } from '@angular/ssr/node';
+import { CommonEngine, CommonEngineOptions } from '@angular/ssr/node';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { basename, dirname, join, resolve } from 'node:path';
@@ -27,7 +27,11 @@ export function app(): express.Express {
   const browserDistFolder = resolve(serverDistFolder, `../../browser/${lang}`);
   const indexHtml = join(serverDistFolder, 'index.server.html');
 
-  const commonEngine = new CommonEngine();
+  let options: CommonEngineOptions = {};
+
+  options.allowedHosts = ['tiedejatutkimus.fi', 'research.fi', 'forskning.fi', '*.2.rahtiapp.fi'];
+
+  const commonEngine = new CommonEngine(options);
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
