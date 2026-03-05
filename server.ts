@@ -53,7 +53,7 @@ export function app(): express.Express {
      * Discard baseUrl as we will provide it with langPath
      */
     const { protocol, originalUrl, headers } = req;
-    console.log(req.headers);
+    
     commonEngine
       .render({
         bootstrap,
