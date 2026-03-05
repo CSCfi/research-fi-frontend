@@ -15,11 +15,11 @@ const ENV_KEY = makeStateKey<{
 }>('env');
 
 const defaultConfig = {
-  cmsUrl: "DEFAULT DATA",
-  buildInfo: "DEFAULT DATA",
-  profileApiUrl: "DEFAULT DATA",
-  apiUrl: "DEFAULT DATA",
-  matomoSiteId: "-1"
+  cmsUrl: 'DEFAULT DATA',
+  buildInfo: 'DEFAULT DATA',
+  profileApiUrl: 'DEFAULT DATA',
+  apiUrl: 'DEFAULT DATA',
+  matomoSiteId: '-1'
 }
 
 @Injectable({
