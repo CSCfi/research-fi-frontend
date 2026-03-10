@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { Subject, takeUntil } from 'rxjs';
 import { getName } from '@mydata/utils';
@@ -18,7 +18,7 @@ import { cloneDeep } from 'lodash-es';
 export class MyDataProfileResolverService  implements OnDestroy {
   unsubscribeOnDestroy = new Subject();
 
-  constructor(private profileService: ProfileService) {}
+  constructor(private profileService: ProfileService, private router: Router) {}
 
   async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
@@ -48,7 +48,10 @@ export class MyDataProfileResolverService  implements OnDestroy {
               }
             },
             (reason) => {
-              console.error('error', reason);
+              console.error('error in fetching profile data', reason);
+              if (reason === 'profile not found') {
+                this.router.navigate(['/mydata/service-deployment?step=4']);
+              }
             },);
       });
     } else {
