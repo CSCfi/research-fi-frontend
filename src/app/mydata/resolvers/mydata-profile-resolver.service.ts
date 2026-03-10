@@ -47,9 +47,9 @@ export class MyDataProfileResolverService  implements OnDestroy {
                 this.profileService.setEditorProfileName(getName(value.profileData));
               }
             },
-            (reason) => {
-              console.error('error in fetching profile data', reason);
-              if (reason === 'profile not found') {
+            (err) => {
+              console.error('error in fetching profile data', err);
+              if (err?.error?.reason === 'profile not found') {
                 this.router.navigate(['/mydata/service-deployment?step=4']);
               }
             },);
