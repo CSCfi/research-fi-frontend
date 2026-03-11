@@ -144,24 +144,24 @@ export class SingleItemService {
     const payLoad = {
       ...(id
         ? {
-            query: {
-              bool: {
-                should: [
-                  this.settingsService.querySettings(
-                    'publication',
-                    id.replace('-', '')
-                  ),
-                  this.settingsService.querySettings('person', id),
-                  this.settingsService.querySettings('funding', id),
-                  this.settingsService.querySettings('dataset', id),
-                  this.settingsService.querySettings('infrastructure', id),
-                  this.settingsService.querySettings('organization', id),
-                  this.settingsService.querySettings('funding-call', id),
-                  this.settingsService.querySettings('project', id),
-                ],
-              },
+          query: {
+            bool: {
+              should: [
+                this.settingsService.querySettings(
+                  'publication',
+                  id.replace('-', '')
+                ),
+                this.settingsService.querySettings('person', id),
+                this.settingsService.querySettings('funding', id),
+                this.settingsService.querySettings('dataset', id),
+                this.settingsService.querySettings('infrastructure', id),
+                this.settingsService.querySettings('organization', id),
+                this.settingsService.querySettings('funding-call', id),
+                this.settingsService.querySettings('project', id),
+              ],
             },
-          }
+          },
+        }
         : []),
       size: 0,
       aggs: {
@@ -226,9 +226,9 @@ export class SingleItemService {
     const checkedArr = field.filter((value) => Object.keys(value).length !== 0);
     return checkedArr.length > 1
       ? checkedArr
-          .map((x) => x[subField])
-          .trim()
-          .join(', ')
+        .map((x) => x[subField])
+        .trim()
+        .join(', ')
       : checkedArr[0][subField];
   }
 }
