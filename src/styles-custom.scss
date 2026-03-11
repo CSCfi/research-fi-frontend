@@ -46,8 +46,8 @@ $primary: map-get($researchfi-theme, primary);
 
 // Show disabled vertical scroll when dialog opens. Prevents elements filling the space if there's no scroll bar
 .cdk-global-scrollblock {
-  overflow-y: inherit;
-  top: 0px !important;
+  overflow-y: visible !important;
+  position: inherit !important;
 }
 
 // Disable webkit search icons
