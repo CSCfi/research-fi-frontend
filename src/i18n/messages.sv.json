@@ -763,7 +763,7 @@
         "remove": "Radera",
         "discardSessionChanges": "Avvisa opublicerade ändringar?",
         "sessionExpiredLogin": "Sessionen har löpt ut. Logga in för att fortsätta.",
-        "youHaveUnpublishedChangesContinue": "You have unpublished changes. If you log out, the changes will be lost.",
+        "youHaveUnpublishedChangesContinue": "Du har opublicerade ändringar. Om du loggar ut kommer ändringarna att gå förlorade.",
         "youHaveUnpublishedChangesSnackbar": "Du har opublicerade ändringar i profilvyn.",
         "youHaveUnpublishedChangesSnackbarButton": "Kontrollera ändringarna.",
         "shareProfile": "Dela profil",
