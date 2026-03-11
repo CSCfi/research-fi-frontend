@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
@@ -234,9 +234,18 @@ export class ProfileService {
 
   async fetchProfileDataFromBackend(): Promise<any> {
     await this.updateToken();
-    const profile = await firstValueFrom(this.http.get(this.apiUrl + '/profiledata/', this.httpOptions));
-    const resp= this.profileAdapter.adapt(profile);
-    return resp;
+    const profile: any = await firstValueFrom(this.http.get(this.apiUrl + '/profiledata/', this.httpOptions));
+    if (profile.success === true) {
+      const resp = this.profileAdapter.adapt(profile);
+      return resp;
+    }
+    else {
+      return Promise.reject(new HttpErrorResponse({
+        error: {
+          reason: profile?.reason,
+        }
+      }));
+    }
   }
 
   tokenToHttpOptions(token: string) {
