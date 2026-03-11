@@ -763,7 +763,7 @@
         "remove": "Radera",
         "discardSessionChanges": "Avvisa opublicerade ändringar?",
         "sessionExpiredLogin": "Sessionen har löpt ut. Logga in för att fortsätta.",
-        "youHaveUnpublishedChangesContinue": "You have unpublished changes. If you log out, the changes will be lost.",
+        "youHaveUnpublishedChangesContinue": "Du har opublicerade ändringar. Om du loggar ut kommer ändringarna att gå förlorade.",
         "youHaveUnpublishedChangesSnackbar": "Du har opublicerade ändringar i profilvyn.",
         "youHaveUnpublishedChangesSnackbarButton": "Kontrollera ändringarna.",
         "shareProfile": "Dela profil",
@@ -1228,7 +1228,18 @@
         "publication_list_order_buttons_title": "Välj sorteringsordning för publikationsförteckningen",
         "publication_list_radio_buttons_sort_year": "Efter år",
         "publication_list_radio_buttons_sort_publication_type": "Enligt Undervisnings‑ och kulturministeriets publikationstypklassificering",
-        "publication_list_radio_buttons_sort_publication_type_info": "Publikationstyp A–G, I i enlighet med Undervisnings‑ och kulturministeriets insamling av publikationsuppgifter",
         "infraRenewalInfoBannerText": "Forskning.fi‑portalen förnyas forskningsinfrastrukturerna och den tillhörande dataöverföringen i samarbete med de organisationer som tillhandahåller information. Till följd av förnyelsen förekommer brister i datatäckningen."
+        "publication_list_radio_buttons_sort_publication_type_info": "Publikationstyp A–G, I i enlighet med Undervisnings‑ och kulturministeriets insamling av publikationsuppgifter",
+        "landing_profile_ head_title": "Ingångssida - Profilverktyg",
+        "landing_profile_heading": "Profilen är en uppdaterad och tillförlitlig\növersikt över din forskningskarriär",
+        "landing_profile_body_text_bold": "Med profilverktyget kan du enkelt sammanställa din forskningskarriär\ngenom att kombinera informationen från dina heminstitutioner och ORCID-profil.",
+        "landing_profile_body_text_bullet_1": "Informationen i din profil förblir under din kontroll oavsett din affiliering.",
+        "landing_profile_body_text_bullet_2": "Du väljer själv vad du vill inkludera i profilen",
+        "landing_profile_body_text_bullet_3": "Om du vill, uppgifter om dina publikationer och din karriär kan uppdateras automatiskt från källorna.",
+        "landing_profile_body_text_bullet_4": "Du kan ladda ner ett CV enligt Forskningsetiska delegationens (TENK) modell till meritförteckning för forskare och en uppdaterad publikationsförteckning",
+        "landing_profile_body_text_bullet_5": "Din profil är lättillgänglig för kollegor, finansiärer, media och andra aktörer av forskarsamfundet.",
+        "landing_profile_body_text": "För att kunna använda profilverktyget måste du autentisera dig med Suomi.fi-identifikation och logga in med ORCID iD.",
+        "landing_profile_button_create_profile": "Skapa en profil",
+        "landing_profile_button_log_in": "Logga in"
     }
 }
