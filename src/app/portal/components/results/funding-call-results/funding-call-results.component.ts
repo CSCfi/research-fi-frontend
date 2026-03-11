@@ -160,9 +160,9 @@ export class FundingCallResultsComponent
         }),
       },
       callOpen: {
-        label: call.openDate.getFullYear()
-          ? call.openDateString === '01.01.1900' ? '-' : call.openDateString
-          : '-',
+        label: call.openDate.getFullYear() ? call.openDateString === '01.01.1900' ?
+          $localize`:@@continuous:Jatkuva` : call.openDateString === '1.1.1900' ?
+            $localize`:@@continuous:Jatkuva` : call.openDateString : '-',
       },
       callDue: {
         label:
@@ -171,6 +171,8 @@ export class FundingCallResultsComponent
             : $localize`:@@continuous:Jatkuva`,
       },
     }));
+
+    console.log(this.tableRows);
 
     this.dataMapped = true;
   }

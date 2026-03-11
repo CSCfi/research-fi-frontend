@@ -36,6 +36,17 @@ export class HomeComponent implements OnInit {
   alreadyCreatedProfile = $localize`:@@alreadyCreatedProfile:Oletko jo luonut profiilin tähän palveluun?`;
   additionalInfoText = $localize`:@@additionalInfo:Lisätietoa` + ':';
 
+
+  landing_profile_heading =  $localize`:@@landing_profile_heading:Profiili on ajantasainen ja luotettava kokonaiskuva tutkimusurastasi`;
+  landing_profile_body_text_bold =  $localize`:@@landing_profile_body_text_bold:Profiilityökalulla kokoat tutkimusurasi yhteen vaivattomasti yhdistämällä tiedot kotiorganisaatioistasi ja ORCID-profiilistasi.`;
+
+  landing_profile_body_text_bullet_1 =  $localize`:@@landing_profile_body_text_bullet_1:Tiedot profiilissasi säilyvät hallinnassasi riippumatta affiliaatiostasi`;
+  landing_profile_body_text_bullet_2 =  $localize`:@@landing_profile_body_text_bullet_2:Valitset itse, mitä haluat näyttää profiilissasi`;
+  landing_profile_body_text_bullet_3 =  $localize`:@@landing_profile_body_text_bullet_3:Julkaisu- ja uratietosi päivittyvät halutessasi automaattisesti suoraan niiden lähteistä`;
+  landing_profile_body_text_bullet_4 =  $localize`:@@landing_profile_body_text_bullet_4:Voit ladata Tutkimuseettisen neuvottelukunnan (TENK) mallin mukaisen CV:n sekä ajantasaisen julkaisuluettelon`;
+  landing_profile_body_text_bullet_5 =  $localize`:@@landing_profile_body_text_bullet_5:Profiilisi on helposti löydettävissä yhteistyökumppaneille, rahoittajille, medialle ja muille tutkimusyhteisön toimijoille`;
+  landing_profile_body_text =  $localize`:@@landing_profile_body_text:Profiilityökalun käyttöönotto edellyttää Suomi.fi-tunnistautumista ja kirjautumista ORCID iD:llä.`;
+
   suomiFiAutheticationProblemSnackbarText = $localize`:@@suomiFiAutheticationProblemSnackbarText:Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla "Kirjaudu sisään" -painiketta sivun ylälaidassa.`;
 
   locale: string;
