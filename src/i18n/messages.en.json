@@ -142,7 +142,7 @@
         "infraOrganizationTooltip": "Organization responsible for the research infrastructure. Large infrastructures in particular may contain several services maintained by other organizations. Other organizations can view the infrastructure on the information page.",
         "noInfrastructures": "No infrastructures",
         "description": "Description",
-        "newsHeader": "Science and Research News",
+        "newsHeader": "Science and research news",
         "news": "News",
         "noResultsWithTerm": "No results with the search term",
         "noResults": "No results.",
