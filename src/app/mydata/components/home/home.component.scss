@@ -10,3 +10,48 @@
     padding: 5rem 0;
   }
 }
+
+h2 {
+  font-size: 22.4px;
+}
+
+.intro-heading-wrap {
+  max-width: 500px;
+  margin-bottom: 36px;
+}
+
+.intro-text-larger {
+  font-size: 16px;
+  font-weight: bold;
+  max-width: 500px;
+}
+
+.login-info-text {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.create-profile-button-margin {
+  margin-right: 32px;
+}
+
+.mydata-landing-image {
+  img {
+   height: 376px;
+   margin-top: -15px;
+  }
+}
+
+ul {
+  //list-style: none !important;
+  font-size: 15px
+}
+
+li::marker {
+  color: #000000;
+  font-size: 0.8rem;
+}
+
+
+

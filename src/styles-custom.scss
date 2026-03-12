@@ -46,7 +46,8 @@ $primary: map-get($researchfi-theme, primary);
 
 // Show disabled vertical scroll when dialog opens. Prevents elements filling the space if there's no scroll bar
 .cdk-global-scrollblock {
-  overflow-y: inherit;
+  overflow-y: visible !important;
+  position: fixed !important;
 }
 
 // Disable webkit search icons
@@ -800,6 +801,9 @@ app-svg-icons {
   .mat-sort-header-arrow {
     opacity: 1 !important;
     transform: none !important;
+    display: none;
+    //color: #fff;
+    //margin-left: -10px;
   }
 
   // Hide default arrow stem

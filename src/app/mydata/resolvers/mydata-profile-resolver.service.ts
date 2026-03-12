@@ -6,19 +6,20 @@
 //  :license: MIT
 
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { Subject, takeUntil } from 'rxjs';
 import { getName } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class MyDataProfileResolverService  implements OnDestroy {
+export class MyDataProfileResolverService implements OnDestroy {
   unsubscribeOnDestroy = new Subject();
 
-  constructor(private profileService: ProfileService) {}
+  constructor(private profileService: ProfileService, private router: Router) {
+  }
 
   async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
@@ -42,19 +43,24 @@ export class MyDataProfileResolverService  implements OnDestroy {
                 );
                 resolve({
                   name: getName(value.profileData),
-                  profileData: value.profileData,
+                  profileData: value.profileData
                 });
                 this.profileService.setEditorProfileName(getName(value.profileData));
               }
             },
-            (reason) => {
-              console.error('error', reason);
-            },);
+            (err) => {
+              console.error('error in fetching profile data', err);
+              /*              if (err?.error?.reason === 'profile not found') {
+                              this.router.navigate(['/mydata/service-deployment'], {
+                                queryParams: { step: 4 },
+                              });
+                            }*/
+            });
       });
     } else {
       return {
         name: getName(storedProfileData),
-        profileData: cloneDeep(storedProfileData),
+        profileData: cloneDeep(storedProfileData)
       };
     }
   }
