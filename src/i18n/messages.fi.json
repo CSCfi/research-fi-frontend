@@ -1228,6 +1228,18 @@
         "publication_list_order_buttons_title": "Valitse julkaisuluettelon järjestys",
         "publication_list_radio_buttons_sort_year": "Vuoden mukaan",
         "publication_list_radio_buttons_sort_publication_type": "OKM:n julkaisuluokituksen mukaan",
-        "publication_list_radio_buttons_sort_publication_type_info": "OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A-G, I"
+        "infraRenewalInfoBannerText": "Tiedejatutkimus.fi -portaalissa uudistetaan tutkimusinfrastruktuureita ja niihin liittyvää tiedonsiirtoa yhdessä tietoa toimittavien organisaatioiden kanssa. Uudistuksesta johtuen tietojen kattavuudessa on puutteita.",
+        "publication_list_radio_buttons_sort_publication_type_info": "OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A-G, I",
+        "landing_profile_ head_title": "Etusivu - Profiilityökalu",
+        "landing_profile_heading": "Profiili on ajantasainen ja luotettava kokonaiskuva tutkimusurastasi",
+        "landing_profile_body_text_bold": "Profiilityökalulla kokoat tutkimusurasi yhteen vaivattomasti yhdistämällä tiedot kotiorganisaatioistasi ja ORCID-profiilistasi.",
+        "landing_profile_body_text_bullet_1": "Tiedot profiilissasi säilyvät hallinnassasi riippumatta affiliaatiostasi",
+        "landing_profile_body_text_bullet_2": "Valitset itse, mitä haluat näyttää profiilissasi",
+        "landing_profile_body_text_bullet_3": "Julkaisu- ja uratietosi päivittyvät halutessasi automaattisesti suoraan niiden lähteistä",
+        "landing_profile_body_text_bullet_4": "Voit ladata Tutkimuseettisen neuvottelukunnan (TENK) mallin mukaisen CV:n sekä ajantasaisen julkaisuluettelon",
+        "landing_profile_body_text_bullet_5": "Profiilisi on helposti löydettävissä yhteistyökumppaneille, rahoittajille, medialle ja muille tutkimusyhteisön toimijoille",
+        "landing_profile_body_text": "Profiilityökalun käyttöönotto edellyttää Suomi.fi-tunnistautumista ja kirjautumista ORCID iD:llä.",
+        "landing_profile_button_create_profile": "Luo profiili",
+        "landing_profile_button_log_in": "Kirjaudu sisään"
     }
 }

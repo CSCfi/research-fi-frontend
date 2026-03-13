@@ -13,12 +13,13 @@ import { getName } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class MyDataProfileResolverService  implements OnDestroy {
+export class MyDataProfileResolverService implements OnDestroy {
   unsubscribeOnDestroy = new Subject();
 
-  constructor(private profileService: ProfileService, private router: Router) {}
+  constructor(private profileService: ProfileService, private router: Router) {
+  }
 
   async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
@@ -42,24 +43,24 @@ export class MyDataProfileResolverService  implements OnDestroy {
                 );
                 resolve({
                   name: getName(value.profileData),
-                  profileData: value.profileData,
+                  profileData: value.profileData
                 });
                 this.profileService.setEditorProfileName(getName(value.profileData));
               }
             },
             (err) => {
               console.error('error in fetching profile data', err);
-              if (err?.error?.reason === 'profile not found') {
-                this.router.navigate(['/mydata/service-deployment'], {
-                  queryParams: { step: 4 },
-                });
-              }
-            },);
+              /*              if (err?.error?.reason === 'profile not found') {
+                              this.router.navigate(['/mydata/service-deployment'], {
+                                queryParams: { step: 4 },
+                              });
+                            }*/
+            });
       });
     } else {
       return {
         name: getName(storedProfileData),
-        profileData: cloneDeep(storedProfileData),
+        profileData: cloneDeep(storedProfileData)
       };
     }
   }

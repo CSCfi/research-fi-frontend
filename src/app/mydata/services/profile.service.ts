@@ -24,7 +24,6 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: any;
   currentProfileData: any[];
-  collaborationChoices: any[];
   settingsData: any[];
 
   testData = testData;
@@ -114,10 +113,6 @@ export class ProfileService {
   // This must be called in order to resolver to fetch new data from back end
   clearCurrentProfileData() {
     this.currentProfileData = undefined;
-  }
-
-  setCurrentCollaborationChoices(data){
-    this.collaborationChoices = data;
   }
 
   setUserData(data: any) {
@@ -241,8 +236,7 @@ export class ProfileService {
     await this.updateToken();
     const profile: any = await firstValueFrom(this.http.get(this.apiUrl + '/profiledata/', this.httpOptions));
     if (profile.success === true) {
-      const resp= this.profileAdapter.adapt(profile);
-      await this.fetchCollaborationOptionsFromBackend();
+      const resp = this.profileAdapter.adapt(profile);
       return resp;
     }
     else {
@@ -252,12 +246,6 @@ export class ProfileService {
         }
       }));
     }
-  }
-
-  async fetchCollaborationOptionsFromBackend() {
-    const cooperationChoices = await firstValueFrom(this.http.get(this.apiUrl + '/cooperationchoices/', this.httpOptions));
-    this.setCurrentCollaborationChoices(cooperationChoices);
-    return cooperationChoices;
   }
 
   tokenToHttpOptions(token: string) {
