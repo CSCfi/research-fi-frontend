@@ -10,7 +10,7 @@ app-footer {
     position: fixed;
     z-index: 999;
     right: 0;
-    bottom: 10%;
+    bottom: 26%;
   }
 
   button.review {
@@ -46,7 +46,6 @@ app-footer {
   // Footer
   footer {
     width: 100%;
-    padding: 2rem 0;
     a:hover {
       text-decoration: underline;
       text-decoration-color: #4546b9 !important;
@@ -61,16 +60,81 @@ app-footer {
     padding: 1rem 0;
   }
 
+  .footer-top-wrapper {
+    min-height: 152px;
+    .text-block {
+      margin-top: 30px;
+    }
+    .left-pad {
+      margin-left: 88px;
+    }
+  }
+
+  .footer-bottom-wrapper {
+    min-height: 40px;
+    height: 100%;
+  }
+
+  .footer-logo-column {
+    justify-content: flex-start;
+  }
+
+  .footer-logo-wrap {
+    max-width: 300px;
+    margin-top: 30px;
+    margin-bottom: 25px
+  }
+
+  .okm-logo-wrap {
+    max-width: 220px;
+  }
+
+  .footer-heading {
+    font-weight: 500;
+    font-size: 1rem;
+    display: block;
+    padding: 0;
+    margin-bottom: 5px;
+  }
+
+  .footer-bottom-navi-bar {
+    background-color: #C7C8EA;
+    .wrapper {
+      width: 100%;
+    }
+  }
+
   .col {
     border: 0px solid;
   }
 
   ul {
     padding-inline-start: 0px;
+    &.footer-top-navi {
+      margin-bottom: 28px;
+    }
+    &.footer-bottom-navi {
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .lg-li {
+        margin-left: 64px
+      }
+
+      li {
+        a {
+          font-size: 16px;
+          font-weight: 400;
+          color: #000;
+        }
+      }
+    }
   }
 
   li {
-    padding: 0.5rem 0;
+    padding: 0.3rem 0;
     list-style: none;
     font-weight: bold;
   }
@@ -85,9 +149,13 @@ app-footer {
     direction: rtl;
   }
 
+  img.csc-logo {
+    height: 58px;
+    display: block;
+  }
+
   img.logo {
     max-width: 200px;
-    height: auto;
     // margin-top: 20px;
     display: block;
   }
@@ -102,7 +170,8 @@ app-footer {
   }
 
   .build-info {
-    font-size: 9px;
+    margin-top: 14px;
+    font-size: 10px;
     opacity: 0.6;
   }
 
@@ -111,11 +180,12 @@ app-footer {
   }
 
   a {
-    font-weight: bold;
+    font-weight: 500;
   }
 
   //Responsive
   @media (max-width: 575px) {
+
   }
 
   @media (min-width: 576px) {
@@ -124,11 +194,21 @@ app-footer {
   @media (max-width: 767px) {
   }
 
+  @media (min-width: 576px) and (max-width: 991px) {
+    .some-column {
+      padding-right: 45px !important;
+    }
+  }
+
   @media (max-width: 991px) {
     footer .col {
       min-width: 100%;
       text-align: center;
       padding: 0;
+    }
+
+    .footer-logo-column {
+      justify-content: center !important;
     }
 
     img.logo {
@@ -146,8 +226,23 @@ app-footer {
       margin-bottom: 0rem;
     }
 
+    ul {
+      &.footer-top-navi {
+        margin-bottom: 5px !important;
+      }
+    }
+
+    app-footer .footer-top-wrapper .text-block {
+      margin-top: 0px;
+      margin-bottom: 30px;
+    }
+
+    .footer-bottom-navi-bar {
+      margin-top: 30px;
+    }
+
     footer li {
-      padding: 1rem;
+      padding: 0.6rem 0rem 0.3rem 0rem;
     }
 
     .social {
