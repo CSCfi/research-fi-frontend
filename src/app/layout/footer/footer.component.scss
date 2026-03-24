@@ -46,6 +46,10 @@ app-footer {
   // Footer
   footer {
     width: 100%;
+    li {
+      padding: 0rem 0rem 0.5rem 0rem;
+    }
+
     a:hover {
       text-decoration: underline;
       text-decoration-color: #4546b9 !important;
@@ -94,7 +98,6 @@ app-footer {
     font-size: 1rem;
     display: block;
     padding: 0;
-    margin-bottom: 5px;
   }
 
   .footer-bottom-navi-bar {
@@ -108,6 +111,10 @@ app-footer {
     border: 0px solid;
   }
 
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
   ul {
     padding-inline-start: 0px;
     &.footer-top-navi {
@@ -115,6 +122,7 @@ app-footer {
     }
     &.footer-bottom-navi {
       margin-bottom: 0;
+      padding: 0px;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -134,7 +142,6 @@ app-footer {
   }
 
   li {
-    padding: 0.3rem 0;
     list-style: none;
     font-weight: bold;
   }
@@ -200,6 +207,13 @@ app-footer {
     }
   }
 
+  .footer-bottom-navi-bar {
+    padding: 0px 30px 0px 0px;
+    li {
+      padding: 0.5rem 0;
+    }
+  }
+
   @media (max-width: 991px) {
     footer .col {
       min-width: 100%;
@@ -209,6 +223,10 @@ app-footer {
 
     .footer-logo-column {
       justify-content: center !important;
+    }
+
+    .footer-logo-wrap {
+      margin-top: 30px !important;
     }
 
     img.logo {
@@ -239,12 +257,14 @@ app-footer {
 
     .footer-bottom-navi-bar {
       margin-top: 30px;
+      padding-right: 0px;
     }
 
-    footer li {
-      padding: 0.6rem 0rem 0.3rem 0rem;
+    ul {
+      &.footer-bottom-navi {
+        padding: 14px 0px;
+      }
     }
-
     .social {
       text-align: center;
     }
