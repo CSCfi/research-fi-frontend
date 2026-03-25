@@ -50,11 +50,11 @@ export class MyDataProfileResolverService implements OnDestroy {
             },
             (err) => {
               console.error('error in fetching profile data', err);
-              /*              if (err?.error?.reason === 'profile not found') {
-                              this.router.navigate(['/mydata/service-deployment'], {
-                                queryParams: { step: 4 },
-                              });
-                            }*/
+              if (err?.error?.reason === 'profile not found') {
+                this.router.navigate(['/mydata/service-deployment'], {
+                  queryParams: { step: 4 }
+                });
+              }
             });
       });
     } else {
