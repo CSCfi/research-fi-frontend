@@ -1238,7 +1238,13 @@
         "landing_profile_body_text_bullet_5": "Your profile is easily accessible to partners, funders, the media, and other members of the research community",
         "landing_profile_body_text": "To use the profile tool, you need to authenticate yourself with Suomi.fi e-Identification and log in with ORCID iD.",
         "landing_profile_button_create_profile": "Create profile",
-        "landing_profile_button_log_in": "Log in"
+        "landing_profile_button_log_in": "Log in",
+        "description_of_publication_format": "Description of publication format",
+        "description_of_publication_format_info": "Specifies the type of audiovisual publication or ICT application.",
+        "art_publication_type": "Art publication type",
+        "art_publication_type_link": "http://uri.suomi.fi/codelist/research/TaidetyyppiKoodi",
+        "art_publication_type_info": "Information on whether the publication is a separate artistic work, a partial implementation of such a work, or an artistic contribution related to a non-artistic publication.",
+        "report_switch_text": "Report"
     }
 }
 
