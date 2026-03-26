@@ -320,6 +320,33 @@ export class PublicationAdapter implements Adapter<Publication> {
       : (fieldsOfArt = []);
     artPublicationFieldsOfArtString = fieldsOfArt.join('; ');
 
+
+    let audioVisualApplicationTypeStr = '';
+
+    if (item?.audioVisualApplicationType) {
+      if (this.capitalizedLocale === 'Fi') {
+        audioVisualApplicationTypeStr = item.audioVisualApplicationType?.codeLabel?.fi ?? '';
+      } else if (this.capitalizedLocale === 'Sv') {
+        audioVisualApplicationTypeStr = item.audioVisualApplicationType?.codeLabel?.sv ?? '';
+      } else if (this.capitalizedLocale === 'En') {
+        audioVisualApplicationTypeStr = item.audioVisualApplicationType?.codeLabel?.en ?? '';
+      }
+    }
+
+    let artPublicationTypeStr = '';
+
+    if (item?.artPublicationType) {
+      if (this.capitalizedLocale === 'Fi') {
+        artPublicationTypeStr = item.artPublicationType?.codeLabel?.fi ?? '';
+      } else if (this.capitalizedLocale === 'Sv') {
+        artPublicationTypeStr = item.artPublicationType?.codeLabel?.sv ?? '';
+      } else if (this.capitalizedLocale === 'En') {
+        artPublicationTypeStr = item.artPublicationType?.codeLabel?.en ?? '';
+      }
+    }
+
+    let reportSwitchStr = item?.reportSwitch?.codeValue === '1' ? $localize`:@@yes:Kyllä` : item?.reportSwitch?.codeValue === '0' ? $localize`:@@no:Ei` : '';
+
     // Check if publication type fields exist
     const publicationFormat = item.publicationFormat
       ? item.publicationFormat[0][
@@ -404,7 +431,10 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.completions,
       channel,
       citations,
-      item.identifiedTopics
+      item.identifiedTopics,
+      audioVisualApplicationTypeStr,
+      artPublicationTypeStr,
+      reportSwitchStr
     );
   }
 }
