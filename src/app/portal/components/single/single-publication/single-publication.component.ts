@@ -162,7 +162,6 @@ export class SinglePublicationComponent
     {
       label: $localize`:@@report_switch_text:Raportti`,
       field: 'reportSwitch',
-      tooltip: '',
     },
     {
       label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`,
