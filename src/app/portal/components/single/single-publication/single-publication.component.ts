@@ -150,6 +150,20 @@ export class SinglePublicationComponent
         $localize`:@@blogTooltipContent:Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.`,
     },
     {
+      label: $localize`:@@description_of_publication_format:Julkaisumuodon tarkempi kuvaus`,
+      field: 'audioVisualApplicationType',
+      tooltip: $localize`:@@description_of_publication_format_info:Tarkentaa audiovisuaalisen julkaisun tai tieto- ja viestintäteknisen sovelluksen tyypin.`,
+    },
+    {
+      label: $localize`:@@art_publication_type:Taidejulkaisun tyyppi`,
+      field: 'artPublicationType',
+      tooltip: $localize`:@@art_publication_type_info:Tieto onko kyseessä taiteellinen erillisteos, sellaisen osatoteutus vai johonkin ei-taiteelliseen julkaisuun liittyvä taiteellinen panos.`,
+    },
+    {
+      label: $localize`:@@report_switch_text:Raportti`,
+      field: 'reportSwitch',
+    },
+    {
       label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`,
       field: 'parentPublicationType',
       tooltip:
