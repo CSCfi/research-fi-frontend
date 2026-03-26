@@ -1240,6 +1240,12 @@
         "landing_profile_body_text_bullet_5": "Din profil är lättillgänglig för kollegor, finansiärer, media och andra aktörer av forskarsamfundet.",
         "landing_profile_body_text": "För att kunna använda profilverktyget måste du autentisera dig med Suomi.fi-identifikation och logga in med ORCID iD.",
         "landing_profile_button_create_profile": "Skapa en profil",
-        "landing_profile_button_log_in": "Logga in"
+        "landing_profile_button_log_in": "Logga in",
+        "description_of_publication_format": "Beskrivning av publikationsform",
+        "description_of_publication_format_info": "Anger typen av audiovisuell publikation eller IKT-tillämpning.",
+        "art_publication_type": "Typ av konstpublikation",
+        "art_publication_type_link": "http://uri.suomi.fi/codelist/research/TaidetyyppiKoodi",
+        "art_publication_type_info": "Information om huruvida publikationen är ett separat konstnärligt verk, en delvis implementering av ett sådant verk eller ett konstnärligt bidrag relaterat till en icke-konstnärlig publikation.",
+        "report_switch_text": "Rapport"
     }
 }

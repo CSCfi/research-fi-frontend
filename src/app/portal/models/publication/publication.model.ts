@@ -79,6 +79,9 @@ export class Publication {
     public publicationChannel: string,
     public citations: string[],
     public identifiedTopics?: any,
+    public audioVisualApplicationType?: string,
+    public artPublicationType?: string,
+    public reportSwitch?: string
   ) {}
 }
 
