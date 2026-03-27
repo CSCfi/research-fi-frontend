@@ -67,7 +67,7 @@ app-footer {
   .footer-top-wrapper {
     min-height: 152px;
     .text-block {
-      margin-top: 30px;
+      //margin-top: 30px;
     }
     .left-pad {
       margin-left: 88px;
@@ -214,6 +214,11 @@ app-footer {
     }
   }
 
+  .footer-top-wrapper .text-block {
+    margin-top: 64px;
+    margin-bottom: 24px;
+  }
+
   @media (max-width: 991px) {
     footer .col {
       min-width: 100%;
@@ -250,8 +255,8 @@ app-footer {
       }
     }
 
-    app-footer .footer-top-wrapper .text-block {
-      margin-top: 0px;
+    .footer-top-wrapper .text-block {
+      margin-top: 30px;
       margin-bottom: 30px;
     }
 
