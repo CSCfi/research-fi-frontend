@@ -70,6 +70,8 @@ app-footer {
 
   .footer-top-wrapper {
     min-height: 152px;
+    width: 92%;
+    //max-width: 93vw;
     .text-block {
       //margin-top: 30px;
     }
@@ -107,7 +109,8 @@ app-footer {
   .footer-bottom-navi-bar {
     background-color: #C7C8EA;
     .wrapper {
-      width: 100%;
+      width: 92%;
+      //max-width: 93vw;
     }
   }
 
@@ -126,7 +129,6 @@ app-footer {
     }
     &.footer-bottom-navi {
       margin-bottom: 0;
-      padding: 0px;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -212,7 +214,7 @@ app-footer {
   }
 
   .footer-bottom-navi-bar {
-    padding: 0px 30px 0px 0px;
+    padding: 0px 15px 0px 0px;
     li {
       padding: 20px 0px;
     }
