@@ -121,6 +121,8 @@ export class SingleFundingCallComponent implements OnInit {
     "72": $localize`Lippulaivat`,
     "80": $localize`Tutkimusinfrastruktuuri`,
     "81": $localize`Jäsenmaksu (Infra)`,
+    "73": $localize`Kliininen tutkimus`,
+    "74": $localize`Tutkimuksen hyödyntäminen`,
     "75": $localize`Strategisen tutkimuksen rahoitus`,
     "76": $localize`STN-EU vastinraha`,
     "35": $localize`Tutkijoiden liikkuvuus ulkomaille`,
