@@ -178,7 +178,7 @@ h3 {
   }
 }
 h4 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   opacity: 87%;
 }
 
@@ -553,6 +553,9 @@ mat-table {
   --mat-dialog-supporting-text-color: rgba(0, 0, 0, 0.87);
 }
 
+.mat-dialog-actions {
+  --mat-dialog-actions-padding: 0px;
+}
 
 // Mat select
 .mat-mdc-select-panel {
@@ -710,8 +713,12 @@ app-single-dataset, app-single-funding, app-single-funding-call, app-single-infr
   justify-content: flex-end !important;
   // display: block !important;
   margin-bottom: 0 !important;
-  padding: 0.5rem 1rem !important;
+  padding: 1.5rem 1.5rem !important;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mat-mdc-radio-button {
+  margin-left: -8px !important;
 }
 
 .responsive-dialog {
@@ -910,12 +917,11 @@ app-svg-icons {
   }
 
   .mat-mdc-dialog-content {
-    max-height: calc(100% - 10rem) !important;
-    padding-bottom: 4rem !important;
+    //max-height: calc(100% - 10rem) !important;
+    //padding-bottom: 4rem !important;
   }
 
   .mat-mdc-dialog-actions {
-    padding: 0.5rem 0 !important;
     position: absolute;
     background: white;
     bottom: 0;
