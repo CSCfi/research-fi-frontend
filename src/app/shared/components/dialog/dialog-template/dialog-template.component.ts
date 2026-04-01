@@ -52,7 +52,7 @@ export class DialogTemplateComponent
 {
   mobile: boolean;
   displayExtraContent = false;
-  dialogActions: any[];
+  dialogActions: DialogAction[];
   @ViewChild('closeButton') closeButton: ElementRef;
   closeButtonWidth: number = 0;
   @Output() onActiveActionClick = new EventEmitter<any>();

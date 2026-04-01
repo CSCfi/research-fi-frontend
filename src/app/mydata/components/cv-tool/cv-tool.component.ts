@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
 import {
   PrimaryActionButtonComponent
@@ -21,6 +21,9 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
 import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
 import { TooltipDirective } from 'ngx-bootstrap/tooltip';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAction } from '../../../../types';
 
 export interface cvEducation {
   dateOfDegree?: string;
@@ -51,7 +54,8 @@ export interface CvContent {
     SvgSpritesComponent,
     StickyFooterComponent,
     NgIf,
-    TooltipDirective
+    TooltipDirective,
+    DialogComponent
   ],
   templateUrl: './cv-tool.component.html',
   styleUrl: './cv-tool.component.scss'
@@ -60,25 +64,26 @@ export interface CvContent {
 export class CvToolComponent implements OnInit {
 
 
-
   cvToolTitle = $localize`:@@cv_tool_heading:CV-työkalu`;
-  cv_intro_1_start  = $localize`:@@cv_intro_1_start:from-localizations-file`;
+  cv_intro_1_start = $localize`:@@cv_intro_1_start:from-localizations-file`;
   cv_intro_1_link_text = $localize`:@@cv_intro_1_link_text:from-localizations-file`;
   cv_intro_1_link = $localize`:@@cv_intro_1_link:from-localizations-file`;
 
   cv_intro_1_link_after = $localize`:@@cv_intro_1_link_after:from-localizations-file`;
   cv_intro_1_link_after_2 = $localize`:@@cv_intro_1_link_after_2:from-localizations-file`;
 
-  importSelection = 0;
-  import_radio_buttons_title = $localize`:@@import_radio_buttons_title:Valitse CV-pohjaan tuotavat tiedot`;
+  importSelectionCv = 0;
+  importSelectionPublicationsList = 0;
+  import_radio_buttons_title = $localize`:@@import_radio_buttons_title:Valitse tuotavat tiedot`;
   import_radio_button1 = $localize`:@@import_radio_button1:Kaikki julkaistut ja julkaisemattomat profiilin tiedot`;
-  import_radio_button2 =  $localize`:@@import_radio_button2:Vain julkaistut profiilin tiedot`;
+  import_radio_button2 = $localize`:@@import_radio_button2:Vain julkaistut profiilin tiedot`;
   importTargets = [this.import_radio_button1, this.import_radio_button2];
   importInitialSelections = [true, false];
 
-  langSelection = 0;
+  langSelectionCv = 0;
+  langSelectionPublicationsList = 0;
   langAbbreviations = ['en', 'fi', 'sv'];
-  language_radio_buttons_title = $localize`:@@language_radio_buttons_title:Valitse CV:n kieli`;
+  language_radio_buttons_title = $localize`:@@language_radio_buttons_title:Valitse kieli`;
   lang_en = $localize`:@@language_radio_button1:Englanti`;
   lang_fi = $localize`:@@language_radio_button2:Suomi`;
   lang_sv = $localize`:@@language_radio_button3:Ruotsi`;
@@ -90,11 +95,11 @@ export class CvToolComponent implements OnInit {
   citationStyleSelection = 0;
   publication_list = $localize`:@@publication_list:Julkaisuluettelo`;
   publication_list_radio_buttons_title = $localize`:@@publication_list_radio_buttons_title:Valise julkaisuluettelon viittaustapa`;
-  publicationListTargets = ['APA', 'Chicago', 'MLA']
+  publicationListTargets = ['APA', 'Chicago', 'MLA'];
   publicationListInitialSelections = [true, false, false];
 
   publication_list_order_buttons_title = $localize`:@@publication_list_order_buttons_title:Valise julkaisuluettelon järjestys`;
-  publication_list_order_targets = [$localize`:@@publication_list_radio_buttons_sort_year:Vuoden mukaan`, $localize`:@@publication_list_radio_buttons_sort_publication_type:OKM:n julkaisuluokituksen mukaan`]
+  publication_list_order_targets = [$localize`:@@publication_list_radio_buttons_sort_year:Vuoden mukaan`, $localize`:@@publication_list_radio_buttons_sort_publication_type:OKM:n julkaisuluokituksen mukaan`];
   publication_list_radio_buttons_sort_publication_type_info = $localize`:@@publication_list_radio_buttons_sort_publication_type_info:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A-G, I`;
 
   download_publication_list_button_title = $localize`:@@download_publication_list_button_title:Lataa julkaisuluettelo`;
@@ -109,14 +114,22 @@ export class CvToolComponent implements OnInit {
   fullName: string;
 
   cvFileName = 'CV';
-  publicationListFileName = 'publications_list'
+  publicationListFileName = 'publications_list';
 
 
   templateBuilder = new CvTemplateBuilderComponent();
 
-  citationStyles = [ 'APA', 'Chicago', 'MLA']
+  citationStyles = ['APA', 'Chicago', 'MLA'];
 
-  constructor(public profileService: ProfileService,  private route: ActivatedRoute,) {
+  // Dialog variables
+  showDialog: boolean;
+  dialogTitle: any;
+  dialogTemplate: any;
+  dialogExtraContentTemplate: any;
+  currentDialogActions: DialogAction | DialogAction[];
+  disableDialogClose: boolean;
+
+  constructor(public profileService: ProfileService, private route: ActivatedRoute, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -124,29 +137,63 @@ export class CvToolComponent implements OnInit {
     });
   }
 
-  changeImportSelection(input){
-    this.importSelection = input;
+  changeImportSelectionCv(input) {
+    this.importSelectionCv = input;
   }
 
-  changeLangSelection(input){
-    this.langSelection = input;
+  changeImportSelectionPublicationsList(input) {
+    this.importSelectionPublicationsList = input;
   }
 
-  changeCitationStyleSelection(input){
+  changeLangSelectionCv(input) {
+    this.langSelectionCv = input;
+  }
+
+  changeLangSelectionPublicationsList(input) {
+    this.langSelectionPublicationsList = input;
+  }
+
+
+
+  changeCitationStyleSelection(input) {
     this.citationStyleSelection = input;
   }
 
+  generateCvDialogActions: DialogAction[] = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: this.download_cv_button_title,
+      primary: true,
+      method: 'generateCv',
+      svgSymbolName: 'download',
+      svgCssClass: 'download-icon primary-button-icon',
+      iconAfter: true,
+    },
+  ];
+
+  generatePublicationsListDialogActions  = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: this.download_publication_list_button_title,
+      primary: true,
+      method: 'generatePublicationsList',
+      svgSymbolName: 'download',
+      svgCssClass: 'download-icon primary-button-icon',
+      iconAfter: true,
+    },
+  ];
+
   generateCv(cvContent?:
              CvContent) {
-    docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), false, this.citationStyleSelection, this.orderByPublicationType)).then((blob) => {
-      this.cvFileName = this.fullName + "_-_" + translations.getTranslation(this.langAbbreviations[this.langSelection], 'cv_title').replaceAll(' ', '_') + ".docx";
+    docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelectionCv], this.profileData, this.orcidId, (this.importSelectionCv === 1), false, this.citationStyleSelection, this.orderByPublicationType)).then((blob) => {
+      this.cvFileName = this.fullName + '_-_' + translations.getTranslation(this.langAbbreviations[this.langSelectionCv], 'cv_title').replaceAll(' ', '_') + '.docx';
       saveAs(blob, this.cvFileName);
     });
   }
 
   generatePublicationsList(cvContent?: CvContent) {
-    docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), true, this.citationStyleSelection, this.orderByPublicationType)).then((blob) => {
-      this.publicationListFileName = this.fullName + "_-_" + translations.getTranslation(this.langAbbreviations[this.langSelection], 'publication_list_title').replaceAll(' ', '_') + '_(' + this.citationStyles[this.citationStyleSelection] + ')' + ".docx";
+    docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelectionPublicationsList], this.profileData, this.orcidId, (this.importSelectionPublicationsList === 1), true, this.citationStyleSelection, this.orderByPublicationType)).then((blob) => {
+      this.publicationListFileName = this.fullName + '_-_' + translations.getTranslation(this.langAbbreviations[this.langSelectionPublicationsList], 'publication_list_title').replaceAll(' ', '_') + '_(' + this.citationStyles[this.citationStyleSelection] + ')' + '.docx';
       saveAs(blob, this.publicationListFileName);
     });
   }
@@ -166,6 +213,47 @@ export class CvToolComponent implements OnInit {
             this.orcidId = this.route.snapshot.data.orcidProfile.orcid;
           }
         });
+  }
+
+  openDialog(props: { template: TemplateRef<any>; disableDialogClose: boolean; title: string; actions: DialogAction | DialogAction[] }){
+    this.langSelectionCv = 0;
+    this.langSelectionPublicationsList = 0;
+    this.importSelectionCv = 0;
+    this.importSelectionPublicationsList = 0
+    this.citationStyleSelection = 0;
+    this.orderByPublicationType = false;
+    this.dialogTitle = props.title;
+    this.showDialog = true;
+    this.dialogTemplate = props.template;
+    //this.dialogExtraContentTemplate = props.extraContentTemplate;
+    this.currentDialogActions = props.actions;
+    this.disableDialogClose = props.disableDialogClose;
+  }
+
+  doDialogAction(action: string) {
+    this.dialog.closeAll();
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
+
+    switch (action) {
+      case 'generateCv': {
+        this.generateCv();
+        break;
+      }
+      case 'generatePublicationsList': {
+        this.generatePublicationsList();
+        break;
+      }
+    }
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
+    this.disableDialogClose = false;
   }
 
 }

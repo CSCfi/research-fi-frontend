@@ -101,7 +101,7 @@
           [ngClass]="i === 0 ? 'justify-content-start' : 'justify-content-end'"
         >
           <ng-container *ngFor="let action of group">
-            <div class="col-auto py-2">
+            <div class="col-auto py-2 gx-3">
               <app-primary-action-button
                 *ngIf="action.primary"
                 (click)="doAction(action)"
@@ -122,18 +122,24 @@
 
   <!-- Regular single column render -->
   <ng-template #singleColumnActions>
-    <ng-container *ngFor="let action of dialogActions">
-      <div class="col-auto py-2">
+    <ng-container *ngFor="let action of dialogActions" class="pb-3">
+      <div class="col-auto gx-3">
         <app-primary-action-button
           *ngIf="action.primary"
           (click)="doAction(action)"
           [content]="action.label"
+          [svgSymbolName]="action.svgSymbolName"
+          [svgCssClass]="action.svgCssClass"
+          [iconAfter]="action.iconAfter"
         ></app-primary-action-button>
 
         <app-secondary-button
           *ngIf="!action.primary"
           (click)="doAction(action)"
           [content]="action.label"
+          [svgSymbolName]="action.svgSymbolName"
+          [svgCssClass]="action.svgCssClass"
+          [iconAfter]="action.iconAfter"
         ></app-secondary-button>
       </div>
     </ng-container>
