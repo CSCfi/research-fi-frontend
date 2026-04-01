@@ -6,11 +6,15 @@
 // :license: MIT
 
 app-footer {
+  .footer {
+    margin-top: 60px;
+  }
+
   .review-button {
     position: fixed;
     z-index: 999;
     right: 0;
-    bottom: 10%;
+    bottom: 26%;
   }
 
   button.review {
@@ -46,7 +50,10 @@ app-footer {
   // Footer
   footer {
     width: 100%;
-    padding: 2rem 0;
+    li {
+      padding: 0rem 0rem 0.5rem 0rem;
+    }
+
     a:hover {
       text-decoration: underline;
       text-decoration-color: #4546b9 !important;
@@ -61,16 +68,84 @@ app-footer {
     padding: 1rem 0;
   }
 
+  .footer-top-wrapper {
+    min-height: 152px;
+    .text-block {
+      //margin-top: 30px;
+    }
+    .left-pad {
+      margin-left: 88px;
+    }
+  }
+
+  .footer-bottom-wrapper {
+    min-height: 40px;
+    height: 100%;
+  }
+
+  .footer-logo-column {
+    justify-content: flex-start;
+  }
+
+  .footer-logo-wrap {
+    max-width: 300px;
+    margin-top: 30px;
+    margin-bottom: 25px
+  }
+
+  .okm-logo-wrap {
+    max-width: 220px;
+  }
+
+  .footer-heading {
+    font-weight: 500;
+    font-size: 1rem;
+    display: block;
+    padding: 0;
+  }
+
+  .footer-bottom-navi-bar {
+    background-color: #C7C8EA;
+    .wrapper {
+      width: 100%;
+    }
+  }
+
   .col {
     border: 0px solid;
   }
 
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
   ul {
     padding-inline-start: 0px;
+    &.footer-top-navi {
+      margin-bottom: 28px;
+    }
+    &.footer-bottom-navi {
+      margin-bottom: 0;
+      padding: 0px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .lg-li {
+        margin-left: 64px
+      }
+
+      li {
+        a {
+          font-size: 16px;
+          font-weight: 400;
+          color: #000;
+        }
+      }
+    }
   }
 
   li {
-    padding: 0.5rem 0;
     list-style: none;
     font-weight: bold;
   }
@@ -85,9 +160,13 @@ app-footer {
     direction: rtl;
   }
 
+  img.csc-logo {
+    height: 58px;
+    display: block;
+  }
+
   img.logo {
     max-width: 200px;
-    height: auto;
     // margin-top: 20px;
     display: block;
   }
@@ -102,7 +181,8 @@ app-footer {
   }
 
   .build-info {
-    font-size: 9px;
+    margin-top: 14px;
+    font-size: 10px;
     opacity: 0.6;
   }
 
@@ -111,11 +191,12 @@ app-footer {
   }
 
   a {
-    font-weight: bold;
+    font-weight: 500;
   }
 
   //Responsive
   @media (max-width: 575px) {
+
   }
 
   @media (min-width: 576px) {
@@ -124,11 +205,37 @@ app-footer {
   @media (max-width: 767px) {
   }
 
+  @media (min-width: 576px) and (max-width: 991px) {
+    .some-column {
+      padding-right: 45px !important;
+    }
+  }
+
+  .footer-bottom-navi-bar {
+    padding: 0px 30px 0px 0px;
+    li {
+      padding: 20px 0px;
+    }
+  }
+
+  .footer-top-wrapper .text-block {
+    margin-top: 64px;
+    margin-bottom: 24px;
+  }
+
   @media (max-width: 991px) {
     footer .col {
       min-width: 100%;
       text-align: center;
       padding: 0;
+    }
+
+    .footer-logo-column {
+      justify-content: center !important;
+    }
+
+    .footer-logo-wrap {
+      margin-top: 30px !important;
     }
 
     img.logo {
@@ -146,8 +253,20 @@ app-footer {
       margin-bottom: 0rem;
     }
 
-    footer li {
-      padding: 1rem;
+    ul {
+      &.footer-top-navi {
+        margin-bottom: 5px !important;
+      }
+    }
+
+    .footer-top-wrapper .text-block {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    .footer-bottom-navi-bar {
+      margin-top: 30px;
+      padding: 0px 30px 0px 0px;
     }
 
     .social {
@@ -160,6 +279,30 @@ app-footer {
 
     .pull-right {
       float: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .footer-bottom-navi-bar {
+      margin-top: 15px !important;
+      li {
+        padding: 8px 0px;
+      }
+    }
+    ul {
+      &.footer-bottom-navi {
+        padding: 14px 0px !important;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    .footer-top-wrapper .text-block {
+      margin-top: 15px !important;
+      margin-bottom: 15px !important;
+    }
+    .footer-bottom-navi-bar {
+      margin-top: 15px !important;
     }
   }
 }
