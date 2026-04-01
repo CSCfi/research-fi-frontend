@@ -266,14 +266,9 @@ app-footer {
 
     .footer-bottom-navi-bar {
       margin-top: 30px;
-      padding-right: 0px;
+      padding: 0px 30px 0px 0px;
     }
 
-    ul {
-      &.footer-bottom-navi {
-        padding: 14px 0px;
-      }
-    }
     .social {
       text-align: center;
     }
@@ -284,6 +279,30 @@ app-footer {
 
     .pull-right {
       float: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .footer-bottom-navi-bar {
+      margin-top: 15px !important;
+      li {
+        padding: 8px 0px;
+      }
+    }
+    ul {
+      &.footer-bottom-navi {
+        padding: 14px 0px !important;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    .footer-top-wrapper .text-block {
+      margin-top: 15px !important;
+      margin-bottom: 15px !important;
+    }
+    .footer-bottom-navi-bar {
+      margin-top: 15px !important;
     }
   }
 }
