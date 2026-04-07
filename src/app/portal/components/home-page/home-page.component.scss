@@ -13,6 +13,16 @@
   overflow: hidden;
 }
 
+.main-parallel-column {
+  max-height: calc(100% - 74px);
+  height: 100%;
+  .news-card {
+    display: flex;
+    height: 90% !important;
+    margin-bottom: 15px;
+  }
+}
+
 .row {
   margin-right: 0px !important;
   margin-left: 0px !important;

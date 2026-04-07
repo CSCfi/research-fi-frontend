@@ -5,9 +5,17 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
+.front-page-news {
+  height: 90%;
+}
+
+.front-page-funding-calls {
+  height: 90%;
+}
+
 app-news-card {
   .news-card-divider {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     background: transparent;
   }
 

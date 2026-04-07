@@ -17,18 +17,17 @@
 
 <main id="main-content pt-0">
   <div class="wrapper">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-2">
       <!-- First column -->
-      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 p-2 mb-1">
-        <div class="mx-1">
-          <div class="col-header">
+      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 px-2 mb-1 d-flex flex-column align-items-stretch justify-content-between p-2">
+          <div class="col-header mx-1">
             <h2 i18n="@@researchFinland" class="text-center m-0">
               Tiede ja tutkimus Suomessa
             </h2>
           </div>
           <div
-            *ngFor="let item of shortcutData?.slice(0, 3)"
-            class="col-12 link-img drop-shadow"
+            *ngFor="let item of shortcutData?.slice(0, 3); index as i"
+            class="col-12 link-img drop-shadow mx-1" [class.mb-0]="i === 2"
           ><ng-container *ngIf="item.isExternalLink">
             <a
               class="shortcut"
@@ -90,56 +89,68 @@
               </a>
             </ng-container>
           </div>
-        </div>
       </div>
 
-      <!-- Second column -->
-      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 p-2 mb-1">
-        <div class="mx-1 drop-shadow tint-background">
+      <!-- Second column XL -->
+      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 px-2 mb-1 d-flex align-items-stretch flex-column drop-shadow tint-background d-none d-xl-block p-2">
           <a class="header-link" routerLink="/news">
-            <div class="col-header mb-xl-4">
+            <div class="col-header mx-1">
               <h2 i18n="@@homeNewsHeaderPlain" class="text-center m-0">
                 Uusimmat tiede- ja tutkimusuutiset
               </h2>
             </div>
           </a>
-          <div class="col-12 link-img mb-xl-4 d-xl-none">
+          <div class="col-12 link-img mb-xl-4 d-lg-none">
             <div class="cover-img" [title]="newsImage.alt">
               <img [src]="newsImage.imgPath" [alt]="newsImage.alt" />
             </div>
           </div>
-          <!-- Smaller version -->
-          <div class="col-12 col side-news p-0 d-xl-none">
+
+          <div class="col-12 col side-news p-0 pb-1 d-flex flex-column align-items-stretch justify-content-between main-parallel-column">
             <app-news-card
               *ngFor="let item of news?.slice(0, 5)"
               [item]="item"
               [dense]="true"
               [isHomepage]="true"
-              class="d-block"
+              class="d-block mx-1"
             ></app-news-card>
           </div>
-          <!-- XL version -->
-          <div class="col-12 col side-news p-0 d-none d-xl-block">
-            <app-news-card
-              *ngFor="let item of news?.slice(0, 5)"
-              [item]="item"
-              [dense]="true"
-              [isHomepage]="true"
-              class="d-block"
-            ></app-news-card>
+      </div>
+
+      <!-- Second column smaller/mobile -->
+      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 px-2 mb-1 d-flex align-items-stretch flex-column drop-shadow tint-background d-xl-none p-2">
+        <a class="header-link" routerLink="/news">
+          <div class="col-header mx-1">
+            <h2 i18n="@@homeNewsHeaderPlain" class="text-center m-0">
+              Uusimmat tiede- ja tutkimusuutiset
+            </h2>
           </div>
+        </a>
+        <div class="col-12 link-img mb-xl-4 d-lg-none">
+          <div class="cover-img" [title]="newsImage.alt">
+            <img [src]="newsImage.imgPath" [alt]="newsImage.alt" />
+          </div>
+        </div>
+
+        <div class="col-12 col side-news p-0 pb-1 d-xl-none d-flex flex-column align-items-stretch justify-content-between main-parallel-column mx-1">
+          <app-news-card
+                  *ngFor="let item of news?.slice(0, 5)"
+                  [item]="item"
+                  [dense]="true"
+                  [isHomepage]="true"
+                  class="d-block"
+          ></app-news-card>
         </div>
       </div>
 
       <!-- Third column -->
-      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 p-2 mb-1">
-        <div class="mx-1 drop-shadow tint-background">
+      <div class="col-12 col-sm-10 col-9 col-lg-10 col-xl-4 px-2 mb-1 d-flex align-items-stretch flex-column drop-shadow tint-background p-2">
           <a
             class="header-link"
             routerLink="/funding-calls"
             [queryParams]="{ status: 'open' }"
           >
-            <div class="col-header mb-xl-4">
+            <div class="col-header mx-1">
               <h2 i18n="@@openFundingCalls" class="text-center m-0">
                 Avoimet rahoitushaut
               </h2>
@@ -147,18 +158,17 @@
           </a>
 
           <!-- XL version -->
-          <div class="col-12 col side-news p-0">
+          <div class="col-12 col side-news p-0 d-flex flex-column align-items-stretch justify-content-between main-parallel-column pb-2">
             <app-news-card
               *ngFor="let item of resultData?.fundingCalls.slice(0, 6)"
               [fundingCall]="item"
               [itemTypeFundingCalls]="true"
               [dense]="true"
               [isHomepage]="true"
-              class="d-block"
+              class="d-block mx-1"
             ></app-news-card>
           </div>
         </div>
-      </div>
     </div>
 
     <!-- Divider -->
