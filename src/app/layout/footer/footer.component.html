@@ -57,13 +57,13 @@
                 Ota yhteyttä
               </h2>
 
-              <li>
-                <a tabindex="0" class='no-href' (click)="openDialog(reviewDialog)">
-                  <ng-container i18n="Footer-link@@footerLink6">Anna palautetta</ng-container>
-                </a>
-              </li>
+              <ul>
+                <li>
+                  <a tabindex="0" class='no-href' (click)="openDialog(reviewDialog)">
+                    <ng-container i18n="Footer-link@@footerLink6">Anna palautetta</ng-container>
+                  </a>
+                </li>
 
-              <ul class="footer-top-navi">
                 <ng-container *ngIf='interacted === false'>
                   <li>
                     <a tabindex="0" #contact class='href' (focus)='setInteracted(true)'
