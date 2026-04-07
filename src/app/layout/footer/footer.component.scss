@@ -14,7 +14,7 @@ app-footer {
     position: fixed;
     z-index: 999;
     right: 0;
-    bottom: 26%;
+    bottom: 31%;
   }
 
   button.review {
@@ -268,7 +268,7 @@ app-footer {
 
     .footer-bottom-navi-bar {
       margin-top: 30px;
-      padding: 0px 30px 0px 0px;
+      padding: 0px !important;
     }
 
     .social {
