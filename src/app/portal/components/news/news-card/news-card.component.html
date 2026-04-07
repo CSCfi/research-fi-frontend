@@ -2,8 +2,9 @@
   appearance="outlined"
   class="col-12 news-card mat-elevation-z"
   [class.dense]="dense"
-  [class.limit-width]="isHomepage"
-  [class.funding-call-news]="itemTypeFundingCalls"
+  [class.limit-width]="false"
+  [class.front-page-funding-calls]="itemTypeFundingCalls"
+  [class.front-page-news]="isHomepage"
 >
   <mat-card-header>
     <mat-card-title [class.high-header]="isHomepage">
