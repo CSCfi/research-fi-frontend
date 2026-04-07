@@ -13,6 +13,26 @@
   overflow: hidden;
 }
 
+@media (min-width: 992px) {
+  .main-parallel-column {
+    max-height: calc(100% - 64px);
+    height: 100%;
+  }
+}
+
+.main-parallel-column-wrap {
+  padding-right: 0.7rem !important;
+  padding-left: 0.7rem !important;
+}
+
+.main-parallel-column {
+  .news-card {
+    display: flex;
+    height: 90% !important;
+    margin-bottom: 15px;
+  }
+}
+
 .row {
   margin-right: 0px !important;
   margin-left: 0px !important;
