@@ -13,9 +13,19 @@
   overflow: hidden;
 }
 
+@media (min-width: 992px) {
+  .main-parallel-column {
+    max-height: calc(100% - 64px);
+    height: 100%;
+  }
+}
+
+.main-parallel-column-wrap {
+  padding-right: 0.7rem !important;
+  padding-left: 0.7rem !important;
+}
+
 .main-parallel-column {
-  max-height: calc(100% - 74px);
-  height: 100%;
   .news-card {
     display: flex;
     height: 90% !important;
