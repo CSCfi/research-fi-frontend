@@ -80,7 +80,7 @@
 
         <span *ngIf="item.mediaUri?.length > 0" class="col-2 pe-0 text-end"></span>
 
-        <span class="author-line mb-3" [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"></span>
+        <span class="author-line" [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"></span>
       </div>
 
       <div *ngIf="!isHomepage" class="col-3 d-flex justify-content-end align-self-center">
@@ -105,11 +105,11 @@
     <div *ngIf="itemTypeFundingCalls" class="row">
       <span
         *ngIf="_fundingCall.foundation.orgId"
-        class="col author-line mb-3"
+        class="col author-line"
         [innerHtml]="_fundingCall.foundation.name | highlight: input"
       ></span>
       <span
-        class="col author-line mb-3"
+        class="col author-line"
         *ngIf="!_fundingCall.foundation.orgId"
         [innerHtml]="_fundingCall.foundation.name | highlight: input"
       ></span>
