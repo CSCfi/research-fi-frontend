@@ -217,7 +217,7 @@ export class SingleFundingCallComponent implements OnInit {
         this.responseData = responseData;
 
         const fundingCall = this.responseData.fundingCalls[0];
-
+        
         if (fundingCall) {
           this.addTopLevelScienceAreas(fundingCall);
           switch (this.localeId) {
