@@ -79,7 +79,7 @@
         "quickStart": "Pikaohjeet",
         "home": "Etusivu",
         "homeWelcomeCaption": "Kokoa tiedoistasi julkinen profiili Tiedejatutkimus.fi-palveluun",
-        "homeWelcomeText": "Profiilityökalulla kokoat tutkimusurasi yhteen vaivattomasti\nyhdistämällä tiedot kotiorganisaatioistasi ja ORCID-profiilistasi.",
+        "homeWelcomeText": "Profiilityökalulla kokoat tutkimusurasi yhteen vaivattomasti yhdistämällä tiedot kotiorganisaatioistasi ja ORCID-profiilistasi.",
         "alreadyCreatedProfile": "Oletko jo luonut profiilin tähän palveluun?",
         "additionalInfo": "Lisätietoa",
         "suomiFiAutheticationProblemSnackbarText": "Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla \"Kirjaudu sisään\" -painiketta sivun ylälaidassa.",
