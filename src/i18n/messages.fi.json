@@ -1246,6 +1246,7 @@
         "art_publication_type": "Taidejulkaisun tyyppi",
         "art_publication_type_link": "http://uri.suomi.fi/codelist/research/TaidetyyppiKoodi",
         "art_publication_type_info": "Tieto onko kyseessä taiteellinen erillisteos, sellaisen osatoteutus vai johonkin ei-taiteelliseen julkaisuun liittyvä taiteellinen panos.",
-        "report_switch_text": "Raportti"
+        "report_switch_text": "Raportti",
+        "contactUs": "Ota yhteyttä"
     }
 }

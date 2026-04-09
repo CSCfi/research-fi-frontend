@@ -1244,7 +1244,8 @@
         "art_publication_type": "Art publication type",
         "art_publication_type_link": "http://uri.suomi.fi/codelist/research/TaidetyyppiKoodi",
         "art_publication_type_info": "Information on whether the publication is a separate artistic work, a partial implementation of such a work, or an artistic contribution related to a non-artistic publication.",
-        "report_switch_text": "Report"
+        "report_switch_text": "Report",
+        "contactUs": "Contact us"
     }
 }
 

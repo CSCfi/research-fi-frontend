@@ -1246,6 +1246,7 @@
         "art_publication_type": "Typ av konstpublikation",
         "art_publication_type_link": "http://uri.suomi.fi/codelist/research/TaidetyyppiKoodi",
         "art_publication_type_info": "Information om huruvida publikationen är ett separat konstnärligt verk, en delvis implementering av ett sådant verk eller ett konstnärligt bidrag relaterat till en icke-konstnärlig publikation.",
-        "report_switch_text": "Rapport"
+        "report_switch_text": "Rapport",
+        "contactUs": "Kontakta oss"
     }
 }
