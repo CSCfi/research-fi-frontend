@@ -6,8 +6,19 @@
 //  :license: MIT
 
 app-news-card {
+  .front-page-news {
+    height: 90%;
+    justify-content: space-between !important;
+  }
+
+  .front-page-funding-calls {
+    height: 90%;
+    justify-content: space-between !important;
+  }
+
+  //margin-bottom: 15px;
   .news-card-divider {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     background: transparent;
   }
 
@@ -26,7 +37,6 @@ app-news-card {
     }
   }
 
-  margin-bottom: -15px;
   &.static-height-version {
     /*  TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
     mat-card {
@@ -94,6 +104,7 @@ app-news-card {
 
   .author-line {
     font-size: 0.9rem;
+    margin-bottom: 1.1rem;
   }
   /*  TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
   .mat-card-header-text {

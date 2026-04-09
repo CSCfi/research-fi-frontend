@@ -2,8 +2,9 @@
   appearance="outlined"
   class="col-12 news-card mat-elevation-z"
   [class.dense]="dense"
-  [class.limit-width]="isHomepage"
-  [class.funding-call-news]="itemTypeFundingCalls"
+  [class.limit-width]="false"
+  [class.front-page-funding-calls]="itemTypeFundingCalls"
+  [class.front-page-news]="isHomepage"
 >
   <mat-card-header>
     <mat-card-title [class.high-header]="isHomepage">
@@ -79,7 +80,7 @@
 
         <span *ngIf="item.mediaUri?.length > 0" class="col-2 pe-0 text-end"></span>
 
-        <span class="author-line mb-3" [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"></span>
+        <span class="author-line" [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"></span>
       </div>
 
       <div *ngIf="!isHomepage" class="col-3 d-flex justify-content-end align-self-center">
@@ -104,11 +105,11 @@
     <div *ngIf="itemTypeFundingCalls" class="row">
       <span
         *ngIf="_fundingCall.foundation.orgId"
-        class="col author-line mb-3"
+        class="col author-line"
         [innerHtml]="_fundingCall.foundation.name | highlight: input"
       ></span>
       <span
-        class="col author-line mb-3"
+        class="col author-line"
         *ngIf="!_fundingCall.foundation.orgId"
         [innerHtml]="_fundingCall.foundation.name | highlight: input"
       ></span>

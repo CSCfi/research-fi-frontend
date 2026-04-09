@@ -1,4 +1,5 @@
 .cv-tool-wrap {
+  min-height: 700px;
   app-svg-sprites {
     margin-left: -4px;
   }
@@ -16,15 +17,29 @@
     padding: 16px;
     gap: 8px;
     border-radius: 4px;
-    border: 1px solid var(--purple-bg, #E8E8F5);
-    background: var(--purple-light-bg, #F7F7FB);
+    border: 1px solid var(--purple-dark-bg, #C5C5E5);
+    background: var(--purple-bg, #E8E8F5);
+    font-size: 14px;
+    h4 {
+      font-size: 16px;
+    }
+  }
+  h4 {
+    font-size: 1.1rem;
   }
   .info-circle-pad {
-    margin: 0px 16px 0px 6px;
+    margin: 0px 14px 0px 6px;
   }
-  .publication-type-info-circle {
-    margin: 8px 15px;
-  }
+}
+
+.cv-tool-modal-wrap {
+}
+
+.publication-type-info-circle {
+  margin: 2px 0px 0px 4px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #import_radio_buttons_title {

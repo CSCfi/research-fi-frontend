@@ -81,6 +81,9 @@ export type DialogAction = {
   primary?: boolean;
   flexStart?: boolean;
   action?: any;
+  svgSymbolName?: string;
+  svgCssClass?: string;
+  iconAfter?: boolean;
 };
 
 // MyData
