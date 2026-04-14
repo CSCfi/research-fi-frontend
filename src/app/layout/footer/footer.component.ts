@@ -10,8 +10,8 @@ import { AppConfigService } from '../../shared/services/app-config-service.servi
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
 // import { SharedModule } from '@shared/shared.module';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { interval, lastValueFrom, take } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { ReviewComponent } from '@shared/components/review/review.component';
@@ -29,17 +29,18 @@ function email(strings) {
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    imports: [
-        // SharedModule,
-        AsyncPipe,
-        NgIf,
-        RouterLink,
-        MatButtonModule,
-        ReviewComponent,
-        DialogComponent,
-        WelcomeStepperComponent,
-        SvgSpritesComponent
-    ]
+  imports: [
+    // SharedModule,
+    AsyncPipe,
+    NgIf,
+    RouterLink,
+    MatButtonModule,
+    ReviewComponent,
+    DialogComponent,
+    WelcomeStepperComponent,
+    SvgSpritesComponent,
+    NgClass
+  ]
 })
 export class FooterComponent {
   locale = inject(LOCALE_ID);
@@ -78,7 +79,7 @@ export class FooterComponent {
 
   constructor(
     private appConfigService: AppConfigService,
-    private appSettingsService: AppSettingsService,
+    public appSettingsService: AppSettingsService,
     private dialogEventsService: DialogEventsService,
     private router: Router,
     public discardChangesDialog: MatDialog,
