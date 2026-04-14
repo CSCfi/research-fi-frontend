@@ -11,7 +11,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
 // import { SharedModule } from '@shared/shared.module';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { interval, lastValueFrom, take } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { ReviewComponent } from '@shared/components/review/review.component';
