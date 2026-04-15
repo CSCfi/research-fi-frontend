@@ -6,7 +6,7 @@
  :license: MIT -->
 
 <footer>
-  <nav [ngClass]="(this.appSettingsService.appSettings | async)?.appName !== 'myData' ? 'footer footer-margin' : 'footer'">
+  <nav [ngClass]="(this.appSettingsService.hideFooterMargin | async) === true ? 'footer' : 'footer footer-margin'">
     <div class="wrapper footer-top-wrapper">
       <div class="row  justify-content-between">
         <div class="col-12 col-lg-2 d-flex flex-row gx-0 footer-logo-column">
