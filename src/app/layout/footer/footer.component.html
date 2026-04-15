@@ -6,7 +6,7 @@
  :license: MIT -->
 
 <footer>
-  <nav class="footer">
+  <nav [ngClass]="(this.appSettingsService.hideFooterMargin | async) === true ? 'footer' : 'footer footer-margin'">
     <div class="wrapper footer-top-wrapper">
       <div class="row  justify-content-between">
         <div class="col-12 col-lg-2 d-flex flex-row gx-0 footer-logo-column">
@@ -53,7 +53,7 @@
 
           <div class="col-12 col-sm-4 col-lg-4 text-center text-sm-end text-md-end text-block gx-0 pe-2 pe-xl-0">
             <div>
-              <h2 class="footer-heading">
+              <h2 i18n="@@contactUs" class="footer-heading">
                 Ota yhteyttä
               </h2>
 

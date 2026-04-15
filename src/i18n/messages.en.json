@@ -684,7 +684,7 @@
         "iAcceptProcessingPersonalData": "I hereby agree to the processing of my personal data",
         "continueWithSuomiFiLogin": "Continue to Suomi.fi identification",
         "homeWelcomeCaption": "Compile a public profile of your data in the Research.fi service",
-        "homeWelcomeText": "With the profile tool, you can easily showcase your career in research\nby combining the information from your home organizations and ORCID profile.",
+        "homeWelcomeText": "With the profile tool, you can easily showcase your career in research by combining the information from your home organizations and ORCID profile.",
         "alreadyCreatedProfile": "Already have a profile?",
         "importingDataWait": "Importing data, please wait...",
         "importMyOrcidData": "Import my ORCID data",
@@ -1231,8 +1231,8 @@
         "infraRenewalInfoBannerText": "Research.fi portal is renewing the information on research infrastructures and the related data transfer solutions in cooperation with the organizations that provide the data. At the same time, the infrastructure view in the portal will be updated. Due to this renewal, there are temporarily some gaps in data coverage.",
         "publication_list_radio_buttons_sort_publication_type_info": "Publication type A–G, I in accordance with the Ministry of Education and Culture publication data collection",
         "landing_profile_ head_title": "Home - Profile tool",
-        "landing_profile_heading": "Profile is an up-to-date and reliable\noverview of your career in research",
-        "landing_profile_body_text_bold": "With the profile tool, you can easily showcase your career in research\nby combining the information from your home organizations and ORCID profile.",
+        "landing_profile_heading": "Profile is an up-to-date and reliable overview of your career in research",
+        "landing_profile_body_text_bold": "With the profile tool, you can easily showcase your career in research by combining the information from your home organizations and ORCID profile.",
         "landing_profile_body_text_bullet_1": "The information in your profile remain in your control regardless of your affiliation",
         "landing_profile_body_text_bullet_2": "You choose what you want to show in your profile",
         "landing_profile_body_text_bullet_3": "If you wish, your publication and career information can be updated automatically directly from their sources",
@@ -1246,7 +1246,8 @@
         "art_publication_type": "Art publication type",
         "art_publication_type_link": "http://uri.suomi.fi/codelist/research/TaidetyyppiKoodi",
         "art_publication_type_info": "Information on whether the publication is a separate artistic work, a partial implementation of such a work, or an artistic contribution related to a non-artistic publication.",
-        "report_switch_text": "Report"
+        "report_switch_text": "Report",
+        "contactUs": "Contact us"
     }
 }
 
