@@ -19,6 +19,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
     selector: 'app-layout',
@@ -41,7 +42,7 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
 export class LayoutComponent implements OnInit {
   loading: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private appSettingService: AppSettingsService) {}
 
   ngOnInit() {
     this.routerEvents();
@@ -60,7 +61,7 @@ export class LayoutComponent implements OnInit {
         }
         case event instanceof NavigationEnd: {
           this.loading = false;
-
+          this.appSettingService.updateCurrentUrl(event.url);
           break;
         }
       }

@@ -21,6 +21,8 @@ import { environment } from 'src/environments/environment';
 export class AppSettingsService {
   // Project wide settings
   private mobileSource = new BehaviorSubject(false);
+  hideFooterMargin = new BehaviorSubject(true);
+
   mobileStatus = this.mobileSource.asObservable();
 
   private appSettingsSource = new Subject<any>();
@@ -219,6 +221,10 @@ export class AppSettingsService {
 
     // Browser check for SSR builds
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  updateCurrentUrl(url) {
+    this.hideFooterMargin.next(url?.includes('/mydata') || url?.includes('/results/person/'));
   }
 
   updateMobileStatus(status) {
