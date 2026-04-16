@@ -21,7 +21,7 @@ export class ScrollSpyDirective {
 
   constructor(private el: ElementRef) {}
 
-/*  @HostListener('window:scroll') onWindowScroll(event: any) {
+  @HostListener('window:scroll', ['$event']) onWindowScroll(event: any) {
     let currentSection: string;
     const children = this.el.nativeElement.children;
     const scrollTop = event.target.firstElementChild.scrollTop + 600;
@@ -38,5 +38,5 @@ export class ScrollSpyDirective {
       this.currentSection = currentSection;
       this.sectionChange.emit(this.currentSection);
     }
-  }*/
+  }
 }
