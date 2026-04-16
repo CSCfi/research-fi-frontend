@@ -63,7 +63,7 @@
                       @if (item.placement > 0) {
                         <app-svg-sprites [iconName]="'fa-chart-bar'" cssClass="chart-icon"></app-svg-sprites>
                       }
-                      @if (!item.placement > 0) {
+                      @if (!(item.placement > 0)) {
                         <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                       }
                     </div>

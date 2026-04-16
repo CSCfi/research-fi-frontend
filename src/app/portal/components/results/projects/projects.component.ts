@@ -63,7 +63,7 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private sortService: SortService,
+    public sortService: SortService,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,

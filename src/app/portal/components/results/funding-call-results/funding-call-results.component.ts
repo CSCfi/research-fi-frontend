@@ -76,7 +76,7 @@ export class FundingCallResultsComponent
 
   constructor(
     private route: ActivatedRoute,
-    private sortService: SortService,
+    public sortService: SortService,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,

@@ -81,7 +81,7 @@ export class InfrastructuresComponent
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
-    private sortService: SortService,
+    public sortService: SortService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
     private highlightPipe: HighlightSearchPipe

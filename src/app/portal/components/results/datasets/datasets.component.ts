@@ -79,7 +79,7 @@ export class DatasetsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private sortService: SortService,
+    public sortService: SortService,
     @Inject(DOCUMENT) private document: any,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,

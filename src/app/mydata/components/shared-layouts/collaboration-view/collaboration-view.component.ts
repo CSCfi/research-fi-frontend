@@ -22,7 +22,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
     styleUrl: './collaboration-view.component.scss'
 })
 export class CollaborationViewComponent implements OnInit {
-  @Input() collaborationOptions: [];
+  @Input() collaborationOptions: any [];
   @Input() label: string;
   @Input() hasCheckedOption: boolean;
   @Input() hasEditRights: boolean;
