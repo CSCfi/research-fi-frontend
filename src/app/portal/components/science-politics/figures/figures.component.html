@@ -117,11 +117,7 @@
           }
           @if (
             hasResults && queryTerm.length === 0) {
-            <div
-              appScrollSpy
-              [spiedTags]="['DIV']"
-              (sectionChange)="onSectionChange($event)"
-              >
+            <div>
               <div class="dropdown px-2 pb-4">
                 @if (mobile) {
                   <button

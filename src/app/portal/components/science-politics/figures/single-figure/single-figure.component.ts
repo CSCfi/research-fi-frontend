@@ -238,7 +238,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     return index;
   }
 
-  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler() {
+  @HostListener('document:keydown.escape') onKeydownHandler() {
     this.showInfo = false;
     this.showHelp = false;
   }

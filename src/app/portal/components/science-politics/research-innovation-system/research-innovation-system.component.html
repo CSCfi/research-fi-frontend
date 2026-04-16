@@ -25,8 +25,7 @@
         <div class="content" #mainFocus tabindex="0">
           <mat-accordion>
             @for (
-              sector of sectorData; track trackByFn(i,
-              sector); let i = $index) {
+              sector of sectorData; track trackByFn(i); let i = $index) {
               <mat-expansion-panel
                 [expanded]="openedIdx === i"
                 (opened)="openedIdx = i"

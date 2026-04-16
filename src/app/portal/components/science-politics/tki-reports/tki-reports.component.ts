@@ -112,7 +112,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.keyManager.setFirstItemActive();
   }
 
-  @HostListener('document:keyup', ['$event'])
+  @HostListener('document:keyup')
   handleKeyboardEvents(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       this.closeModal();
