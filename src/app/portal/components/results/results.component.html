@@ -16,7 +16,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="center-content wrapper" style="margin-top: 0">
   <div class="row g-0">
 
-    <ng-container *ngIf="tab === 'publications' && betaSearchBannerVisible">
+    @if (tab === 'publications' && betaSearchBannerVisible) {
       <div class="row">
         <div class="row py-2 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
           <div class="row gx-0 col-12 col-lg-9 justify-content-start align-content-center">
@@ -24,36 +24,39 @@ Copyright 2019 Ministry of Education and Culture, Finland
               <div class="mx-3 d-flex flex-column justify-content-center">
                 <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-banner"></app-svg-sprites>
               </div>
-              <div *ngIf="tab === 'publications'" class="me-3" i18n="@@publication2.toNewInfo">
+              @if (tab === 'publications') {
+                <div class="me-3" i18n="@@publication2.toNewInfo">
                 Testaa haun uudistettua betaversiota. Betaversio toimii vain julkaisujen hakuun. Tiedot vastaavat nykyisen sivuston sisältöä julkaisujen osalta.
               </div>
+              }
             </div>
           </div>
           <div class="col-12 col-lg-auto pe-lg-0 d-flex flex-row my-lg-3 mt-4 mb-1 justify-content-between">
             <div class="d-flex flex-column justify-content-center">
-              <app-primary-action-button
-                      *ngIf="tab === 'publications'"
-                      role="link"
-                      routerLink='/results/publications2'
-                      content="Uuteen hakuun"
-                      i18n-content="@@publication2.toNewSearch"
-                      tabindex="-1">
-              </app-primary-action-button>
+              @if (tab === 'publications') {
+                <app-primary-action-button
+                  role="link"
+                  routerLink='/results/publications2'
+                  content="Uuteen hakuun"
+                  i18n-content="@@publication2.toNewSearch"
+                  tabindex="-1">
+                </app-primary-action-button>
+              }
             </div>
             <div class="d-flex flex-column justify-content-center pe-3">
               <a
-                      tabindex="0"
-                      (click)="tab === hideBetaSearchBanner()"
-                      href="javascript:void(0)">
+                tabindex="0"
+                (click)="tab === hideBetaSearchBanner()"
+                href="javascript:void(0)">
                 <strong i18n="@@close">Sulje</strong>
               </a>
             </div>
           </div>
         </div>
       </div>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="tab === 'projects' && projectInfoBannerVisible">
+    @if (tab === 'projects' && projectInfoBannerVisible) {
       <div class="row">
         <div class="row py-2 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
           <div class="row gx-0 col-12 col-lg-9 justify-content-start align-content-center">
@@ -69,29 +72,29 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <div class="col-12 col-lg-auto pe-lg-0 d-flex flex-row my-lg-3 mt-4 mb-1 justify-content-between">
             <div class="d-flex flex-column justify-content-center">
               <app-primary-action-button
-                      role="link"
-                      routerLink="/service-info/"
-                      fragment="service-info-2"
-                      content="Lue lisää"
-                      i18n-content="@@spReadMore"
-                      tabindex="-1">
+                role="link"
+                routerLink="/service-info/"
+                fragment="service-info-2"
+                content="Lue lisää"
+                i18n-content="@@spReadMore"
+                tabindex="-1">
               </app-primary-action-button>
             </div>
             <div class="d-flex flex-column justify-content-center pe-3">
               <a
-                      tabindex="0"
-                      (click)="tab === hideProjectsInfoBanner()"
-                      href="javascript:void(0)">
+                tabindex="0"
+                (click)="tab === hideProjectsInfoBanner()"
+                href="javascript:void(0)">
                 <strong i18n="@@close">Sulje</strong>
               </a>
             </div>
           </div>
         </div>
       </div>
-    </ng-container>
+    }
 
     <!-- MyData login in persons tab -->
-    <ng-container *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">
+    @if (tab === 'persons' && mydataLoginSnackbarVisible) {
       <div class="row">
         <div class="row py-2 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
           <div class="row gx-0 col-12 col-lg-7 justify-content-start align-content-center">
@@ -107,33 +110,33 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <div class="col-12 col-lg-auto pe-lg-0 d-flex flex-row my-lg-3 mt-4 mb-1 justify-content-end">
             <div class="d-flex flex-column justify-content-center me-3">
               <app-primary-action-button
-                      role="link"
-                      (click)="router.navigate(['/mydata'])"
-                      content="Kirjaudu sisään"
-                      i18n-content="@@logIn">
+                role="link"
+                (click)="router.navigate(['/mydata'])"
+                content="Kirjaudu sisään"
+                i18n-content="@@logIn">
               </app-primary-action-button>
             </div>
             <div class="d-flex flex-column justify-content-center me-3">
               <app-secondary-button
-                      content="Ohjeet"
-                      i18n-content="@@instructions"
-                      (click)="showLoginInfoDialog = true">
+                content="Ohjeet"
+                i18n-content="@@instructions"
+                (click)="showLoginInfoDialog = true">
               </app-secondary-button>
             </div>
             <div class="d-flex flex-column justify-content-center me-3">
               <a
-                      tabindex="0"
-                      (click)="hideMydataLoginSnackbar()"
-                      href="javascript:void(0)">
+                tabindex="0"
+                (click)="hideMydataLoginSnackbar()"
+                href="javascript:void(0)">
                 <strong i18n="@@close">Sulje</strong>
               </a>
             </div>
           </div>
         </div>
       </div>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="tab === 'infrastructures' && infrastructuresBetaBannerVisible">
+    @if (tab === 'infrastructures' && infrastructuresBetaBannerVisible) {
       <div class="row">
         <div class="row py-2 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
           <div class="row gx-0 col-12 col-lg-9 justify-content-start align-content-center">
@@ -141,89 +144,95 @@ Copyright 2019 Ministry of Education and Culture, Finland
               <div class="mx-3 d-flex flex-column justify-content-center">
                 <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-banner"></app-svg-sprites>
               </div>
-              <div *ngIf="tab === 'infrastructures'" class="me-3" i18n="@@infraRenewalInfoBannerText">
+              @if (tab === 'infrastructures') {
+                <div class="me-3" i18n="@@infraRenewalInfoBannerText">
                 Tiedejatutkimus.fi‑portaalissa uudistetaan tutkimusinfrastruktuurien tietoja sekä niihin liittyviä tiedonsiirtoratkaisuja yhteistyössä tietoa toimittavien organisaatioiden kanssa. Samassa yhteydessä infrastruktuurien näkymä portaalissa tullaan päivittämään. Uudistuksesta johtuen tietojen kattavuudessa on tilapäisesti puutteita.
               </div>
+              }
             </div>
           </div>
           <div class="col-12 col-lg-auto pe-lg-0 d-flex flex-row my-lg-3 mt-4 mb-1 justify-content-between">
             <div class="d-flex flex-column justify-content-center">
               <a [href]="infrastructuresBetaBannerLink" target="_blank">
                 <app-primary-action-button
-                        role="link"
-                        content="Lue lisää"
-                        i18n-content="@@spReadMore"
-                        tabindex="-1">
+                  role="link"
+                  content="Lue lisää"
+                  i18n-content="@@spReadMore"
+                  tabindex="-1">
                 </app-primary-action-button>
               </a>
             </div>
             <div class="d-flex flex-column justify-content-center pe-3">
               <a
-                      tabindex="0"
-                      (click)="tab === hideInfrastructuresBetaBanner()"
-                      href="javascript:void(0)">
+                tabindex="0"
+                (click)="tab === hideInfrastructuresBetaBanner()"
+                href="javascript:void(0)">
                 <strong i18n="@@close">Sulje</strong>
               </a>
             </div>
           </div>
         </div>
       </div>
-    </ng-container>
+    }
 
     <!-- Left sidebar -->
     <div class="col-lg-4 col-xl-3">
       <!-- Tab label and total count -->
       <div class="row align-items-center justify-content-between">
-        <h2
-                role="status"
-                class="col-auto total"
-                *ngIf="selectedTabData ? selectedTabData.label : ''"
-        >
-          {{ selectedTabData.label }} -
-          <span class="total">{{ parsedTotal }}</span>
-          <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
-        </h2>
+        @if (selectedTabData ? selectedTabData.label : '') {
+          <h2
+            role="status"
+            class="col-auto total"
+            >
+            {{ selectedTabData.label }} -
+            <span class="total">{{ parsedTotal }}</span>
+            <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
+          </h2>
+        }
 
         <!-- Mobile page settings -->
-        <div class="col-auto px-0" *ngIf="selectedTabData && mobile">
-          <app-result-count
-                  [page]="searchService.pageNumber"
-                  [pageSize]="searchService.pageSize"
-                  [total]="dataService.currentTotal | async"
-          ></app-result-count>
-        </div>
+        @if (selectedTabData && mobile) {
+          <div class="col-auto px-0">
+            <app-result-count
+              [page]="searchService.pageNumber"
+              [pageSize]="searchService.pageSize"
+              [total]="dataService.currentTotal | async"
+            ></app-result-count>
+          </div>
+        }
       </div>
 
       <!-- Skip link -->
       <div
-              id="sr-helper"
-              class="row skip-links pb-2"
-              [ngClass]="showSkipLinks ? 'show' : 'sr-only'"
-      >
-        <a
-                (focus)="showSkipLinks = true"
-                #skipToResults
-                tabindex="0"
-                (click)="changeFocusTarget('main')"
-                (blur)="resetFocus(); showSkipLinks = false"
-                href="javascript:void(0)"
+        id="sr-helper"
+        class="row skip-links pb-2"
+        [ngClass]="showSkipLinks ? 'show' : 'sr-only'"
         >
+        <a
+          (focus)="showSkipLinks = true"
+          #skipToResults
+          tabindex="0"
+          (click)="changeFocusTarget('main')"
+          (blur)="resetFocus(); showSkipLinks = false"
+          href="javascript:void(0)"
+          >
           <span i18n="@@skipToResults">Hyppää hakutuloksiin</span>
         </a>
       </div>
 
       <!-- Open visual button -->
-      <div
-              class="justify-content-center align-items-center d-none d-lg-flex visual-button-container"
-              *ngIf="(tab === 'publications' || tab === 'fundings') && !mobile"
-      >
-        <app-primary-action-button
-                [content]="showAsVisual"
-                [svgSymbolName]="'fa-chart-bar'"
-                [svgCssClass]="'show-as-image-button'"
-                (click)="openDialog(visualModal)"
-        ></app-primary-action-button>
-      </div>
+      @if ((tab === 'publications' || tab === 'fundings') && !mobile) {
+        <div
+          class="justify-content-center align-items-center d-none d-lg-flex visual-button-container"
+          >
+          <app-primary-action-button
+            [content]="showAsVisual"
+            [svgSymbolName]="'fa-chart-bar'"
+            [svgCssClass]="'show-as-image-button'"
+            (click)="openDialog(visualModal)"
+          ></app-primary-action-button>
+        </div>
+      }
 
       <!-- Filters & sort -->
       <div class="row g-0">
@@ -233,9 +242,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </div>
 
         <!-- Mobile sort -->
-        <aside class="col col-6 ps-2 sort" *ngIf="mobile">
-          <app-sort></app-sort>
-        </aside>
+        @if (mobile) {
+          <aside class="col col-6 ps-2 sort">
+            <app-sort></app-sort>
+          </aside>
+        }
       </div>
     </div>
 
@@ -243,71 +254,84 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <div class="col-12 col-lg-8 col-xl-9 row main-content px-0 pe-xl-0">
 
       <!-- Desktop page settings -->
-      <div class="row justify-content-end py-3 pe-0" *ngIf="!mobile">
-        <div class="col-auto px-0" *ngIf="selectedTabData">
-          <app-result-count
-                  [page]="searchService.pageNumber"
-                  [pageSize]="searchService.pageSize"
-                  [total]="dataService.currentTotal | async"
-                  [focusSelect]="focusMainContent"
-          ></app-result-count>
-        </div>
-
-        <div class="col-auto text-end px-0 d-none d-lg-block ps-4 pe-0">
-          <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
-            <strong>
-              <ng-container [ngSwitch]="tabName$ | async">
-
-                <ng-container *ngSwitchCase="'funding-calls'" i18n="@@fundingCallsIncluded">
+      @if (!mobile) {
+        <div class="row justify-content-end py-3 pe-0">
+          @if (selectedTabData) {
+            <div class="col-auto px-0">
+              <app-result-count
+                [page]="searchService.pageNumber"
+                [pageSize]="searchService.pageSize"
+                [total]="dataService.currentTotal | async"
+                [focusSelect]="focusMainContent"
+              ></app-result-count>
+            </div>
+          }
+          <div class="col-auto text-end px-0 d-none d-lg-block ps-4 pe-0">
+            <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
+              <strong>
+                @switch (tabName$ | async) {
+                  @case ('funding-calls') {
+                    <ng-container i18n="@@fundingCallsIncluded">
                   Mitä rahoitushakutietoja palvelu sisältää?
                 </ng-container>
-
-                <ng-container *ngSwitchCase="'fundings'" i18n="@@fundingsDataDisclaimerLink">
+                  }
+                  @case ('fundings') {
+                    <ng-container i18n="@@fundingsDataDisclaimerLink">
                   Mitä rahoitusmyöntöjen tietoja palvelu sisältää?
                 </ng-container>
-
-                <ng-container *ngSwitchCase="'projects'" i18n="@@projectsDataDisclaimerLink">
+                  }
+                  @case ('projects') {
+                    <ng-container i18n="@@projectsDataDisclaimerLink">
                   Mitä hanketietoja palvelu sisältää?
                 </ng-container>
-
-                <ng-container *ngSwitchDefault>
-                  <ng-container i18n="@@resultInfo1">Mitä</ng-container>
-                  <span> {{ selectedTabData?.singular.toLowerCase() }}</span>
-                  <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
-                </ng-container>
-
-              </ng-container>
-            </strong>
-          </a>
+                  }
+                  @default {
+                    <ng-container i18n="@@resultInfo1">Mitä</ng-container>
+                    <span> {{ selectedTabData?.singular.toLowerCase() }}</span>
+                    <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
+                  }
+                }
+              </strong>
+            </a>
+          </div>
         </div>
-      </div>
+      }
 
       <main id="main-content" class="ps-lg-3 pt-lg-0">
         <!-- Active filters list -->
         <div class="row">
-          <ng-container *ngIf="page <= 1000; else pageOverflow">
+          @if (page <= 1000) {
             <div class="col px-0 ps-lg-2">
-              <app-funding-call-category-filters
-                      *ngIf="tab === 'funding-calls' && filterValues"
-                      [resetFundingCallCategoryFilters]="clearAllFilters"
-                      [responseData]="filterValues"
-                      (filterChangeOutput)="setExternalFilters($event)"
-              >
-              </app-funding-call-category-filters>
-
+              @if (tab === 'funding-calls' && filterValues) {
+                <app-funding-call-category-filters
+                  [resetFundingCallCategoryFilters]="clearAllFilters"
+                  [responseData]="filterValues"
+                  (filterChangeOutput)="setExternalFilters($event)"
+                  >
+                </app-funding-call-category-filters>
+              }
               <app-active-filters
-                      (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
+                (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
               ></app-active-filters>
             </div>
-          </ng-container>
+          } @else {
+            <div class="row main-content">
+              <div class="col text-center no-results">
+                <h2 i18n="@@maxResults1">Tuloksia näytetään enintään 10 000</h2>
+                <p i18n="@@maxResults2">
+          Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.
+        </p>
+              </div>
+            </div>
+          }
         </div>
 
         <!-- Results -->
         <div class="row">
           <app-search-results
-                  class="col px-0 ps-lg-2"
-                  [currentTab]="selectedTabData"
-                  [updateFilters]="updateFilters"
+            class="col px-0 ps-lg-2"
+            [currentTab]="selectedTabData"
+            [updateFilters]="updateFilters"
           ></app-search-results>
         </div>
       </main>
@@ -316,110 +340,103 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
   <!-- Filters template -->
   <ng-template #filtersTemplate>
-    <ng-container *ngFor="let item of tabChangeService.tabData">
-      <app-filters
-              *ngIf="tab === item.link"
-              [responseData]="filterValues"
-              [filterOrigin]="item.data"
-              [externalFilterQuery]="tab === 'funding-calls' && externalFilterQuery"
-      ></app-filters>
-    </ng-container>
+    @for (item of tabChangeService.tabData; track item) {
+      @if (tab === item.link) {
+        <app-filters
+          [responseData]="filterValues"
+          [filterOrigin]="item.data"
+          [externalFilterQuery]="tab === 'funding-calls' && externalFilterQuery"
+        ></app-filters>
+      }
+    }
   </ng-template>
 
-  <ng-template #pageOverflow>
-    <div class="row main-content">
-      <div class="col text-center no-results">
-        <h2 i18n="@@maxResults1">Tuloksia näytetään enintään 10 000</h2>
-        <p i18n="@@maxResults2">
-          Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.
-        </p>
-      </div>
-    </div>
-  </ng-template>
 
   <ng-template #visualModal>
     <div class="visual-dialog-body">
       <div class="row">
         <div class="col-3">
-          <div
-            #info
-            *ngIf="showInfo"
-            class="info p-3"
-            [ngClass]="mobile ? 'right' : 'left'"
-          >
-            <strong class="d-block pb-2" i18n="@@additionalInfo"
-            >Lisätietoa</strong
-            >
-            <div [innerHtml]="visualisationInfo"></div>
-          </div>
-          <!-- <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle> -->
-          <mat-form-field class="visual-select">
-            <mat-label class="strong" i18n="@@chooseTheme"
-            >Valitse teema</mat-label
-            >
-            <mat-select (selectionChange)="changeVisual($event)">
-              <mat-option
-                      *ngFor="let category of visualisationCategories; let i = index"
-                      value="{{ i }}"
-              >{{ category.select }}</mat-option
+          @if (showInfo) {
+            <div
+              #info
+              class="info p-3"
+              [ngClass]="mobile ? 'right' : 'left'"
               >
-            </mat-select>
-          </mat-form-field>
-          <div class="overflow-wrapper mb-2">
-            <ng-container [ngTemplateOutlet]="filtersTemplate"></ng-container>
-          </div>
-          <app-secondary-button
+              <strong class="d-block pb-2" i18n="@@additionalInfo"
+                >Lisätietoa</strong
+                >
+                <div [innerHtml]="visualisationInfo"></div>
+              </div>
+            }
+            <!-- <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle> -->
+            <mat-form-field class="visual-select">
+              <mat-label class="strong" i18n="@@chooseTheme"
+                >Valitse teema</mat-label
+                >
+                <mat-select (selectionChange)="changeVisual($event)">
+                  @for (category of visualisationCategories; track category; let i = $index) {
+                    <mat-option
+                      value="{{ i }}"
+                      >{{ category.select }}</mat-option
+                      >
+                    }
+                  </mat-select>
+                </mat-form-field>
+                <div class="overflow-wrapper mb-2">
+                  <ng-container [ngTemplateOutlet]="filtersTemplate"></ng-container>
+                </div>
+                <app-secondary-button
                   (click)="clearFilters()"
                   [big]="true"
                   [content]="clearActiveFilters"
                   [svgSymbolName]="'delete'"
                   [svgCssClass]="'delete-icon button-icon'"
-          ></app-secondary-button>
-        </div>
-        <div class="col-9 row">
-          <!-- <div *ngIf="tab === 'fundings'" class="ml-auto pb-2 col-6">
-            <button
-              class="col-6 vis-style-toggle ttv-button"
-              [class.active]="!visualisationType"
+                ></app-secondary-button>
+              </div>
+              <div class="col-9 row">
+                <!-- <div *ngIf="tab === 'fundings'" class="ml-auto pb-2 col-6">
+                <button
+                  class="col-6 vis-style-toggle ttv-button"
+                  [class.active]="!visualisationType"
               (click)="
               visualisationType = false
               "
-              i18n="@@asBarChart">
-              Pylväskuvaaja
-            </button>
-            <button
-              class="col-6 vis-style-toggle ttv-button"
-              [class.active]="visualisationType"
+                  i18n="@@asBarChart">
+                  Pylväskuvaaja
+                </button>
+                <button
+                  class="col-6 vis-style-toggle ttv-button"
+                  [class.active]="visualisationType"
               (click)="
               getVisualData();
               visualisationType = true
               "
-              i18n="@@asPieChart">
-              Piiraskuvaaja
-            </button>
-          </div>   -->
-          <app-active-filters
-                  (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
-          ></app-active-filters>
-          <app-visualisation
-            #visualisationsRef
-            [data]="visualData"
-            [tab]="tab"
-            [visIdx]="visIdx"
-            [percentage]="percentage"
-            [loading]="visualLoading"
-            [searchTerm]="searchTerm"
-            [searchTarget]="searchTargetName"
-            [visualisationType]="visualisationType"
-          ></app-visualisation>
-          <div class="row vis-info">
-            <div class="col">
-              <div class="row">
-                <div
-                        *ngIf="tab === 'publications'"
+                  i18n="@@asPieChart">
+                  Piiraskuvaaja
+                </button>
+              </div>   -->
+              <app-active-filters
+                (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
+              ></app-active-filters>
+              <app-visualisation
+                #visualisationsRef
+                [data]="visualData"
+                [tab]="tab"
+                [visIdx]="visIdx"
+                [percentage]="percentage"
+                [loading]="visualLoading"
+                [searchTerm]="searchTerm"
+                [searchTarget]="searchTargetName"
+                [visualisationType]="visualisationType"
+              ></app-visualisation>
+              <div class="row vis-info">
+                <div class="col">
+                  <div class="row">
+                    @if (tab === 'publications') {
+                      <div
                         class="vis-style-toggles row"
-                >
-                  <button
+                        >
+                        <button
                           class="col vis-style-toggle ttv-button"
                           [class.active]="!percentage && !fundingAmount"
                           (click)="
@@ -428,20 +445,22 @@ Copyright 2019 Ministry of Education and Culture, Finland
                       changeVisual($event)
                     "
                           i18n="@@asCountPublication"
-                  >
+                          >
                     Julkaisujen määrä
                   </button>
-                  <button
+                        <button
                           class="col vis-style-toggle ttv-button"
                           [class.active]="percentage && !fundingAmount"
                           (click)="percentage = true; fundingAmount = false"
                           i18n="@@asPercentPublication"
-                  >
+                          >
                     % julkaisujen määrästä
                   </button>
-                </div>
-                <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
-                  <button
+                      </div>
+                    }
+                    @if (tab === 'fundings') {
+                      <div class="vis-style-toggles row">
+                        <button
                           class="col-6 vis-style-toggle ttv-button"
                           [class.active]="!percentage && !fundingAmount"
                           (click)="
@@ -450,10 +469,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
                       fundingAmount = false
                     "
                           i18n="@@asCountFunding"
-                  >
+                          >
                     Rahoitusmyöntöjen määrä
                   </button>
-                  <button
+                        <button
                           class="col-6 vis-style-toggle ttv-button"
                           [class.active]="percentage && !fundingAmount"
                           (click)="
@@ -462,10 +481,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
                       fundingAmount = false
                     "
                           i18n="@@asPercentFunding"
-                  >
+                          >
                     % rahoitusmyöntöjen määrästä
                   </button>
-                  <button
+                        <button
                           class="col-6 vis-style-toggle ttv-button"
                           [class.active]="!percentage && fundingAmount"
                           (click)="
@@ -474,10 +493,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
                       fundingAmount = true
                     "
                           i18n="@@asCountAmount"
-                  >
+                          >
                     Myöntösumma
                   </button>
-                  <button
+                        <button
                           class="col-6 vis-style-toggle ttv-button"
                           [class.active]="percentage && fundingAmount"
                           (click)="
@@ -486,37 +505,38 @@ Copyright 2019 Ministry of Education and Culture, Finland
                       fundingAmount = true
                     "
                           i18n="@@asPercentAmount"
-                  >
+                          >
                     % myöntösummasta
                   </button>
-                  <div class="col-12"></div>
+                        <div class="col-12"></div>
+                      </div>
+                    }
+                  </div>
+                  <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
+                  <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                    <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
+                  </span> -->
+                </div>
+                <div class="col pe-0 text-end">
+                  <app-secondary-button
+                    id="download-image"
+                    [content]="downloadImage"
+                    [svgSymbolName]="'download'"
+                    [svgCssClass]="'download-icon button-icon'"
+                    (click)="visualisationsRef.saveAsImageClick()"
+                  ></app-secondary-button>
                 </div>
               </div>
-              <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
-                        <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                            <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
-                        </span> -->
-            </div>
-            <div class="col pe-0 text-end">
-              <app-secondary-button
-                      id="download-image"
-                      [content]="downloadImage"
-                      [svgSymbolName]="'download'"
-                      [svgCssClass]="'download-icon button-icon'"
-                      (click)="visualisationsRef.saveAsImageClick()"
-              ></app-secondary-button>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </ng-template>
+      </ng-template>
 
-  <!-- Reusable dialog -->
-  <div class="chart-wrapper">
-    <app-dialog
+      <!-- Reusable dialog -->
+      <div class="chart-wrapper">
+        @if (showDialog) {
+          <app-dialog
             class="chart-wrapper"
-            *ngIf="showDialog"
             [template]="dialogTemplate"
             [title]="dialogTitle"
             (onActionClick)="closeDialog()"
@@ -526,36 +546,40 @@ Copyright 2019 Ministry of Education and Culture, Finland
             position="top"
             extraClass="visual-dialog"
             [headerInfoTemplate]="dialogHeaderInfo"
-    ></app-dialog>
-  </div>
+          ></app-dialog>
+        }
+      </div>
 
-  <ng-template #dialogHeaderInfo>
-    <div
-            class="d-inline-block"
-            (click)="showInfo = !showInfo"
-            (keydown.enter)="showInfo = !showInfo"
-            tabindex="0"
-            (clickOutside)="onClickedOutside($event)"
-    >
-      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-      <a>{{ additionalInfo }} </a>
+      <ng-template #dialogHeaderInfo>
+        <div
+          class="d-inline-block"
+          (click)="showInfo = !showInfo"
+          (keydown.enter)="showInfo = !showInfo"
+          tabindex="0"
+          (clickOutside)="onClickedOutside($event)"
+          >
+          <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+          <a>{{ additionalInfo }} </a>
+        </div>
+      </ng-template>
     </div>
-  </ng-template>
-</div>
 
-<app-dialog
-        *ngIf="showLoginInfoDialog"
+    @if (showLoginInfoDialog) {
+      <app-dialog
         [title]="betaDialogTitle"
         [template]="myDataBetaTemplate"
         (onActionClick)="showLoginInfoDialog = false"
-></app-dialog>
+      ></app-dialog>
+    }
 
-<ng-template #myDataBetaTemplate>
-  <div class="row">
-    <div class="col">
-      <p *ngFor="let item of myDataInfoTexts">
-        {{ item }}
-      </p>
-    </div>
-  </div>
-</ng-template>
+    <ng-template #myDataBetaTemplate>
+      <div class="row">
+        <div class="col">
+          @for (item of myDataInfoTexts; track item) {
+            <p>
+              {{ item }}
+            </p>
+          }
+        </div>
+      </div>
+    </ng-template>

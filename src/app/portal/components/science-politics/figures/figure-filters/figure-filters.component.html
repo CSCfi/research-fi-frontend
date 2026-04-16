@@ -7,30 +7,33 @@
 
 <div class="row">
   <div class="col px-0">
-    <div class="row" *ngFor="let item of filters">
-      <div class="col ps-0 pe-1" [class.narrow]="narrow">
-        <mat-chip-listbox class="mat-chip-list-stacked" [selectable]="true">
-          <mat-chip-option
+    @for (item of filters; track item) {
+      <div class="row">
+        <div class="col ps-0 pe-1" [class.narrow]="narrow">
+          <mat-chip-listbox class="mat-chip-list-stacked" [selectable]="true">
+            <mat-chip-option
             [selected]="
               (!filter && item.filter === 'all') || filter === item.filter
             "
-            (click)="navigate(item.filter)"
-          >
-            {{ item.label }}
-          </mat-chip-option>
-        </mat-chip-listbox>
+              (click)="navigate(item.filter)"
+              >
+              {{ item.label }}
+            </mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+        @if (item['info' + currentLocale]) {
+          <div
+            class="col-auto px-0 align-self-center info-button"
+            >
+            <app-figures-info
+              labelText="Lisätietoa"
+              i18n-labelText="@@additionalInfo"
+              [content]="item['info' + currentLocale]"
+              [position]="'nextTo'"
+            ></app-figures-info>
+          </div>
+        }
       </div>
-      <div
-        *ngIf="item['info' + currentLocale]"
-        class="col-auto px-0 align-self-center info-button"
-      >
-        <app-figures-info
-          labelText="Lisätietoa"
-          i18n-labelText="@@additionalInfo"
-          [content]="item['info' + currentLocale]"
-          [position]="'nextTo'"
-        ></app-figures-info>
-      </div>
-    </div>
+    }
   </div>
 </div>

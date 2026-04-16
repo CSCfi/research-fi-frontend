@@ -16,7 +16,7 @@ import { take } from 'rxjs';
 import { FooterComponent } from './footer/footer.component';
 import { BannerDividerComponent } from '../shared/components/banner-divider/banner-divider.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+
 import { HeaderComponent } from './header/header.component';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -26,13 +26,12 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
     imports: [
-        ErrorModalComponent,
-        HeaderComponent,
-        NgIf,
-        MatProgressSpinner,
-        BannerDividerComponent,
-        FooterComponent,
-    ]
+    ErrorModalComponent,
+    HeaderComponent,
+    MatProgressSpinner,
+    BannerDividerComponent,
+    FooterComponent
+]
 })
 
 /*

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GroupTypes } from '@mydata/constants/groupTypes';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
@@ -11,14 +11,13 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 @Component({
     selector: 'app-name-and-orcid-view',
     imports: [
-        NgIf,
-        SvgSpritesComponent,
-        TertiaryButtonComponent,
-        NgClass,
-        CdkCopyToClipboard,
-        ShareComponent,
-        CapitalizeFirstLetterPipe
-    ],
+    SvgSpritesComponent,
+    TertiaryButtonComponent,
+    NgClass,
+    CdkCopyToClipboard,
+    ShareComponent,
+    CapitalizeFirstLetterPipe
+],
     templateUrl: './name-and-orcid-view.component.html',
     styleUrl: './name-and-orcid-view.component.scss'
 })

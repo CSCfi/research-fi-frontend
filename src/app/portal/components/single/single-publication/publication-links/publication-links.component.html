@@ -1,7 +1,7 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <mat-card appearance="outlined">
   <div class="inner">
@@ -9,44 +9,42 @@
       <h2 i18n="@@publicationLinks">Linkit julkaisuun</h2>
     </mat-card-title>
 
-    <ng-container *ngFor="let row of linksFields">
-      <ng-container *ngIf="row.field as field">
-
-        <ng-container *ngIf="field === 'doi' && item.doi">
+    @for (row of linksFields; track row) {
+      @if (row.field; as field) {
+        @if (field === 'doi' && item.doi) {
           <app-single-result-link
             [tag]="'DOI'"
             [icon]="false"
             [label]="item[field]"
             [url]="'https://doi.org/' + item.doi">
           </app-single-result-link>
-        </ng-container>
-
-        <ng-container *ngIf="field !== 'doi' && item[field]">
+        }
+        @if (field !== 'doi' && item[field]) {
           <app-single-result-link
             [tag]="null"
             [icon]="true"
             [label]="item[field]"
             [url]="item[field]">
           </app-single-result-link>
-        </ng-container>
+        }
+      }
+    }
 
-      </ng-container>
-    </ng-container>
+    @for (selfArchived of item.selfArchivedData; track selfArchived) {
+      @for (row of selfArchived.selfArchived; track row) {
+        @if (row.selfArchivedAddress | isUrl) {
+          <app-single-result-link
+            [icon]="true"
+            [url]="row.selfArchivedAddress">
+          </app-single-result-link>
+        }
+      }
+    }
 
-    <ng-container *ngFor="let selfArchived of item.selfArchivedData">
-      <ng-container *ngFor="let row of selfArchived.selfArchived">
-
-        <app-single-result-link
-          *ngIf="row.selfArchivedAddress | isUrl"
-          [icon]="true"
-          [url]="row.selfArchivedAddress">
-        </app-single-result-link>
-
-      </ng-container>
-    </ng-container>
-
-    <div *ngIf="!linksFields.length && !item.selfArchivedData?.length" class="no-links" i18n="@@noPublicationLinks">
+    @if (!linksFields.length && !item.selfArchivedData?.length) {
+      <div class="no-links" i18n="@@noPublicationLinks">
       Julkaisuun ei ole tarjolla linkkejä tässä portaalissa
     </div>
+    }
   </div>
 </mat-card>

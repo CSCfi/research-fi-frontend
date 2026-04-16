@@ -1,13 +1,13 @@
 <div class="sort-indicator ps-2">
-  <ng-container *ngIf="order === ''">
+  @if (order === '') {
     <app-svg-sprites [iconName]="'sort'" cssClass="sort-icon"></app-svg-sprites>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="order === 'asc'">
+  @if (order === 'asc') {
     <app-svg-sprites [iconName]="'sort-asc'" cssClass="sort-icon-asc"></app-svg-sprites>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="order === 'desc'">
+  @if (order === 'desc') {
     <app-svg-sprites [iconName]="'sort-desc'" cssClass="sort-icon-desc"></app-svg-sprites>
-  </ng-container>
+  }
 </div>

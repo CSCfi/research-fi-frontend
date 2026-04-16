@@ -1,67 +1,75 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <!--  Primary affiliations -->
-<ng-container *ngIf="(data.items | getItemsBy: 'primaryValue' | getItemsBy: 'show').length">
+@if ((data.items | getItemsBy: 'primaryValue' | getItemsBy: 'show').length) {
   <div class="row">
     <div class="col fw-bold pb-3" i18n="@@primaryPlural">Ensisijaiset</div>
   </div>
-
-  <div class="row" *ngFor="let primaryItem of data.items; let i = index">
-    <div
-      *ngIf="primaryItem.itemMeta.primaryValue && primaryItem.itemMeta.show"
-      class="col-auto font-size-smaller"
-    >
-      {{ primaryItem['positionName' + locale]
-      }}<span *ngIf="primaryItem['organizationName' + locale]">, </span
-      >{{ primaryItem['organizationName' + locale] }}
-    </div>
-  </div>
-
-  <app-summary-divider [thick]="true"></app-summary-divider>
-</ng-container>
-<!-- List affiliations -->
-<div class="summary-panel-wrapper">
-  <ng-container *ngFor="let item of sortedItems">
-    <div class="summary-panel" *ngIf="item.itemMeta.show">
-      <div class="col px-3 pb-3">
-        <span class="fw-bold">{{ item['organizationName' + locale] }}</span>
-
-        <div class="font-size-smaller">
-          {{ item.year }}
-        </div>
+  @for (primaryItem of data.items; track primaryItem; let i = $index) {
+    <div class="row">
+      @if (primaryItem.itemMeta.primaryValue && primaryItem.itemMeta.show) {
+        <div
+          class="col-auto font-size-smaller"
+          >
+          {{ primaryItem['positionName' + locale]
+          }}@if (primaryItem['organizationName' + locale]) {
+          <span>, </span
+            >
+            }{{ primaryItem['organizationName' + locale] }}
+          </div>
+        }
       </div>
-
-      <div class="row d-flex justify-content-between py-1 font-size-smaller">
-        <ng-container *ngFor="let column of columns">
-          <div class="col-6 pb-3" *ngIf="item[column.field + locale]">
-            <div class="row fw-bold">{{ column.label }}</div>
-
-            <div class="row" [ngSwitch]="column.field">
-              <ng-container *ngSwitchCase="'positionName'">
-                {{ item[column.field + locale] }}
-                <ng-container>{{ item.year }}</ng-container>
-              </ng-container>
-
-              <ng-container *ngSwitchDefault>{{
-                item[column.field + locale]
-              }}</ng-container>
+    }
+    <app-summary-divider [thick]="true"></app-summary-divider>
+  }
+  <!-- List affiliations -->
+  <div class="summary-panel-wrapper">
+    @for (item of sortedItems; track item) {
+      @if (item.itemMeta.show) {
+        <div class="summary-panel">
+          <div class="col px-3 pb-3">
+            <span class="fw-bold">{{ item['organizationName' + locale] }}</span>
+            <div class="font-size-smaller">
+              {{ item.year }}
             </div>
           </div>
-        </ng-container>
-      </div>
-
-      <div class="row">
-        <ng-container *ngFor="let ds of item.dataSources; let j = index">
-          <div class="col-auto font-size-smaller">
-            <ng-container *ngIf="j == 0" i18n="@@source">Lähde</ng-container>:
-            {{ ds.organization['name' + locale] }}
+          <div class="row d-flex justify-content-between py-1 font-size-smaller">
+            @for (column of columns; track column) {
+              @if (item[column.field + locale]) {
+                <div class="col-6 pb-3">
+                  <div class="row fw-bold">{{ column.label }}</div>
+                  <div class="row">
+                    @switch (column.field) {
+                      @case ('positionName') {
+                        {{ item[column.field + locale] }}
+                        <ng-container>{{ item.year }}</ng-container>
+                      }
+                      @default {
+                        {{
+                        item[column.field + locale]
+                        }}
+                      }
+                    }
+                  </div>
+                </div>
+              }
+            }
           </div>
-          <app-summary-divider></app-summary-divider>
-        </ng-container>
-      </div>
+          <div class="row">
+            @for (ds of item.dataSources; track ds; let j = $index) {
+              <div class="col-auto font-size-smaller">
+                @if (j == 0) {
+                  <ng-container i18n="@@source">Lähde</ng-container>
+                  }:
+                  {{ ds.organization['name' + locale] }}
+                </div>
+                <app-summary-divider></app-summary-divider>
+              }
+            </div>
+          </div>
+        }
+      }
     </div>
-  </ng-container>
-</div>

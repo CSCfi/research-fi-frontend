@@ -1,133 +1,126 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <ng-template #editorTemplate>
   <div class="profile-tool-modal">
-  <ng-container
-    *ngIf="
-      portalModalIndicatorIds.indexOf(editorData.id) === -1;
-      else tabTemplate
-    "
-  >
-    <div class="row d-flex justify-content-between py-2">
-      <div class="col-12 col-lg-auto font-size-big">
-        <span i18n="@@selectInformationToDisplayInProfile">
+    @if (
+      portalModalIndicatorIds.indexOf(editorData.id) === -1) {
+      <div class="row d-flex justify-content-between py-2">
+        <div class="col-12 col-lg-auto font-size-big">
+          <span i18n="@@selectInformationToDisplayInProfile">
           Valitse profiilissasi näytettävät tiedot
         </span>
-      </div>
-
-      <div class="col-auto pb-3">
-        <mat-checkbox
-          [checked]="!toggleAllDisabled && allSelected"
-          (change)="toggleAll($event)"
-          [indeterminate]="someSelected"
-          [disabled]="toggleAllDisabled"
-          i18n="@@selectAll"
-          cdk
-          cdkFocusInitial
-          autoFocus
-          [trigger]="dialogData.trigger"
-          >Valitse kaikki</mat-checkbox
-        >
-      </div>
-    </div>
-
-    <app-profile-panel
-      [data]="editorData"
-      (onSingleItemToggle)="itemClicked()"
-    ></app-profile-panel>
-  </ng-container>
-
-  <!-- Tabbed layout for groups that leverage search from portal -functionality -->
-  <ng-template #tabTemplate>
-    <mat-tab-group
-      mat-align-tabs="start"
-      class="px-3"
-      [(selectedIndex)]="currentTabIndex"
-      (selectedTabChange)="onTabChange($event)"
-    >
-      <mat-tab [label]="selectItemsTabLabel">
-        <div class="row tab-info background-light pt-3 my-4">
-          <div class="col-auto">
-              <app-svg-sprites [iconName]="'info'" cssClass="info-icon large-icon"></app-svg-sprites>
-          </div>
-          <div class="col ps-0">
-            <p class="fw-bold" i18n="@@selectInformationToDisplayInProfile">
-              Valitse profiilissasi näytettävät tiedot
-            </p>
-
-            <p>
-              {{ tabInfoText }}
-            </p>
-
-            <p *ngIf="editorData.fields[0].items.length">
-              {{ chooseItemsText }}
-            </p>
+        </div>
+        <div class="col-auto pb-3">
+          <mat-checkbox
+            [checked]="!toggleAllDisabled && allSelected"
+            (change)="toggleAll($event)"
+            [indeterminate]="someSelected"
+            [disabled]="toggleAllDisabled"
+            i18n="@@selectAll"
+            cdk
+            cdkFocusInitial
+            autoFocus
+            [trigger]="dialogData.trigger"
+            >Valitse kaikki</mat-checkbox
+            >
           </div>
         </div>
-
-        <app-profile-items-table
-          [columns]="tableColumns"
+        <app-profile-panel
           [data]="editorData"
           (onSingleItemToggle)="itemClicked()"
-          (onAllItemToggle)="itemClicked()"
-          *ngIf="
-            editorData.fields[0].items.length && currentTabIndex === 0;
-            else noOrcidItemsTemplate
-          "
-        >
-        </app-profile-items-table>
-
-        <ng-template #noOrcidItemsTemplate>
-          <p class="fw-bold">
-            <ng-container i18n="@@orcidTemplateStatusSubstring1">Ei ORCID-tunnukseen yhdistettyjä </ng-container>
-            {{addFromPortalTabString.toLowerCase()}}
-            <ng-container i18n="@@orcidTemplateStatusSubstring2">&nbsp;</ng-container>
-          </p></ng-template
-        >
-      </mat-tab>
-
-      <mat-tab
-        [disabled]="disabledSearchPortalModalIds.indexOf(editorData.id) > -1"
-      >
-        <ng-template mat-tab-label *ngIf="this.dialogData.data.id !== 'activitiesAndRewards'">
-            <app-svg-sprites [iconName]="'search'" cssClass="search-icon tab-button-icon" class="pe-3"></app-svg-sprites>
-          <ng-container i18n="@@searchForOther">Hae muita</ng-container>
-            <div>&nbsp;</div>
-            <span *ngIf="this.dialogData.data.id === 'funding'">
-                <span i18n="@@fundingsPluralPart">rahoitusmyöntöjä</span>
-            </span>
-            <span *ngIf="this.dialogData.data.id !== 'funding'">
-                {{ addFromPortalTabString.toLowerCase() }}
-            </span>
-          <ng-container
-            *ngIf="disabledSearchPortalModalIds.indexOf(editorData.id) > -1"
-            >(<span i18n="@@comingSoon">Tulossa</span>)</ng-container
+        ></app-profile-panel>
+      } @else {
+        <mat-tab-group
+          mat-align-tabs="start"
+          class="px-3"
+          [(selectedIndex)]="currentTabIndex"
+          (selectedTabChange)="onTabChange($event)"
           >
-        </ng-template>
+          <mat-tab [label]="selectItemsTabLabel">
+            <div class="row tab-info background-light pt-3 my-4">
+              <div class="col-auto">
+                <app-svg-sprites [iconName]="'info'" cssClass="info-icon large-icon"></app-svg-sprites>
+              </div>
+              <div class="col ps-0">
+                <p class="fw-bold" i18n="@@selectInformationToDisplayInProfile">
+              Valitse profiilissasi näytettävät tiedot
+            </p>
+                <p>
+                  {{ tabInfoText }}
+                </p>
+                @if (editorData.fields[0].items.length) {
+                  <p>
+                    {{ chooseItemsText }}
+                  </p>
+                }
+              </div>
+            </div>
+            @if (
+              editorData.fields[0].items.length && currentTabIndex === 0) {
+              <app-profile-items-table
+                [columns]="tableColumns"
+                [data]="editorData"
+                (onSingleItemToggle)="itemClicked()"
+                (onAllItemToggle)="itemClicked()"
+                >
+              </app-profile-items-table>
+            } @else {
+              <p class="fw-bold">
+                <ng-container i18n="@@orcidTemplateStatusSubstring1">Ei ORCID-tunnukseen yhdistettyjä </ng-container>
+                {{addFromPortalTabString.toLowerCase()}}
+                <ng-container i18n="@@orcidTemplateStatusSubstring2">&nbsp;</ng-container>
+              </p>
+            }
+          </mat-tab>
+          <mat-tab
+            [disabled]="disabledSearchPortalModalIds.indexOf(editorData.id) > -1"
+            >
+            @if (this.dialogData.data.id !== 'activitiesAndRewards') {
+              <ng-template mat-tab-label>
+                <app-svg-sprites [iconName]="'search'" cssClass="search-icon tab-button-icon" class="pe-3"></app-svg-sprites>
+                <ng-container i18n="@@searchForOther">Hae muita</ng-container>
+                <div>&nbsp;</div>
+                @if (this.dialogData.data.id === 'funding') {
+                  <span>
+                    <span i18n="@@fundingsPluralPart">rahoitusmyöntöjä</span>
+                  </span>
+                }
+                @if (this.dialogData.data.id !== 'funding') {
+                  <span>
+                    {{ addFromPortalTabString.toLowerCase() }}
+                  </span>
+                }
+                @if (disabledSearchPortalModalIds.indexOf(editorData.id) > -1) {
+                  (<span i18n="@@comingSoon">Tulossa</span>)
+                }
+              </ng-template>
+            }
+            @if (currentTabIndex === 1) {
+              <app-search-portal
+                [data]="editorData"
+                (onAddItems)="handleSelection($event)"
+                [columns]="tableColumns"
+                >
+              </app-search-portal>
+            }
+          </mat-tab>
+        </mat-tab-group>
+      }
 
-        <ng-container *ngIf="currentTabIndex === 1">
-          <app-search-portal
-            [data]="editorData"
-            (onAddItems)="handleSelection($event)"
-            [columns]="tableColumns"
-          >
-          </app-search-portal>
-        </ng-container>
-      </mat-tab>
-    </mat-tab-group>
+      <!-- Tabbed layout for groups that leverage search from portal -functionality -->
+    </div>
   </ng-template>
-  </div>
-</ng-template>
 
-<app-dialog
-  *ngIf="showDialog"
-  [template]="editorTemplate"
-  [title]="dialogData.data.label"
-  [actions]="dialogActions"
-  (onActionClick)="doDialogAction($event)"
-  [selectedItemsCount]="selectedItems.length || 0"
->
-</app-dialog>
+  @if (showDialog) {
+    <app-dialog
+      [template]="editorTemplate"
+      [title]="dialogData.data.label"
+      [actions]="dialogActions"
+      (onActionClick)="doDialogAction($event)"
+      [selectedItemsCount]="selectedItems.length || 0"
+      >
+    </app-dialog>
+  }

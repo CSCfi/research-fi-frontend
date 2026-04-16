@@ -26,7 +26,7 @@ import { ThousandSeparatorPipe } from '../../../../shared/pipes/thousand-separat
 import { SearchPortalResultsComponent } from './search-portal-results/search-portal-results.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SearchComponent } from '../../../../shared/components/search/search.component';
-import { NgSwitch, NgSwitchCase, NgIf, NgSwitchDefault, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -35,17 +35,13 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./search-portal.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgSwitch,
-        NgSwitchCase,
-        SearchComponent,
-        NgIf,
-        NgSwitchDefault,
-        NgClass,
-        MatProgressSpinner,
-        SearchPortalResultsComponent,
-        ThousandSeparatorPipe,
-        SvgSpritesComponent
-    ]
+    SearchComponent,
+    NgClass,
+    MatProgressSpinner,
+    SearchPortalResultsComponent,
+    ThousandSeparatorPipe,
+    SvgSpritesComponent
+]
 })
 export class SearchPortalComponent implements OnInit, OnDestroy {
   @Input() data: any;

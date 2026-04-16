@@ -1,36 +1,40 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
-<app-table
-  *ngIf="tableRows?.length > 0; else noResults"
-  [columns]="tableColumns"
-  [rows]="tableRows.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)"
-  activeRowIdentifierField="public"
-  [borders]="true"
-  [sortColumn]="activeSort"
-  [sortDirection]="sortDirection"
-  (onSelectionChange)="handleSelection($event)"
-  (onToggleSelectAll)="handleSelectAll($event)"
-  [sortQueryParams]="true"
-  [mobileCards]="true"
-  [allSelected]="allSelected"
-  [currentSelection]="rowCheckboxTicks"
-  [pageNumber]="pageNumber"
-  [pageSize]="pageSize"
-  [profileToolThemeBackground]="true"
-></app-table>
+@if (tableRows?.length > 0) {
+  <app-table
+    [columns]="tableColumns"
+    [rows]="tableRows.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)"
+    activeRowIdentifierField="public"
+    [borders]="true"
+    [sortColumn]="activeSort"
+    [sortDirection]="sortDirection"
+    (onSelectionChange)="handleSelection($event)"
+    (onToggleSelectAll)="handleSelectAll($event)"
+    [sortQueryParams]="true"
+    [mobileCards]="true"
+    [allSelected]="allSelected"
+    [currentSelection]="rowCheckboxTicks"
+    [pageNumber]="pageNumber"
+    [pageSize]="pageSize"
+    [profileToolThemeBackground]="true"
+  ></app-table>
+} @else {
+  <h1>Ei tuloksia</h1>
+}
 
-<app-pagination
-  *ngIf="tableRows?.length > 0"
-  [page]="pageNumber"
-  [pageSize]="pageSize"
-  [total]="total"
-></app-pagination>
+@if (tableRows?.length > 0) {
+  <app-pagination
+    [page]="pageNumber"
+    [pageSize]="pageSize"
+    [total]="total"
+  ></app-pagination>
+}
 
 <!-- Table templates -->
-<ng-container *ngFor="let row of rawProfileRows; let i = index">
+@for (row of rawProfileRows; track row; let i = $index) {
   <ng-template #contentCell>
     <div class="row g-0">
       <div
@@ -40,58 +44,62 @@
           expandedRows.indexOf(i) === -1 &&
           !(appSettingsService.mobileStatus | async)
         "
-      >
+        >
         {{ row.displayValue }}
       </div>
-      <a
-        tabindex="0"
-        class="col-auto primary-color ps-3"
-        (click)="toggleRowExpand(i)"
-        *ngIf="
-          row.displayValue?.length > maxContentLength &&
-          !(appSettingsService.mobileStatus | async)
-        "
-      >
-        <ng-container
-          *ngIf="expandedRows.indexOf(i) === -1; else closeRow"
-          i18n="@@show"
-        >
+      @if (
+        row.displayValue?.length > maxContentLength &&
+        !(appSettingsService.mobileStatus | async)
+        ) {
+        <a
+          tabindex="0"
+          class="col-auto primary-color ps-3"
+          (click)="toggleRowExpand(i)"
+          >
+          @if (expandedRows.indexOf(i) === -1) {
+            <ng-container
+              i18n="@@show"
+              >
           Näytä
         </ng-container>
-        <ng-template #closeRow i18n="@@close">Sulje</ng-template></a
-      >
-    </div>
-  </ng-template>
-
-  <ng-template #publicityCell>
-    <!-- TODO: Add i18n ids -->
-    <span
-      [class.public-cell]="!mobile"
-      *ngIf="row.itemMeta.show"
-      i18n="@@public"
-    >
+          } @else {
+            <ng-container i18n="@@close">Sulje</ng-container>
+          }
+          </a
+          >
+        }
+      </div>
+    </ng-template>
+    <ng-template #publicityCell>
+      <!-- TODO: Add i18n ids -->
+      @if (row.itemMeta.show) {
+        <span
+          [class.public-cell]="!mobile"
+          i18n="@@public"
+          >
       Julkinen
     </span>
-    <span *ngIf="!row.itemMeta.show" i18n="@@notPublic">Ei julkinen</span>
-  </ng-template>
-
-  <ng-template #sharingCell>
-    <a
-      class="row justify-content-between"
-      href="javascript:void(0)"
-      [matMenuTriggerFor]="menu"
-    >
-      <span class="d-block col-auto px-0">1 valittu</span>
+      }
+      @if (!row.itemMeta.show) {
+        <span i18n="@@notPublic">Ei julkinen</span>
+      }
+    </ng-template>
+    <ng-template #sharingCell>
+      <a
+        class="row justify-content-between"
+        href="javascript:void(0)"
+        [matMenuTriggerFor]="menu"
+        >
+        <span class="d-block col-auto px-0">1 valittu</span>
         <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon"></app-svg-sprites>
-    </a>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngFor="let target of shareTargets">
-        {{ target.label }}
-      </button>
-    </mat-menu>
-  </ng-template>
-</ng-container>
+      </a>
+      <mat-menu #menu="matMenu">
+        @for (target of shareTargets; track target) {
+          <button mat-menu-item>
+            {{ target.label }}
+          </button>
+        }
+      </mat-menu>
+    </ng-template>
+  }
 
-<ng-template #noResults>
-  <h1>Ei tuloksia</h1>
-</ng-template>

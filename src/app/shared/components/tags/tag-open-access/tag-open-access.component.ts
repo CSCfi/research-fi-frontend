@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -15,12 +15,11 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './tag-open-access.component.html',
     styleUrls: ['./tag-open-access.component.scss'],
     imports: [
-        NgIf,
-        NgTemplateOutlet,
-        MatIcon,
-        NgClass,
-        SvgSpritesComponent
-    ]
+    NgTemplateOutlet,
+    MatIcon,
+    NgClass,
+    SvgSpritesComponent
+]
 })
 export class TagOpenAccessComponent implements OnInit {
   @Input() link: string;

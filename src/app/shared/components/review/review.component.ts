@@ -18,7 +18,7 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-review',
@@ -26,20 +26,18 @@ import { NgIf, NgFor } from '@angular/common';
     styleUrls: ['./review.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        RouterLink,
-        MatRadioGroup,
-        FormsModule,
-        NgFor,
-        MatRadioButton,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatCheckbox,
-        SecondaryButtonComponent,
-        PrimaryActionButtonComponent,
-        MatButton,
-    ]
+    RouterLink,
+    MatRadioGroup,
+    FormsModule,
+    MatRadioButton,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatCheckbox,
+    SecondaryButtonComponent,
+    PrimaryActionButtonComponent,
+    MatButton
+]
 })
 export class ReviewComponent implements OnInit, OnDestroy {
   underReview = false;

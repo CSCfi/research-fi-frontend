@@ -7,17 +7,15 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { OrcidComponent } from '../../../../../shared/components/orcid/orcid.component';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-dataset-author',
     templateUrl: './dataset-author.component.html',
     styleUrls: ['./dataset-author.component.scss'],
     imports: [
-        NgIf,
-        NgFor,
-        OrcidComponent,
-    ]
+    OrcidComponent
+]
 })
 export class DatasetAuthorComponent implements OnInit {
   @Input() org: any;

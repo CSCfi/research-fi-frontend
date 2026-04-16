@@ -42,10 +42,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <app-review (onClose)='toggleReview()'></app-review>
 </ng-template>
 
-<app-dialog
-  *ngIf="showDialog"
-  [template]="reviewDialog"
-  title="Anna palautetta tai kysy"
-  i18n-title="@@leaveReviewHeader"
-  (onActionClick)="toggleReview()"
-></app-dialog>
+@if (showDialog) {
+  <app-dialog
+    [template]="reviewDialog"
+    title="Anna palautetta tai kysy"
+    i18n-title="@@leaveReviewHeader"
+    (onActionClick)="toggleReview()"
+  ></app-dialog>
+}

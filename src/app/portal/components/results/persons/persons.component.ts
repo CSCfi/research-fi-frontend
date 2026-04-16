@@ -31,7 +31,7 @@ import { ResultsPaginationComponent } from '../results-pagination/results-pagina
 import { RouterLink } from '@angular/router';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-persons',
@@ -39,15 +39,13 @@ import { NgIf, NgFor } from '@angular/common';
     styleUrls: ['./persons.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        NgFor,
-        RouterLink,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-        HighlightSearchPipe,
-    ]
+    MatProgressSpinner,
+    TableComponent,
+    RouterLink,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    HighlightSearchPipe
+]
 })
 export class PersonsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() resultData: Search;

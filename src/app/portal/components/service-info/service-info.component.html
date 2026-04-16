@@ -17,63 +17,67 @@
     <div class="row base">
       <div class="col">
         <mat-accordion #mainFocus tabindex="0">
-          <ng-container *ngFor="let section of sections; let j = index">
+          @for (section of sections; track section; let j = $index) {
             <h1 class="pb-4" [class.pt-4]="j > 0">{{ section.header }}</h1>
             <div class="content">
-              <mat-expansion-panel
-                *ngFor="let item of section.items; let i = index"
-                [expanded]="openedIdx === item.id"
-                (opened)="open(item.id)"
-                (closed)="close(item.id)"
-                [id]="item.id"
-              >
-                <mat-expansion-panel-header collapsedHeight="61px">
-                  <mat-panel-title>
+              @for (item of section.items; track item; let i = $index) {
+                <mat-expansion-panel
+                  [expanded]="openedIdx === item.id"
+                  (opened)="open(item.id)"
+                  (closed)="close(item.id)"
+                  [id]="item.id"
+                  >
+                  <mat-expansion-panel-header collapsedHeight="61px">
+                    <mat-panel-title>
                       <div class="info-icon-pad">
-                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon faq-icon"></app-svg-sprites>
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon faq-icon"></app-svg-sprites>
                       </div>
-                    <div class="title align-self-center">
-                      <h2 [id]="item['title' + currentLocale]">
-                        {{ item['title' + currentLocale] }}
-                      </h2>
-                    </div>
-                  </mat-panel-title>
-                  <span
-                    *ngIf="openedIdx !== item.id"
-                    class="align-self-center me-2"
-                    i18n="@@open"
-                    >Avaa</span
-                  >
-                  <span
-                    *ngIf="openedIdx === item.id"
-                    class="align-self-center me-2"
-                    i18n="@@close"
-                    >Sulje</span
-                  >
-                </mat-expansion-panel-header>
-                <div class="row">
-                  <div
-                    class="col-12 info-panel"
-                    [innerHTML]="item['content' + currentLocale] | sanitizeHtml"
-                  ></div>
+                      <div class="title align-self-center">
+                        <h2 [id]="item['title' + currentLocale]">
+                          {{ item['title' + currentLocale] }}
+                        </h2>
+                      </div>
+                    </mat-panel-title>
+                    @if (openedIdx !== item.id) {
+                      <span
+                        class="align-self-center me-2"
+                        i18n="@@open"
+                        >Avaa</span
+                        >
+                      }
+                      @if (openedIdx === item.id) {
+                        <span
+                          class="align-self-center me-2"
+                          i18n="@@close"
+                          >Sulje</span
+                          >
+                        }
+                      </mat-expansion-panel-header>
+                      <div class="row">
+                        <div
+                          class="col-12 info-panel"
+                          [innerHTML]="item['content' + currentLocale] | sanitizeHtml"
+                        ></div>
+                      </div>
+                    </mat-expansion-panel>
+                  }
                 </div>
-              </mat-expansion-panel>
-            </div>
-          </ng-container>
-        </mat-accordion>
+              }
+            </mat-accordion>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</main>
+    </main>
 
-<ng-template #reviewDialog>
-  <app-review (onClose)='toggleReview()'></app-review>
-</ng-template>
+    <ng-template #reviewDialog>
+      <app-review (onClose)='toggleReview()'></app-review>
+    </ng-template>
 
-<app-dialog
-  *ngIf="showDialog"
-  [template]="reviewDialog"
-  title="Anna palautetta tai kysy"
-  i18n-title="@@leaveReviewHeader"
-  (onActionClick)="toggleReview()"
-></app-dialog>
+    @if (showDialog) {
+      <app-dialog
+        [template]="reviewDialog"
+        title="Anna palautetta tai kysy"
+        i18n-title="@@leaveReviewHeader"
+        (onActionClick)="toggleReview()"
+      ></app-dialog>
+    }

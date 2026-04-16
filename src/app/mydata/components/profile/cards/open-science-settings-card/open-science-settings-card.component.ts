@@ -4,18 +4,17 @@ import {
   ProfileEditorCardHeaderComponent
 } from '@mydata/components/profile/cards/profile-editor-card-header/profile-editor-card-header.component';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { NgIf } from '@angular/common';
+
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-open-science-settings-card',
     imports: [
-        HasSelectedItemsPipe,
-        ProfileEditorCardHeaderComponent,
-        MatCheckbox,
-        NgIf,
-        SvgSpritesComponent
-    ],
+    HasSelectedItemsPipe,
+    ProfileEditorCardHeaderComponent,
+    MatCheckbox,
+    SvgSpritesComponent
+],
     templateUrl: './open-science-settings-card.component.html',
     styleUrl: './open-science-settings-card.component.scss'
 })

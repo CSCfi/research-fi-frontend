@@ -1,7 +1,7 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <app-banner-divider></app-banner-divider>
 
@@ -30,7 +30,7 @@
               class="orcid-icon mt-n1 pe-2"
               src="assets/img/orcid_icon.svg"
               alt="Orcid -palvelun logo"
-            />
+              />
             <span>{{ orcidData.orcid }}</span>
           </div>
         </div>
@@ -41,14 +41,14 @@
               <div class="col-auto offset-lg-3 ps-0 align-self-center">
                 <div class="ps-2 ms-1">
                   <ng-container
-                          [ngTemplateOutlet]="selectedItemsTemplate"
+                    [ngTemplateOutlet]="selectedItemsTemplate"
                   ></ng-container>
                 </div>
               </div>
 
               <!-- Desktop selection actions -->
               <ng-container
-                      [ngTemplateOutlet]="selectionActionsTemplate"
+                [ngTemplateOutlet]="selectionActionsTemplate"
               ></ng-container>
             </div>
           </div>
@@ -59,17 +59,17 @@
           <div class="col-12 col-lg-3 px-0">
             <div class="row py-3 py-lg-0">
               <app-data-sources-filters
-                      class="col-6 col-lg-12 ps-0 px-lg-0"
-                      [profileData]="initialProfileData"
-                      [activeFilters]="activeFilters"
+                class="col-6 col-lg-12 ps-0 px-lg-0"
+                [profileData]="initialProfileData"
+                [activeFilters]="activeFilters"
               ></app-data-sources-filters>
 
               <app-sort-by-button
-                      class="col-6 d-block d-lg-none pe-0"
-                      [options]="sortOptions"
-                      [activeSort]="activeSort"
-                      customSortByRelevanceLabel="Osuvin ensin"
-                      i18n-customSortByRelevanceLabel="@@sortByRelevance"
+                class="col-6 d-block d-lg-none pe-0"
+                [options]="sortOptions"
+                [activeSort]="activeSort"
+                customSortByRelevanceLabel="Osuvin ensin"
+                i18n-customSortByRelevanceLabel="@@sortByRelevance"
               ></app-sort-by-button>
             </div>
           </div>
@@ -79,7 +79,7 @@
             <div class="row d-lg-none">
               <div class="col px-0 mx-n2">
                 <ng-container
-                        [ngTemplateOutlet]="selectionActionsTemplate"
+                  [ngTemplateOutlet]="selectionActionsTemplate"
                 ></ng-container>
               </div>
             </div>
@@ -88,25 +88,27 @@
             <div class="row d-lg-none pt-3">
               <div class="col px-2">
                 <ng-container
-                        [ngTemplateOutlet]="selectedItemsTemplate"
+                  [ngTemplateOutlet]="selectedItemsTemplate"
                 ></ng-container>
               </div>
             </div>
 
             <!-- List active filters -->
-            <app-active-filters-list
-                    *ngIf="parsedActiveFilters?.length"
-                    [filters]="parsedActiveFilters"
-                    [dialogConfig]="activeFiltersDialogConfig"
-                    (onRemoveFilter)="removeFilter($event)"
-                    (onClearFilters)="clearFilters()"
-            ></app-active-filters-list>
+            @if (parsedActiveFilters?.length) {
+              <app-active-filters-list
+                [filters]="parsedActiveFilters"
+                [dialogConfig]="activeFiltersDialogConfig"
+                (onRemoveFilter)="removeFilter($event)"
+                (onClearFilters)="clearFilters()"
+              ></app-active-filters-list>
+            }
 
-            <app-data-sources-table
-                    *ngIf="visibleData?.length"
-                    [data]="visibleData"
-                    (onSelectionChange)="handleSelection($event)"
-            ></app-data-sources-table>
+            @if (visibleData?.length) {
+              <app-data-sources-table
+                [data]="visibleData"
+                (onSelectionChange)="handleSelection($event)"
+              ></app-data-sources-table>
+            }
           </div>
         </div>
       </div>
@@ -115,13 +117,14 @@
 </main>
 
 <ng-template #selectionActionsTemplate>
-  <app-data-sources-selection-actions
-    *ngIf="selectedItems?.length > 0"
-    [selectedItems]="selectedItems"
-    [profileData]="initialProfileData"
-    (onPatchSuccess)="updateData($event)"
-    class="col-auto pe-0"
-  ></app-data-sources-selection-actions>
+  @if (selectedItems?.length > 0) {
+    <app-data-sources-selection-actions
+      [selectedItems]="selectedItems"
+      [profileData]="initialProfileData"
+      (onPatchSuccess)="updateData($event)"
+      class="col-auto pe-0"
+    ></app-data-sources-selection-actions>
+  }
 </ng-template>
 
 <ng-template #selectedItemsTemplate>

@@ -17,7 +17,7 @@ import { SortService } from 'src/app/portal/services/sort.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { NgFor, NgIf } from '@angular/common';
+
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -25,11 +25,9 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './active-filters-dialog.component.html',
     styleUrls: ['./active-filters-dialog.component.scss'],
     imports: [
-        NgFor,
-        NgIf,
-        MatButton,
-        SvgSpritesComponent
-    ]
+    MatButton,
+    SvgSpritesComponent
+]
 })
 export class ActiveFiltersDialogComponent implements OnInit {
   @Input() data: any;

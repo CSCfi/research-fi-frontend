@@ -1,39 +1,36 @@
 <ng-template #searchFilters>
   <div>
 
-    <ng-container *ngIf='(narrowBreakpoint$ | async) === false'>
+    @if ((narrowBreakpoint$ | async) === false) {
       <div style='display: flex; align-items: center'>
-          <app-svg-sprites [iconName]="'sliders'" cssClass="sliders-icon"></app-svg-sprites>
+        <app-svg-sprites [iconName]="'sliders'" cssClass="sliders-icon"></app-svg-sprites>
         <h3 style='font-size: 1.4rem; margin: 0'>Rajaa hakua</h3>                                          <!-- TODO localize -->
       </div>
-
       <!-- TODO DELETE -->
       <div style='margin: 1rem'></div>
-    </ng-container>
+    }
 
 
 
     <div>
       <app-collapsible [label]='labelText.yearOfPublication'>
-        <ng-container *ngIf='yearFilters$ | async as yearFilters'>
-          <ng-container *ngFor='let yearFilter of yearFilters | limit: filterLimits.year'>
+        @if (yearFilters$ | async; as yearFilters) {
+          @for (yearFilter of yearFilters | limit: filterLimits.year; track yearFilter) {
             <app-filter-option [label]='yearFilter.year'
-                               [count]='yearFilter.count'
-                               [value]='yearFilter.enabled'
-                               (valueChange)='toggleParam("year", yearFilter.year)'>
+              [count]='yearFilter.count'
+              [value]='yearFilter.enabled'
+              (valueChange)='toggleParam("year", yearFilter.year)'>
             </app-filter-option>
-          </ng-container>
-
+          }
           <div style='display: flex'>
             <app-filter-limit-button [(value)]='filterLimits.year' [step]='10' [min]='10' [max]='yearFilters.length'i18n="@@showMoreFilters">
               Näytä enemmän
             </app-filter-limit-button>
-
             <app-filter-limit-button [(value)]='filterLimits.year' [step]='-10' [min]='10' [max]='yearFilters.length' i18n="@@showLess">
               Näytä vähemmän
             </app-filter-limit-button>
           </div>
-        </ng-container>
+        }
 
       </app-collapsible>
     </div>
@@ -52,23 +49,20 @@
           Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.
         </ng-container>
 
-        <ng-container *ngFor='let section of [1, 2, 3, 4, 5, 6, 8]'> <!-- 6 is last real, 9 is error codes -->
-
+        @for (section of [1, 2, 3, 4, 5, 6, 8]; track section) {
+          <!-- 6 is last real, 9 is error codes -->
           <app-collapsible [label]='mainFieldOfScienceName[section]'>
-            <ng-container *ngFor='let fieldsOfScienceFilter of fieldsOfScienceFilters$ | async'>
-
-              <ng-container *ngIf='(fieldsOfScienceFilter.id | firstDigit) === section'>
+            @for (fieldsOfScienceFilter of fieldsOfScienceFilters$ | async; track fieldsOfScienceFilter) {
+              @if ((fieldsOfScienceFilter.id | firstDigit) === section) {
                 <app-filter-option [label]='fieldsOfScienceFilter.name'
-                                   [count]='fieldsOfScienceFilter.count'
-                                   [value]='fieldsOfScienceFilter.enabled'
-                                   (valueChange)='toggleParam("fieldsOfScience", fieldsOfScienceFilter.id)'>
+                  [count]='fieldsOfScienceFilter.count'
+                  [value]='fieldsOfScienceFilter.enabled'
+                  (valueChange)='toggleParam("fieldsOfScience", fieldsOfScienceFilter.id)'>
                 </app-filter-option>
-              </ng-container>
-
-            </ng-container>
+              }
+            }
           </app-collapsible>
-
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -81,23 +75,19 @@
           OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.
         </ng-container>
 
-        <ng-container *ngFor='let label of publicationTypeLabels'>
-
+        @for (label of publicationTypeLabels; track label) {
           <app-collapsible [label]='label.text'>
-            <ng-container *ngFor='let publicationTypeCodeFilter of publicationTypeCodeFilters$ | async'>
-
-              <ng-container *ngIf='(publicationTypeCodeFilter.id | firstLetter) === label.id'>
+            @for (publicationTypeCodeFilter of publicationTypeCodeFilters$ | async; track publicationTypeCodeFilter) {
+              @if ((publicationTypeCodeFilter.id | firstLetter) === label.id) {
                 <app-filter-option [label]='publicationTypeCodeFilter.name'
-                                   [count]='publicationTypeCodeFilter.count'
-                                   [value]='publicationTypeCodeFilter.enabled'
-                                   (valueChange)='toggleParam("publicationTypeCode", publicationTypeCodeFilter.id)'>
+                  [count]='publicationTypeCodeFilter.count'
+                  [value]='publicationTypeCodeFilter.enabled'
+                  (valueChange)='toggleParam("publicationTypeCode", publicationTypeCodeFilter.id)'>
                 </app-filter-option>
-              </ng-container>
-
-            </ng-container>
+              }
+            }
           </app-collapsible>
-
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -140,13 +130,13 @@
             </p>
           </ng-container>
 
-          <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
+          @for (publicationFormatFilter of publicationFormatFilters$ | async; track publicationFormatFilter) {
             <app-filter-option [label]='publicationFormatFilter.name'
-                               [count]='publicationFormatFilter.count'
-                               [value]='publicationFormatFilter.enabled'
-                               (valueChange)='toggleParam("format", publicationFormatFilter.id)'>
+              [count]='publicationFormatFilter.count'
+              [value]='publicationFormatFilter.enabled'
+              (valueChange)='toggleParam("format", publicationFormatFilter.id)'>
             </app-filter-option>
-          </ng-container>
+          }
         </app-collapsible>
       </div>
     </div>
@@ -177,13 +167,13 @@
           </p>
         </ng-container>
 
-        <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
+        @for (publicationAudienceFilter of publicationAudienceFilters$ | async; track publicationAudienceFilter) {
           <app-filter-option [label]='publicationAudienceFilter.name'
-                             [count]='publicationAudienceFilter.count'
-                             [value]='publicationAudienceFilter.enabled'
-                             (valueChange)='toggleParam("audience", publicationAudienceFilter.id)'>
+            [count]='publicationAudienceFilter.count'
+            [value]='publicationAudienceFilter.enabled'
+            (valueChange)='toggleParam("audience", publicationAudienceFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -215,13 +205,13 @@
           </p>
         </ng-container>
 
-        <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
+        @for (parentPublicationTypeFilter of parentPublicationTypeFilters$ | async; track parentPublicationTypeFilter) {
           <app-filter-option [label]='parentPublicationTypeFilter.name'
-                             [count]='parentPublicationTypeFilter.count'
-                             [value]='parentPublicationTypeFilter.enabled'
-                             (valueChange)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
+            [count]='parentPublicationTypeFilter.count'
+            [value]='parentPublicationTypeFilter.enabled'
+            (valueChange)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -257,13 +247,13 @@
         </ng-container>
 
 
-        <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
+        @for (articleTypeCodeFilter of articleTypeCodeFilters$ | async; track articleTypeCodeFilter) {
           <app-filter-option [label]='articleTypeCodeFilter.name'
-                             [count]='articleTypeCodeFilter.count'
-                             [value]='articleTypeCodeFilter.enabled'
-                             (valueChange)='toggleParam("articleType", articleTypeCodeFilter.id)'>
+            [count]='articleTypeCodeFilter.count'
+            [value]='articleTypeCodeFilter.enabled'
+            (valueChange)='toggleParam("articleType", articleTypeCodeFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -274,13 +264,13 @@
       <app-collapsible [label]='labelText.peerReviewed' hasTooltip='true'>
         <ng-container tooltip i18n="@@peerReviewedTooltip">Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</ng-container>
 
-        <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
+        @for (peerReviewedFilter of peerReviewedFilters$ | async; track peerReviewedFilter) {
           <app-filter-option [label]='peerReviewedFilter.name'
-                             [count]='peerReviewedFilter.count'
-                             [value]='peerReviewedFilter.enabled'
-                             (valueChange)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
+            [count]='peerReviewedFilter.count'
+            [value]='peerReviewedFilter.enabled'
+            (valueChange)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -293,13 +283,13 @@
           Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.
         </ng-container>
 
-        <ng-container *ngFor='let internationalPublicationFilter of publisherInternationalityFilters$ | async'>
+        @for (internationalPublicationFilter of publisherInternationalityFilters$ | async; track internationalPublicationFilter) {
           <app-filter-option [label]='internationalPublicationFilter.name'
-                             [count]='internationalPublicationFilter.count'
-                             [value]='internationalPublicationFilter.enabled'
-                             (valueChange)='toggleParam("international", internationalPublicationFilter.id)'>
+            [count]='internationalPublicationFilter.count'
+            [value]='internationalPublicationFilter.enabled'
+            (valueChange)='toggleParam("international", internationalPublicationFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -312,25 +302,24 @@
           Kieli, jolla julkaisu on kirjoitettu.
         </ng-container>
 
-        <ng-container *ngIf='languageCodeFilters$ | async as languageCodeFilters'>
-          <ng-container *ngFor='let languageCodeFilter of languageCodeFilters | limit: filterLimits.language'>   <!-- LIMIT ? -->
+        @if (languageCodeFilters$ | async; as languageCodeFilters) {
+          @for (languageCodeFilter of languageCodeFilters | limit: filterLimits.language; track languageCodeFilter) {
+            <!-- LIMIT ? -->
             <app-filter-option [label]='languageCodeFilter.name'
-                               [count]='languageCodeFilter.count'
-                               [value]='languageCodeFilter.enabled'
-                               (valueChange)='toggleParam("language", languageCodeFilter.id)'>
+              [count]='languageCodeFilter.count'
+              [value]='languageCodeFilter.enabled'
+              (valueChange)='toggleParam("language", languageCodeFilter.id)'>
             </app-filter-option>
-          </ng-container>
-
+          }
           <div style='display: flex'>
             <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length' i18n="@@showMoreFilters">
               Näytä enemmän
             </app-filter-limit-button>
-
             <app-filter-limit-button [(value)]='filterLimits.language' [step]='-10' [min]='10' [max]='languageCodeFilters.length' i18n="@@showLess">
               Näytä vähemmän
             </app-filter-limit-button>
           </div>
-        </ng-container>
+        }
 
 
       </app-collapsible>
@@ -345,13 +334,13 @@
           Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.
         </ng-container>
 
-        <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
+        @for (jufoClassCodeFilter of jufoClassCodeFilters$ | async; track jufoClassCodeFilter) {
           <app-filter-option [label]='jufoClassCodeFilter.id'
-                             [count]='jufoClassCodeFilter.count'
-                             [value]='jufoClassCodeFilter.enabled'
-                             (valueChange)='toggleParam("jufo", jufoClassCodeFilter.id)'>
+            [count]='jufoClassCodeFilter.count'
+            [value]='jufoClassCodeFilter.enabled'
+            (valueChange)='toggleParam("jufo", jufoClassCodeFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -379,13 +368,13 @@
 
         </ng-container>
 
-        <ng-container *ngFor='let openAccessFilter of openAccessFilters$ | async'>
+        @for (openAccessFilter of openAccessFilters$ | async; track openAccessFilter) {
           <app-filter-option [label]='openAccessFilter.name'
-                             [count]='openAccessFilter.count'
-                             [value]='openAccessFilter.enabled'
-                             (valueChange)='toggleParam("openAccess", openAccessFilter.id)'>
+            [count]='openAccessFilter.count'
+            [value]='openAccessFilter.enabled'
+            (valueChange)='toggleParam("openAccess", openAccessFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -422,13 +411,13 @@
 
         </ng-container>
 
-        <ng-container *ngFor='let publisherOpenAccessFilter of publisherOpenAccessFilters$ | async'>
+        @for (publisherOpenAccessFilter of publisherOpenAccessFilters$ | async; track publisherOpenAccessFilter) {
           <app-filter-option [label]='publisherOpenAccessFilter.name'
-                             [count]='publisherOpenAccessFilter.count'
-                             [value]='publisherOpenAccessFilter.enabled'
-                             (valueChange)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
+            [count]='publisherOpenAccessFilter.count'
+            [value]='publisherOpenAccessFilter.enabled'
+            (valueChange)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -445,13 +434,13 @@
           </p>
         </ng-container>
 
-        <ng-container *ngFor='let selfArchivedCodeFilter of selfArchivedCodeFilters$ | async'>
+        @for (selfArchivedCodeFilter of selfArchivedCodeFilters$ | async; track selfArchivedCodeFilter) {
           <app-filter-option [label]='selfArchivedCodeFilter.name'
-                             [count]='selfArchivedCodeFilter.count'
-                             [value]='selfArchivedCodeFilter.enabled'
-                             (valueChange)='toggleParam("selfArchivedCode", selfArchivedCodeFilter.id)'>
+            [count]='selfArchivedCodeFilter.count'
+            [value]='selfArchivedCodeFilter.enabled'
+            (valueChange)='toggleParam("selfArchivedCode", selfArchivedCodeFilter.id)'>
           </app-filter-option>
-        </ng-container>
+        }
       </app-collapsible>
     </div>
 
@@ -461,7 +450,7 @@
 <ng-template #searchDialog>
   <div class='dialog-header' style='display: flex; justify-content: space-between; padding: 18px 16px'>
     <div style='display: flex; align-items: center'>
-        <app-svg-sprites [iconName]="'sliders'" cssClass="sliders-icon"></app-svg-sprites>
+      <app-svg-sprites [iconName]="'sliders'" cssClass="sliders-icon"></app-svg-sprites>
       <h3 style='font-size: 1.4rem; margin: 0'>Rajaa hakua</h3>                                          <!-- TODO localize -->
     </div>
 
@@ -571,7 +560,7 @@
       <div class="row col-7 justify-content-start align-content-center">
 
         <div class="col-auto mx-0 gx-0">
-            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+          <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
         </div>
 
         <div class="col-11 align-self-center">
@@ -595,359 +584,336 @@
 
         <!-- TODO: Ei tarvita ohjeita, ainakaan tähän -->
         <!--<div class="col-auto pe-lg-0 py-1">
-          <app-secondary-button content="Ohjeet" i18n-content="@@instructions"></app-secondary-button>
-        </div>-->
+        <app-secondary-button content="Ohjeet" i18n-content="@@instructions"></app-secondary-button>
+      </div>-->
 
-        <!-- TODO: Nappuloiden sulkeminen myös huono idea, jumituttaan? -->
-        <div class="col-auto align-self-center">
-          <!--<div>
-            <a tabindex="0" href="javascript:void(0)"><strong i18n="@@close">Sulje</strong></a>
-          </div>-->
-        </div>
-
-      </div>
+      <!-- TODO: Nappuloiden sulkeminen myös huono idea, jumituttaan? -->
+      <div class="col-auto align-self-center">
+        <!--<div>
+        <a tabindex="0" href="javascript:void(0)"><strong i18n="@@close">Sulje</strong></a>
+      </div>-->
     </div>
 
-    <div style='display: flex; align-items: center; justify-content: space-between; width: 100%'>
+  </div>
+</div>
 
-      <div>
-        <h2>Julkaisut - {{total$ | async}}</h2>
-      </div>
+<div style='display: flex; align-items: center; justify-content: space-between; width: 100%'>
 
-      <div style='height: 58px; padding: 16px'>
-        <ng-container i18n='@@paginationResultCount'>Näytetään tulokset </ng-container>
-
-        {{(page - 1) * size + 1}} - {{page * size}} / {{total$ | async}}
-
-        <select [ngModel]='size' (ngModelChange)='setPageSize($event)'>
-          <option [ngValue]='10'>10</option>
-          <option [ngValue]='100'>100</option>
-        </select>
-
-
-        <ng-container i18n='@@search-bar.results'> tulosta </ng-container> / <ng-container i18n='@@search-bar.page'> sivu </ng-container>
-
-
-        <a [routerLink]='["/service-info"]' fragment='service-info2'>
-          <ng-container i18n="@@publication2.contentInfo">
-            Mitä julkaisutietoja palvelu sisältää?
-          </ng-container>
-        </a>
-
-      </div>
-    </div>
+  <div>
+    <h2>Julkaisut - {{total$ | async}}</h2>
   </div>
 
-  <ng-container *ngIf='(narrowBreakpoint$ | async)'>
-    <div class='search-filters-toggle'>
+  <div style='height: 58px; padding: 16px'>
+    <ng-container i18n='@@paginationResultCount'>Näytetään tulokset </ng-container>
 
-      <!-- Buttons for bringing the collapsed filters back -->
-      <div style='display: flex; justify-content: space-between;'>
-        <div class="mx-auto" style='flex-grow: 1'>
-          <app-secondary-button
-            [content]='"Rajaa hakua"'
-            [svgSymbolName]="'sliders'"
-            [svgCssClass]="'sliders-icon'"
-            [noSmIcon]="true"
-            [big]="true"
-            tabindex="-1"
-            (click)="openDialog()"
-          ></app-secondary-button>
-        </div>
+    {{(page - 1) * size + 1}} - {{page * size}} / {{total$ | async}}
 
-        <!-- TODO: Add sorting management -->
-        <!--<div class="mx-auto" style='flex-grow: 1'>
-          <app-secondary-button
-            [content]='"Osuva tulos ensin"'
-            [noSmIcon]="true"
-            [big]="true"
-            tabindex="-1"
-          ></app-secondary-button>
-        </div>-->
+    <select [ngModel]='size' (ngModelChange)='setPageSize($event)'>
+      <option [ngValue]='10'>10</option>
+      <option [ngValue]='100'>100</option>
+    </select>
+
+
+    <ng-container i18n='@@search-bar.results'> tulosta </ng-container> / <ng-container i18n='@@search-bar.page'> sivu </ng-container>
+
+
+    <a [routerLink]='["/service-info"]' fragment='service-info2'>
+      <ng-container i18n="@@publication2.contentInfo">
+            Mitä julkaisutietoja palvelu sisältää?
+          </ng-container>
+    </a>
+
+  </div>
+</div>
+</div>
+
+@if ((narrowBreakpoint$ | async)) {
+  <div class='search-filters-toggle'>
+    <!-- Buttons for bringing the collapsed filters back -->
+    <div style='display: flex; justify-content: space-between;'>
+      <div class="mx-auto" style='flex-grow: 1'>
+        <app-secondary-button
+          [content]='"Rajaa hakua"'
+          [svgSymbolName]="'sliders'"
+          [svgCssClass]="'sliders-icon'"
+          [noSmIcon]="true"
+          [big]="true"
+          tabindex="-1"
+          (click)="openDialog()"
+        ></app-secondary-button>
       </div>
+      <!-- TODO: Add sorting management -->
+      <!--<div class="mx-auto" style='flex-grow: 1'>
+      <app-secondary-button
+        [content]='"Osuva tulos ensin"'
+        [noSmIcon]="true"
+        [big]="true"
+        tabindex="-1"
+      ></app-secondary-button>
+    </div>-->
+  </div>
+</div>
+}
 
+@if ((narrowBreakpoint$ | async) === false) {
+  <div class='search-filters' >
+    <!-- showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`; -->
+    <!-- *ngIf="(tab === 'publications' || tab === 'fundings') && !mobile" -->
+    <div style='background-color: #e8e8f5; padding: 15px 0; margin-bottom: 10px'>
+      <div class="justify-content-center align-items-center d-none d-lg-flex visual-button-container">
+        <app-primary-action-button
+          content="Näytä kuvana"
+          i18n-content="@@showAsVisual"
+          [svgSymbolName]="'fa-chart-bar'"
+          [svgCssClass]="'show-as-image-button'"
+          [disabled]="true"
+        ></app-primary-action-button>
+      </div>
     </div>
-  </ng-container>
-
-  <ng-container *ngIf='(narrowBreakpoint$ | async) === false'>
-    <div class='search-filters' >
-      <!-- showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`; -->
-      <!-- *ngIf="(tab === 'publications' || tab === 'fundings') && !mobile" -->
-
-      <div style='background-color: #e8e8f5; padding: 15px 0; margin-bottom: 10px'>
-        <div class="justify-content-center align-items-center d-none d-lg-flex visual-button-container">
-          <app-primary-action-button
-            content="Näytä kuvana"
-            i18n-content="@@showAsVisual"
-            [svgSymbolName]="'fa-chart-bar'"
-            [svgCssClass]="'show-as-image-button'"
-            [disabled]="true"
-          ></app-primary-action-button>
-        </div>
-      </div>
-
-      <div style='background-color: #e8e8f5; padding: 16px'>
-        <ng-container *ngTemplateOutlet="searchFilters"></ng-container>
-      </div>
+    <div style='background-color: #e8e8f5; padding: 16px'>
+      <ng-container *ngTemplateOutlet="searchFilters"></ng-container>
     </div>
-  </ng-container>
+  </div>
+}
 
-  <div class='search-combination'>
-    <div>
-      <ng-container *ngIf='(searchTermsCount$ | async) > 0'>
-        <div class='filters-summary'>
-          <div>Rajaukset ({{searchTermsCount$ | async}})</div>
-
-          <!-- year -->
-          <ng-container *ngFor='let yearfilter of enabledYearFilters$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("year", yearfilter)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{yearfilter}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- organization -->
-          <ng-container *ngFor='let organizationFilter of enabledOrganizationFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("organization", organizationFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{organizationFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- fieldOfScience -->
-          <ng-container *ngFor='let fieldsOfScienceFilter of enabledFieldsOfScienceFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("fieldOfScience", fieldsOfScienceFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{fieldsOfScienceFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- publicationTypeCodeFilters$ -->
-          <ng-container *ngFor='let publicationTypeCodeFilter of enabledPublicationTypeCodeFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publicationType", publicationTypeCodeFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationTypeCodeFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- languageCode -->
-          <ng-container *ngFor='let languageCodeFilter of enabledLanguageCodeFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("language", languageCodeFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{languageCodeFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- publicationFormat -->
-          <ng-container *ngFor='let publicationFormatFilter of enabledPublicationFormatFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("format", publicationFormatFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationFormatFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- publicationAudience -->
-          <ng-container *ngFor='let publicationAudienceFilter of enabledPublicationAudienceFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("audience", publicationAudienceFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationAudienceFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- peerReviewed -->
-          <ng-container *ngFor='let peerReviewedFilter of enabledPeerReviewedFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{peerReviewedFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- publicationType -->
-          <ng-container *ngFor='let parentPublicationTypeFilter of enabledParentPublicationTypeFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{parentPublicationTypeFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- international -->
-          <ng-container *ngFor='let internationalPublicationFilter of enabledPublisherInternationalityFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("international", internationalPublicationFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{internationalPublicationFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- articleType -->
-          <ng-container *ngFor='let articleTypeCodeFilter of enabledArticleTypeCodeFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("articleType", articleTypeCodeFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{articleTypeCodeFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- jufo -->
-          <ng-container *ngFor='let jufoClassCodeFilter of enabledJufoClassCodeFilters$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("jufo", jufoClassCodeFilter)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{jufoClassCodeFilter}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- TODO new filter pills -->
-
-          <!-- openAccess -->
-          <ng-container *ngFor='let openAccessFilter of enabledOpenAccessFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("openAccess", openAccessFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{openAccessFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- publisherOpenAccess -->
-          <ng-container *ngFor='let publisherOpenAccessFilter of enabledPublisherOpenAccessFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{publisherOpenAccessFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- selfArchivedCode -->
-          <ng-container *ngFor='let selfArchivedCodeFilter of enabledSelfArchivedCodeFiltersWithNames$ | async'>
-            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("selfArchivedCode", selfArchivedCodeFilter.id)'>
-              <div style='font-size: 0.8rem; padding-left: 8px'>{{selfArchivedCodeFilter.name}}</div>
-              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-            </div>
-          </ng-container>
-
-          <!-- make "pill" for running clearFilters -->
-          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='clearFilters()'>
-            <div style='font-size: 0.8rem; padding-left: 8px'>Tyhjennä rajaukset</div>
-            <app-svg-sprites style='width: 26px; margin-left: 10px'[iconName]="'delete'" cssClass="delete-icon filters-icon"></app-svg-sprites>
+<div class='search-combination'>
+  <div>
+    @if ((searchTermsCount$ | async) > 0) {
+      <div class='filters-summary'>
+        <div>Rajaukset ({{searchTermsCount$ | async}})</div>
+        <!-- year -->
+        @for (yearfilter of enabledYearFilters$ | async; track yearfilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("year", yearfilter)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{yearfilter}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
           </div>
-
+        }
+        <!-- organization -->
+        @for (organizationFilter of enabledOrganizationFiltersWithNames$ | async; track organizationFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("organization", organizationFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{organizationFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- fieldOfScience -->
+        @for (fieldsOfScienceFilter of enabledFieldsOfScienceFiltersWithNames$ | async; track fieldsOfScienceFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("fieldOfScience", fieldsOfScienceFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{fieldsOfScienceFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- publicationTypeCodeFilters$ -->
+        @for (publicationTypeCodeFilter of enabledPublicationTypeCodeFiltersWithNames$ | async; track publicationTypeCodeFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publicationType", publicationTypeCodeFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationTypeCodeFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- languageCode -->
+        @for (languageCodeFilter of enabledLanguageCodeFiltersWithNames$ | async; track languageCodeFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("language", languageCodeFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{languageCodeFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- publicationFormat -->
+        @for (publicationFormatFilter of enabledPublicationFormatFiltersWithNames$ | async; track publicationFormatFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("format", publicationFormatFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationFormatFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- publicationAudience -->
+        @for (publicationAudienceFilter of enabledPublicationAudienceFiltersWithNames$ | async; track publicationAudienceFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("audience", publicationAudienceFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationAudienceFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- peerReviewed -->
+        @for (peerReviewedFilter of enabledPeerReviewedFiltersWithNames$ | async; track peerReviewedFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{peerReviewedFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- publicationType -->
+        @for (parentPublicationTypeFilter of enabledParentPublicationTypeFiltersWithNames$ | async; track parentPublicationTypeFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{parentPublicationTypeFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- international -->
+        @for (internationalPublicationFilter of enabledPublisherInternationalityFiltersWithNames$ | async; track internationalPublicationFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("international", internationalPublicationFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{internationalPublicationFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- articleType -->
+        @for (articleTypeCodeFilter of enabledArticleTypeCodeFiltersWithNames$ | async; track articleTypeCodeFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("articleType", articleTypeCodeFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{articleTypeCodeFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- jufo -->
+        @for (jufoClassCodeFilter of enabledJufoClassCodeFilters$ | async; track jufoClassCodeFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("jufo", jufoClassCodeFilter)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{jufoClassCodeFilter}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- TODO new filter pills -->
+        <!-- openAccess -->
+        @for (openAccessFilter of enabledOpenAccessFiltersWithNames$ | async; track openAccessFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("openAccess", openAccessFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{openAccessFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- publisherOpenAccess -->
+        @for (publisherOpenAccessFilter of enabledPublisherOpenAccessFiltersWithNames$ | async; track publisherOpenAccessFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{publisherOpenAccessFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- selfArchivedCode -->
+        @for (selfArchivedCodeFilter of enabledSelfArchivedCodeFiltersWithNames$ | async; track selfArchivedCodeFilter) {
+          <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("selfArchivedCode", selfArchivedCodeFilter.id)'>
+            <div style='font-size: 0.8rem; padding-left: 8px'>{{selfArchivedCodeFilter.name}}</div>
+            <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- make "pill" for running clearFilters -->
+        <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='clearFilters()'>
+          <div style='font-size: 0.8rem; padding-left: 8px'>Tyhjennä rajaukset</div>
+          <app-svg-sprites style='width: 26px; margin-left: 10px'[iconName]="'delete'" cssClass="delete-icon filters-icon"></app-svg-sprites>
         </div>
+      </div>
+    }
+  </div>
+
+  <div>
+    <!-- TODO: fix sort display logic -->
+    <table cdk-table [dataSource]="dataSource" style='width: 100%'>
+      <!-- icon column that's just for aeshetics without any data -->
+      <ng-container cdkColumnDef="icon">
+        <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
+
+        <cdk-cell *cdkCellDef="let element">
+          <!-- TODO is simply ugly -->
+          <!--<div style='width: 25px; height: 25px; background-color: magenta'></div>-->
+
+        </cdk-cell>
       </ng-container>
-    </div>
 
-    <div>
-      <!-- TODO: fix sort display logic -->
-      <table cdk-table [dataSource]="dataSource" style='width: 100%'>
-        <!-- icon column that's just for aeshetics without any data -->
-        <ng-container cdkColumnDef="icon">
-          <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
-
-          <cdk-cell *cdkCellDef="let element">
-            <!-- TODO is simply ugly -->
-            <!--<div style='width: 25px; height: 25px; background-color: magenta'></div>-->
-
-          </cdk-cell>
-        </ng-container>
-
-        <ng-container cdkColumnDef="publicationName">
-          <cdk-header-cell cdk-header-cell *cdkHeaderCellDef style='min-width: 300px'>
-            <div style='display: flex' (click)='toggleSort("publicationName")'>
-              <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationName">
+      <ng-container cdkColumnDef="publicationName">
+        <cdk-header-cell cdk-header-cell *cdkHeaderCellDef style='min-width: 300px'>
+          <div style='display: flex' (click)='toggleSort("publicationName")'>
+            <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationName">
                 Julkaisun nimi
               </div>
 
-              <app-column-sorter [name]='"publicationName"' [value]='sort' [order]="''"></app-column-sorter>
-            </div>
-          </cdk-header-cell>
+            <app-column-sorter [name]='"publicationName"' [value]='sort' [order]="''"></app-column-sorter>
+          </div>
+        </cdk-header-cell>
 
-          <cdk-cell *cdkCellDef="let element">
-            <!--{{element | json}}-->
+        <cdk-cell *cdkCellDef="let element">
+          <!--{{element | json}}-->
 
-            <a style='text-decoration: underline' [routerLink]="'/results/publication/' + element.id" >
-              <div [innerHTML]='element.publicationName'></div>
-            </a>
+          <a style='text-decoration: underline' [routerLink]="'/results/publication/' + element.id" >
+            <div [innerHTML]='element.publicationName'></div>
+          </a>
 
-            <div style='margin-top: 0.5rem'>
-              <ng-container *ngIf='element.badges.peerReviewed'>
-                <div style='width: 115px; display: inline-block'>
-                  <app-tag-peer-reviewed></app-tag-peer-reviewed>
-                </div>
-              </ng-container>
+          <div style='margin-top: 0.5rem'>
+            @if (element.badges.peerReviewed) {
+              <div style='width: 115px; display: inline-block'>
+                <app-tag-peer-reviewed></app-tag-peer-reviewed>
+              </div>
+            }
 
-              <ng-container *ngIf='element.badges.openAccess'>
-                <div style='display: inline-block'>
-                  <app-tag-open-access [link]='element.badges.openAccess'></app-tag-open-access>
-                </div>
-              </ng-container>
+            @if (element.badges.openAccess) {
+              <div style='display: inline-block'>
+                <app-tag-open-access [link]='element.badges.openAccess'></app-tag-open-access>
+              </div>
+            }
 
-              <ng-container *ngIf='element.badges.doi'>
-                <div>
-                  <app-tag-doi [link]='element.badges.doi'></app-tag-doi>
-                </div>
-              </ng-container>
-            </div>
+            @if (element.badges.doi) {
+              <div>
+                <app-tag-doi [link]='element.badges.doi'></app-tag-doi>
+              </div>
+            }
+          </div>
 
-          </cdk-cell>
-        </ng-container>
+        </cdk-cell>
+      </ng-container>
 
-        <ng-container cdkColumnDef="authorsText">
-          <cdk-header-cell *cdkHeaderCellDef>
+      <ng-container cdkColumnDef="authorsText">
+        <cdk-header-cell *cdkHeaderCellDef>
 
-            <div style='display: flex'(click)='toggleSort("authorsText")'>
-              <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationAuthors">Tekijät</div>
+          <div style='display: flex'(click)='toggleSort("authorsText")'>
+            <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationAuthors">Tekijät</div>
 
-              <app-column-sorter [name]='"authorsText"' [value]='sort' [order]="''"></app-column-sorter>
-            </div>
+            <app-column-sorter [name]='"authorsText"' [value]='sort' [order]="''"></app-column-sorter>
+          </div>
 
-          </cdk-header-cell>
+        </cdk-header-cell>
 
-          <cdk-cell *cdkCellDef="let element">
-            <div [innerHTML]='element.authorsText'></div>
-          </cdk-cell>
-        </ng-container>
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.authorsText'></div>
+        </cdk-cell>
+      </ng-container>
 
-        <ng-container cdkColumnDef="publisherName">
-          <cdk-header-cell *cdkHeaderCellDef>
+      <ng-container cdkColumnDef="publisherName">
+        <cdk-header-cell *cdkHeaderCellDef>
 
-            <div style='display: flex' (click)='toggleSort("publisherName")'>
-              <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationMedium">
+          <div style='display: flex' (click)='toggleSort("publisherName")'>
+            <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationMedium">
                 Julkaisukanava
               </div>
 
-              <app-column-sorter [name]='"publisherName"' [value]='sort' [order]="''"></app-column-sorter>
-            </div>
+            <app-column-sorter [name]='"publisherName"' [value]='sort' [order]="''"></app-column-sorter>
+          </div>
 
-          </cdk-header-cell>
+        </cdk-header-cell>
 
-          <cdk-cell *cdkCellDef="let element">
-            <div [innerHTML]='element.publisherName'></div>
-          </cdk-cell>
-        </ng-container>
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.publisherName'></div>
+        </cdk-cell>
+      </ng-container>
 
-        <ng-container cdkColumnDef="publicationYear">
-          <cdk-header-cell *cdkHeaderCellDef>
+      <ng-container cdkColumnDef="publicationYear">
+        <cdk-header-cell *cdkHeaderCellDef>
 
-            <div style='display: flex' (click)='toggleSort("publicationYear")'>
-              <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@yearOfPublication">
+          <div style='display: flex' (click)='toggleSort("publicationYear")'>
+            <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@yearOfPublication">
                 Julkaisuvuosi
               </div>
 
-              <app-column-sorter [name]='"publicationYear"' [value]='sort' [order]="''"></app-column-sorter>
-            </div>
+            <app-column-sorter [name]='"publicationYear"' [value]='sort' [order]="''"></app-column-sorter>
+          </div>
 
-          </cdk-header-cell>
+        </cdk-header-cell>
 
-          <cdk-cell *cdkCellDef="let element">
-            <div [innerHTML]='element.publicationYear'></div>
-          </cdk-cell>
-        </ng-container>
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.publicationYear'></div>
+        </cdk-cell>
+      </ng-container>
 
-        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </div>
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
 
-    <div class='search-pagination'>
-      <div style='width: 990px'>
-        <app-pagination [page]='page' [pageSize]='size' [total]='total$ | async'></app-pagination>
-      </div>
+  <div class='search-pagination'>
+    <div style='width: 990px'>
+      <app-pagination [page]='page' [pageSize]='size' [total]='total$ | async'></app-pagination>
     </div>
   </div>
+</div>
 
 </div>
 

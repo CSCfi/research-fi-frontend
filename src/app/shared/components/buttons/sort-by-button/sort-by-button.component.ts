@@ -8,7 +8,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortByOption } from 'src/types';
-import { NgFor } from '@angular/common';
+
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { SecondaryButtonComponent } from '../secondary-button/secondary-button.component';
 
@@ -16,12 +16,11 @@ import { SecondaryButtonComponent } from '../secondary-button/secondary-button.c
     selector: 'app-sort-by-button',
     templateUrl: './sort-by-button.component.html',
     imports: [
-        SecondaryButtonComponent,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        NgFor,
-    ]
+    SecondaryButtonComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem
+]
 })
 
 /*

@@ -1,89 +1,93 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
-<ng-container *ngFor="let action of actions; let i = index">
+@for (action of actions; track action; let i = $index) {
   <!-- Desktop action buttons -->
-  <app-secondary-button
-    *ngIf="
-      action.id === 'share' ||
-      (selectedItems | filter: filterByStatus:{ arg: action.id } ).length
-    "
-    [content]="action.label"
-    (click)="openDialog(i)"
-    class="d-none d-lg-inline-block mb-3"
-  ></app-secondary-button>
-
+  @if (
+    action.id === 'share' ||
+    (selectedItems | filter: filterByStatus:{ arg: action.id } ).length
+    ) {
+    <app-secondary-button
+      [content]="action.label"
+      (click)="openDialog(i)"
+      class="d-none d-lg-inline-block mb-3"
+    ></app-secondary-button>
+  }
   <!-- Mobile action buttons -->
-  <app-primary-action-button
-    *ngIf="
-      action.id === 'share' ||
-      (selectedItems | filter: filterByStatus:{ arg: action.id }).length
-    "
-    [content]="action.label"
-    (click)="openDialog(i)"
-    class="d-inline-block d-lg-none mb-3"
-  ></app-primary-action-button>
-</ng-container>
+  @if (
+    action.id === 'share' ||
+    (selectedItems | filter: filterByStatus:{ arg: action.id }).length
+    ) {
+    <app-primary-action-button
+      [content]="action.label"
+      (click)="openDialog(i)"
+      class="d-inline-block d-lg-none mb-3"
+    ></app-primary-action-button>
+  }
+}
 
-<app-dialog
-  *ngIf="showDialog"
-  [title]="dialogTitle"
-  [template]="dialogTemplate"
-  [actions]="dialogActions"
-  [hideClose]="true"
-  (onActionClick)="handleDialogAction($event)"
-></app-dialog>
+@if (showDialog) {
+  <app-dialog
+    [title]="dialogTitle"
+    [template]="dialogTemplate"
+    [actions]="dialogActions"
+    [hideClose]="true"
+    (onActionClick)="handleDialogAction($event)"
+  ></app-dialog>
+}
 
 <ng-template #dialogTemplate>
   <div class="row pt-2 pb-4 mb-3">
     <div class="col">
-      <ng-container [ngSwitch]="selectedAction">
-        <ng-container
-          *ngSwitchCase="'share'"
-          [ngTemplateOutlet]="shareTemplate"
-        ></ng-container>
-        <ng-container
-          *ngSwitchDefault
-        >
+      @switch (selectedAction) {
+        @case ('share') {
+          <ng-container
+            [ngTemplateOutlet]="shareTemplate"
+          ></ng-container>
+        }
+        @default {
           <p class="col">
             <ng-container i18n="@@updatedProfilePublishedAt"
-            >Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
+              >Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
               Tiedejatutkimus.fi-palvelussa.</ng-container
-            >
-            <br />
-            <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
-            >Tietojen päivittyminen voi kestää muutaman
+              >
+              <br />
+              <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
+                >Tietojen päivittyminen voi kestää muutaman
               minuutin.</ng-container
-            >
-          </p>
-        </ng-container>
-      </ng-container>
-      <app-draft-summary
-              *ngIf="filteredProfileData"
+                >
+              </p>
+            }
+          }
+          @if (filteredProfileData) {
+            <app-draft-summary
               [profileData]="filteredProfileData"
               [isModalSummaryView]="true"
-      ></app-draft-summary>
-    </div>
-  </div>
-</ng-template>
+            ></app-draft-summary>
+          }
+        </div>
+      </div>
+    </ng-template>
 
-<ng-template #shareTemplate>
-  <mat-checkbox class="d-block" *ngFor="let target of shareTargets">
-    {{ target.label }}
-  </mat-checkbox>
-</ng-template>
+    <ng-template #shareTemplate>
+      @for (target of shareTargets; track target) {
+        <mat-checkbox class="d-block">
+          {{ target.label }}
+        </mat-checkbox>
+      }
+    </ng-template>
 
-<ng-template #itemsSelectedText>
-  <span class="fw-bold">
-    {{ filteredSelectedItems.length }}
-    <!-- <ng-container
-      *ngIf="filteredSelectedItems.length === 1; else pluralTemplate"
-      >tieto</ng-container
-    >
-    <ng-template #pluralTemplate>tietoa</ng-template> -->
-    <ng-container i18n="@@selected">valittu</ng-container>
-  </span>
-</ng-template>
+    <ng-template #itemsSelectedText>
+      <span class="fw-bold">
+        {{ filteredSelectedItems.length }}
+        <!-- <ng-container
+        *ngIf="filteredSelectedItems.length === 1; else pluralTemplate"
+        >tieto</ng-container
+        >
+        <ng-template #pluralTemplate>tietoa</ng-template> -->
+        <ng-container i18n="@@selected">valittu</ng-container>
+      </span>
+    </ng-template>
 

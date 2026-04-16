@@ -20,7 +20,7 @@ import {
   HostListener,
   DOCUMENT
 } from '@angular/core';
-import { PlatformLocation, NgClass, NgIf, NgFor } from '@angular/common';
+import { PlatformLocation, NgClass } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Observable, Subscription, take } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
@@ -56,11 +56,9 @@ type DomainObject = { label: string; locale: string; url: string };
   encapsulation: ViewEncapsulation.None,
   imports: [
     NgClass,
-    NgIf,
     RouterLink,
     DialogComponent,
     CloseButtonComponent,
-    NgFor,
     RouterLinkActive,
     ClickOutsideDirective,
     MatMenuTrigger,
@@ -68,7 +66,7 @@ type DomainObject = { label: string; locale: string; url: string };
     MatMenuItem,
     PrimaryActionButtonComponent,
     SvgSpritesComponent
-  ]
+]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
@@ -329,8 +327,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  @HostListener('document:keydown.escape', ['$event'])
-  escapeListener(event: any) {
+  @HostListener('document:keydown.escape', [])
+  escapeListener() {
     if (
       this.mobile &&
       !this.utilityService.modalOpen &&
@@ -343,22 +341,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('document:keydown.tab', ['$event'])
+  @HostListener('document:keydown.tab', [])
     // Toggle between viewing and hiding focused element outlines
-  handleTabPressed = (e: any): void => {
+  handleTabPressed () {
     if (isPlatformBrowser(this.platformId)) {
       const consent = localStorage.getItem('cookieConsent');
-      if (e.keyCode === 9 && consent) {
+      if (consent) {
         if (this.firstTab) {
           this.firstTab = false;
-          e.preventDefault();
           this.focusStart();
         }
         this.document.body.classList.add('user-tabbing');
-      } else if (e.keyCode === 9) {
+      } else {
         if (this.firstTab) {
           this.firstTab = false;
-          e.preventDefault();
           this.tabChangeService.targetFocus('consent');
         }
         this.document.body.classList.add('user-tabbing');
@@ -366,7 +362,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   };
 
-  @HostListener('document:mousedown', ['$event'])
+  @HostListener('document:mousedown', [])
   handleMouseDown = (): void => {
     this.firstTab = false;
     this.document.body.classList.remove('user-tabbing');
@@ -479,7 +475,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   // Alert user if draft data in session storage
-  @HostListener('window:beforeunload', ['$event'])
+  @HostListener('window:beforeunload', [])
   public checkForDraftData() {
     if (
       !this.appSettingsService.myDataSettings.debug &&

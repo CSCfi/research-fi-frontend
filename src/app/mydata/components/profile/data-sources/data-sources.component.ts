@@ -26,7 +26,7 @@ import {
 } from '../../../../shared/components/active-filters-list/active-filters-list.component';
 import { SortByButtonComponent } from '../../../../shared/components/buttons/sort-by-button/sort-by-button.component';
 import { DataSourcesFiltersComponent } from './data-sources-filters/data-sources-filters.component';
-import { NgTemplateOutlet, NgIf } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import {
   MydataSideNavigationComponent
@@ -40,17 +40,16 @@ import { DraftService } from '@mydata/services/draft.service';
     templateUrl: './data-sources.component.html',
     styleUrls: ['./data-sources.component.scss'],
     imports: [
-        NgTemplateOutlet,
-        DataSourcesFiltersComponent,
-        SortByButtonComponent,
-        NgIf,
-        ActiveFiltersListComponent,
-        DataSourcesTableComponent,
-        DataSourcesSelectionActionsComponent,
-        BannerDividerComponent,
-        MydataSideNavigationComponent,
-        StickyFooterComponent
-    ]
+    NgTemplateOutlet,
+    DataSourcesFiltersComponent,
+    SortByButtonComponent,
+    ActiveFiltersListComponent,
+    DataSourcesTableComponent,
+    DataSourcesSelectionActionsComponent,
+    BannerDividerComponent,
+    MydataSideNavigationComponent,
+    StickyFooterComponent
+]
 })
 export class DataSourcesComponent implements OnInit, OnDestroy {
   orcidData: Record<string, unknown>;

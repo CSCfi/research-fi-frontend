@@ -1,28 +1,30 @@
-<ng-container *ngIf='routerLink && !disabled'>
+@if (routerLink && !disabled) {
   <a class='tab-button-layout2 link-button' [ngClass]='{"link-button__active": active, "link-button__disabled": disabled}' style='text-decoration: none' [routerLink]='routerLink' [queryParams]='queryParams'>
-
     <div style='display: flex'>
-        <app-svg-sprites *ngIf="!!_icon" [iconName]="_icon" cssClass="main-category-icon"></app-svg-sprites>
-      <div>{{ label }} <span *ngIf="routerLink.includes('/results/projects/')"> - BETA</span></div>
+      @if (!!_icon) {
+        <app-svg-sprites [iconName]="_icon" cssClass="main-category-icon"></app-svg-sprites>
+      }
+      <div>{{ label }} @if (routerLink.includes('/results/projects/')) {
+        <span> - BETA</span>
+      }</div>
     </div>
-
-    <ng-container *ngIf='count !== -1'>
+    @if (count !== -1) {
       <div [countUp]="count" [options]="countOps"></div>
-    </ng-container>
+    }
   </a>
-</ng-container>
+}
 
-<ng-container *ngIf='!routerLink || disabled'>
+@if (!routerLink || disabled) {
   <a class='tab-button-layout2 link-button' [ngClass]='{"link-button__active": active, "link-button__disabled": disabled}' style='text-decoration: none'>
-
     <div style='display: flex'>
-        <app-svg-sprites *ngIf="!!_icon" [iconName]="_icon" cssClass="main-category-icon"></app-svg-sprites>
-        <div>{{ label }}</div>
+      @if (!!_icon) {
+        <app-svg-sprites [iconName]="_icon" cssClass="main-category-icon"></app-svg-sprites>
+      }
+      <div>{{ label }}</div>
     </div>
-
-    <ng-container *ngIf='count !== -1'>
+    @if (count !== -1) {
       <div [countUp]="count" [options]="countOps"></div>
-    </ng-container>
+    }
   </a>
-</ng-container>
+}
 

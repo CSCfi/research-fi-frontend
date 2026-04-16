@@ -10,19 +10,17 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { CutContentPipe } from '../../../../../shared/pipes/cut-content.pipe';
 import { RouterLink } from '@angular/router';
 import { SecondaryButtonComponent } from '../../../../../shared/components/buttons/secondary-button/secondary-button.component';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-carousel',
     templateUrl: './carousel.component.html',
     styleUrls: ['./carousel.component.scss'],
     imports: [
-        NgIf,
-        SecondaryButtonComponent,
-        RouterLink,
-        NgFor,
-        CutContentPipe,
-    ]
+    SecondaryButtonComponent,
+    RouterLink,
+    CutContentPipe
+]
 })
 export class CarouselComponent implements OnInit, OnChanges {
   @Input() data: any[];

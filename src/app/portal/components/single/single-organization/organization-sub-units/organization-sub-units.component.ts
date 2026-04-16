@@ -8,7 +8,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -16,12 +16,10 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './organization-sub-units.component.html',
     styleUrls: ['./organization-sub-units.component.scss'],
     imports: [
-        NgFor,
-        NgIf,
-        TooltipModule,
-        RouterLink,
-        MatIcon
-    ]
+    TooltipModule,
+    RouterLink,
+    MatIcon
+]
 })
 export class OrganizationSubUnitsComponent implements OnInit {
   @Input() item: any;
