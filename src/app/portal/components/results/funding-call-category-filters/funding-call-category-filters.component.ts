@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NgFor } from '@angular/common';
+
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 
 @Component({
@@ -17,10 +17,9 @@ import { MatChipListbox, MatChipOption } from '@angular/material/chips';
     templateUrl: './funding-call-category-filters.component.html',
     styleUrls: ['./funding-call-category-filters.component.scss'],
     imports: [
-        MatChipListbox,
-        NgFor,
-        MatChipOption,
-    ]
+    MatChipListbox,
+    MatChipOption
+]
 })
 export class FundingCallCategoryFiltersComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute) {}

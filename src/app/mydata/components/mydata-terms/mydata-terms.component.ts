@@ -10,13 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { SanitizeHtmlPipe } from '../../../shared/pipes/sanitize-html.pipe';
-import { NgIf } from '@angular/common';
+
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 
 @Component({
     selector: 'app-mydata-terms',
     templateUrl: './mydata-terms.component.html',
-    imports: [NgIf, SanitizeHtmlPipe, BannerDividerComponent]
+    imports: [SanitizeHtmlPipe, BannerDividerComponent]
 })
 
 /*

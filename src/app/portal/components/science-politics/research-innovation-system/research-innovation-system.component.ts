@@ -26,7 +26,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Sector } from 'src/app/portal/models/research-innovation-system/sector.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
-import { NgFor, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -36,18 +36,16 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './research-innovation-system.component.html',
     styleUrls: ['./research-innovation-system.component.scss'],
     imports: [
-        BannerDividerComponent,
-        MatAccordion,
-        NgFor,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        NgClass,
-        NgIf,
-        RouterLink,
-        SafeUrlPipe,
-        SvgSpritesComponent
-    ]
+    BannerDividerComponent,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    NgClass,
+    RouterLink,
+    SafeUrlPipe,
+    SvgSpritesComponent
+]
 })
 export class ResearchInnovationSystemComponent
   implements OnInit, AfterViewInit, OnDestroy

@@ -16,7 +16,7 @@
       (click)="fetchOrcidData()"
       [big]="true"
       [px0]="true"
-    >
+      >
     </app-primary-action-button>
   </div>
 </div>
@@ -36,14 +36,15 @@
         i18n="@@importingDataWait"
         aria-live="polite"
         >{{orcidDataFetchWaitingText}}</span
-      >
+        >
+      </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
 
-<app-dialog
-  *ngIf="loading"
-  [template]="fetchingTemplate"
-  [small]="true"
-  [disableClose]="true"
-></app-dialog>
+  @if (loading) {
+    <app-dialog
+      [template]="fetchingTemplate"
+      [small]="true"
+      [disableClose]="true"
+    ></app-dialog>
+  }

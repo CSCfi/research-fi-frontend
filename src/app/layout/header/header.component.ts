@@ -20,7 +20,7 @@ import {
   HostListener,
   DOCUMENT
 } from '@angular/core';
-import { PlatformLocation, NgClass, NgIf, NgFor } from '@angular/common';
+import { PlatformLocation, NgClass } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Observable, Subscription, take } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
@@ -56,11 +56,9 @@ type DomainObject = { label: string; locale: string; url: string };
   encapsulation: ViewEncapsulation.None,
   imports: [
     NgClass,
-    NgIf,
     RouterLink,
     DialogComponent,
     CloseButtonComponent,
-    NgFor,
     RouterLinkActive,
     ClickOutsideDirective,
     MatMenuTrigger,
@@ -68,7 +66,7 @@ type DomainObject = { label: string; locale: string; url: string };
     MatMenuItem,
     PrimaryActionButtonComponent,
     SvgSpritesComponent
-  ]
+]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;

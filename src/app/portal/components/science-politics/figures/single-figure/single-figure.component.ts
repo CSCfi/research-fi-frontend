@@ -21,7 +21,7 @@ import {
   ViewChild,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser, NgIf, NgFor } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -52,21 +52,19 @@ import { BannerDividerComponent } from '../../../../../shared/components/banner-
     styleUrls: ['./single-figure.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        BannerDividerComponent,
-        NgIf,
-        MatProgressSpinner,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        ClickOutsideDirective,
-        MatChip,
-        FiguresInfoComponent,
-        ShareComponent,
-        SecondaryButtonComponent,
-        FigureFiltersComponent,
-        CarouselComponent,
-        SafeUrlPipe,
-    ]
+    BannerDividerComponent,
+    MatProgressSpinner,
+    RouterLink,
+    BreadcrumbComponent,
+    ClickOutsideDirective,
+    MatChip,
+    FiguresInfoComponent,
+    ShareComponent,
+    SecondaryButtonComponent,
+    FigureFiltersComponent,
+    CarouselComponent,
+    SafeUrlPipe
+]
 })
 export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;

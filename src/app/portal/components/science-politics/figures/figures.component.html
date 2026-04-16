@@ -10,14 +10,15 @@
   <div class="wrapper">
     <div class="row">
       <div class="col-12 col-lg-3 px-0 nav">
-        <div
-          class="row d-flex justify-content-between mobile-header"
-          *ngIf="mobile"
-        >
-          <div class="col-auto">
-            <h1 i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</h1>
+        @if (mobile) {
+          <div
+            class="row d-flex justify-content-between mobile-header"
+            >
+            <div class="col-auto">
+              <h1 i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</h1>
+            </div>
           </div>
-        </div>
+        }
         <!-- Navigation -->
         <nav>
           <ul class="list-unstyled">
@@ -27,10 +28,10 @@
                 class="d-block"
                 (click)="navigateToSection('s0')"
                 href="javascript:void(0)"
-              >
+                >
                 <div class="row">
                   <div class="col-auto pe-0">
-                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon figures-page"></app-svg-sprites>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon figures-page"></app-svg-sprites>
                   </div>
                   <div class="col" i18n="@@figuresSecHeader">
                     Tiedon lähteet ja tuottajat
@@ -38,40 +39,47 @@
                 </div>
               </a>
             </li>
-            <li *ngIf="loading">
-              <mat-spinner
-                [diameter]="40"
-                i18n-aria-label="@@loading"
-                aria-label="Ladataan"
-              ></mat-spinner>
-            </li>
-            <li
-              *ngFor="let item of figureData"
-              [ngClass]="{ active: currentSection === item.id }"
-            >
-              <a
-                class="d-block"
-                [class.disabled]="item['disabled']"
-                (click)="navigateToSection(item['disabled'] ? null : item.id)"
-                href="javascript:void(0)"
-              >
-                <div class="row">
-                  <div class="col-auto pe-0">
-                      <app-svg-sprites *ngIf="item.placement > 0" [iconName]="'fa-chart-bar'" cssClass="chart-icon"></app-svg-sprites>
-                      <app-svg-sprites *ngIf="!item.placement > 0" [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+            @if (loading) {
+              <li>
+                <mat-spinner
+                  [diameter]="40"
+                  i18n-aria-label="@@loading"
+                  aria-label="Ladataan"
+                ></mat-spinner>
+              </li>
+            }
+            @for (item of figureData; track item) {
+              <li
+                [ngClass]="{ active: currentSection === item.id }"
+                >
+                <a
+                  class="d-block"
+                  [class.disabled]="item['disabled']"
+                  (click)="navigateToSection(item['disabled'] ? null : item.id)"
+                  href="javascript:void(0)"
+                  >
+                  <div class="row">
+                    <div class="col-auto pe-0">
+                      @if (item.placement > 0) {
+                        <app-svg-sprites [iconName]="'fa-chart-bar'" cssClass="chart-icon"></app-svg-sprites>
+                      }
+                      @if (!item.placement > 0) {
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                      }
+                    </div>
+                    <div class="col">
+                      {{ item['title' + currentLocale] }}
+                    </div>
                   </div>
-                  <div class="col">
-                    {{ item['title' + currentLocale] }}
-                  </div>
-                </div>
-              </a>
-            </li>
+                </a>
+              </li>
+            }
             <li>
               <form (keydown.enter)="$event.preventDefault()">
                 <div class="row">
                   <div class="col">
                     <div class="search">
-                        <!--<app-svg-sprites [iconName]="'search'" cssClass="search-icon"></app-svg-sprites>-->
+                      <!--<app-svg-sprites [iconName]="'search'" cssClass="search-icon"></app-svg-sprites>-->
                       <input
                         type="text"
                         #searchInput
@@ -79,7 +87,7 @@
                         [formControl]="queryField"
                         i18n-placeholder="@@figuresSearchPlaceholder"
                         placeholder="Hae tilastoa..."
-                      />
+                        />
                     </div>
                   </div>
                 </div>
@@ -98,95 +106,104 @@
       <!-- Content -->
       <div class="col-12 col-lg-9 px-0 px-lg-3">
         <main>
-          <div class="row justify-content-center" *ngIf="loading">
-            <mat-spinner
-              [diameter]="40"
-              i18n-aria-label="@@loading"
-              aria-label="Ladataan"
-            ></mat-spinner>
-          </div>
-          <div
-            *ngIf="
-              hasResults && queryTerm.length === 0;
-              else queryResultTemplate
-            "
-            appScrollSpy
-            [spiedTags]="['DIV']"
-            (sectionChange)="onSectionChange($event)"
-          >
-            <div class="dropdown px-2 pb-4">
-              <button
-                mat-button
-                class="dropdown d-flex"
-                *ngIf="mobile"
-                (click)="showIntro = !showIntro"
-                href="javascript:void(0)"
+          @if (loading) {
+            <div class="row justify-content-center">
+              <mat-spinner
+                [diameter]="40"
+                i18n-aria-label="@@loading"
+                aria-label="Ladataan"
+              ></mat-spinner>
+            </div>
+          }
+          @if (
+            hasResults && queryTerm.length === 0) {
+            <div
+              appScrollSpy
+              [spiedTags]="['DIV']"
+              (sectionChange)="onSectionChange($event)"
               >
-                <h2 i18n="@@informationSourceProducers">
+              <div class="dropdown px-2 pb-4">
+                @if (mobile) {
+                  <button
+                    mat-button
+                    class="dropdown d-flex"
+                    (click)="showIntro = !showIntro"
+                    href="javascript:void(0)"
+                    >
+                    <h2 i18n="@@informationSourceProducers">
                   Tiedon lähteet ja tuottajat
                 </h2>
-                  <app-svg-sprites *ngIf="showIntro" [iconName]="'chevron-up'" cssClass="chevron-up-icon"></app-svg-sprites>
-                  <app-svg-sprites *ngIf="!showIntro" [iconName]="'chevron-down'" cssClass="chevron-down-icon"></app-svg-sprites>
-              </button>
-            </div>
-            <ng-container *ngIf="showIntro && content && !loading">
-              <div class="segment" id="s0">
-                <h1 *ngIf="!mobile">{{ content['title' + currentLocale] }}</h1>
-                <div class="row">
-                  <div class="col p-1">
-                    <div
-                      class="base content intro"
-                      [innerHTML]="content['content' + currentLocale]"
-                    ></div>
+                    @if (showIntro) {
+                      <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon"></app-svg-sprites>
+                    }
+                    @if (!showIntro) {
+                      <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon"></app-svg-sprites>
+                    }
+                  </button>
+                }
+              </div>
+              @if (showIntro && content && !loading) {
+                <div class="segment" id="s0">
+                  @if (!mobile) {
+                    <h1>{{ content['title' + currentLocale] }}</h1>
+                  }
+                  <div class="row">
+                    <div class="col p-1">
+                      <div
+                        class="base content intro"
+                        [innerHTML]="content['content' + currentLocale]"
+                      ></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ng-container>
-            <!-- Figures -->
-            <ng-container *ngIf="!loading">
-              <div
-                class="segment"
-                #segments
-                *ngFor="
-                  let figure of filteredData?.length > 0
-                    ? filteredData
-                    : figureData
-                "
-                id="{{ figure.id }}"
-              >
-                <ng-container *ngIf="figure.figures.length">
-                  <h2 class="px-2 lx-lg-0">
-                    {{ figure['title' + currentLocale] }}
-                  </h2>
-                  <ng-container
+              }
+              <!-- Figures -->
+              @if (!loading) {
+                @for (
+                  figure of filteredData?.length > 0
+                  ? filteredData
+                  : figureData
+                  ; track
+                  figure) {
+                  <div
+                    class="segment"
+                    #segments
+                    id="{{ figure.id }}"
+                    >
+                    @if (figure.figures.length) {
+                      <h2 class="px-2 lx-lg-0">
+                        {{ figure['title' + currentLocale] }}
+                      </h2>
+                      <ng-container
                     *ngTemplateOutlet="
                       figureTemplate;
                       context: {
                         data: { figures: figure.figures, parent: figure.id }
                       }
                     "
-                  ></ng-container>
-                </ng-container>
-              </div>
-            </ng-container>
+                    ></ng-container>
+                  }
+                </div>
+              }
+            }
           </div>
-          <!-- Search results -->
-          <ng-template #queryResultTemplate>
-            <div class="segment" #segments *ngIf="hasResults; else noResults">
+        } @else {
+          @if (hasResults) {
+            <div class="segment" #segments>
               <h3 class="px-2 lx-lg-0">
                 <ng-container i18n="@@figureSearchResults"
                   >Haun tulokset</ng-container
-                >
-                ({{ queryResults.length }})
-              </h3>
-              <ng-container
+                  >
+                  ({{ queryResults.length }})
+                </h3>
+                <ng-container
                 *ngTemplateOutlet="
                   figureTemplate;
                   context: { data: { figures: queryResults } }
                 "
-              ></ng-container>
-            </div>
-            <ng-template #noResults>
+                ></ng-container>
+              </div>
+            } @else {
               <div role="alert" class="col-auto">
                 <h3 i18n="@@noResults">Ei tuloksia</h3>
                 <p i18n="@@noResultsInfo">
@@ -194,54 +211,59 @@
                   rajaustekijää ei ole tarjolla tässä portaalissa.
                 </p>
               </div>
-            </ng-template>
-          </ng-template>
+            }
+          }
+          <!-- Search results -->
           <!-- Template -->
           <ng-template let-data="data" #figureTemplate>
             <div class="row">
               <div class="col p-1">
                 <div class="base content">
-                  <div class="card list" *ngFor="let item of data.figures">
-                    <a [routerLink]="item.id" [queryParams]="queryParams">
-                      <div class="row d-flex justify-content-around">
-                        <div class="col-12 col-md-8">
-                          <h3 class="title">
-                            {{ item['title' + currentLocale] }}
-                          </h3>
-                          <div class="col-12 figure d-block d-md-none">
-                            <img [src]="item.img" />
-                          </div>
-                          <div class="description">
-                            <p
+                  @for (item of data.figures; track item) {
+                    <div class="card list">
+                      <a [routerLink]="item.id" [queryParams]="queryParams">
+                        <div class="row d-flex justify-content-around">
+                          <div class="col-12 col-md-8">
+                            <h3 class="title">
+                              {{ item['title' + currentLocale] }}
+                            </h3>
+                            <div class="col-12 figure d-block d-md-none">
+                              <img [src]="item.img" />
+                            </div>
+                            <div class="description">
+                              <p
                               [innerHtml]="
                                 item['description' + currentLocale]
                                   | cutContent: 200
                               "
-                            ></p>
+                              ></p>
+                            </div>
+                          </div>
+                          <div class="col-4 figure d-none d-md-block">
+                            <img [src]="item.thumbnail" />
                           </div>
                         </div>
-                        <div class="col-4 figure d-none d-md-block">
-                          <img [src]="item.thumbnail" />
-                        </div>
+                      </a>
+                      @if (item.roadmap) {
+                        <div class="row">
+                          <div class="col-12 tags">
+                            <mat-basic-chip
+                              class="tag"
+                              disableRipple
+                              i18n="@@TKIRoadmap"
+                              >TKI-tiekartan seurantamittari</mat-basic-chip
+                              >
+                            </div>
+                          </div>
+                        }
                       </div>
-                    </a>
-                    <div class="row" *ngIf="item.roadmap">
-                      <div class="col-12 tags">
-                        <mat-basic-chip
-                          class="tag"
-                          disableRipple
-                          i18n="@@TKIRoadmap"
-                          >TKI-tiekartan seurantamittari</mat-basic-chip
-                        >
-                      </div>
-                    </div>
+                    }
                   </div>
                 </div>
               </div>
-            </div>
-          </ng-template>
-        </main>
+            </ng-template>
+          </main>
+        </div>
       </div>
     </div>
   </div>
-</div>

@@ -24,74 +24,77 @@
       <div class="col">
         <div class="content" #mainFocus tabindex="0">
           <mat-accordion>
-            <mat-expansion-panel
-              *ngFor="
-                let sector of sectorData;
-                let i = index;
-                trackBy: trackByFn
-              "
-              [expanded]="openedIdx === i"
-              (opened)="openedIdx = i"
-              (closed)="openedIdx = -1"
-            >
-              <mat-expansion-panel-header collapsedHeight="61px">
-                <mat-panel-title>
+            @for (
+              sector of sectorData; track trackByFn(i,
+              sector); let i = $index) {
+              <mat-expansion-panel
+                [expanded]="openedIdx === i"
+                (opened)="openedIdx = i"
+                (closed)="openedIdx = -1"
+                >
+                <mat-expansion-panel-header collapsedHeight="61px">
+                  <mat-panel-title>
                     <div class="innovation-system-wrapper">
-                        <app-svg-sprites [iconName]="sector.icon" cssClass="{{sector.icon + '-icon innovation-system-icon'}}"></app-svg-sprites>
+                      <app-svg-sprites [iconName]="sector.icon" cssClass="{{sector.icon + '-icon innovation-system-icon'}}"></app-svg-sprites>
                     </div>
-                  <div class="title align-self-center">
-                    <h2 class="m-0">{{ sector.name }}</h2>
-                  </div>
-                </mat-panel-title>
-                <span
-                  *ngIf="openedIdx !== i"
-                  class="align-self-center me-2"
-                  i18n="@@open"
-                  >Avaa</span
-                >
-                <span
-                  *ngIf="openedIdx === i"
-                  class="align-self-center me-2"
-                  i18n="@@close"
-                  >Sulje</span
-                >
-              </mat-expansion-panel-header>
-              <div class="row">
-                <div
-                  class="col-12 description"
-                  [innerHTML]="sector.description"
-                ></div>
-                <div class="col-12 col-md-3">
-                  <h3>{{ sector.subtitle }}</h3>
-                  <ul class="org-links">
-                    <li
-                      *ngFor="let org of sector?.organizations"
-                      class="organization"
-                    >
-                      <a routerLink="/results/organization/{{ org.link }}"
-                        ><span>{{ org.name }}</span></a
+                    <div class="title align-self-center">
+                      <h2 class="m-0">{{ sector.name }}</h2>
+                    </div>
+                  </mat-panel-title>
+                  @if (openedIdx !== i) {
+                    <span
+                      class="align-self-center me-2"
+                      i18n="@@open"
+                      >Avaa</span
                       >
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  *ngIf="sector.iframe.length > 0"
-                  #iframe
-                  class="col-12 col-md-8 iframe-container"
-                >
-                  <iframe
-                    width="{{ colWidth }}"
-                    height="{{ colWidth * 0.75 }}"
-                    [src]="sector.iframe | safeUrl"
-                    frameborder="0"
-                    allowfullscreen="true"
-                  ></iframe>
-                </div>
+                    }
+                    @if (openedIdx === i) {
+                      <span
+                        class="align-self-center me-2"
+                        i18n="@@close"
+                        >Sulje</span
+                        >
+                      }
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                      <div
+                        class="col-12 description"
+                        [innerHTML]="sector.description"
+                      ></div>
+                      <div class="col-12 col-md-3">
+                        <h3>{{ sector.subtitle }}</h3>
+                        <ul class="org-links">
+                          @for (org of sector?.organizations; track org) {
+                            <li
+                              class="organization"
+                              >
+                              <a routerLink="/results/organization/{{ org.link }}"
+                                ><span>{{ org.name }}</span></a
+                                >
+                              </li>
+                            }
+                          </ul>
+                        </div>
+                        @if (sector.iframe.length > 0) {
+                          <div
+                            #iframe
+                            class="col-12 col-md-8 iframe-container"
+                            >
+                            <iframe
+                              width="{{ colWidth }}"
+                              height="{{ colWidth * 0.75 }}"
+                              [src]="sector.iframe | safeUrl"
+                              frameborder="0"
+                              allowfullscreen="true"
+                            ></iframe>
+                          </div>
+                        }
+                      </div>
+                    </mat-expansion-panel>
+                  }
+                </mat-accordion>
               </div>
-            </mat-expansion-panel>
-          </mat-accordion>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</main>
+      </main>

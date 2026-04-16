@@ -1,86 +1,123 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 <div class="summary-panel-wrapper">
-  <div *ngIf="isPortalSinglePage && fieldType === fieldTypes.activityPublication" class="row gx-2">
-    <div class="d-flex mb-3 checkbox-align-wrap">
-      <mat-checkbox [checked]="filterPeerReviewedPublications" color="primary" (change)=togglePeerReviewedFilter()>
-        {{showOnlyPeerReviewed}}
-      </mat-checkbox>
+  @if (isPortalSinglePage && fieldType === fieldTypes.activityPublication) {
+    <div class="row gx-2">
+      <div class="d-flex mb-3 checkbox-align-wrap">
+        <mat-checkbox [checked]="filterPeerReviewedPublications" color="primary" (change)=togglePeerReviewedFilter()>
+          {{showOnlyPeerReviewed}}
+        </mat-checkbox>
+      </div>
     </div>
-  </div>
+  }
   <div class="ms-3 mt-3">
-    <div *ngIf="filterPeerReviewedPublications && sortedItems.length < 1">{{noPeerReviewedPublications}}</div>
+    @if (filterPeerReviewedPublications && sortedItems.length < 1) {
+      <div>{{noPeerReviewedPublications}}</div>
+    }
   </div>
-    <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
-
-    <!-- YEAR CAPTIONS -->
-    <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards && fieldType !== FieldTypes.activityActivitiesAndRewardsOrcid && fieldType !== FieldTypes.activityActivitiesAndRewards">
-
-      <!-- OPEN ACCESS PUBLICATION CAPTION OR DATASETS YEAR (FIRST)-->
-      <div *ngIf="i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid)" class="year-caption">
-        <h3 *ngIf="hasOpenPublications && highlightOpenness">{{openAccessPublications}}</h3>
-        <div class="fw-normal" *ngIf="!hasOpenPublications && highlightOpenness">{{noOpenAccessPublications}}</div>
-        <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
-      </div>
-
-      <div *ngIf="item?.nonOpenCaptionRow && highlightOpenness" class="year-caption mt-4"><h3>{{otherPublications}}</h3></div>
-
-      <!-- PUBLICATION YEAR CAPTION (FIRST)-->
-      <div *ngIf="i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication)" class="year-caption">
-        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== 0">{{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}</span>
-        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].publicationYear === 0">{{publicationYearMissing}}</span>
-      </div>
-
-      <!-- PUBLICATION YEAR CAPTION (NOT FIRST) -->
-      <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== sortedItems.slice(0, itemDisplayCount)[i-1].publicationYear" class="year-caption">
-        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== 0">{{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}</span>
-        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].publicationYear === 0">{{publicationYearMissing}}</span>
-      </div>
-
-      <!-- DATASETS YEAR (NOT FIRST) -->
-      <div *ngIf="fieldType !== FieldTypes.activityFunding && fieldType !== FieldTypes.activityFundingOrcid && i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
-        {{sortedItems.slice(0, itemDisplayCount)[i].year}}
-      </div>
-
-      <!-- FUNDINGS YEAR (FIRST) -->
-      <div *ngIf="(fieldType === FieldTypes.activityFunding || fieldType === FieldTypes.activityFundingOrcid) && i === 0" class="year-caption">
-        <span *ngIf="sortedItems[i].year === 0">{{grantYearMissing}}</span>
-        <span *ngIf="sortedItems[i].year > 0">{{sortedItems[i].year}}</span>
-      </div>
-
-      <!-- FUNDINGS YEAR (NOT FIRST) -->
-      <div *ngIf="(fieldType === FieldTypes.activityFunding || fieldType === FieldTypes.activityFundingOrcid) && i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
-        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].year === 0">{{grantYearMissing}}</span>
-        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].year > 0">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
-      </div>
-
-      <!-- SHARED ROW CONTENT -->
-      <div class="row">
-        <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid ? 'col' : 'col'">
-          <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="false"></app-panel-array-item>
+  @for (item of sortedItems.slice(0, itemDisplayCount); track item; let i = $index) {
+    <div class="summary-panel">
+      <!-- YEAR CAPTIONS -->
+      @if (item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards && fieldType !== FieldTypes.activityActivitiesAndRewardsOrcid && fieldType !== FieldTypes.activityActivitiesAndRewards) {
+        <!-- OPEN ACCESS PUBLICATION CAPTION OR DATASETS YEAR (FIRST)-->
+        @if (i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid)) {
+          <div class="year-caption">
+            @if (hasOpenPublications && highlightOpenness) {
+              <h3>{{openAccessPublications}}</h3>
+            }
+            @if (!hasOpenPublications && highlightOpenness) {
+              <div class="fw-normal">{{noOpenAccessPublications}}</div>
+            }
+            @if (fieldType === fieldTypes.activityDataset) {
+              <span>{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
+            }
+          </div>
+        }
+        @if (item?.nonOpenCaptionRow && highlightOpenness) {
+          <div class="year-caption mt-4"><h3>{{otherPublications}}</h3></div>
+        }
+        <!-- PUBLICATION YEAR CAPTION (FIRST)-->
+        @if (i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication)) {
+          <div class="year-caption">
+            @if (sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== 0) {
+              <span>{{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}</span>
+            }
+            @if (sortedItems.slice(0, itemDisplayCount)[i].publicationYear === 0) {
+              <span>{{publicationYearMissing}}</span>
+            }
+          </div>
+        }
+        <!-- PUBLICATION YEAR CAPTION (NOT FIRST) -->
+        @if (i > 0 && sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== sortedItems.slice(0, itemDisplayCount)[i-1].publicationYear) {
+          <div class="year-caption">
+            @if (sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== 0) {
+              <span>{{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}</span>
+            }
+            @if (sortedItems.slice(0, itemDisplayCount)[i].publicationYear === 0) {
+              <span>{{publicationYearMissing}}</span>
+            }
+          </div>
+        }
+        <!-- DATASETS YEAR (NOT FIRST) -->
+        @if (fieldType !== FieldTypes.activityFunding && fieldType !== FieldTypes.activityFundingOrcid && i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year) {
+          <div class="year-caption">
+            {{sortedItems.slice(0, itemDisplayCount)[i].year}}
+          </div>
+        }
+        <!-- FUNDINGS YEAR (FIRST) -->
+        @if ((fieldType === FieldTypes.activityFunding || fieldType === FieldTypes.activityFundingOrcid) && i === 0) {
+          <div class="year-caption">
+            @if (sortedItems[i].year === 0) {
+              <span>{{grantYearMissing}}</span>
+            }
+            @if (sortedItems[i].year > 0) {
+              <span>{{sortedItems[i].year}}</span>
+            }
+          </div>
+        }
+        <!-- FUNDINGS YEAR (NOT FIRST) -->
+        @if ((fieldType === FieldTypes.activityFunding || fieldType === FieldTypes.activityFundingOrcid) && i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year) {
+          <div class="year-caption">
+            @if (sortedItems.slice(0, itemDisplayCount)[i].year === 0) {
+              <span>{{grantYearMissing}}</span>
+            }
+            @if (sortedItems.slice(0, itemDisplayCount)[i].year > 0) {
+              <span>{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
+            }
+          </div>
+        }
+        <!-- SHARED ROW CONTENT -->
+        <div class="row">
+          <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid ? 'col' : 'col'">
+            <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="false"></app-panel-array-item>
+          </div>
         </div>
-      </div>
-      <div class="row">
-      <app-summary-divider></app-summary-divider>
-      </div>
-    </ng-container>
-
-    <!-- ACTIVITIES AND REWARDS -->
-    <div *ngIf="fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === FieldTypes.activityActivitiesAndRewardsOrcid" class="row">
-      <div class="col">
-        <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
-      </div>
-      <app-summary-divider></app-summary-divider>
+        <div class="row">
+          <app-summary-divider></app-summary-divider>
+        </div>
+      }
+      <!-- ACTIVITIES AND REWARDS -->
+      @if (fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === FieldTypes.activityActivitiesAndRewardsOrcid) {
+        <div class="row">
+          <div class="col">
+            <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
+          </div>
+          <app-summary-divider></app-summary-divider>
+        </div>
+      }
     </div>
-
-  </div>
+  }
 </div>
 
 <div class="row justify-content-center mt-4">
   <div>
-  <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount === 3"  content="{{ showMorePrefix }} {{ showMoreLabel | lowercase }}" [svgSymbolName]="'chevron-down'" [svgCssClass]="'chevron-down-icon tertiary-button-icon'" [iconAfter]="true" (click)="showAllItems()"></app-tertiary-button>
-    <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount !== 3" content="{{ showLessPrefix }}" [svgSymbolName]="'chevron-up'" [svgCssClass]="'chevron-up-icon tertiary-button-icon'" [iconAfter]="true" (click)="showLessItems()"></app-tertiary-button>
+    @if (sortedItems.length > 3 && itemDisplayCount === 3) {
+      <app-tertiary-button  content="{{ showMorePrefix }} {{ showMoreLabel | lowercase }}" [svgSymbolName]="'chevron-down'" [svgCssClass]="'chevron-down-icon tertiary-button-icon'" [iconAfter]="true" (click)="showAllItems()"></app-tertiary-button>
+    }
+    @if (sortedItems.length > 3 && itemDisplayCount !== 3) {
+      <app-tertiary-button content="{{ showLessPrefix }}" [svgSymbolName]="'chevron-up'" [svgCssClass]="'chevron-up-icon tertiary-button-icon'" [iconAfter]="true" (click)="showLessItems()"></app-tertiary-button>
+    }
   </div>
 </div>

@@ -25,7 +25,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
 import { ContactCardComponent } from './cards/contact-card/contact-card.component';
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
-import { NgIf, AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import {
   MydataSideNavigationComponent
@@ -50,22 +50,21 @@ import {
     styleUrls: ['./profile.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        WelcomeDialogComponent,
-        ContactCardComponent,
-        ProfileSummaryComponent,
-        MatProgressSpinner,
-        CollaborationCardComponent,
-        MydataBetaInfoComponent,
-        AsyncPipe,
-        BannerDividerComponent,
-        MydataSideNavigationComponent,
-        StickyFooterComponent,
-        JsonPipe,
-        NameAndOrcidViewComponent,
-        OpenScienceSettingsCardComponent,
-        GeneralInfoBannerComponent
-    ]
+    WelcomeDialogComponent,
+    ContactCardComponent,
+    ProfileSummaryComponent,
+    MatProgressSpinner,
+    CollaborationCardComponent,
+    MydataBetaInfoComponent,
+    AsyncPipe,
+    BannerDividerComponent,
+    MydataSideNavigationComponent,
+    StickyFooterComponent,
+    JsonPipe,
+    NameAndOrcidViewComponent,
+    OpenScienceSettingsCardComponent,
+    GeneralInfoBannerComponent
+]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   @Output() emitHighlightOpenness = new BehaviorSubject<boolean>(false);

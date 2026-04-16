@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
-import { isPlatformBrowser, NgIf } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SanitizeHtmlPipe } from '../../../shared/pipes/sanitize-html.pipe';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
@@ -35,13 +35,12 @@ import { BannerDividerComponent } from '../../../shared/components/banner-divide
     templateUrl: './accessibility.component.html',
     styleUrls: ['./accessibility.component.scss'],
     imports: [
-        BannerDividerComponent,
-        BreadcrumbComponent,
-        ReviewComponent,
-        NgIf,
-        DialogComponent,
-        SanitizeHtmlPipe,
-    ]
+    BannerDividerComponent,
+    BreadcrumbComponent,
+    ReviewComponent,
+    DialogComponent,
+    SanitizeHtmlPipe
+]
 })
 export class AccessibilityComponent
   implements OnInit, AfterViewInit, OnDestroy

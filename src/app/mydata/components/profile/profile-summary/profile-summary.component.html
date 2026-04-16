@@ -1,12 +1,14 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 
 <app-person-profile-view [displayData]="displayData" [name]="name" [orcid]=orcid [isPortalSinglePage]="false" [highlightOpenness]=highlightOpenness (openDialog)="openDialogCall($event)"></app-person-profile-view>
 
-<app-editor-modal *ngIf="showDialog"
-                  [dialogData]="dialogData"
-                  (onEditorClose)="handleChanges($event)"
-></app-editor-modal>
+@if (showDialog) {
+  <app-editor-modal
+    [dialogData]="dialogData"
+    (onEditorClose)="handleChanges($event)"
+  ></app-editor-modal>
+}

@@ -17,7 +17,7 @@ import { ActiveFilter, ActiveFiltersDialogConfig } from 'src/types';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ActiveFiltersDialogComponent } from './active-filters-dialog/active-filters-dialog.component';
 import { MatButton } from '@angular/material/button';
-import { NgFor, NgIf } from '@angular/common';
+
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -26,13 +26,11 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./active-filters-list.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgFor,
-        NgIf,
-        MatButton,
-        ActiveFiltersDialogComponent,
-        DialogComponent,
-        SvgSpritesComponent
-    ]
+    MatButton,
+    ActiveFiltersDialogComponent,
+    DialogComponent,
+    SvgSpritesComponent
+]
 })
 export class ActiveFiltersListComponent implements OnInit {
 

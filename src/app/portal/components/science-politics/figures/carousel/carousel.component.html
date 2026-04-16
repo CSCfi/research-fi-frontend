@@ -1,71 +1,76 @@
 <div
   class="d-flex flex-direction-row justify-content-start align-items-center carousel-container"
->
+  >
   <div class="button-container prev text-start">
-    <app-secondary-button
-      *ngIf="idx > 0"
-      [big]="true"
-      [content]="previous"
+    @if (idx > 0) {
+      <app-secondary-button
+        [big]="true"
+        [content]="previous"
       routerLink="/science-innovation-policy/science-research-figures/{{
         data[idx - 1].id
       }}"
-      [svgSymbolName]="'fa-arrow-left'"
-      [svgCssClass]="'arrow-left-icon button-icon'"
-      [queryParams]="queryParams"
-    ></app-secondary-button>
-    <app-secondary-button
-      *ngIf="idx === 0"
-      [big]="true"
-      [disabled]="true"
-      [content]="previous"
-      [svgSymbolName]="'fa-arrow-left'"
-      [svgCssClass]="'arrow-left-icon button-icon'"
-    ></app-secondary-button>
+        [svgSymbolName]="'fa-arrow-left'"
+        [svgCssClass]="'arrow-left-icon button-icon'"
+        [queryParams]="queryParams"
+      ></app-secondary-button>
+    }
+    @if (idx === 0) {
+      <app-secondary-button
+        [big]="true"
+        [disabled]="true"
+        [content]="previous"
+        [svgSymbolName]="'fa-arrow-left'"
+        [svgCssClass]="'arrow-left-icon button-icon'"
+      ></app-secondary-button>
+    }
   </div>
-  <div
-    *ngFor="let item of slicedData"
-    class="figure-item"
-    [class.active]="item.id === id"
-  >
+  @for (item of slicedData; track item) {
     <div
-      class="img-container"
+      class="figure-item"
+      [class.active]="item.id === id"
+      >
+      <div
+        class="img-container"
       [routerLink]="
         item.id === id
           ? undefined
           : '/science-innovation-policy/science-research-figures/' + item.id
       "
-      [queryParams]="queryParams"
-    >
-      <div class="item-title w-100 text-center">{{ item.segment }}</div>
-      <div class="img-div">
-        <img [src]="item.thumbnail" />
-      </div>
-      <div class="item-description">
-        {{ item['title' + currentLocale] | cutContent: 50 }}
+        [queryParams]="queryParams"
+        >
+        <div class="item-title w-100 text-center">{{ item.segment }}</div>
+        <div class="img-div">
+          <img [src]="item.thumbnail" />
+        </div>
+        <div class="item-description">
+          {{ item['title' + currentLocale] | cutContent: 50 }}
+        </div>
       </div>
     </div>
-  </div>
+  }
   <div class="button-container next text-end">
-    <app-secondary-button
-      *ngIf="idx < maxIdx"
-      [big]="true"
-      [content]="next"
+    @if (idx < maxIdx) {
+      <app-secondary-button
+        [big]="true"
+        [content]="next"
       routerLink="/science-innovation-policy/science-research-figures/{{
         data[idx + 1].id
       }}"
-      [iconAfter]="true"
-      [svgSymbolName]="'fa-arrow-right'"
-      [svgCssClass]="'arrow-right-icon button-icon'"
-      [queryParams]="queryParams"
-    ></app-secondary-button>
-    <app-secondary-button
-      *ngIf="idx === maxIdx"
-      [big]="true"
-      [disabled]="true"
-      [content]="next"
-      [svgSymbolName]="'fa-chevron-right'"
-      [svgCssClass]="'arrow-right-icon button-icon'"
-      [iconAfter]="true"
-    ></app-secondary-button>
+        [iconAfter]="true"
+        [svgSymbolName]="'fa-arrow-right'"
+        [svgCssClass]="'arrow-right-icon button-icon'"
+        [queryParams]="queryParams"
+      ></app-secondary-button>
+    }
+    @if (idx === maxIdx) {
+      <app-secondary-button
+        [big]="true"
+        [disabled]="true"
+        [content]="next"
+        [svgSymbolName]="'fa-chevron-right'"
+        [svgCssClass]="'arrow-right-icon button-icon'"
+        [iconAfter]="true"
+      ></app-secondary-button>
+    }
   </div>
 </div>

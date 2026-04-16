@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { FilterOptionComponent } from '@portal/components/filter-option/filter-option.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { FormsModule } from '@angular/forms';
@@ -12,16 +12,14 @@ import { CollapsibleComponent } from '@portal/components/collapsible/collapsible
     templateUrl: './organization-filter.component.html',
     styleUrls: ['./organization-filter.component.scss'],
     imports: [
-        NgIf,
-        AsyncPipe,
-        FilterOptionComponent,
-        LimitPipe,
-        NgArrayPipesModule,
-        NgForOf,
-        FormsModule,
-        CdkAccordionModule,
-        CollapsibleComponent
-    ]
+    AsyncPipe,
+    FilterOptionComponent,
+    LimitPipe,
+    NgArrayPipesModule,
+    FormsModule,
+    CdkAccordionModule,
+    CollapsibleComponent
+]
 })
 export class OrganizationFilterComponent {
   @Input() filterData: unknown;

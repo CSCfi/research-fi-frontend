@@ -3,13 +3,13 @@
     {{label}}
   </div>
 
-  <ng-container *ngIf='count !== -1'>
+  @if (count !== -1) {
     <div [countUp]="count" [options]="countOps" [reanimateOnClick]='false'>
       {{count}}
     </div>
-  </ng-container>
+  }
 
-  <ng-container *ngIf='count === -1'>
+  @if (count === -1) {
     <div></div>
-  </ng-container>
+  }
 </a>

@@ -1,7 +1,7 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <p class="col" i18n="@@activeFiltersListHelp">
   Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät samalla
@@ -9,30 +9,33 @@
 </p>
 
 <div class="row active-filters">
-  <div class="col px-0" *ngFor="let category of objectKeys(grouped)">
-    <h3>{{ filterTranslation[category] }}</h3>
-    <ul>
-      <ng-container *ngFor="let filter of grouped[category]">
-        <li
-          tabindex="0"
-          *ngIf="!filter.hide"
-          (click)="removeFilter(filter.value)"
-          (keydown.enter)="removeFilter(filter.value)"
-          class="filter modal-filter d-flex"
-        >
-          <span>{{ filter.translation }}</span>
-        </li>
-      </ng-container>
-    </ul>
-  </div>
+  @for (category of objectKeys(grouped); track category) {
+    <div class="col px-0">
+      <h3>{{ filterTranslation[category] }}</h3>
+      <ul>
+        @for (filter of grouped[category]; track filter) {
+          @if (!filter.hide) {
+            <li
+              tabindex="0"
+              (click)="removeFilter(filter.value)"
+              (keydown.enter)="removeFilter(filter.value)"
+              class="filter modal-filter d-flex"
+              >
+              <span>{{ filter.translation }}</span>
+            </li>
+          }
+        }
+      </ul>
+    </div>
+  }
 </div>
 <div class="row mt-4">
   <div class="col px-0 text-center">
     <button class="d-flex" mat-flat-button color="primary" (click)="clearFilters()">
-        <app-svg-sprites [iconName]="'delete'" cssClass="delete-icon button-icon filters-icon"></app-svg-sprites>
-        <ng-container i18n="@@clearAllActive"
+      <app-svg-sprites [iconName]="'delete'" cssClass="delete-icon button-icon filters-icon"></app-svg-sprites>
+      <ng-container i18n="@@clearAllActive"
         >Tyhjennä kaikki rajaukset</ng-container
-      >
-    </button>
+        >
+      </button>
+    </div>
   </div>
-</div>

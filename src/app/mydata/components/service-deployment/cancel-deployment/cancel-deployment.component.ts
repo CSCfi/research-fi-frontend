@@ -5,7 +5,7 @@ import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -13,12 +13,11 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-cancel-deployment',
     templateUrl: './cancel-deployment.component.html',
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        SecondaryButtonComponent,
-        BannerDividerComponent,
-        SvgSpritesComponent
-    ]
+    MatProgressSpinner,
+    SecondaryButtonComponent,
+    BannerDividerComponent,
+    SvgSpritesComponent
+]
 })
 export class CancelDeploymentComponent implements OnInit {
   previousStep: number;

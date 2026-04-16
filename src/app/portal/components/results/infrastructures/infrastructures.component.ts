@@ -32,7 +32,7 @@ import { ResultsPaginationComponent } from '../results-pagination/results-pagina
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf, NgFor } from '@angular/common';
+
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -40,18 +40,16 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './infrastructures.component.html',
     styleUrls: ['./infrastructures.component.scss'],
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        NgFor,
-        RouterLink,
-        TooltipModule,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-        HighlightSearchPipe,
-        HandleInfrastructureLinkPipe,
-        SvgSpritesComponent
-    ]
+    MatProgressSpinner,
+    TableComponent,
+    RouterLink,
+    TooltipModule,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    HighlightSearchPipe,
+    HandleInfrastructureLinkPipe,
+    SvgSpritesComponent
+]
 })
 export class InfrastructuresComponent
   implements OnInit, OnDestroy, AfterViewInit

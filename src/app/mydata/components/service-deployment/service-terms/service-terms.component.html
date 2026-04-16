@@ -7,87 +7,88 @@
       <button
         class="row border border-primary rounded btn d-flex w-100"
         (click)="openDialog(termsForTool, termsTemplate)"
-      >
+        >
         <div class="col-auto">
-            <div class="pt-3 pb-2 h1 primary-color"><app-svg-sprites [iconName]="'fa-file-alt'" cssClass="deployment-step-icon svg-icon"></app-svg-sprites></div>
+          <div class="pt-3 pb-2 h1 primary-color"><app-svg-sprites [iconName]="'fa-file-alt'" cssClass="deployment-step-icon svg-icon"></app-svg-sprites></div>
         </div>
         <div class="col align-self-center">
           <span
             class="d-block align-self-center text-start"
             i18n="@@openTermsOfUse"
             >Avaa käyttöehdot</span
+            >
+          </div>
+        </button>
+      </div>
+      <div class="col">
+        <mat-checkbox [(ngModel)]="termsApproved" i18n="@@iHaveReadTermsAndAccept"
+          >Olen lukenut palvelun käyttöehdot, ja hyväksyn ne</mat-checkbox
           >
         </div>
-      </button>
+      </div>
     </div>
-    <div class="col">
-      <mat-checkbox [(ngModel)]="termsApproved" i18n="@@iHaveReadTermsAndAccept"
-        >Olen lukenut palvelun käyttöehdot, ja hyväksyn ne</mat-checkbox
-      >
-    </div>
-  </div>
-</div>
 
-<ng-template #termsTemplate>
-  <app-mydata-terms id="terms" template="termsTemplate"></app-mydata-terms>
-</ng-template>
+    <ng-template #termsTemplate>
+      <app-mydata-terms id="terms" template="termsTemplate"></app-mydata-terms>
+    </ng-template>
 
-<div class="row pt-4 pb-5 d-flex justify-content-center">
-  <div class="g-0">
-    <h2 class="col-12 h6 pb-2" i18n="@@processingOfPersonalData">
+    <div class="row pt-4 pb-5 d-flex justify-content-center">
+      <div class="g-0">
+        <h2 class="col-12 h6 pb-2" i18n="@@processingOfPersonalData">
       Henkilötietojen käsittely
     </h2>
-    <div class="col-12 pb-3">
-      <button
-        class="row border border-primary rounded btn d-flex w-100"
+        <div class="col-12 pb-3">
+          <button
+            class="row border border-primary rounded btn d-flex w-100"
         (click)="
           openDialog(
             processingOfPersonalData,
             personalDataHandlingTermsTemplate
           )
         "
-      >
-        <div class="col-auto">
-            <div class="pt-3 pb-2 h1 primary-color"><app-svg-sprites [iconName]="'fa-file-alt'" cssClass="deployment-step-icon svg-icon"></app-svg-sprites></div>
+            >
+            <div class="col-auto">
+              <div class="pt-3 pb-2 h1 primary-color"><app-svg-sprites [iconName]="'fa-file-alt'" cssClass="deployment-step-icon svg-icon"></app-svg-sprites></div>
+            </div>
+            <div class="col align-self-center">
+              <span
+                class="d-block align-self-center text-start"
+                i18n="@@openPersonalDataProcessingPrinciples"
+                >Avaa henkilötietojen käsittelyperiaatteet</span
+                >
+              </div>
+            </button>
+          </div>
+          <div class="col">
+            <mat-checkbox
+              [(ngModel)]="personalDataHandlingApproved"
+              i18n="@@iAcceptProcessingPersonalData"
+              >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
+              >
+            </div>
+          </div>
         </div>
-        <div class="col align-self-center">
-          <span
-            class="d-block align-self-center text-start"
-            i18n="@@openPersonalDataProcessingPrinciples"
-            >Avaa henkilötietojen käsittelyperiaatteet</span
-          >
-        </div>
-      </button>
-    </div>
-    <div class="col">
-      <mat-checkbox
-        [(ngModel)]="personalDataHandlingApproved"
-        i18n="@@iAcceptProcessingPersonalData"
-        >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
-      >
-    </div>
-  </div>
-</div>
 
-<ng-template #personalDataHandlingTermsTemplate>
-  <app-mydata-terms
-    id="privacy"
-    template="personalDataHandlingTermsTemplate"
-  ></app-mydata-terms>
-</ng-template>
+        <ng-template #personalDataHandlingTermsTemplate>
+          <app-mydata-terms
+            id="privacy"
+            template="personalDataHandlingTermsTemplate"
+          ></app-mydata-terms>
+        </ng-template>
 
-<app-primary-action-button
-  content="{{ continueWithSuomiFiLogin }}"
-  [big]="true"
-  [disabled]="!termsApproved || !personalDataHandlingApproved"
-  (click)="authenticate()"
-></app-primary-action-button>
+        <app-primary-action-button
+          content="{{ continueWithSuomiFiLogin }}"
+          [big]="true"
+          [disabled]="!termsApproved || !personalDataHandlingApproved"
+          (click)="authenticate()"
+        ></app-primary-action-button>
 
-<!-- Reusable dialog -->
-<app-dialog
-  *ngIf="showDialog"
-  [template]="dialogTemplate"
-  [title]="dialogTitle"
-  (onActionClick)="showDialog = false"
-  [actions]="dialogActions"
-></app-dialog>
+        <!-- Reusable dialog -->
+        @if (showDialog) {
+          <app-dialog
+            [template]="dialogTemplate"
+            [title]="dialogTitle"
+            (onActionClick)="showDialog = false"
+            [actions]="dialogActions"
+          ></app-dialog>
+        }

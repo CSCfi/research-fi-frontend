@@ -21,17 +21,16 @@ import { ResizeService } from '@shared/services/resize.service';
 import { Subscription } from 'rxjs';
 import { SafeUrlPipe } from '../../../../pipes/safe-url.pipe';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-organization-visualisations',
     templateUrl: './organization-visualisations.component.html',
     styleUrls: ['./organization-visualisations.component.scss'],
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        SafeUrlPipe,
-    ]
+    MatProgressSpinner,
+    SafeUrlPipe
+]
 })
 export class OrganizationVisualisationsComponent implements OnInit, OnDestroy {
   @Input() item: Organization;

@@ -4,7 +4,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { AuthenticatedResult, OidcSecurityService } from 'angular-auth-oidc-client';
 import { DraftService } from '@mydata/services/draft.service';
 import { UtilityService } from '@shared/services/utility.service';
-import { isPlatformBrowser, NgForOf, NgIf, PlatformLocation } from '@angular/common';
+import { isPlatformBrowser, PlatformLocation } from '@angular/common';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { Observable, Subscription } from 'rxjs';
 import { ProfileService } from '@mydata/services/profile.service';
@@ -13,10 +13,8 @@ import { NotificationService } from '@shared/services/notification.service';
 @Component({
     selector: 'app-mydata-side-navigation',
     imports: [
-        NgForOf,
-        NgIf,
-        RouterLinkActive
-    ],
+    RouterLinkActive
+],
     templateUrl: './mydata-side-navigation.component.html',
     styleUrl: './mydata-side-navigation.component.scss'
 })
