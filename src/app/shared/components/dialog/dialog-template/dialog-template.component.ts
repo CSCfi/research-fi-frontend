@@ -27,7 +27,7 @@ import { DialogAction } from 'src/types';
 import { SecondaryButtonComponent } from '../../buttons/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from '../../buttons/primary-action-button/primary-action-button.component';
 import { CloseButtonComponent } from '../../buttons/close-button/close-button.component';
-import { NgIf, NgStyle, NgTemplateOutlet, NgClass, NgFor } from '@angular/common';
+import { NgStyle, NgTemplateOutlet, NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-dialog-template',
@@ -35,17 +35,15 @@ import { NgIf, NgStyle, NgTemplateOutlet, NgClass, NgFor } from '@angular/common
     styleUrls: ['./dialog-template.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        NgStyle,
-        NgTemplateOutlet,
-        CloseButtonComponent,
-        MatDialogContent,
-        NgClass,
-        MatDialogActions,
-        NgFor,
-        PrimaryActionButtonComponent,
-        SecondaryButtonComponent,
-    ]
+    NgStyle,
+    NgTemplateOutlet,
+    CloseButtonComponent,
+    MatDialogContent,
+    NgClass,
+    MatDialogActions,
+    PrimaryActionButtonComponent,
+    SecondaryButtonComponent
+]
 })
 export class DialogTemplateComponent
   implements OnInit, AfterViewInit, OnDestroy

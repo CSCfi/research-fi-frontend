@@ -39,7 +39,7 @@ import { SearchPortalComponent } from '../search-portal/search-portal.component'
 import { ProfileItemsTableComponent } from '../profile-items-table/profile-items-table.component';
 import { ProfilePanelComponent } from '../profile-panel/profile-panel.component';
 import { AutofocusDirective } from '../../../../shared/directives/autofocus.directive';
-import { NgIf } from '@angular/common';
+
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -48,18 +48,17 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./editor-modal.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        MatCheckbox,
-        AutofocusDirective,
-        ProfilePanelComponent,
-        MatTabGroup,
-        MatTab,
-        ProfileItemsTableComponent,
-        MatTabLabel,
-        SearchPortalComponent,
-        DialogComponent,
-        SvgSpritesComponent
-    ]
+    MatCheckbox,
+    AutofocusDirective,
+    ProfilePanelComponent,
+    MatTabGroup,
+    MatTab,
+    ProfileItemsTableComponent,
+    MatTabLabel,
+    SearchPortalComponent,
+    DialogComponent,
+    SvgSpritesComponent
+]
 })
 export class EditorModalComponent implements OnInit {
   @Input() dialogData: { data: any; trigger: number };

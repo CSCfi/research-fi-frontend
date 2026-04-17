@@ -1,7 +1,7 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <app-secondary-button
   [content]="currentSort.label ? currentSort.label : sortByRelevance.label"
@@ -16,11 +16,12 @@
   <button mat-menu-item (click)="orderBy(sortByRelevance)">
     {{ sortByRelevance.label }}
   </button>
-  <button
-    mat-menu-item
-    *ngFor="let option of tabFields"
-    (click)="orderBy(option)"
-  >
-    {{ option.label }}
-  </button>
+  @for (option of tabFields; track option) {
+    <button
+      mat-menu-item
+      (click)="orderBy(option)"
+      >
+      {{ option.label }}
+    </button>
+  }
 </mat-menu>

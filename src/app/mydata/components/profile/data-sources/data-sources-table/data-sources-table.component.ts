@@ -32,7 +32,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { PaginationComponent } from '../../../../../shared/components/pagination/pagination.component';
 import { TableComponent as TableComponent_1 } from '../../../../../shared/components/table/table.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -40,16 +40,14 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './data-sources-table.component.html',
     styleUrls: ['./data-sources-table.component.scss'],
     imports: [
-        NgIf,
-        TableComponent_1,
-        PaginationComponent,
-        NgFor,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        AsyncPipe,
-        SvgSpritesComponent
-    ]
+    TableComponent_1,
+    PaginationComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    AsyncPipe,
+    SvgSpritesComponent
+]
 })
 export class DataSourcesTableComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

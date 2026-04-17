@@ -14,7 +14,7 @@ import {
   DOCUMENT
 } from '@angular/core';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { isPlatformBrowser, Location, ViewportScroller, NgFor, NgIf } from '@angular/common';
+import { isPlatformBrowser, Location, ViewportScroller } from '@angular/common';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute} from '@angular/router';
@@ -34,19 +34,17 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./service-info.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        BannerDividerComponent,
-        BreadcrumbComponent,
-        MatAccordion,
-        NgFor,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        NgIf,
-        ReviewComponent,
-        DialogComponent,
-        SanitizeHtmlPipe,
-        SvgSpritesComponent
-    ]
+    BannerDividerComponent,
+    BreadcrumbComponent,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    ReviewComponent,
+    DialogComponent,
+    SanitizeHtmlPipe,
+    SvgSpritesComponent
+]
 })
 export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;

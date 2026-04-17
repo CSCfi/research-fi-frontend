@@ -1,4 +1,4 @@
-import { NgIf, NgFor, NgTemplateOutlet, JsonPipe } from '@angular/common';
+import { NgTemplateOutlet, JsonPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -33,20 +33,18 @@ import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.compone
     templateUrl: './datasets.component.html',
     styleUrls: ['./datasets.component.scss'],
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        NgFor,
-        RouterLink,
-        NgTemplateOutlet,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-        HighlightSearchPipe,
-        MatIcon,
-        TagOpenAccessComponent,
-        TagDoiComponent,
-        JsonPipe
-    ]
+    MatProgressSpinner,
+    TableComponent,
+    RouterLink,
+    NgTemplateOutlet,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    HighlightSearchPipe,
+    MatIcon,
+    TagOpenAccessComponent,
+    TagDoiComponent,
+    JsonPipe
+]
 })
 export class DatasetsComponent implements OnInit {
   @Input() resultData: Search;
@@ -81,7 +79,7 @@ export class DatasetsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private sortService: SortService,
+    public sortService: SortService,
     @Inject(DOCUMENT) private document: any,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,

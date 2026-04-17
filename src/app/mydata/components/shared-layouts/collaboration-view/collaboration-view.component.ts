@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { EmptyCardComponent } from '@mydata/components/profile/cards/empty-card/empty-card.component';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { NgForOf, NgIf } from '@angular/common';
+
 import {
   ProfileEditorCardHeaderComponent
 } from '@mydata/components/profile/cards/profile-editor-card-header/profile-editor-card-header.component';
@@ -13,18 +13,16 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 @Component({
     selector: 'app-collaboration-view',
     imports: [
-        DialogComponent,
-        EmptyCardComponent,
-        MatCheckbox,
-        NgForOf,
-        NgIf,
-        ProfileEditorCardHeaderComponent
-    ],
+    DialogComponent,
+    EmptyCardComponent,
+    MatCheckbox,
+    ProfileEditorCardHeaderComponent
+],
     templateUrl: './collaboration-view.component.html',
     styleUrl: './collaboration-view.component.scss'
 })
 export class CollaborationViewComponent implements OnInit {
-  @Input() collaborationOptions: [];
+  @Input() collaborationOptions: any [];
   @Input() label: string;
   @Input() hasCheckedOption: boolean;
   @Input() hasEditRights: boolean;

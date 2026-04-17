@@ -25,7 +25,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
               [(selectedIndex)]="selectedIndex"
               (selectedTabChange)="navigate($event)"
               class="custom-tab-group"
-            >
+              >
               <mat-tab [label]="privacyPolicyContent['title' + currentLocale]">
                 <div class="pt-4">
                   <h2
@@ -55,7 +55,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
               <mat-tab
                 i18n-label="@@CMHeader"
                 label="Käyttäjätilastointi ja seurannan hallinta"
-              >
+                >
                 <div class="pt-4">
                   <h2
                     [innerHTML]="userStatisticsContent['title' + currentLocale]"
@@ -69,34 +69,36 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   <h2 i18n="@@CMHeader2">Seurannan hallinta</h2>
                   <div class="row">
                     <div class="col px-0">
-                      <button
-                        mat-flat-button
-                        color="primary"
-                        (click)="changeConsent('declined')"
-                        *ngIf="consentStatus === 'approved' || !consentStatus"
-                      >
-                        <ng-container i18n="@@disableTracking"
-                          >Poista seuranta käytöstä</ng-container
-                        >
-                      </button>
-                      <button
-                        mat-flat-button
-                        color="primary"
-                        (click)="changeConsent('approved')"
-                        *ngIf="consentStatus === 'declined'"
-                      >
-                        <ng-container i18n="@@enableTracking"
-                          >Ota seuranta käyttöön</ng-container
-                        >
-                      </button>
+                      @if (consentStatus === 'approved' || !consentStatus) {
+                        <button
+                          mat-flat-button
+                          color="primary"
+                          (click)="changeConsent('declined')"
+                          >
+                          <ng-container i18n="@@disableTracking"
+                            >Poista seuranta käytöstä</ng-container
+                            >
+                          </button>
+                        }
+                        @if (consentStatus === 'declined') {
+                          <button
+                            mat-flat-button
+                            color="primary"
+                            (click)="changeConsent('approved')"
+                            >
+                            <ng-container i18n="@@enableTracking"
+                              >Ota seuranta käyttöön</ng-container
+                              >
+                            </button>
+                          }
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </mat-tab>
-            </mat-tab-group>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</main>
+    </main>

@@ -9,7 +9,7 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatButton } from '@angular/material/button';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -17,11 +17,10 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './mydata-beta-info.component.html',
     styleUrls: ['./mydata-beta-info.component.scss'],
     imports: [
-        NgClass,
-        NgIf,
-        MatButton,
-        SvgSpritesComponent
-    ]
+    NgClass,
+    MatButton,
+    SvgSpritesComponent
+]
 })
 export class MydataBetaInfoComponent implements OnInit {
   @Input() template: TemplateRef<any>;

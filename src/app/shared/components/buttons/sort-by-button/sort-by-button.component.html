@@ -1,7 +1,7 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 
 <app-secondary-button
@@ -12,18 +12,20 @@
   [svgCssClass]="'chevron-down-icon button-icon'"
   [iconAfter]="true"
   [noSmIcon]="true"
->
+  >
 </app-secondary-button>
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="sortBy(sortByRelevance)">
     {{
-      customSortByRelevanceLabel
-        ? customSortByRelevanceLabel
-        : sortByRelevance.label
+    customSortByRelevanceLabel
+    ? customSortByRelevanceLabel
+    : sortByRelevance.label
     }}
   </button>
-  <button mat-menu-item *ngFor="let option of options" (click)="sortBy(option)">
-    {{ option.label }}
-  </button>
+  @for (option of options; track option) {
+    <button mat-menu-item (click)="sortBy(option)">
+      {{ option.label }}
+    </button>
+  }
 </mat-menu>

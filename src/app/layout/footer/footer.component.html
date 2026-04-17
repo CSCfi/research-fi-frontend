@@ -1,9 +1,9 @@
 <!-- This file is part of the research.fi API service
 
- Copyright 2019 Ministry of Education and Culture, Finland
+Copyright 2019 Ministry of Education and Culture, Finland
 
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <footer>
   <nav [ngClass]="(this.appSettingsService.hideFooterMargin | async) === true ? 'footer' : 'footer footer-margin'">
@@ -15,22 +15,22 @@
             <div class="row d-flex justify-content-center flex-column okm-logo-wrap gx-0 me-2">
               <a [attr.href]="okmUrl" target="_blank">
                 <img
-                        class="logo"
-                        src="{{ 'assets/img/okm_logo_' + locale + '.png' }}"
-                        i18n-alt="@@okmLogo"
-                        alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna"
-                />
+                  class="logo"
+                  src="{{ 'assets/img/okm_logo_' + locale + '.png' }}"
+                  i18n-alt="@@okmLogo"
+                  alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna"
+                  />
               </a>
             </div>
 
             <div class="row d-flex justify-content-center flex-column">
               <a href="https://www.csc.fi/" target="_blank">
                 <img
-                        class="logo csc-logo"
-                        src="assets/img/csc_logo.png"
-                        i18n-alt="@@CSCLogoAltText"
-                        alt="Organisaation CSC - Tieteen ja tietotekniikan keskus logo"
-                />
+                  class="logo csc-logo"
+                  src="assets/img/csc_logo.png"
+                  i18n-alt="@@CSCLogoAltText"
+                  alt="Organisaation CSC - Tieteen ja tietotekniikan keskus logo"
+                  />
               </a>
             </div>
           </div>
@@ -64,20 +64,20 @@
                   </a>
                 </li>
 
-                <ng-container *ngIf='interacted === false'>
+                @if (interacted === false) {
                   <li>
                     <a tabindex="0" #contact class='href' (focus)='setInteracted(true)'
-                       (mouseover)='setInteracted(true)'>
+                      (mouseover)='setInteracted(true)'>
                       <span class='reverse'>if.csc&#64;sumiktutajedeit</span>
                     </a>
                   </li>
-                </ng-container>
+                }
 
-                <ng-container *ngIf='interacted === true'>
+                @if (interacted === true) {
                   <li>
                     <a tabindex="0" [href]="'mailto:' + email" class='href'>{{ email }}</a>
                   </li>
-                </ng-container>
+                }
               </ul>
             </div>
           </div>
@@ -89,22 +89,22 @@
               <ul class="footer-top-navi">
                 <li class="d-flex justify-content-center justify-content-sm-end">
                   <a href="https://www.linkedin.com/company/tiedejatutkimus-fi"
-                     class="d-flex justify-content-center justify-content-lg-start align-items-center"
-                     target="_blank"
-                  ><span i18n="linkedin-footer@@linkedinFooter"></span>
+                    class="d-flex justify-content-center justify-content-lg-start align-items-center"
+                    target="_blank"
+                    ><span i18n="linkedin-footer@@linkedinFooter"></span>
                     <app-svg-sprites i18n-title="@@linkedinTitleText" [iconName]="'linkedin-logo'"
-                                     cssClass="linkedin-logo"></app-svg-sprites>
-                    Linkedin</a>
+                    cssClass="linkedin-logo"></app-svg-sprites>
+                  Linkedin</a>
                 </li>
                 <li class="d-flex justify-content-center justify-content-sm-end">
                   <a
-                          href="https://bsky.app/profile/tiedejatutkimus.fi"
-                          class="d-flex justify-content-center justify-content-lg-start align-items-center"
-                          target="_blank"
-                  ><span i18n="bluesky-footer@@blueskyFooter"></span>
+                    href="https://bsky.app/profile/tiedejatutkimus.fi"
+                    class="d-flex justify-content-center justify-content-lg-start align-items-center"
+                    target="_blank"
+                    ><span i18n="bluesky-footer@@blueskyFooter"></span>
                     <app-svg-sprites i18n-title="@@blueskyTitleText" [iconName]="'bluesky-social-logo'"
-                                     cssClass="bluesky-social-logo"></app-svg-sprites>
-                    Bluesky</a>
+                    cssClass="bluesky-social-logo"></app-svg-sprites>
+                  Bluesky</a>
                 </li>
               </ul>
             </div>
@@ -112,64 +112,66 @@
         </div>
 
         <!--<div class="build-info d-none d-lg-block gx-0">
-          <span>{{ buildInfo }}</span>
-        </div>-->
-      </div>
+        <span>{{ buildInfo }}</span>
+      </div>-->
     </div>
-
-    <!-- Large screen footer bottom navi -->
-    <div class="d-none d-md-flex flex-row justify-content-between footer-bottom-navi-bar footer-bottom-wrapper">
-      <div class="wrapper my-0">
-        <div class="row">
-          <ul class="footer-bottom-navi d-flex justify-content-center justify-content-lg-end flex-row gx-0 gx-md-6 gx-xl-0">
-            <li class=""><a i18n="@@footer.link.data-protection" routerLink="/privacy">Tietosuoja</a></li>
-            <li class="lg-li"><a i18n='@@footer.link.privacy' routerLink='/mydata/privacy'>Henkilötietojen käsittely</a>
-            </li>
-            <li class="lg-li"><a i18n='@@footer.link.accessability'
-                                 routerLink='/accessibility'>Saavutettavuusseloste</a></li>
-            <li class="lg-li"><a i18n="@@footer.link.sitemap" routerLink="/sitemap">Sivukartta</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile footer bottom navi -->
-    <div class="d-flex d-md-none flex-row justify-content-evenly footer-bottom-navi-bar footer-bottom-wrapper">
-      <div class="wrapper my-0">
-        <div class="row d-flex justify-content-center">
-          <ul class="col-6 footer-bottom-navi d-flex justify-content-start flex-column">
-            <li><a i18n="@@footer.link.data-protection" routerLink="/privacy">Tietosuoja</a></li>
-            <li><a i18n='@@footer.link.privacy' routerLink='/mydata/privacy'>Henkilötietojen käsittely</a></li>
-          </ul>
-          <ul class="col-6 footer-bottom-navi d-flex justify-content-start flex-column">
-            <li><a i18n='@@footer.link.accessability' routerLink='/accessibility'>Saavutettavuusseloste</a></li>
-            <li><a i18n="@@footer.link.sitemap" routerLink="/sitemap">Sivukartta</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <div class="review-button" *ngIf="showReviewButton">
-    <button
-            tabindex="0"
-            class="review"
-            (click)="openDialog(reviewDialog)"
-            mat-raised-button
-            color="primary"
-            i18n="Review-button@@reviewButton"
-    >
-      Anna palautetta!
-    </button>
-    <button class="close" mat-raised-button (click)="close()">
-      <app-svg-sprites [iconName]="'close'" cssClass="close-icon give-feedback"></app-svg-sprites>
-    </button>
   </div>
+
+  <!-- Large screen footer bottom navi -->
+  <div class="d-none d-md-flex flex-row justify-content-between footer-bottom-navi-bar footer-bottom-wrapper">
+    <div class="wrapper my-0">
+      <div class="row">
+        <ul class="footer-bottom-navi d-flex justify-content-center justify-content-lg-end flex-row gx-0 gx-md-6 gx-xl-0">
+          <li class=""><a i18n="@@footer.link.data-protection" routerLink="/privacy">Tietosuoja</a></li>
+          <li class="lg-li"><a i18n='@@footer.link.privacy' routerLink='/mydata/privacy'>Henkilötietojen käsittely</a>
+        </li>
+        <li class="lg-li"><a i18n='@@footer.link.accessability'
+        routerLink='/accessibility'>Saavutettavuusseloste</a></li>
+        <li class="lg-li"><a i18n="@@footer.link.sitemap" routerLink="/sitemap">Sivukartta</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile footer bottom navi -->
+<div class="d-flex d-md-none flex-row justify-content-evenly footer-bottom-navi-bar footer-bottom-wrapper">
+  <div class="wrapper my-0">
+    <div class="row d-flex justify-content-center">
+      <ul class="col-6 footer-bottom-navi d-flex justify-content-start flex-column">
+        <li><a i18n="@@footer.link.data-protection" routerLink="/privacy">Tietosuoja</a></li>
+        <li><a i18n='@@footer.link.privacy' routerLink='/mydata/privacy'>Henkilötietojen käsittely</a></li>
+      </ul>
+      <ul class="col-6 footer-bottom-navi d-flex justify-content-start flex-column">
+        <li><a i18n='@@footer.link.accessability' routerLink='/accessibility'>Saavutettavuusseloste</a></li>
+        <li><a i18n="@@footer.link.sitemap" routerLink="/sitemap">Sivukartta</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</nav>
+@if (showReviewButton) {
+  <div class="review-button">
+    <button
+      tabindex="0"
+      class="review"
+      (click)="openDialog(reviewDialog)"
+      mat-raised-button
+      color="primary"
+      i18n="Review-button@@reviewButton"
+      >
+         Anna palautetta!
+    </button>
+      <button class="close" mat-raised-button (click)="close()">
+        <app-svg-sprites [iconName]="'close'" cssClass="close-icon give-feedback"></app-svg-sprites>
+      </button>
+    </div>
+  }
 
   <ng-template #discardChangesTemplate>
     <div class="row">
       <div class="col">
         <p i18n="@@discardSessionChanges">
-          Hylätäänkö julkaisemattomat muutokset?
+                 Hylätäänkö julkaisemattomat muutokset?
         </p>
       </div>
     </div>
@@ -180,24 +182,26 @@
   </ng-template>
 
   <!-- Discard changes dialog -->
-  <app-dialog
-          *ngIf="discardChangesModalVisible$ | async"
-          [template]="discardChangesTemplate"
-          [title]="discardChangesDialogTitle"
-          (onActionClick)="doDiscardChangesDialogAction($event)"
-          (onDialogClose)="doDiscardChangesDialogAction($event)"
-          [actions]="discardChangesAndLogoutActions"
-  ></app-dialog>
+  @if (discardChangesModalVisible$ | async) {
+    <app-dialog
+      [template]="discardChangesTemplate"
+      [title]="discardChangesDialogTitle"
+      (onActionClick)="doDiscardChangesDialogAction($event)"
+      (onDialogClose)="doDiscardChangesDialogAction($event)"
+      [actions]="discardChangesAndLogoutActions"
+    ></app-dialog>
+  }
 
-  <app-dialog
-          *ngIf="showDialog"
-          [template]="dialogTemplate"
-          [title]="dialogTitle"
-          [actions]="basicDialogActions"
-          (onActionClick)="closeDialog()"
-  ></app-dialog>
+  @if (showDialog) {
+    <app-dialog
+      [template]="dialogTemplate"
+      [title]="dialogTitle"
+      [actions]="basicDialogActions"
+      (onActionClick)="closeDialog()"
+    ></app-dialog>
+  }
 
-  <ng-container *ngIf="quickstartState$ | async">
+  @if (quickstartState$ | async) {
     <app-welcome-stepper></app-welcome-stepper>
-  </ng-container>
+  }
 </footer>

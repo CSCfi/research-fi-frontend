@@ -20,7 +20,7 @@ import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { PrimaryBadgeComponent } from '../profile-panel/primary-badge/primary-badge.component';
 import { PanelArrayItemComponent } from '../profile-panel/panel-array-item/panel-array-item.component';
-import { JsonPipe, NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import {
   SummaryDividerComponent
@@ -32,26 +32,21 @@ import { GeneralBadgeComponent } from '@shared/components/general-badge/general-
     templateUrl: './draft-summary.component.html',
     styleUrls: ['./draft-summary.component.scss'],
     imports: [
-        MatAccordion,
-        NgFor,
-        NgIf,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        PanelArrayItemComponent,
-        PrimaryBadgeComponent,
-        MatCheckbox,
-        JoinItemsPipe,
-        countFieldItemsPipe,
-        FindByKeyValuePipe,
-        JsonPipe,
-        NgClass,
-        SummaryDividerComponent,
-        GeneralBadgeComponent
-    ]
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    PanelArrayItemComponent,
+    PrimaryBadgeComponent,
+    MatCheckbox,
+    JoinItemsPipe,
+    countFieldItemsPipe,
+    FindByKeyValuePipe,
+    JsonPipe,
+    NgClass,
+    SummaryDividerComponent,
+    GeneralBadgeComponent
+]
 })
 export class DraftSummaryComponent implements OnInit, OnDestroy {
   fieldTypes = FieldTypes;

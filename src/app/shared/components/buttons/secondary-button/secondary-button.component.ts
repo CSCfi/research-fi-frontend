@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, Input } from '@angular/core';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -10,12 +10,11 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './secondary-button.component.html',
     styleUrls: ['../buttons-shared.scss'],
     imports: [
-        MatRipple,
-        NgIf,
-        NgClass,
-        MatIcon,
-        SvgSpritesComponent
-    ]
+    MatRipple,
+    NgClass,
+    MatIcon,
+    SvgSpritesComponent
+]
 })
 export class SecondaryButtonComponent implements OnInit {
   @Input() iconAfter: boolean;

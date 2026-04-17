@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatRippleModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 
 @Component({
     selector: 'app-search-bar2',
-    imports: [CommonModule, MatRippleModule, FormsModule, SvgSpritesComponent],
+    imports: [MatRippleModule, FormsModule, SvgSpritesComponent],
     templateUrl: './search-bar2.component.html',
     styleUrls: ['./search-bar2.component.scss']
 })

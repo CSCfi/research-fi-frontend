@@ -15,13 +15,13 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-result-count',
     templateUrl: './result-count.component.html',
     styleUrls: ['./result-count.component.scss'],
-    imports: [NgIf, FormsModule]
+    imports: [FormsModule]
 })
 export class ResultCountComponent implements OnInit, OnChanges {
   @Input() pagination: boolean;

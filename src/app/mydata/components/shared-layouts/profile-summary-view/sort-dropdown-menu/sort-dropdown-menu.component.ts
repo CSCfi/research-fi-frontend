@@ -1,21 +1,19 @@
 import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { NgForOf, NgIf } from '@angular/common';
+
 import { ClickOutsideDirective } from '@shared/directives/click-outside.directive';
 import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
 
 @Component({
     selector: 'app-sort-dropdown-menu',
     imports: [
-        ClickOutsideDirective,
-        FormsModule,
-        MatRadioButton,
-        MatRadioGroup,
-        NgForOf,
-        NgIf,
-        CapitalizeFirstLetterPipe
-    ],
+    ClickOutsideDirective,
+    FormsModule,
+    MatRadioButton,
+    MatRadioGroup,
+    CapitalizeFirstLetterPipe
+],
     templateUrl: './sort-dropdown-menu.component.html',
     styleUrl: './sort-dropdown-menu.component.scss'
 })

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { RouterLink } from '@angular/router';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 export interface BannerContent {
   bannerId?: string;
@@ -24,11 +24,10 @@ export interface BannerContent {
 @Component({
     selector: 'app-general-info-banner',
     imports: [
-        SvgSpritesComponent,
-        RouterLink,
-        NgIf,
-        NgClass
-    ],
+    SvgSpritesComponent,
+    RouterLink,
+    NgClass
+],
     templateUrl: './general-info-banner.component.html',
     styleUrl: './general-info-banner.component.scss'
 })

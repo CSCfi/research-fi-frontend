@@ -10,17 +10,15 @@ import { SingleItemService } from '../../../services/single-item.service';
 import { ActivatedRoute, Router, UrlTree, UrlSegmentGroup, PRIMARY_OUTLET, UrlSegment, RouterLink } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-related-links',
     templateUrl: './related-links.component.html',
     styleUrls: ['./related-links.component.scss'],
     imports: [
-        NgFor,
-        NgIf,
-        RouterLink,
-    ]
+    RouterLink
+]
 })
 export class RelatedLinksComponent implements OnInit, OnDestroy {
   @Input() id: any;

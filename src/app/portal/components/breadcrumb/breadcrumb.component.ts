@@ -9,17 +9,15 @@ import { Component, OnInit, Input, Inject, LOCALE_ID } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SearchService } from '../../services/search.service';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-breadcrumb',
     templateUrl: './breadcrumb.component.html',
     styleUrls: ['./breadcrumb.component.scss'],
     imports: [
-        NgIf,
-        RouterLink,
-        NgFor,
-    ]
+    RouterLink
+]
 })
 export class BreadcrumbComponent implements OnInit {
   @Input() responseData: any;

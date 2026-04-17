@@ -15,7 +15,7 @@ import { WINDOW } from '@shared/services/window.service';
 import { SafeUrlPipe } from '../../../../pipes/safe-url.pipe';
 import { SecondaryButtonComponent } from '../../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { ShareComponent } from '../../../single/share/share.component';
-import { NgIf, NgFor } from '@angular/common';
+
 import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
 import { BreadcrumbComponent } from '../../../breadcrumb/breadcrumb.component';
 import { BannerDividerComponent } from '../../../../../shared/components/banner-divider/banner-divider.component';
@@ -26,16 +26,14 @@ import { BannerDividerComponent } from '../../../../../shared/components/banner-
     styleUrls: ['./single-indicator.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        BannerDividerComponent,
-        RouterLink,
-        BreadcrumbComponent,
-        ClickOutsideDirective,
-        NgIf,
-        ShareComponent,
-        SecondaryButtonComponent,
-        NgFor,
-        SafeUrlPipe,
-    ]
+    BannerDividerComponent,
+    RouterLink,
+    BreadcrumbComponent,
+    ClickOutsideDirective,
+    ShareComponent,
+    SecondaryButtonComponent,
+    SafeUrlPipe
+]
 })
 export class SingleIndicatorComponent implements OnInit {
 
