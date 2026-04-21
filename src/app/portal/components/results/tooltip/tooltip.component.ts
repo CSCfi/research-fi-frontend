@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, Inject, OnInit, OnDestroy } from '@angular/core';
-import { DOCUMENT, NgStyle, NgIf, NgClass } from '@angular/common';
+import { DOCUMENT, NgStyle, NgClass } from '@angular/common';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { HighlightSearchPipe } from '../../../pipes/highlight.pipe';
 import { RouterLink } from '@angular/router';
@@ -16,12 +16,11 @@ import { RouterLink } from '@angular/router';
     templateUrl: './tooltip.component.html',
     standalone: true,
     imports: [
-        NgStyle,
-        RouterLink,
-        NgIf,
-        NgClass,
-        HighlightSearchPipe,
-    ],
+    NgStyle,
+    RouterLink,
+    NgClass,
+    HighlightSearchPipe
+],
 })
 export class TooltipComponent implements OnInit, OnDestroy {
   @Input() title: string;

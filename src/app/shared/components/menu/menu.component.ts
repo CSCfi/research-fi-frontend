@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgFor } from '@angular/common';
+
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -17,10 +17,9 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
   imports: [
     MatMenuTrigger,
     MatMenu,
-    NgFor,
     MatMenuItem,
     SvgSpritesComponent
-  ]
+]
 })
 export class MenuComponent {
   @Input() label: string;
