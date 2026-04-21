@@ -6,7 +6,7 @@
  :license: MIT -->
 
 <footer>
-  <nav class="footer">
+  <nav [ngClass]="(this.appSettingsService.hideFooterMargin | async) === true ? 'footer' : 'footer footer-margin'">
     <div class="wrapper footer-top-wrapper">
       <div class="row  justify-content-between">
         <div class="col-12 col-lg-2 d-flex flex-row gx-0 footer-logo-column">
@@ -15,7 +15,7 @@
             <div class="row d-flex justify-content-center flex-column okm-logo-wrap gx-0 me-2">
               <a [attr.href]="okmUrl" target="_blank">
                 <img
-                        class="logo"
+                        class="logo okm-logo"
                         src="{{ 'assets/img/okm_logo_' + locale + '.png' }}"
                         i18n-alt="@@okmLogo"
                         alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna"
@@ -94,7 +94,7 @@
                   ><span i18n="linkedin-footer@@linkedinFooter"></span>
                     <app-svg-sprites i18n-title="@@linkedinTitleText" [iconName]="'linkedin-logo'"
                                      cssClass="linkedin-logo"></app-svg-sprites>
-                    Linkedin</a>
+                    LinkedIn</a>
                 </li>
                 <li class="d-flex justify-content-center justify-content-sm-end">
                   <a
