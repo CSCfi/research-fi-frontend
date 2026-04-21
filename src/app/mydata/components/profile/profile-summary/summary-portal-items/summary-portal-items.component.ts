@@ -11,7 +11,7 @@ import { cloneDeep } from 'lodash-es';
 import { MatButton } from '@angular/material/button';
 import { SummaryDividerComponent } from '../summary-divider/summary-divider.component';
 import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
-import { NgFor, NgIf, LowerCasePipe, NgClass, JsonPipe } from '@angular/common';
+import { LowerCasePipe, NgClass, JsonPipe } from '@angular/common';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
@@ -23,19 +23,17 @@ import { MatCheckbox } from '@angular/material/checkbox';
     templateUrl: './summary-portal-items.component.html',
     styleUrls: ['./summary-portal-items.component.scss'],
     imports: [
-        NgFor,
-        NgIf,
-        PanelArrayItemComponent,
-        SummaryDividerComponent,
-        MatButton,
-        LowerCasePipe,
-        NgClass,
-        JsonPipe,
-        HasSelectedItemsPipe,
-        TertiaryButtonComponent,
-        FilterLimitButtonComponent,
-        MatCheckbox
-    ]
+    PanelArrayItemComponent,
+    SummaryDividerComponent,
+    MatButton,
+    LowerCasePipe,
+    NgClass,
+    JsonPipe,
+    HasSelectedItemsPipe,
+    TertiaryButtonComponent,
+    FilterLimitButtonComponent,
+    MatCheckbox
+]
 })
 
 export class SummaryPortalItemsComponent implements OnInit, OnChanges {

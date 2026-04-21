@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
+
 import {
   PrimaryActionButtonComponent
 } from '@shared/components/buttons/primary-action-button/primary-action-button.component';
@@ -48,15 +48,13 @@ export interface CvContent {
     PrimaryActionButtonComponent,
     MatRadioButton,
     MatRadioGroup,
-    NgForOf,
     MydataSideNavigationComponent,
     BannerDividerComponent,
     SvgSpritesComponent,
     StickyFooterComponent,
-    NgIf,
     TooltipDirective,
     DialogComponent
-  ],
+],
   templateUrl: './cv-tool.component.html',
   styleUrl: './cv-tool.component.scss'
 })

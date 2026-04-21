@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, Input } from '@angular/core';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -9,11 +9,10 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './tertiary-button.component.html',
     styleUrls: ['../buttons-shared.scss', './tertiary-button.component.scss'],
     imports: [
-        MatRipple,
-        NgIf,
-        NgClass,
-        SvgSpritesComponent
-    ]
+    MatRipple,
+    NgClass,
+    SvgSpritesComponent
+]
 })
 export class TertiaryButtonComponent {
   @Input() iconAfter: boolean;

@@ -1,16 +1,17 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <app-banner-divider></app-banner-divider>
 
 <main id="main-content py-3" [class.py-3]="path !== 'service-deployment'">
   <div class="wrapper">
-    <div
-      *ngIf="content"
-      class="px-3"
-      [innerHTML]="content | sanitizeHtml"
-    ></div>
+    @if (content) {
+      <div
+        class="px-3"
+        [innerHTML]="content | sanitizeHtml"
+      ></div>
+    }
   </div>
 </main>

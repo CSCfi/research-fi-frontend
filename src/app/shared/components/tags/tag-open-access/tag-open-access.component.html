@@ -1,25 +1,29 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <div [ngClass]="link?.length > 0 ? 'tag open-access rounded' : 'tag open-access rounded no-link'">
-  <a *ngIf="link?.length > 0" [href]="link" target="_blank">
-    <div class="d-flex">
+  @if (link?.length > 0) {
+    <a [href]="link" target="_blank">
+      <div class="d-flex">
         <app-svg-sprites [iconName]="'lock_open'" cssClass="lock_open-icon open-access-svg"></app-svg-sprites>
         <div class="text-wrapper">
-            <div class="tag-text" i18n="@@openAccess">Avoin saatavuus</div>
+          <div class="tag-text" i18n="@@openAccess">Avoin saatavuus</div>
         </div>
         <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon-openaccess open-access-svg"></app-svg-sprites>
-    </div>
-  </a>
+      </div>
+    </a>
+  }
 
-  <div *ngIf="!link" class="d-flex">
+  @if (!link) {
+    <div class="d-flex">
       <app-svg-sprites [iconName]="'lock_open'" cssClass="lock_open-icon open-access-svg"></app-svg-sprites>
       <div class="text-wrapper">
-          <span class="tag-text" i18n="@@openAccess">Avoin saatavuus</span>
+        <span class="tag-text" i18n="@@openAccess">Avoin saatavuus</span>
       </div>
-  </div>
+    </div>
+  }
 </div>
 
 

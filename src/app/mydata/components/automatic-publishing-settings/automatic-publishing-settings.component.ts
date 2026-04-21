@@ -2,16 +2,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FixExternalUrlPipe } from '@portal/pipes/fix-external-url.pipe';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-automatic-publishing-settings',
     imports: [
-        FixExternalUrlPipe,
-        SvgSpritesComponent,
-        MatCheckbox,
-        NgIf
-    ],
+    FixExternalUrlPipe,
+    SvgSpritesComponent,
+    MatCheckbox
+],
     templateUrl: './automatic-publishing-settings.component.html',
     styleUrl: './automatic-publishing-settings.component.scss'
 })

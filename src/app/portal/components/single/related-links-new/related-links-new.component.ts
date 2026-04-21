@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import {
   ActivatedRoute,
   PRIMARY_OUTLET,
@@ -19,11 +19,9 @@ import {
 @Component({
     selector: 'app-related-links-new',
     imports: [
-        NgFor,
-        NgIf,
-        RouterLink,
-        ProfileEditorCardHeaderComponent
-    ],
+    RouterLink,
+    ProfileEditorCardHeaderComponent
+],
     templateUrl: './related-links-new.component.html',
     styleUrl: './related-links-new.component.scss'
 })

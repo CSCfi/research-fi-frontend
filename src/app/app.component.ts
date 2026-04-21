@@ -25,7 +25,7 @@ import { ResizeService } from '@shared/services/resize.service';
 export class AppComponent {
   title = 'research-fi-portal';
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onWindowResize() {
     if (isPlatformBrowser(this.platformId)) {
       this.resizeService.updateScreenSize(window.innerWidth, window.innerHeight);

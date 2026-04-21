@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { FiguresInfoComponent } from '../figures-info/figures-info.component';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-figure-filters',
@@ -20,12 +20,10 @@ import { NgFor, NgIf } from '@angular/common';
     styleUrls: ['./figure-filters.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgFor,
-        MatChipListbox,
-        MatChipOption,
-        NgIf,
-        FiguresInfoComponent,
-    ]
+    MatChipListbox,
+    MatChipOption,
+    FiguresInfoComponent
+]
 })
 export class FigureFiltersComponent implements OnInit, OnChanges {
   @Output() clicked = new EventEmitter<boolean>();

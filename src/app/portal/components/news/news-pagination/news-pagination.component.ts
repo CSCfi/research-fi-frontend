@@ -15,17 +15,15 @@ import { ResizeService } from 'src/app/shared/services/resize.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-news-pagination',
     templateUrl: './news-pagination.component.html',
     styleUrls: ['./news-pagination.component.scss'],
     imports: [
-        NgFor,
-        NgIf,
-        SecondaryButtonComponent,
-    ]
+    SecondaryButtonComponent
+]
 })
 export class NewsPaginationComponent implements OnInit, OnChanges, OnDestroy {
   page: number;

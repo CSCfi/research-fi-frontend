@@ -1,13 +1,14 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <!-- Shared component -->
-<app-active-filters-list
-  *ngIf="parsedFilters?.length > 0 && translationFlag"
-  [filters]="parsedFilters"
-  [dialogConfig]="activeFiltersDialogConfig"
-  (onRemoveFilter)="removeFilter($event)"
-  (onClearFilters)="clearFilters()"
-></app-active-filters-list>
+@if (parsedFilters?.length > 0 && translationFlag) {
+  <app-active-filters-list
+    [filters]="parsedFilters"
+    [dialogConfig]="activeFiltersDialogConfig"
+    (onRemoveFilter)="removeFilter($event)"
+    (onClearFilters)="clearFilters()"
+  ></app-active-filters-list>
+}

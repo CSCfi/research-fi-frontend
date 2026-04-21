@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { isPlatformBrowser, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { isPlatformBrowser, AsyncPipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from 'src/app/portal/services/filters/filter.service';
@@ -42,17 +42,15 @@ import { FiltersComponent } from '../../results/filters/filters.component';
     templateUrl: './news-results.component.html',
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        FiltersComponent,
-        SearchComponent,
-        ActiveFiltersComponent,
-        MatProgressSpinner,
-        NgFor,
-        NewsCardComponent,
-        NewsPaginationComponent,
-        AsyncPipe,
-        ThousandSeparatorPipe,
-    ]
+    FiltersComponent,
+    SearchComponent,
+    ActiveFiltersComponent,
+    MatProgressSpinner,
+    NewsCardComponent,
+    NewsPaginationComponent,
+    AsyncPipe,
+    ThousandSeparatorPipe
+]
 })
 export class NewsResultsComponent
   implements OnInit, AfterViewInit, OnDestroy, OnChanges

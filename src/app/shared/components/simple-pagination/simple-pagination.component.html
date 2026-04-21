@@ -1,0 +1,17 @@
+<div class="simple-pagination-wrap">
+  @if (pageSize() > 0) {
+    <div class="d-flex flex-row justify-content-between">
+      <div role="button" class="pagination-chevron-wrap" (click)="goToPrevPage()">
+        <app-svg-sprites [iconName]="'chevron-left'" cssClass="chevron-left-icon"></app-svg-sprites>
+      </div>
+      @for (pageNum of visiblePageNumbers; track pageNum; let idx = $index) {
+        <div role="button" [ngClass]="idx === selectedPage - 1  ? 'page-num-button selected' : 'page-num-button'"
+             (click)="goToPage(idx)">{{ pageNum }}
+        </div>
+      }
+      <div role="button" class="pagination-chevron-wrap" (click)="goToNextPage()">
+        <app-svg-sprites [iconName]="'chevron-right'" cssClass="chevron-right-icon"></app-svg-sprites>
+      </div>
+    </div>
+  }
+</div>

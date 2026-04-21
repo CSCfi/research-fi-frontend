@@ -21,7 +21,7 @@ import {
   OnDestroy,
   DOCUMENT
 } from '@angular/core';
-import { isPlatformBrowser, NgIf, NgFor, NgStyle, NgClass, AsyncPipe } from '@angular/common';
+import { isPlatformBrowser, NgStyle, NgClass, AsyncPipe } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { AutosuggestService } from '@portal/services/autosuggest.service';
@@ -52,25 +52,23 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./search-bar.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        FormsModule,
-        MatButton,
-        MatMenuTrigger,
-        NgIf,
-        MatMenu,
-        NgFor,
-        MatMenuItem,
-        ReactiveFormsModule,
-        NgStyle,
-        ClickOutsideDirective,
-        NgClass,
-        MatProgressSpinner,
-        ListItemComponent,
-        RouterLink,
-        NotificationBannerComponent,
-        AsyncPipe,
-        HighlightSearchPipe,
-        SvgSpritesComponent
-    ]
+    FormsModule,
+    MatButton,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    ReactiveFormsModule,
+    NgStyle,
+    ClickOutsideDirective,
+    NgClass,
+    MatProgressSpinner,
+    ListItemComponent,
+    RouterLink,
+    NotificationBannerComponent,
+    AsyncPipe,
+    HighlightSearchPipe,
+    SvgSpritesComponent
+]
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchTargetMenuTrigger') searchTargetMenuTrigger: MatMenuTrigger;

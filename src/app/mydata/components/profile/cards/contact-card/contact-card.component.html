@@ -1,13 +1,13 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <app-contact-info-view [label]="label" [contactFields]="contactFields" [data]="data" (handleOpenDialog)="openDialog($event)" [isEditorView]="isEditorView"></app-contact-info-view>
 
-<ng-container *ngIf="showDialog">
+@if (showDialog) {
   <app-editor-modal
-          [dialogData]="dialogData"
-          (onEditorClose)="handleChanges($event)"
+    [dialogData]="dialogData"
+    (onEditorClose)="handleChanges($event)"
   ></app-editor-modal>
-</ng-container>
+}

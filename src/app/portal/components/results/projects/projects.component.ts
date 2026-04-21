@@ -27,19 +27,18 @@ import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
 import { TableComponent } from '@shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-projects',
     templateUrl: './projects.component.html',
     styleUrls: ['./projects.component.scss'],
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-    ]
+    MatProgressSpinner,
+    TableComponent,
+    ResultsPaginationComponent,
+    NoResultsComponent
+]
 })
 export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;
@@ -64,7 +63,7 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private sortService: SortService,
+    public sortService: SortService,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,

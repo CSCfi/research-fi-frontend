@@ -85,7 +85,7 @@
         <note priority="1" from="description">Footer-link</note>
       </trans-unit>
       <trans-unit id="followUs" datatype="html">
-        <source>Seuraa meitä!</source>
+        <source>Seuraa meitä</source>
       </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
         <source> Anna palautetta! </source>

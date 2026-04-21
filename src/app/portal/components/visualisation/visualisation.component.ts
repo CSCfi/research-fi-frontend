@@ -16,7 +16,7 @@ import {
   DOCUMENT
 } from '@angular/core';
 import { Visual } from 'src/app/portal/models/visualisation/visualisations.model';
-import { NgIf } from '@angular/common';
+
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { PieComponent } from './pie/pie.component';
 import { BarComponent } from './bar/bar.component';
@@ -29,7 +29,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     host: {
         '(window:resize)': 'onResize($event)'
     },
-    imports: [NgIf, MatProgressSpinner, BarComponent, PieComponent]
+    imports: [MatProgressSpinner, BarComponent, PieComponent]
 })
 export class VisualisationComponent implements OnInit {
   @ViewChild('main') main: ElementRef;

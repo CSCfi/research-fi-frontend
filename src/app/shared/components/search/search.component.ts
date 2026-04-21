@@ -18,7 +18,7 @@ import {
 import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimaryActionButtonComponent } from '../buttons/primary-action-button/primary-action-button.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgIf } from '@angular/common';
+
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -26,13 +26,12 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
     imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgIf,
-        TooltipModule,
-        PrimaryActionButtonComponent,
-        SvgSpritesComponent
-    ]
+    FormsModule,
+    ReactiveFormsModule,
+    TooltipModule,
+    PrimaryActionButtonComponent,
+    SvgSpritesComponent
+]
 })
 export class SearchComponent implements OnInit, AfterViewInit {
   @Input() placeholder: string;

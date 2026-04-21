@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import {
   PrimaryActionButtonComponent
@@ -23,17 +23,16 @@ import { DialogEventsService } from '@shared/services/dialog-events.service';
 @Component({
     selector: 'app-sticky-footer',
     imports: [
-        AsyncPipe,
-        MatButton,
-        NgIf,
-        PrimaryActionButtonComponent,
-        SecondaryButtonComponent,
-        DraftSummaryComponent,
-        DialogComponent,
-        RouterLink,
-        TertiaryButtonComponent,
-        AutomaticPublishingSettingsComponent
-    ],
+    AsyncPipe,
+    MatButton,
+    PrimaryActionButtonComponent,
+    SecondaryButtonComponent,
+    DraftSummaryComponent,
+    DialogComponent,
+    RouterLink,
+    TertiaryButtonComponent,
+    AutomaticPublishingSettingsComponent
+],
     templateUrl: './sticky-footer.component.html',
     styleUrl: './sticky-footer.component.scss'
 })

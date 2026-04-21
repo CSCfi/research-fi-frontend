@@ -1,25 +1,29 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <button
-        class="secondary-button text-center ttv-button"
-        [class.big]="big"
-        [class.small]="small"
-        [class.icon-after]="iconAfter"
-        [class.icon-only]="iconOnly"
-        [class.no-sm-icon]="noSmIcon"
-        [class.px-0]="px0"
-        [disabled]="disabled"
-        matRipple
-        (focus)="handleFocus()"
->
-    <span class="d-flex justify-content-center">
-    <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && !iconAfter"
-                     [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
-      <div class="d-flex">{{ content }}</div>
-    <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && iconAfter"
-                     [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
-    </span>
+  class="secondary-button text-center ttv-button"
+  [class.big]="big"
+  [class.small]="small"
+  [class.icon-after]="iconAfter"
+  [class.icon-only]="iconOnly"
+  [class.no-sm-icon]="noSmIcon"
+  [class.px-0]="px0"
+  [disabled]="disabled"
+  matRipple
+  (focus)="handleFocus()"
+  >
+  <span class="d-flex justify-content-center">
+    @if (!!svgSymbolName && !iconAfter) {
+      <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }"
+      [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
+    }
+    <div class="d-flex">{{ content }}</div>
+    @if (!!svgSymbolName && iconAfter) {
+      <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }"
+      [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
+    }
+  </span>
 </button>

@@ -19,7 +19,7 @@ import {
   TemplateRef,
   inject,
 } from '@angular/core';
-import { isPlatformBrowser, NgIf, NgClass, NgTemplateOutlet, NgSwitch, NgSwitchCase, NgSwitchDefault, NgFor, AsyncPipe } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { map, debounceTime, take, skip, connect } from 'rxjs/operators';
@@ -63,7 +63,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
   imports: [
     SearchBarComponent,
     TabNavigationComponent,
-    NgIf,
     PrimaryActionButtonComponent,
     RouterLink,
     SecondaryButtonComponent,
@@ -71,13 +70,9 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgClass,
     NgTemplateOutlet,
     SortComponent,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
     FundingCallCategoryFiltersComponent,
     ActiveFiltersComponent,
     SearchResultsComponent,
-    NgFor,
     FiltersComponent,
     MatFormField,
     MatLabel,
@@ -88,7 +83,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     ClickOutsideDirective,
     AsyncPipe,
     SvgSpritesComponent
-  ]
+]
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   breakpointObserver$ = inject(BreakpointObserver);

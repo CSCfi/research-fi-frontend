@@ -1,34 +1,38 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <div class="beta-info d-block p-3">
   <div class="row" [class.pb-3]="open">
     <div
       class="col text-center"
       [ngClass]="showCloseButton ? 'offset-3 offset-md-2 ' : ''"
-    >
-        <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
+      >
+      <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
     </div>
-    <div class="col-3 col-md-2 text-end" *ngIf="showCloseButton">
-      <button mat-button (click)="toggle()">
-        <ng-container *ngIf="open">
+    @if (showCloseButton) {
+      <div class="col-3 col-md-2 text-end">
+        <button mat-button (click)="toggle()">
+          @if (open) {
             <app-svg-sprites [iconName]="'close'" cssClass="close-icon"></app-svg-sprites>
-          <ng-container i18n="@@close">Sulje</ng-container>
-        </ng-container>
-        <ng-container *ngIf="!open">
-          <ng-container i18n="@@open">Avaa</ng-container>
-        </ng-container>
-      </button>
-    </div>
+            <ng-container i18n="@@close">Sulje</ng-container>
+          }
+          @if (!open) {
+            <ng-container i18n="@@open">Avaa</ng-container>
+          }
+        </button>
+      </div>
+    }
     <div class="col-12 text-center">
       <span class="h5 fw-bold"
         ><ng-container i18n="@@note">Huomio</ng-container>!</span
-      >
+        >
+      </div>
     </div>
-  </div>
 
-  <!-- Beta info content from CMS -->
-  <div *ngIf="open" [innerHTML]="textContent"></div>
-</div>
+    <!-- Beta info content from CMS -->
+    @if (open) {
+      <div [innerHTML]="textContent"></div>
+    }
+  </div>

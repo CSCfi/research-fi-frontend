@@ -1,10 +1,11 @@
 <app-profile-editor-card-header
-        [label]="label"
-        [displayButton]="hasEditRights"
-        (handleOpenDialog)="openDialog()"
+  [label]="label"
+  [displayButton]="hasEditRights"
+  (handleOpenDialog)="openDialog()"
 ></app-profile-editor-card-header>
 
-<app-empty-card
-        *ngIf="!hasCheckedOption && hasEditRights"
-        (onButtonClick)="openDialog()"
-></app-empty-card>
+@if (!hasCheckedOption && hasEditRights) {
+  <app-empty-card
+    (onButtonClick)="openDialog()"
+  ></app-empty-card>
+}

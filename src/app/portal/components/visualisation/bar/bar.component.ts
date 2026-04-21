@@ -19,7 +19,7 @@ import { PublicationVisual } from 'src/app/portal/models/visualisation/publicati
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { FundingVisual } from 'src/app/portal/models/visualisation/funding-visual.model';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
-import { NgIf } from '@angular/common';
+
 import { DataService } from 'src/app/portal/services/data.service';
 import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 
@@ -27,7 +27,7 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
     selector: 'app-bar',
     templateUrl: './bar.component.html',
     styleUrls: ['./bar.component.scss'],
-    imports: [NgIf, SafeUrlPipe]
+    imports: [SafeUrlPipe]
 })
 export class BarComponent implements OnChanges {
   @Input() data: Visual;

@@ -20,7 +20,7 @@ import {
   QueryList,
   DOCUMENT
 } from '@angular/core';
-import { NgIf, NgFor } from '@angular/common';
+
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
@@ -44,20 +44,18 @@ import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
     templateUrl: './publications.component.html',
     styleUrls: ['./publications.component.scss'],
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        NgFor,
-        RouterLink,
-        TagPeerReviewedComponent,
-        TagOpenAccessComponent,
-        TagDoiComponent,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-        LinksPipe,
-        CutContentPipe,
-        HighlightSearchPipe
-    ]
+    MatProgressSpinner,
+    TableComponent,
+    RouterLink,
+    TagPeerReviewedComponent,
+    TagOpenAccessComponent,
+    TagDoiComponent,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    LinksPipe,
+    CutContentPipe,
+    HighlightSearchPipe
+]
 })
 export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;
@@ -92,7 +90,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private sortService: SortService,
+    public sortService: SortService,
     @Inject(DOCUMENT) private document: any,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,

@@ -1,10 +1,12 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
-<mat-spinner *ngIf="isLoading" class="mx-auto pt-3" [diameter]="60">
-</mat-spinner>
+@if (isLoading) {
+  <mat-spinner class="mx-auto pt-3" [diameter]="60">
+  </mat-spinner>
+}
 
 <div #content>
   <iframe

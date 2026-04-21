@@ -40,7 +40,7 @@ import { OrganizationSubUnitsComponent } from './organization-sub-units/organiza
 import { OrganizationInformationComponent } from './organization-information/organization-information.component';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
-import { NgIf, NgFor } from '@angular/common';
+
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -50,27 +50,25 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './single-organization.component.html',
     styleUrls: ['./single-organization.component.scss'],
     imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        MatTabGroup,
-        MatTab,
-        OrganizationInformationComponent,
-        OrganizationSubUnitsComponent,
-        OrganizationVisualisationsComponent,
-        MatCard,
-        MatCardTitle,
-        NewsCardComponent,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        SafeUrlPipe,
-        FilterEmptyFieldPipe,
-        MatIcon,
-        SvgSpritesComponent
-    ]
+    SearchBarComponent,
+    RouterLink,
+    BreadcrumbComponent,
+    MatTabGroup,
+    MatTab,
+    OrganizationInformationComponent,
+    OrganizationSubUnitsComponent,
+    OrganizationVisualisationsComponent,
+    MatCard,
+    MatCardTitle,
+    NewsCardComponent,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    SafeUrlPipe,
+    FilterEmptyFieldPipe,
+    MatIcon,
+    SvgSpritesComponent
+]
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];

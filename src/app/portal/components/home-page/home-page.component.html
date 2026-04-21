@@ -20,58 +20,28 @@
     <div class="row justify-content-center mt-2">
       <!-- First column -->
       <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 main-parallel-column-wrap mb-1 d-flex flex-column align-items-stretch justify-content-between p-2">
-          <div class="col-header">
-            <h2 i18n="@@researchFinland" class="text-center m-0">
+        <div class="col-header">
+          <h2 i18n="@@researchFinland" class="text-center m-0">
               Tiede ja tutkimus Suomessa
             </h2>
-          </div>
+        </div>
+        @for (item of shortcutData?.slice(0, 3); track item; let i = $index) {
           <div
-            *ngFor="let item of shortcutData?.slice(0, 3); index as i"
             class="col-12 link-img drop-shadow mx-1" [class.mb-0]="i === 2"
-          ><ng-container *ngIf="item.isExternalLink">
+            >@if (item.isExternalLink) {
             <a
               class="shortcut"
               #main
               [href]="item.link | safeUrl"
               target="_blank"
-            >
+              >
               <div
                 class="cover-img"
                 title="{{ item['imageAlt' + currentLocale] }}"
-              >
+                >
                 <img
                   [src]="item.image"
                   [alt]="item['imageAlt' + currentLocale]"
-                />
-              </div>
-              <!-- <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}"> -->
-              <!--  Use line above for calculated height. Note: remove shortcutItem pb-3 class if calculated height is in use. -->
-              <div class="caption text-center pb-3" #shortcutItem>
-                <div>
-                  <h3 class="header">
-                    {{ item['title' + currentLocale] }}
-                  </h3>
-                  <span class="hint">
-                    {{ item['caption' + currentLocale] }}
-                  </span>
-                </div>
-              </div>
-            </a>
-          </ng-container>
-            <ng-container *ngIf="!item.isExternalLink">
-              <a
-                class="shortcut"
-                #main
-                [href]="item.link | safeUrl"
-                (click)="item[toggleReview] ? toggleReview() : null"
-              >
-                <div
-                  class="cover-img"
-                  title="{{ item['imageAlt' + currentLocale] }}"
-                >
-                  <img
-                    [src]="item.image"
-                    [alt]="item['imageAlt' + currentLocale]"
                   />
                 </div>
                 <!-- <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}"> -->
@@ -82,17 +52,48 @@
                       {{ item['title' + currentLocale] }}
                     </h3>
                     <span class="hint">
-                    {{ item['caption' + currentLocale] }}
-                  </span>
+                      {{ item['caption' + currentLocale] }}
+                    </span>
                   </div>
                 </div>
               </a>
-            </ng-container>
-          </div>
-      </div>
+            }
+            @if (!item.isExternalLink) {
+              <a
+                class="shortcut"
+                #main
+                [href]="item.link | safeUrl"
+                (click)="item[toggleReview] ? toggleReview() : null"
+                >
+                <div
+                  class="cover-img"
+                  title="{{ item['imageAlt' + currentLocale] }}"
+                  >
+                  <img
+                    [src]="item.image"
+                    [alt]="item['imageAlt' + currentLocale]"
+                    />
+                  </div>
+                  <!-- <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}"> -->
+                  <!--  Use line above for calculated height. Note: remove shortcutItem pb-3 class if calculated height is in use. -->
+                  <div class="caption text-center pb-3" #shortcutItem>
+                    <div>
+                      <h3 class="header">
+                        {{ item['title' + currentLocale] }}
+                      </h3>
+                      <span class="hint">
+                        {{ item['caption' + currentLocale] }}
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              }
+            </div>
+          }
+        </div>
 
-      <!-- Second column XL -->
-      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 main-parallel-column-wrap mb-1 d-flex align-items-stretch flex-column d-none d-xl-block p-2">
+        <!-- Second column XL -->
+        <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 main-parallel-column-wrap mb-1 d-flex align-items-stretch flex-column d-none d-xl-block p-2">
           <a class="header-link drop-shadow tint-background" routerLink="/news">
             <div class="col-header">
               <h2 i18n="@@homeNewsHeaderPlain" class="text-center m-0">
@@ -107,49 +108,51 @@
           </div>
 
           <div class="col-12 col side-news p-0 pb-3 d-flex flex-column align-items-stretch justify-content-between main-parallel-column drop-shadow tint-background">
-            <app-news-card
-              *ngFor="let item of news?.slice(0, 5)"
-              [item]="item"
-              [dense]="true"
-              [isHomepage]="true"
-              class="d-flex flex-column mx-1"
-            ></app-news-card>
+            @for (item of news?.slice(0, 5); track item) {
+              <app-news-card
+                [item]="item"
+                [dense]="true"
+                [isHomepage]="true"
+                class="d-flex flex-column mx-1"
+              ></app-news-card>
+            }
           </div>
-      </div>
+        </div>
 
-      <!-- Second column smaller/mobile -->
-      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 main-parallel-column-wrap mb-1 d-flex align-items-stretch flex-column d-xl-none p-2">
-        <a class="header-link drop-shadow tint-background" routerLink="/news">
-          <div class="col-header">
-            <h2 i18n="@@homeNewsHeaderPlain" class="text-center m-0">
+        <!-- Second column smaller/mobile -->
+        <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 main-parallel-column-wrap mb-1 d-flex align-items-stretch flex-column d-xl-none p-2">
+          <a class="header-link drop-shadow tint-background" routerLink="/news">
+            <div class="col-header">
+              <h2 i18n="@@homeNewsHeaderPlain" class="text-center m-0">
               Uusimmat tiede- ja tutkimusuutiset
             </h2>
+            </div>
+          </a>
+          <div class="col-12 link-img mb-xl-4 d-lg-none drop-shadow tint-background">
+            <div class="cover-img" [title]="newsImage.alt">
+              <img [src]="newsImage.imgPath" [alt]="newsImage.alt" />
+            </div>
           </div>
-        </a>
-        <div class="col-12 link-img mb-xl-4 d-lg-none drop-shadow tint-background">
-          <div class="cover-img" [title]="newsImage.alt">
-            <img [src]="newsImage.imgPath" [alt]="newsImage.alt" />
+
+          <div class="col-12 col side-news p-0 pb-3 d-xl-none d-flex flex-column align-items-stretch justify-content-between main-parallel-column drop-shadow tint-background mx-1">
+            @for (item of news?.slice(0, 5); track item) {
+              <app-news-card
+                [item]="item"
+                [dense]="true"
+                [isHomepage]="true"
+                class="d-flex flex-column"
+              ></app-news-card>
+            }
           </div>
         </div>
 
-        <div class="col-12 col side-news p-0 pb-3 d-xl-none d-flex flex-column align-items-stretch justify-content-between main-parallel-column drop-shadow tint-background mx-1">
-          <app-news-card
-                  *ngFor="let item of news?.slice(0, 5)"
-                  [item]="item"
-                  [dense]="true"
-                  [isHomepage]="true"
-                  class="d-flex flex-column"
-          ></app-news-card>
-        </div>
-      </div>
-
-      <!-- Third column -->
-      <div class="col-12 col-sm-10 col-9 col-lg-10 col-xl-4 main-parallel-column-wrap mb-1 d-flex align-items-stretch flex-column p-2">
+        <!-- Third column -->
+        <div class="col-12 col-sm-10 col-9 col-lg-10 col-xl-4 main-parallel-column-wrap mb-1 d-flex align-items-stretch flex-column p-2">
           <a
             class="header-link drop-shadow tint-background"
             routerLink="/funding-calls"
             [queryParams]="{ status: 'open' }"
-          >
+            >
             <div class="col-header">
               <h2 i18n="@@openFundingCalls" class="text-center m-0">
                 Avoimet rahoitushaut
@@ -159,107 +162,111 @@
 
           <!-- XL version -->
           <div class="col-12 col side-news p-0 pb-3 d-flex flex-column align-items-stretch justify-content-between main-parallel-column drop-shadow tint-background">
-            <app-news-card
-              *ngFor="let item of resultData?.fundingCalls.slice(0, 6)"
-              [fundingCall]="item"
-              [itemTypeFundingCalls]="true"
-              [dense]="true"
-              [isHomepage]="true"
-              class="d-flex flex-column  mx-1"
-            ></app-news-card>
+            @for (item of resultData?.fundingCalls.slice(0, 6); track item) {
+              <app-news-card
+                [fundingCall]="item"
+                [itemTypeFundingCalls]="true"
+                [dense]="true"
+                [isHomepage]="true"
+                class="d-flex flex-column  mx-1"
+              ></app-news-card>
+            }
           </div>
         </div>
-    </div>
-
-    <!-- Divider -->
-    <app-divider
-      i18n-headingText="@@appName"
-      headingText="Tiedejatutkimus.fi"
-    ></app-divider>
-
-    <!-- Bottom cards -->
-    <div class="row justify-content-center bottom">
-      <div class="col-12 col-md-9 col-lg-5 col-xl-4">
-        <div
-          *ngFor="let item of shortcutData?.slice(3, 4)"
-          class="col-12 link-img drop-shadow"
-        >
-          <a
-            class="shortcut"
-            (click)="toggleReview()"
-            href="javascript:void(0)"
-          >
-            <div
-              class="cover-img"
-              title="{{ item['imageAlt' + currentLocale] }}"
-            >
-              <img
-                [src]="item.image"
-                [alt]="item['imageAlt' + currentLocale]"
-              />
-            </div>
-            <div
-              class="caption text-center"
-              #shortcutItem
-              [ngStyle]="{ height: maxHeight + 'px' }"
-            >
-              <div>
-                <h3 class="header">
-                  {{ item['title' + currentLocale] }}
-                </h3>
-                <span class="hint">
-                  {{ item['caption' + currentLocale] }}
-                </span>
-              </div>
-            </div>
-          </a>
-        </div>
       </div>
 
-      <div class="col-12 col-md-9 col-lg-5 col-xl-4">
-        <div
-          *ngFor="let item of shortcutData?.slice(4, 5)"
-          class="col-12 link-img drop-shadow"
-        >
-          <a class="shortcut" routerLink="{{ item.link }}">
+      <!-- Divider -->
+      <app-divider
+        i18n-headingText="@@appName"
+        headingText="Tiedejatutkimus.fi"
+      ></app-divider>
+
+      <!-- Bottom cards -->
+      <div class="row justify-content-center bottom">
+        <div class="col-12 col-md-9 col-lg-5 col-xl-4">
+          @for (item of shortcutData?.slice(3, 4); track item) {
             <div
-              class="cover-img"
-              title="{{ item['imageAlt' + currentLocale] }}"
-            >
-              <img
-                [src]="item.image"
-                [alt]="item['imageAlt' + currentLocale]"
-              />
-            </div>
-            <div
-              class="caption text-center"
-              #shortcutItem
-              [ngStyle]="{ height: maxHeight + 'px' }"
-            >
-              <div>
-                <h3 class="header">
-                  {{ item['title' + currentLocale] }}
-                </h3>
-                <span class="hint">
-                  {{ item['caption' + currentLocale] }}
-                </span>
+              class="col-12 link-img drop-shadow"
+              >
+              <a
+                class="shortcut"
+                (click)="toggleReview()"
+                href="javascript:void(0)"
+                >
+                <div
+                  class="cover-img"
+                  title="{{ item['imageAlt' + currentLocale] }}"
+                  >
+                  <img
+                    [src]="item.image"
+                    [alt]="item['imageAlt' + currentLocale]"
+                    />
+                  </div>
+                  <div
+                    class="caption text-center"
+                    #shortcutItem
+                    [ngStyle]="{ height: maxHeight + 'px' }"
+                    >
+                    <div>
+                      <h3 class="header">
+                        {{ item['title' + currentLocale] }}
+                      </h3>
+                      <span class="hint">
+                        {{ item['caption' + currentLocale] }}
+                      </span>
+                    </div>
+                  </div>
+                </a>
               </div>
+            }
+          </div>
+
+          <div class="col-12 col-md-9 col-lg-5 col-xl-4">
+            @for (item of shortcutData?.slice(4, 5); track item) {
+              <div
+                class="col-12 link-img drop-shadow"
+                >
+                <a class="shortcut" routerLink="{{ item.link }}">
+                  <div
+                    class="cover-img"
+                    title="{{ item['imageAlt' + currentLocale] }}"
+                    >
+                    <img
+                      [src]="item.image"
+                      [alt]="item['imageAlt' + currentLocale]"
+                      />
+                    </div>
+                    <div
+                      class="caption text-center"
+                      #shortcutItem
+                      [ngStyle]="{ height: maxHeight + 'px' }"
+                      >
+                      <div>
+                        <h3 class="header">
+                          {{ item['title' + currentLocale] }}
+                        </h3>
+                        <span class="hint">
+                          {{ item['caption' + currentLocale] }}
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              }
             </div>
-          </a>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</main>
+      </main>
 
-<ng-template #reviewDialog>
-  <app-review (onClose)='toggleReview()'></app-review>
-</ng-template>
+      <ng-template #reviewDialog>
+        <app-review (onClose)='toggleReview()'></app-review>
+      </ng-template>
 
-<app-dialog
-  *ngIf="showDialog"
-  [template]="reviewDialog"
-  title="Anna palautetta tai kysy"
-  i18n-title="@@leaveReviewHeader"
-  (onActionClick)="toggleReview()"
-></app-dialog>
+      @if (showDialog) {
+        <app-dialog
+          [template]="reviewDialog"
+          title="Anna palautetta tai kysy"
+          i18n-title="@@leaveReviewHeader"
+          (onActionClick)="toggleReview()"
+        ></app-dialog>
+      }

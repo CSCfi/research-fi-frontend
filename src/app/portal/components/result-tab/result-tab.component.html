@@ -1,80 +1,85 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 <nav id="tabs" class="mt-3">
-  <div
-    class="wrapper"
-    *ngIf="allData; else noData"
-    [tabindex]="isHomepage ? -1 : 0"
-    (keyup)="isHomepage ? '' : navigate($event)"
-  >
-    <div #scroll class="scroll" *ngFor="let counted of allData">
-      <div
-        *ngIf="!isHomepage"
-        class="edge"
-        [ngStyle]="{ display: lastScrollLocation > 0 ? 'block' : 'none' }"
+  @if (allData) {
+    <div
+      class="wrapper"
+      [tabindex]="isHomepage ? -1 : 0"
+      (keyup)="isHomepage ? '' : navigate($event)"
       >
-        <div class="grad grad-left"></div>
-        <div class="nav-arrow nav-arrow-left" (click)="scrollLeft()">
-            <app-svg-sprites [iconName]="'chevron-left'" cssClass="chevron-left-icon nav-icon"></app-svg-sprites>
-        </div>
-      </div>
-      <div
-        *ngIf="!isHomepage"
-        class="edge"
+      @for (counted of allData; track counted) {
+        <div #scroll class="scroll">
+          @if (!isHomepage) {
+            <div
+              class="edge"
+              [ngStyle]="{ display: lastScrollLocation > 0 ? 'block' : 'none' }"
+              >
+              <div class="grad grad-left"></div>
+              <div class="nav-arrow nav-arrow-left" (click)="scrollLeft()">
+                <app-svg-sprites [iconName]="'chevron-left'" cssClass="chevron-left-icon nav-icon"></app-svg-sprites>
+              </div>
+            </div>
+          }
+          @if (!isHomepage) {
+            <div
+              class="edge"
         [ngStyle]="{
           display:
             offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'
         }"
-      >
-        <div class="grad grad-right"></div>
-        <div class="nav-arrow nav-arrow-right" (click)="scrollRight()">
-            <app-svg-sprites [iconName]="'chevron-right'" cssClass="chevron-left-icon nav-icon"></app-svg-sprites>
-        </div>
-      </div>
-      <ng-container
-        *ngFor="let row of tabsOpen ? rowsOpen : rowsClosed; let i = index"
-      >
-        <div class="row-wrapper" [class.row-wrapper-homepage]="isHomepage">
-          <ng-container *ngFor="let tab of slicedRow(i); let j = index">
-            <app-tab-item
-              [class.homepage]="isHomepage"
-              [tab]="tab"
-              [isHomepage]="isHomepage"
-              [selectedTab]="selectedTab"
-              [queryParams]="queryParams"
-              [counted]="counted"
-              [locale]="locale"
-              [tooltipClass]="tooltipClass"
-            ></app-tab-item>
-            <button
-              *ngIf="isHomepage && nofTabs < 6 && checkLast(i, j)"
-              class="item-wrapper bundler homepage toggle-more"
-              (click)="toggleTabs()"
-              #toggleButton
-            >
-              <div
-                *ngIf="!tabsOpen"
-                class="label text-center homepage homepage-label"
               >
-                <ng-container i18n="@@showAll">Näytä kaikki </ng-container>
-                <div><app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon"></app-svg-sprites></div>
+              <div class="grad grad-right"></div>
+              <div class="nav-arrow nav-arrow-right" (click)="scrollRight()">
+                <app-svg-sprites [iconName]="'chevron-right'" cssClass="chevron-left-icon nav-icon"></app-svg-sprites>
               </div>
-              <div
-                *ngIf="tabsOpen"
-                class="label text-center homepage homepage-label"
-              >
-                <ng-container i18n="@@showLess">Näytä vähemmän </ng-container>
-                <div><app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon"></app-svg-sprites></div>
-              </div>
-            </button>
-          </ng-container>
+            </div>
+          }
+          @for (row of tabsOpen ? rowsOpen : rowsClosed; track row; let i = $index) {
+            <div class="row-wrapper" [class.row-wrapper-homepage]="isHomepage">
+              @for (tab of slicedRow(i); track tab; let j = $index) {
+                <app-tab-item
+                  [class.homepage]="isHomepage"
+                  [tab]="tab"
+                  [isHomepage]="isHomepage"
+                  [selectedTab]="selectedTab"
+                  [queryParams]="queryParams"
+                  [counted]="counted"
+                  [locale]="locale"
+                  [tooltipClass]="tooltipClass"
+                ></app-tab-item>
+                @if (isHomepage && nofTabs < 6 && checkLast(i, j)) {
+                  <button
+                    class="item-wrapper bundler homepage toggle-more"
+                    (click)="toggleTabs()"
+                    #toggleButton
+                    >
+                    @if (!tabsOpen) {
+                      <div
+                        class="label text-center homepage homepage-label"
+                        >
+                        <ng-container i18n="@@showAll">Näytä kaikki </ng-container>
+                        <div><app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon"></app-svg-sprites></div>
+                      </div>
+                    }
+                    @if (tabsOpen) {
+                      <div
+                        class="label text-center homepage homepage-label"
+                        >
+                        <ng-container i18n="@@showLess">Näytä vähemmän </ng-container>
+                        <div><app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon"></app-svg-sprites></div>
+                      </div>
+                    }
+                  </button>
+                }
+              }
+            </div>
+          }
         </div>
-      </ng-container>
+      }
     </div>
-  </div>
-  <ng-template #noData>
+  } @else {
     <div class="row justify-content-center">
       <div class="col" align="center" style="margin: 2rem 0">
         <mat-spinner
@@ -85,5 +90,5 @@
         <!-- <h2 class="error" *ngIf="errorTimeout" i18n="Connection problem@@connProblem1">Yhteysongelma. Dataa ei saatavilla.</h2> -->
       </div>
     </div>
-  </ng-template>
+  }
 </nav>

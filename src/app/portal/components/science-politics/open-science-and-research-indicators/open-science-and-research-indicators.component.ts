@@ -5,7 +5,7 @@ import { UtilityService } from '@shared/services/utility.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
-import { NgFor } from '@angular/common';
+
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
@@ -14,11 +14,10 @@ import { BannerDividerComponent } from '../../../../shared/components/banner-div
     styleUrls: ['./open-science-and-research-indicators.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        BannerDividerComponent,
-        NgFor,
-        CutContentPipe,
-        SafeUrlPipe,
-    ]
+    BannerDividerComponent,
+    CutContentPipe,
+    SafeUrlPipe
+]
 })
 export class OpenScienceAndResearchIndicatorsComponent implements OnInit {
   currentLocale = '';
