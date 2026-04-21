@@ -10,7 +10,7 @@ import { AppConfigService } from '../../shared/services/app-config-service.servi
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
 // import { SharedModule } from '@shared/shared.module';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { interval, lastValueFrom, take } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,9 +30,7 @@ function email(strings) {
     styleUrls: ['./footer.component.scss'],
     encapsulation: ViewEncapsulation.None,
   imports: [
-    // SharedModule,
     AsyncPipe,
-    NgIf,
     RouterLink,
     MatButtonModule,
     ReviewComponent,
@@ -40,7 +38,7 @@ function email(strings) {
     WelcomeStepperComponent,
     SvgSpritesComponent,
     NgClass
-  ]
+]
 })
 export class FooterComponent {
   locale = inject(LOCALE_ID);

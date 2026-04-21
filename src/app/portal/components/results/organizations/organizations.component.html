@@ -1,36 +1,39 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
-<div class="spinner-center" *ngIf="!resultData">
-  <mat-spinner
-    [diameter]="80"
-    i18n-aria-label="@@loading"
-    aria-label="Ladataan"
-  ></mat-spinner>
-</div>
+@if (!resultData) {
+  <div class="spinner-center">
+    <mat-spinner
+      [diameter]="80"
+      i18n-aria-label="@@loading"
+      aria-label="Ladataan"
+    ></mat-spinner>
+  </div>
+}
 
 <!-- Results -->
-<div *ngIf="resultData?.total > 0; else noResults">
-  <app-table
-    [columns]="tableColumns"
-    [rows]="tableRows"
-    [svgSymbolName]="svgSymbolName"
-    [iconTitle]="iconTitleOrganizations"
-    iconLinkField="name"
-    [sortColumn]="sortService.sortColumn"
-    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
-    (onSortChange)="utilityService.sortBy($event.active)"
-  ></app-table>
-
-  <!-- Pagination -->
-  <app-results-pagination [data]="resultData"></app-results-pagination>
-</div>
-<ng-template #noResults>
-  <app-no-results
-    *ngIf="resultData && resultData.total === 0"
-    heading="Ei organisaatioita"
-    i18n-heading="@@noOrganizations"
-  ></app-no-results>
-</ng-template>
+@if (resultData?.total > 0) {
+  <div>
+    <app-table
+      [columns]="tableColumns"
+      [rows]="tableRows"
+      [svgSymbolName]="svgSymbolName"
+      [iconTitle]="iconTitleOrganizations"
+      iconLinkField="name"
+      [sortColumn]="sortService.sortColumn"
+      [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+      (onSortChange)="utilityService.sortBy($event.active)"
+    ></app-table>
+    <!-- Pagination -->
+    <app-results-pagination [data]="resultData"></app-results-pagination>
+  </div>
+} @else {
+  @if (resultData && resultData.total === 0) {
+    <app-no-results
+      heading="Ei organisaatioita"
+      i18n-heading="@@noOrganizations"
+    ></app-no-results>
+  }
+}

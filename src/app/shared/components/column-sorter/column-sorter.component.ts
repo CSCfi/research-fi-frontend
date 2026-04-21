@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { JsonPipe, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -7,8 +7,9 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './column-sorter.component.html',
     styleUrls: ['./column-sorter.component.scss'],
     imports: [
-        NgSwitch, NgSwitchCase, NgIf, SvgSpritesComponent, JsonPipe
-    ]
+    SvgSpritesComponent,
+    JsonPipe
+]
 })
 export class ColumnSorterComponent {
   @Input() name: string;

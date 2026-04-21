@@ -4,7 +4,7 @@ import {
 } from '@mydata/components/shared-layouts/profile-summary-view/profile-summary-view.component';
 import { EditorModalComponent } from '@mydata/components/profile/editor-modal/editor-modal.component';
 import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
-import { JsonPipe, NgForOf, NgIf } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import {
   NameAndOrcidViewComponent
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
@@ -12,14 +12,12 @@ import {
 @Component({
     selector: 'app-person-profile-view',
     imports: [
-        ProfileSummaryViewComponent,
-        EditorModalComponent,
-        HasSelectedItemsPipe,
-        NgForOf,
-        NgIf,
-        NameAndOrcidViewComponent,
-        JsonPipe
-    ],
+    ProfileSummaryViewComponent,
+    EditorModalComponent,
+    HasSelectedItemsPipe,
+    NameAndOrcidViewComponent,
+    JsonPipe
+],
     templateUrl: './person-profile-view.component.html',
     styleUrl: './person-profile-view.component.scss'
 })

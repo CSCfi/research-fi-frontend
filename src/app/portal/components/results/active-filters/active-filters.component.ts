@@ -29,7 +29,7 @@ import { OrganizationFilterService } from '@portal/services/filters/organization
 import { SettingsService } from '@portal/services/settings.service';
 import { NewsFilterService } from '@portal/services/filters/news-filter.service';
 import { SearchService } from '@portal/services/search.service';
-import { isPlatformBrowser, NgIf } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { FilterConfigType } from 'src/types';
@@ -40,7 +40,7 @@ import { ProjectFilterService } from '@portal/services/filters/project-filter.se
     selector: 'app-active-filters',
     templateUrl: './active-filters.component.html',
     styleUrls: ['./active-filters.component.scss'],
-    imports: [NgIf, ActiveFiltersListComponent]
+    imports: [ActiveFiltersListComponent]
 })
 export class ActiveFiltersComponent
   implements OnInit, OnDestroy, AfterContentInit

@@ -17,7 +17,7 @@ import { UtilityService } from '@shared/services/utility.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, map, switchMap, take } from 'rxjs/operators';
 
-import { NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe, JsonPipe } from '@angular/common';
+import { NgTemplateOutlet, NgClass, AsyncPipe, JsonPipe } from '@angular/common';
 import { PersonPublication } from '@portal/models/person/person-publication.model';
 import { CheckEmptyFieldsPipe } from '../../../pipes/check-empty-fields.pipe';
 import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
@@ -58,21 +58,20 @@ type Field = { key: string; label?: string };
     templateUrl: './single-person.component.html',
     styleUrls: ['./single-person.component.scss'],
     imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        AsyncPipe,
-        JoinItemsPipe,
-        JsonPipe,
-        PersonProfileViewComponent,
-        CollaborationCardComponent,
-        ContactCardComponent,
-        MatCard,
-        RelatedLinksComponent,
-        RelatedLinksNewComponent,
-        DataSourcesInfoCardComponent
-    ]
+    SearchBarComponent,
+    RouterLink,
+    BreadcrumbComponent,
+    AsyncPipe,
+    JoinItemsPipe,
+    JsonPipe,
+    PersonProfileViewComponent,
+    CollaborationCardComponent,
+    ContactCardComponent,
+    MatCard,
+    RelatedLinksComponent,
+    RelatedLinksNewComponent,
+    DataSourcesInfoCardComponent
+]
 })
 export class SinglePersonComponent implements OnInit {
   protected readonly groupTypes = GroupTypes;

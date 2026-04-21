@@ -6,78 +6,81 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="row active-filters">
   <h4 class="h6 w-100">
     <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
-      filters.length
+    filters.length
     }}):
   </h4>
   <ul aria-live="polite" class="mb-0">
-    <ng-container
-      *ngFor="let activeFilter of filters.slice(0, 7); let i = index"
-    >
-      <li
-        tabindex="0"
-        class="filter"
-        *ngIf="!activeFilter.hide"
-        (click)="removeFilter(activeFilter)"
-        id="{{ activeFilter.value }}"
-      >
-        <span id="{{ activeFilter.value }}">{{
-          activeFilter.translation
-        }}</span>
-        <app-svg-sprites [iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
-
-        <!-- seems deprecated, need to check what is this -->
-        <!--<app-svg-sprites [iconName]="'delete'" tabindex="0"
-                         (focus)="enter(i)"
-                         (blur)="leave()"
-                         (mouseenter)="enter(i)"
-                         (mouseleave)="leave()"ngOnDestroy
-                         *ngIf="activeFilter.warning"
-                         class="icon warning"
-                         cssClass="delete-icon"></app-svg-sprites>-->
-      <div
-        class="warning-info"
-        *ngIf="activeFilter.warning && hoverIndex === i"
-      >
-        <span i18n="@@yearRangeWarning"
-          >Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet
+    @for (activeFilter of filters.slice(0, 7); track activeFilter; let i = $index) {
+      @if (!activeFilter.hide) {
+        <li
+          tabindex="0"
+          class="filter"
+          (click)="removeFilter(activeFilter)"
+          id="{{ activeFilter.value }}"
+          >
+          <span id="{{ activeFilter.value }}">{{
+            activeFilter.translation
+          }}</span>
+          <app-svg-sprites [iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+          <!-- seems deprecated, need to check what is this -->
+          <!--<app-svg-sprites [iconName]="'delete'" tabindex="0"
+          (focus)="enter(i)"
+          (blur)="leave()"
+          (mouseenter)="enter(i)"
+          (mouseleave)="leave()"ngOnDestroy
+          *ngIf="activeFilter.warning"
+          class="icon warning"
+        cssClass="delete-icon"></app-svg-sprites>-->
+        @if (activeFilter.warning && hoverIndex === i) {
+          <div
+            class="warning-info"
+            >
+            <span i18n="@@yearRangeWarning"
+              >Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet
           "Rajaa hakua" -valikosta vasemmalla.</span
-        >
+              >
+            </div>
+          }
+        </li>
+      }
+    }
+    @if (filters.length > 6) {
+      <div class="ellipsis" (click)="openDialog()">
+        ...
       </div>
-    </li>
-  </ng-container>
-  <div class="ellipsis" *ngIf="filters.length > 6" (click)="openDialog()">
-    ...
-  </div>
-  <div class="d-inline-flex">
-    <button class="d-flex"
-      *ngIf="filters.length > 6"
-      class="show filter"
-      mat-button
-      (click)="openDialog()"
-      i18n="@@showAll"
-    >
+    }
+    <div class="d-inline-flex">
+      @if (filters.length > 6) {
+        <button class="d-flex"
+          class="show filter"
+          mat-button
+          (click)="openDialog()"
+          i18n="@@showAll"
+          >
       Näytä kaikki
     </button>
-    <button class="clear filter d-flex" mat-button (click)="clearFilters()">
+      }
+      <button class="clear filter d-flex" mat-button (click)="clearFilters()">
         <app-svg-sprites [iconName]="'delete'" cssClass="delete-icon filters-icon"></app-svg-sprites>
-      <ng-container i18n="@@clearActiveFilters"
-        >Tyhjennä rajaukset</ng-container
-      >
-    </button>
+        <ng-container i18n="@@clearActiveFilters"
+          >Tyhjennä rajaukset</ng-container
+          >
+        </button>
+      </div>
+    </ul>
   </div>
-</ul>
-</div>
 
-<ng-template #filterListDialog>
-<app-active-filters-dialog
-  [data]="dialogData"
-  (clearAllFilters)="clearFilters()"
-></app-active-filters-dialog>
-</ng-template>
+  <ng-template #filterListDialog>
+    <app-active-filters-dialog
+      [data]="dialogData"
+      (clearAllFilters)="clearFilters()"
+    ></app-active-filters-dialog>
+  </ng-template>
 
-<app-dialog
-*ngIf="showDialog"
-[title]="dialogTitle"
-[template]="filterListDialog"
-(onActionClick)="closeDialog()"
-></app-dialog>
+  @if (showDialog) {
+    <app-dialog
+      [title]="dialogTitle"
+      [template]="filterListDialog"
+      (onActionClick)="closeDialog()"
+    ></app-dialog>
+  }

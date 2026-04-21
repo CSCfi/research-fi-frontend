@@ -1,26 +1,28 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
-<div *ngIf="linkDoi" class="tag doi">
+@if (linkDoi) {
+  <div class="tag doi">
     <div class="tag-id">DOI</div>
-
     <div class="tag-content">
-        <a href="https://doi.org/{{ linkDoi }} " target="_blank">
-            <span class="doi-text">{{ linkDoi | trimLinkPrefix: 'doi.org' }}</span>
-            <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon doi-svg"></app-svg-sprites>
-        </a>
+      <a href="https://doi.org/{{ linkDoi }} " target="_blank">
+        <span class="doi-text">{{ linkDoi | trimLinkPrefix: 'doi.org' }}</span>
+        <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon doi-svg"></app-svg-sprites>
+      </a>
     </div>
-</div>
+  </div>
+}
 
-<div *ngIf="linkUrn" class="tag doi">
+@if (linkUrn) {
+  <div class="tag doi">
     <div class="tag-id">URN</div>
-
     <div class="tag-content">
-        <a href="http://urn.fi/{{ linkUrn }} " target="_blank">
-            <span class="doi-text">{{ linkUrn | trimLinkPrefix: 'doi.org' }}</span>
-            <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon doi-svg"></app-svg-sprites>
-        </a>
+      <a href="http://urn.fi/{{ linkUrn }} " target="_blank">
+        <span class="doi-text">{{ linkUrn | trimLinkPrefix: 'doi.org' }}</span>
+        <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon doi-svg"></app-svg-sprites>
+      </a>
     </div>
-</div>
+  </div>
+}

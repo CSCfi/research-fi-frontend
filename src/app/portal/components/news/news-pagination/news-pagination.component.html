@@ -5,40 +5,43 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<div class="pagination-container" *ngFor="let response of [responseData]">
-  <div class="pagination">
-    <div class="buttons row" *ngIf="response && response[0]?.total">
-      <app-secondary-button
-        class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-start text-lg-end"
-        [class.pagination-link-active]="fromPage > 1"
-        (click)="goToPage(page - 1)"
-        [disabled]="fromPage <= 1"
-        [content]="previous"
-        [small]="navSmall"
-      >
-      </app-secondary-button>
-
-      <div class="pages col-12 col-md-6" [class.order-last]="!order">
-        <button
-          *ngFor="let number of pages"
-          class="page-button"
-          [disabled]="page === number"
-          (click)="goToPage(number)"
-          [class.current-page]="page === number"
-        >
-          {{ number }}
-        </button>
-      </div>
-
-      <app-secondary-button
-        class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-end text-lg-start"
-        [class.pagination-link-active]="fromPage + 5 < response[0].total"
-        (click)="goToPage(page + 1)"
-        [disabled]="fromPage + 5 >= response[0].total"
-        [content]="next"
-        [small]="navSmall"
-      >
-      </app-secondary-button>
+@for (response of [responseData]; track response) {
+  <div class="pagination-container">
+    <div class="pagination">
+      @if (response && response[0]?.total) {
+        <div class="buttons row">
+          <app-secondary-button
+            class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-start text-lg-end"
+            [class.pagination-link-active]="fromPage > 1"
+            (click)="goToPage(page - 1)"
+            [disabled]="fromPage <= 1"
+            [content]="previous"
+            [small]="navSmall"
+            >
+          </app-secondary-button>
+          <div class="pages col-12 col-md-6" [class.order-last]="!order">
+            @for (number of pages; track number) {
+              <button
+                class="page-button"
+                [disabled]="page === number"
+                (click)="goToPage(number)"
+                [class.current-page]="page === number"
+                >
+                {{ number }}
+              </button>
+            }
+          </div>
+          <app-secondary-button
+            class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-end text-lg-start"
+            [class.pagination-link-active]="fromPage + 5 < response[0].total"
+            (click)="goToPage(page + 1)"
+            [disabled]="fromPage + 5 >= response[0].total"
+            [content]="next"
+            [small]="navSmall"
+            >
+          </app-secondary-button>
+        </div>
+      }
     </div>
   </div>
-</div>
+}

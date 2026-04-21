@@ -3,7 +3,7 @@ import { CdkTableModule, DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, combineLatest, interval, Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
   getArticleTypeCodeAdditions,
   getFieldsOfScienceAdditions,
@@ -52,13 +52,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-publications2',
     templateUrl: './publications2.component.html',
     styleUrls: ['./publications2.component.scss'],
-    imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
-        // SharedModule, //TODO do not depend on shared module
-        FormsModule,
-        RouterModule,
-        SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
-        LayoutModule, ColumnSorterComponent, NgTemplateOutlet, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent, SvgSpritesComponent
-    ]
+    imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, LimitPipe, NgArrayPipesModule, FormsModule, RouterModule, SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink, LayoutModule, ColumnSorterComponent, NgTemplateOutlet, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent, SvgSpritesComponent]
 })
 export class Publications2Component implements OnDestroy {
   route = inject(ActivatedRoute);

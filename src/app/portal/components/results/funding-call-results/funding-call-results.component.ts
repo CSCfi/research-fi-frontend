@@ -26,19 +26,18 @@ import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-funding-call-results',
     templateUrl: './funding-call-results.component.html',
     styleUrls: ['./funding-call-results.component.scss'],
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-    ]
+    MatProgressSpinner,
+    TableComponent,
+    ResultsPaginationComponent,
+    NoResultsComponent
+]
 })
 export class FundingCallResultsComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -77,7 +76,7 @@ export class FundingCallResultsComponent
 
   constructor(
     private route: ActivatedRoute,
-    private sortService: SortService,
+    public sortService: SortService,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,

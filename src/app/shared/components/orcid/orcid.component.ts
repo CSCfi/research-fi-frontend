@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, Input } from '@angular/core';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -14,10 +14,9 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './orcid.component.html',
     styleUrls: ['./orcid.component.scss'],
     imports: [
-        NgIf,
-        NgTemplateOutlet,
-        MatIcon
-    ]
+    NgTemplateOutlet,
+    MatIcon
+]
 })
 export class OrcidComponent implements OnInit {
   @Input() orcid: string;

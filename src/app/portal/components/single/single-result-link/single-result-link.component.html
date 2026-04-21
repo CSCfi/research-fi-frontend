@@ -1,18 +1,18 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 <div class="row links" [class.m-0]="simple" [class.simple]="simple">
   <div class="col-12 px-0 link-wrapper">
     <div class="link">
 
-      <ng-container *ngIf="tag">
+      @if (tag) {
         <span class="link-tag">{{ tag }}</span>
-      </ng-container>
+      }
 
-      <ng-container *ngIf="icon">
-          <span class="link-tag"><app-svg-sprites [iconName]="'link'" cssClass="link-icon"></app-svg-sprites></span>
-      </ng-container>
+      @if (icon) {
+        <span class="link-tag"><app-svg-sprites [iconName]="'link'" cssClass="link-icon"></app-svg-sprites></span>
+      }
 
       <span class="link-item" [class.p-0]="simple">
         <a [href]="url | fixExternalUrl" target="_blank">

@@ -19,7 +19,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { DialogComponent } from '../../../../../shared/components/dialog/dialog.component';
 import { PrimaryActionButtonComponent } from '../../../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { SecondaryButtonComponent } from '../../../../../shared/components/buttons/secondary-button/secondary-button.component';
-import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 type Action = 'publish' | 'hide' | 'share';
 
@@ -28,19 +28,14 @@ type Action = 'publish' | 'hide' | 'share';
     templateUrl: './data-sources-selection-actions.component.html',
     styleUrls: ['./data-sources-selection-actions.component.scss'],
     imports: [
-        NgFor,
-        NgIf,
-        SecondaryButtonComponent,
-        PrimaryActionButtonComponent,
-        DialogComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgTemplateOutlet,
-        NgSwitchDefault,
-        MatCheckbox,
-        DraftSummaryComponent,
-        FilterPipe,
-    ]
+    SecondaryButtonComponent,
+    PrimaryActionButtonComponent,
+    DialogComponent,
+    NgTemplateOutlet,
+    MatCheckbox,
+    DraftSummaryComponent,
+    FilterPipe
+]
 })
 export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
   @Input() selectedItems: any[];

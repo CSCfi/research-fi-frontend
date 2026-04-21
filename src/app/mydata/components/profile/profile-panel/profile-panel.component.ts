@@ -39,34 +39,29 @@ import { PanelArrayItemComponent } from './panel-array-item/panel-array-item.com
 import { MatRadioButton } from '@angular/material/radio';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
-import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-profile-panel',
     templateUrl: './profile-panel.component.html',
     imports: [
-        NgIf,
-        MatAccordion,
-        NgFor,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        NgSwitch,
-        NgSwitchCase,
-        MatCheckbox,
-        NgSwitchDefault,
-        MatRadioButton,
-        PanelArrayItemComponent,
-        SecondaryButtonComponent,
-        PrimaryBadgeComponent,
-        SearchPortalComponent,
-        JoinItemsPipe,
-        FilterPipe,
-        JoinDataSourcesPipe,
-        FindSelectedItemPipe,
-        SvgSpritesComponent
-    ]
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatCheckbox,
+    MatRadioButton,
+    PanelArrayItemComponent,
+    SecondaryButtonComponent,
+    PrimaryBadgeComponent,
+    SearchPortalComponent,
+    JoinItemsPipe,
+    FilterPipe,
+    JoinDataSourcesPipe,
+    FindSelectedItemPipe,
+    SvgSpritesComponent
+]
 })
 export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() primarySource: string;

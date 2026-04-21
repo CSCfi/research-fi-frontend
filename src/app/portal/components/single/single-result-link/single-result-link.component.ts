@@ -8,7 +8,7 @@
 import { Component, Input } from '@angular/core';
 import { FixExternalUrlPipe } from '../../../pipes/fix-external-url.pipe';
 import { TrimLinkPrefixPipe } from '../../../../shared/pipes/trim-link-prefix.pipe';
-import { NgIf } from '@angular/common';
+
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -17,11 +17,10 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './single-result-link.component.html',
     styleUrls: ['./single-result-link.component.scss'],
     imports: [
-        NgIf,
-        TrimLinkPrefixPipe,
-        FixExternalUrlPipe,
-        SvgSpritesComponent
-    ]
+    TrimLinkPrefixPipe,
+    FixExternalUrlPipe,
+    SvgSpritesComponent
+]
 })
 export class SingleResultLinkComponent {
   @Input() tag: string;

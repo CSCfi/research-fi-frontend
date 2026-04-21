@@ -147,10 +147,10 @@
           <div
             class="no-results-wrap"
             *ngIf="
-              !matchedNames.size > 0 &&
-              !matchedAuthors.size > 0 &&
+              !(matchedNames.size > 0) &&
+              !(matchedAuthors.size > 0) &&
               !matchedYears.size &&
-              !matchedKeywords.size > 0
+              !(matchedKeywords.size > 0)
             "
           >
             <p>Ei hakutuloksia</p>

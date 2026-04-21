@@ -17,7 +17,7 @@ import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
-import { isPlatformBrowser, NgIf } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { HttpErrors } from '@shared/constants';
 import { CustomErrorType } from '@shared/types';
@@ -26,7 +26,7 @@ import { DialogComponent } from '../../shared/components/dialog/dialog.component
 @Component({
     selector: 'app-error-modal',
     templateUrl: './error-modal.component.html',
-    imports: [NgIf, DialogComponent]
+    imports: [DialogComponent]
 })
 export class ErrorModalComponent implements OnInit {
   @ViewChild('errorModal', { static: true }) private modal: TemplateRef<any>;
