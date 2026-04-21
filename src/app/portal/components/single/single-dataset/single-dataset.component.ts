@@ -63,7 +63,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     MatProgressSpinner,
     SafeUrlPipe,
     SvgSpritesComponent,
-    OwsRelatedPieChartComponent
   ]
 })
 export class SingleDatasetComponent implements OnInit {

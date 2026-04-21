@@ -61,7 +61,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     DatePipe,
     ThousandSeparatorPipe,
     SvgSpritesComponent,
-    OwsRelatedPieChartComponent
   ]
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
