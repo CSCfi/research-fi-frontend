@@ -35,7 +35,7 @@ import { DatasetFilterService } from 'src/app/portal/services/filters/dataset-fi
 import { InfrastructureFilterService } from 'src/app/portal/services/filters/infrastructure-filter.service';
 import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
-import { isPlatformBrowser, NgTemplateOutlet, NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet, NgClass, JsonPipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -67,41 +67,39 @@ import { PrimaryActionButtonComponent } from '@shared/components/buttons/primary
     styleUrls: ['./filters.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        SecondaryButtonComponent,
-        NgTemplateOutlet,
-        NgIf,
-        MatProgressSpinner,
-        NgFor,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        NgClass,
-        MatExpansionPanelTitle,
-        TooltipModule,
-        MatSlideToggle,
-        MatFormField,
-        MatLabel,
-        MatSelect,
-        MatOption,
-        MatInput,
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatSuffix,
-        MatIcon,
-        MatDatepickerToggleIcon,
-        MatDatepicker,
-        MatSelectionList,
-        MatListOption,
-        MatButton,
-        RouterLink,
-        DialogComponent,
-        ThousandSeparatorPipe,
-        FilterItemPipe,
-        ReplaceSpacePipe,
-        ConvertToArrayPipe,
-        JsonPipe,
-        SvgSpritesComponent,
-        PrimaryActionButtonComponent
-    ]
+    SecondaryButtonComponent,
+    NgTemplateOutlet,
+    MatProgressSpinner,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    NgClass,
+    MatExpansionPanelTitle,
+    TooltipModule,
+    MatSlideToggle,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    MatInput,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatIcon,
+    MatDatepickerToggleIcon,
+    MatDatepicker,
+    MatSelectionList,
+    MatListOption,
+    MatButton,
+    RouterLink,
+    DialogComponent,
+    ThousandSeparatorPipe,
+    FilterItemPipe,
+    ReplaceSpacePipe,
+    ConvertToArrayPipe,
+    JsonPipe,
+    SvgSpritesComponent,
+    PrimaryActionButtonComponent
+]
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;

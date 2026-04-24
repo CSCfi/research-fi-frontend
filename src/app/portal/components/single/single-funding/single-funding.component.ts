@@ -33,7 +33,7 @@ import { MatCard, MatCardTitle } from '@angular/material/card';
 import { OrcidComponent } from '../../../../shared/components/orcid/orcid.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
-import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe } from '@angular/common';
+import { NgClass, DatePipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -43,16 +43,11 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./single-funding.component.scss'],
   imports: [
     SearchBarComponent,
-    NgIf,
     RouterLink,
     BreadcrumbComponent,
-    NgFor,
     TooltipModule,
     NgClass,
-    NgSwitch,
-    NgSwitchDefault,
     OrcidComponent,
-    NgSwitchCase,
     MatCard,
     MatCardTitle,
     SingleResultLinkComponent,
@@ -60,8 +55,8 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     ShareComponent,
     DatePipe,
     ThousandSeparatorPipe,
-    SvgSpritesComponent,
-  ]
+    SvgSpritesComponent
+]
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;

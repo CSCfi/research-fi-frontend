@@ -1,7 +1,7 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <mat-table
   class="custom-table"
@@ -10,13 +10,13 @@
   [dataSource]="tableRows.slice(currentPage * currentPageSize, currentPageSize * (currentPage + 1))"
   [matSortActive]="'year'"
   [matSortDirection]="'desc'"
->
+  >
   <!-- Selection column -->
   <ng-container matColumnDef="selection">
     <!-- Select all -->
     <mat-header-cell *matHeaderCellDef [style]="'flex: 0'">
       <!-- Hidden from beta -->
-       <mat-checkbox
+      <mat-checkbox
         (change)="toggleAll($event)"
         [checked]="allSelected"
       ></mat-checkbox>
@@ -31,94 +31,100 @@
     </mat-cell>
   </ng-container>
 
-  <ng-container *ngFor="let column of columns">
+  @for (column of columns; track column) {
     <ng-container [matColumnDef]="column.id">
       <mat-header-cell *matHeaderCellDef [mat-sort-header]="column.id" [style]="'flex: ' + column.width">
         {{ column.label }}
-
         <!-- Sort indicators -->
-        <div class="sort-indicator" *ngIf="!column.sortDisabled">
-          <ng-container *ngIf="activeSort !== column.id; else activeSortIndicatorTemplate">
+        @if (!column.sortDisabled) {
+          <div class="sort-indicator">
+            @if (activeSort !== column.id) {
               <app-svg-sprites [iconName]="'sort'" cssClass="sort-icon"></app-svg-sprites>
-          </ng-container>
-
-          <ng-template #activeSortIndicatorTemplate>
-              <app-svg-sprites *ngIf="sortDirection === 'asc'" [iconName]="'sort-asc'" cssClass="sort-up-icon"></app-svg-sprites>
-              <app-svg-sprites *ngIf="sortDirection === 'desc'" [iconName]="'sort-desc'" cssClass="sort-down-icon"></app-svg-sprites>
-          </ng-template>
-        </div>
+            } @else {
+              @if (sortDirection === 'asc') {
+                <app-svg-sprites [iconName]="'sort-asc'" cssClass="sort-up-icon"></app-svg-sprites>
+              }
+              @if (sortDirection === 'desc') {
+                <app-svg-sprites [iconName]="'sort-desc'" cssClass="sort-down-icon"></app-svg-sprites>
+              }
+            }
+          </div>
+        }
       </mat-header-cell>
-
       <mat-cell *matCellDef="let item; let i = index" [style]="'flex: ' + column.width" [class.expandable-cell]="column.additionalFields">
         <div class="row w-100">
-
-          <ng-container *ngIf="column.field !== 'source'; else sourceCellTemplate">
+          @if (column.field !== 'source') {
             <div [class.text-overflow-ellipsis]="column.ellipsis && showMoreArray.indexOf(i) === -1" class="col px-0">
               {{ item[column.field] }}
             </div>
-          </ng-container>
-
-          <ng-template #sourceCellTemplate>
-            <div class="col px-0" *ngFor="let source of item.dataSources">
-              {{ source.organization.nameFi }}
-            </div>
-          </ng-template>
-
+          } @else {
+            @for (source of item.dataSources; track source) {
+              <div class="col px-0">
+                {{ source.organization.nameFi }}
+              </div>
+            }
+          }
           <!-- Display hyphen if no matching value -->
-          <ng-container *ngIf="column.field !== 'source' && !item[column.field]">
+          @if (column.field !== 'source' && !item[column.field]) {
             -
-          </ng-container>
-
+          }
           <!-- Delete row button -->
-          <ng-container *ngIf="(item | isPortalItem) && column.additionalFields">
+          @if ((item | isPortalItem) && column.additionalFields) {
             <app-secondary-button class="col-auto pe-0 pt-2" i18n-content="@@remove" content="Poista"(click)="removeItem(item)"></app-secondary-button>
-          </ng-container>
+          }
         </div>
-
-        <ng-container *ngIf="column.additionalFields">
-          <ng-container *ngFor="let additionalField of column.additionalFields">
-
-            <div class="row font-size-small w-100" [class.d-none]="additionalField.hidden && showMoreArray.indexOf(i) === -1" *ngIf="item | getValue: additionalField.field">
-              <!-- Optional label for additional field -->
-              <div class="col-12 px-0 fw-bold" *ngIf="item[additionalField.field]?.length">
-                {{ additionalField.label }}
+        @if (column.additionalFields) {
+          @for (additionalField of column.additionalFields; track additionalField) {
+            @if (item | getValue: additionalField.field) {
+              <div class="row font-size-small w-100" [class.d-none]="additionalField.hidden && showMoreArray.indexOf(i) === -1">
+                <!-- Optional label for additional field -->
+                @if (item[additionalField.field]?.length) {
+                  <div class="col-12 px-0 fw-bold">
+                    {{ additionalField.label }}
+                  </div>
+                }
+                <!-- Special case for dataset author. Use component from portal / single-dataset -->
+                @if ( additionalField.useComponent) {
+                  <div class="col px-0">
+                    @for (org of item[additionalField.field]; track org) {
+                      <div class="py-2">
+                        <app-dataset-author [org]="org" [noLinks]="true"></app-dataset-author>
+                      </div>
+                    }
+                  </div>
+                } @else {
+                  <div [class.text-overflow-ellipsis]="additionalField.ellipsis && showMoreArray.indexOf(i) === -1" class="col px-0">
+                    @if (additionalField.cutContent) {
+                      {{item | getValue: additionalField.field | cutContent: 200}}
+                    } @else {
+                      {{item | getValue: additionalField.field}}
+                    }
+                  </div>
+                }
+                <!-- Expandable content -->
               </div>
-
-              <!-- Special case for dataset author. Use component from portal / single-dataset -->
-              <div class="col px-0" *ngIf=" additionalField.useComponent; else additionalFieldTemplate">
-                <div class="py-2" *ngFor="let org of item[additionalField.field]">
-                  <app-dataset-author [org]="org" [noLinks]="true"></app-dataset-author>
-                </div>
-              </div>
-
-              <!-- Expandable content -->
-              <ng-template #additionalFieldTemplate>
-                <div [class.text-overflow-ellipsis]="additionalField.ellipsis && showMoreArray.indexOf(i) === -1" class="col px-0">
-                  <ng-container *ngIf="additionalField.cutContent; else additionalFieldTemplate">{{item | getValue: additionalField.field | cutContent: 200}}</ng-container>
-
-                  <ng-template #additionalFieldTemplate>{{item | getValue: additionalField.field}}</ng-template>
-                </div>
-              </ng-template>
-            </div>
-
-          </ng-container>
-        </ng-container>
-
+            }
+          }
+        }
       </mat-cell>
     </ng-container>
-  </ng-container>
+  }
 
   <ng-container matColumnDef="show-more">
     <mat-header-cell *matHeaderCellDef class="show-more-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
       <a href="javascript:void(0)" (click)="toggleShowMore(i)">
-        <ng-container *ngIf="showMoreArray.indexOf(i) === -1" i18n="@@showMore">
+        @if (showMoreArray.indexOf(i) === -1) {
+          <ng-container i18n="@@showMore">
           Näytä lisää
         </ng-container>
+        }
 
-        <ng-container *ngIf="showMoreArray.indexOf(i) > -1" i18n="@@showLess">
+        @if (showMoreArray.indexOf(i) > -1) {
+          <ng-container i18n="@@showLess">
           Näytä vähemmän
         </ng-container>
+        }
       </a>
     </mat-cell>
   </ng-container>

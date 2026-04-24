@@ -17,7 +17,7 @@ import { TableColumn, TableRow } from 'src/types';
 import { TableCellComponent } from '../table-cell/table-cell.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgFor, NgClass, NgSwitch, NgIf, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -26,18 +26,13 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './table-card.component.html',
     styleUrls: ['./table-card.component.scss'],
     imports: [
-        NgFor,
-        NgClass,
-        NgSwitch,
-        NgIf,
-        TooltipModule,
-        NgSwitchCase,
-        MatCheckbox,
-        NgSwitchDefault,
-        TableCellComponent,
-        MatIcon,
-        SvgSpritesComponent
-    ]
+    NgClass,
+    TooltipModule,
+    MatCheckbox,
+    TableCellComponent,
+    MatIcon,
+    SvgSpritesComponent
+]
 })
 export class TableCardComponent implements OnInit, OnChanges {
   @Input() index: number;
