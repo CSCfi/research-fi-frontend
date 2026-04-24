@@ -11,7 +11,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { ParseDatePipe } from '../../../../pipes/parse-date.pipe';
 import { GetLocalizedValuesPipe } from '../../../../pipes/getLocalizedValues.pipe';
 import { ActivityItemComponent } from '../activity-item/activity-item.component';
-import { NgTemplateOutlet, NgClass, JsonPipe, NgIf, NgSwitch, NgSwitchCase, NgForOf } from '@angular/common';
+import { NgTemplateOutlet, NgClass, JsonPipe } from '@angular/common';
 import { TagOpenAccessComponent } from '@shared/components/tags/tag-open-access/tag-open-access.component';
 import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
 import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
@@ -33,12 +33,8 @@ import { PeerReviewedPipe } from '@shared/pipes/peer-reviewed.pipe';
     TagDoiComponent,
     TagPeerReviewedComponent,
     FirstLetterPipe,
-    PeerReviewedPipe,
-    NgIf,
-    NgSwitch,
-    NgSwitchCase,
-    NgForOf
-  ]
+    PeerReviewedPipe
+]
 })
 export class PanelArrayItemComponent implements OnInit {
   @Input() set item(item: any) {
