@@ -1,206 +1,212 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 <div [ngClass]="(fieldType === fieldTypes.activityPublication || fieldType === fieldTypes.activityDataset || fieldType === fieldTypes.activityDatasetOrcid) ? 'publication-item': ''">
-<ng-container *ngIf="!localized; else localizedTemplate">
-  <ng-container [ngSwitch]="fieldType">
-    <ng-container *ngSwitchCase="fieldTypes.personWebLink">
-      {{ _item.url }}
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.personResearcherDescription">
-      <ng-container *ngFor="let value of _item | getLocalizedValues">
-        <div class="row fw-bold">
-          <div class="col px-0">
-            {{ value.locale.toUpperCase() }}
+  @if (!localized) {
+    @switch (fieldType) {
+      @case (fieldTypes.personWebLink) {
+        {{ _item.url }}
+      }
+      @case (fieldTypes.personResearcherDescription) {
+        @for (value of _item | getLocalizedValues; track value) {
+          <div class="row fw-bold">
+            <div class="col px-0">
+              {{ value.locale.toUpperCase() }}
+            </div>
           </div>
-        </div>
-        <div class="row pb-3">
-          <div class="col px-0">
-            {{ value.value }}
+          <div class="row pb-3">
+            <div class="col px-0">
+              {{ value.value }}
+            </div>
           </div>
-        </div>
-      </ng-container>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityAffiliation">
-      <app-activity-item
-              [rows]="[
+        }
+      }
+      @case (fieldTypes.activityAffiliation) {
+        <app-activity-item
+                [rows]="[
           _item['positionName' + locale],
           _item['organizationName' + locale],
           _item.year
         ]"
-              [smallLastItem]="true"
-      ></app-activity-item>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityEducation">
-      <app-activity-item
-              [rows]="[
+                [smallLastItem]="true"
+        ></app-activity-item>
+      }
+      @case (fieldTypes.activityEducation) {
+        <app-activity-item
+                [rows]="[
           _item['name' + locale],
           _item.degreeGrantingInstitutionName,
           (_item.startDate | parseDate) + ' - ' + (_item.endDate | parseDate)
         ]"
-      ></app-activity-item>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityPublication">
+        ></app-activity-item>
+      }
+      @case (fieldTypes.activityPublication) {
         <!-- item from search (portal) -->
-        <ng-container *ngIf="_item.title">
+        @if (_item.title) {
           <app-activity-item [fieldType]="fieldType" [link]="link"
                              [rows]="summary ? [_item.title] : [_item.title, _item.journalName]"
                              [smallLastItem]="false"></app-activity-item>
-        </ng-container>
-
-        <ng-container *ngIf="!_item.title">
+        }
+        @if (!_item.title) {
           <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.journalName]"
                              [smallLastItem]="false"></app-activity-item>
-        </ng-container>
-
+        }
         <!-- Publications badges -->
-        <div *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi" class="badge-row gx-0 flex-wrap">
-          <div class="d-flex flex-wrap">
-            <app-tag-open-access class='me-2' *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access>
-            <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+        @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi) {
+          <div class="badge-row gx-0 flex-wrap">
+            <div class="d-flex flex-wrap">
+              @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1) {
+                <app-tag-open-access class='me-2'></app-tag-open-access>
+              }
+              @if (_item.doi) {
+                <app-tag-doi [linkDoi]="_item.doi"></app-tag-doi>
+              }
+            </div>
+            <div>
+              @if (_item.publicationTypeCode | peerReviewed) {
+                <app-tag-peer-reviewed></app-tag-peer-reviewed>
+              }
+            </div>
           </div>
-          <div>
-            <app-tag-peer-reviewed *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed>
+        }
+      }
+      @case (fieldTypes.activityOrcidPublication) {
+        <!-- item from search (portal) -->
+        @if (_item.title) {
+          <app-activity-item [fieldType]="fieldType" [link]="link"
+                             [rows]="summary ? [_item.title] : [_item.title, _item.journalName]"
+                             [smallLastItem]="false"></app-activity-item>
+        }
+        @if (!_item.title) {
+          <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.journalName]"
+                             [smallLastItem]="false"></app-activity-item>
+        }
+        <!-- Publications badges -->
+        @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi) {
+          <div class="badge-row gx-0 flex-wrap">
+            <div class="d-flex flex-wrap">
+              @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1) {
+                <app-tag-open-access class='me-2'></app-tag-open-access>
+              }
+              @if (_item.doi) {
+                <app-tag-doi [linkDoi]="_item.doi"></app-tag-doi>
+              }
+            </div>
+            <div>
+              @if (_item.publicationTypeCode | peerReviewed) {
+                <app-tag-peer-reviewed></app-tag-peer-reviewed>
+              }
+            </div>
           </div>
-        </div>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityOrcidPublication">
-      <!-- item from search (portal) -->
-      <ng-container *ngIf="_item.title">
-        <app-activity-item [fieldType]="fieldType" [link]="link"
-                           [rows]="summary ? [_item.title] : [_item.title, _item.journalName]"
-                           [smallLastItem]="false"></app-activity-item>
-      </ng-container>
-
-      <ng-container *ngIf="!_item.title">
-        <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.journalName]"
-                           [smallLastItem]="false"></app-activity-item>
-      </ng-container>
-
-      <!-- Publications badges -->
-      <div *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi" class="badge-row gx-0 flex-wrap">
-        <div class="d-flex flex-wrap">
-          <app-tag-open-access class='me-2' *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access>
-          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
-        </div>
-        <div>
-          <app-tag-peer-reviewed *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityDataset">
-      <ng-container *ngIf="_item?.name; else localized">
+        }
+      }
+      @case (fieldTypes.activityDataset) {
+        @if (_item?.name) {
+          <app-activity-item
+                  [rows]="[_item['name'], _item.year]"
+                  [link]="link"
+                  [fieldType]="fieldType"
+                  [smallLastItem]="true"
+          ></app-activity-item>
+          <!-- Dataset badges -->
+          <div class="row">
+            <div class="badge-row gx-0 flex-wrap">
+              <div class="d-flex flex-wrap">@if (_item.openAccess === true || _item.accessType === 'open') {
+                <app-tag-open-access class='me-2 d-flex'
+                ></app-tag-open-access>
+              }
+                @if (_item.doi) {
+                  <app-tag-doi [linkDoi]="_item.doi" class='d-flex'></app-tag-doi>
+                }
+              </div>
+              <div>@if (_item.publicationTypeCode | peerReviewed) {
+                <app-tag-peer-reviewed class='d-flex'
+                ></app-tag-peer-reviewed>
+              }</div>
+            </div>
+          </div>
+        } @else {
+          <app-activity-item
+                  [rows]="[_item['name' + locale], _item.datasetCreated]"
+                  [smallLastItem]="true"
+          ></app-activity-item>
+          <div class="row">
+            <div class="badge-row gx-0 flex-wrap">
+              <div class="d-flex flex-wrap">@if (_item.openAccess === true || _item.accessType === 'open') {
+                <app-tag-open-access class='me-2 d-flex'
+                ></app-tag-open-access>
+              }
+                @if (_item.doi) {
+                  <app-tag-doi [linkDoi]="_item.doi" class='d-flex'></app-tag-doi>
+                }
+              </div>
+              <div>@if (_item.publicationTypeCode | peerReviewed) {
+                <app-tag-peer-reviewed class='d-flex'
+                ></app-tag-peer-reviewed>
+              }</div>
+            </div>
+          </div>
+        }
+      }
+      @case (fieldTypes.activityDatasetOrcid) {
+        @if (_item?.name) {
+          <app-activity-item
+                  [rows]="[_item['name'], _item.year]"
+                  [smallLastItem]="true"
+          ></app-activity-item>
+        } @else {
+          <app-activity-item
+                  [rows]="[_item['name' + locale], _item.datasetCreated]"
+                  [smallLastItem]="true"
+          ></app-activity-item>
+        }
+      }
+      @case (fieldTypes.activityActivitiesAndRewards) {
         <app-activity-item
-                [rows]="[_item['name'], _item.year]"
+                [rows]="[_item['activityTypeName' + locale], _item['roleName' + locale], _item['name' + locale], _item['organizationName' + locale], _item['timing'], _item.url ? _item.url : '*', _item?.internationalCollaboration ? hasInternationalCollaborationYes : hasInternationalCollaborationNo]"
+                [fieldType]="fieldType"
+                [smallLastItem]="false"
+        ></app-activity-item>
+      }
+      @case (fieldTypes.activityActivitiesAndRewardsOrcid) {
+        <app-activity-item
+                [rows]="[_item['activityTypeName' + locale], _item['roleName' + locale], _item['name' + locale], _item['organizationName' + locale], _item['timing'], _item.url ? _item.url : '*', _item?.internationalCollaboration ? hasInternationalCollaborationYes : hasInternationalCollaborationNo]"
+                [fieldType]="fieldType"
+                [smallLastItem]="false"
+        ></app-activity-item>
+      }
+      @case (fieldTypes.activityFunding) {
+        <app-activity-item
+                [rows]="[_item.name, _item.funder.name, _item['timing']]"
                 [link]="link"
                 [fieldType]="fieldType"
+                [smallLastItem]="false"
+        ></app-activity-item>
+      }
+      @case (fieldTypes.activityFundingOrcid) {
+        <app-activity-item
+                [rows]="[_item.name, _item.funder.name, _item['timing']]"
                 [smallLastItem]="true"
         ></app-activity-item>
-
-        <!-- Dataset badges -->
-    <div class="row">
-      <div class="badge-row gx-0 flex-wrap">
-        <div class="d-flex flex-wrap"><app-tag-open-access class='me-2 d-flex'
-                                                           *ngIf="_item.openAccess === true || _item.accessType === 'open'"></app-tag-open-access>
-          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi" class='d-flex'></app-tag-doi>
+      }
+      @default {
+        {{ _item.value }}
+      }
+    }
+  } @else {
+    @for (value of _item | getLocalizedValues; track value) {
+      <div class="row fw-bold">
+        <div class="col px-0">
+          {{ value.locale.toUpperCase() }}
         </div>
-        <div><app-tag-peer-reviewed class='d-flex'
-                                    *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed></div>
       </div>
-    </div>
-      </ng-container>
-      <ng-template #localized>
-        <app-activity-item
-                [rows]="[_item['name' + locale], _item.datasetCreated]"
-                [smallLastItem]="true"
-        ></app-activity-item>
-
-        <div class="row">
-      <div class="badge-row gx-0 flex-wrap">
-        <div class="d-flex flex-wrap"><app-tag-open-access class='me-2 d-flex'
-                                                           *ngIf="_item.openAccess === true || _item.accessType === 'open'"></app-tag-open-access>
-          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi" class='d-flex'></app-tag-doi>
+      <div class="row pb-3">
+        <div class="col px-0">
+          {{ value.value }}
         </div>
-        <div><app-tag-peer-reviewed class='d-flex'
-                                    *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed></div>
       </div>
-    </div>
-      </ng-template>
-    </ng-container>
+    }
+  }
 
-    <ng-container *ngSwitchCase="fieldTypes.activityDatasetOrcid">
-      <ng-container *ngIf="_item?.name; else localized2">
-        <app-activity-item
-                [rows]="[_item['name'], _item.year]"
-                [smallLastItem]="true"
-        ></app-activity-item>
-      </ng-container>
-      <ng-template #localized2>
-        <app-activity-item
-                [rows]="[_item['name' + locale], _item.datasetCreated]"
-                [smallLastItem]="true"
-        ></app-activity-item>
-      </ng-template>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewards">
-      <app-activity-item
-              [rows]="[_item['activityTypeName' + locale], _item['roleName' + locale], _item['name' + locale], _item['organizationName' + locale], _item['timing'], _item.url ? _item.url : '*', _item?.internationalCollaboration ? hasInternationalCollaborationYes : hasInternationalCollaborationNo]"
-              [fieldType]="fieldType"
-              [smallLastItem]="false"
-      ></app-activity-item>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewardsOrcid">
-      <app-activity-item
-              [rows]="[_item['activityTypeName' + locale], _item['roleName' + locale], _item['name' + locale], _item['organizationName' + locale], _item['timing'], _item.url ? _item.url : '*', _item?.internationalCollaboration ? hasInternationalCollaborationYes : hasInternationalCollaborationNo]"
-              [fieldType]="fieldType"
-              [smallLastItem]="false"
-      ></app-activity-item>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityFunding">
-      <app-activity-item
-              [rows]="[_item.name, _item.funder.name, _item['timing']]"
-              [link]="link"
-              [fieldType]="fieldType"
-              [smallLastItem]="false"
-      ></app-activity-item>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="fieldTypes.activityFundingOrcid">
-      <app-activity-item
-              [rows]="[_item.name, _item.funder.name, _item['timing']]"
-              [smallLastItem]="true"
-      ></app-activity-item>
-    </ng-container>
-
-    <ng-container *ngSwitchDefault>
-      {{ _item.value }}
-    </ng-container>
-
-  </ng-container>
-</ng-container>
-
-<ng-template #localizedTemplate>
-  <ng-container *ngFor="let value of _item | getLocalizedValues">
-    <div class="row fw-bold">
-      <div class="col px-0">
-        {{ value.locale.toUpperCase() }}
-      </div>
-    </div>
-    <div class="row pb-3">
-      <div class="col px-0">
-        {{ value.value }}
-      </div>
-    </div>
-  </ng-container>
-</ng-template>
 </div>
