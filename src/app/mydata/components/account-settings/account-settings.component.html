@@ -12,10 +12,10 @@
       <div class="col-12 col-md-10 pt-4 px-4 pb-5">
         <div
           class="row d-flex justify-content-between pt-3"
-        >
+          >
           <div class="col-12">
             <div class="row">
-            <h1 class="col-12 pb-2 px-1">{{accountSettingsTitle}}</h1>
+              <h1 class="col-12 pb-2 px-1">{{accountSettingsTitle}}</h1>
             </div>
             <div class="row pb-1">
               <span class="col fw-bold">{{ profileData?.name }}</span>
@@ -23,37 +23,36 @@
             <div class="row pb-1">
               <div class="col align-self-center px-0">
                 <img
-                        class="orcid-icon mt-n1 pe-2"
-                        src="assets/img/orcid_icon.svg"
-                        alt="Orcid -palvelun logo"
-                />
+                  class="orcid-icon mt-n1 pe-2"
+                  src="assets/img/orcid_icon.svg"
+                  alt="Orcid -palvelun logo"
+                  />
                 <span>{{ orcid }}</span>
               </div>
             </div>
           </div>
         </div>
 
-<!--        <div class="gx-0 gx-md-4 mt-3 mb-3 pb-2">
-          <app-general-info-banner [bannerContent]="automaticPublishingBannerContent"></app-general-info-banner>
-        </div>-->
+        <!--        <div class="gx-0 gx-md-4 mt-3 mb-3 pb-2">
+        <app-general-info-banner [bannerContent]="automaticPublishingBannerContent"></app-general-info-banner>
+      </div>-->
 
-        <!-- Automatic publishing section -->
-        <ng-container *ngIf="this.automaticPublishingState === false">
-          <div class="row pb-1 mt-3 bordered-section">
-            <div class="col-12 pt-3 pb-2">
-              <h3>{{automaticPublishingTitle}}</h3>
-              <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
-              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
-                <a [href]="automaticPublsihingInfoTextBullet2Link"
-                   target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
-                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
-                                   class="open-in-new-link"></app-svg-sprites>
-                </a></li>
+      <!-- Automatic publishing section -->
+      @if (this.automaticPublishingState === false) {
+        <div class="row pb-1 mt-3 bordered-section">
+          <div class="col-12 pt-3 pb-2">
+            <h3>{{automaticPublishingTitle}}</h3>
+            <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
+            <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
+              <a [href]="automaticPublsihingInfoTextBullet2Link"
+                target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                class="open-in-new-link"></app-svg-sprites>
+              </a></li>
             </div>
-
             <br>
-            <div class="col-12 button-row">
-              <app-secondary-button
+              <div class="col-12 button-row">
+                <app-secondary-button
                       (click)="
                 openDialog({
                   title: automaticPublishingModalTitleEnable,
@@ -62,29 +61,28 @@
                   disableDialogClose: true
                 })
               "
-                      i18n-content="@@enableAutomaticPublishing"
-                      content="Ota automaattinen julkaiseminen käyttöön"
-              ></app-secondary-button>
+                  i18n-content="@@enableAutomaticPublishing"
+                  content="Ota automaattinen julkaiseminen käyttöön"
+                ></app-secondary-button>
+              </div>
             </div>
-          </div>
-        </ng-container>
+          }
 
-        <ng-container *ngIf="this.automaticPublishingState === true">
-          <div class="row pb-1 mt-3 bordered-section">
-            <div class="col-12 pt-3 pb-2">
-              <h3>{{automaticPublishingTitle}}</h3>
-              <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
-              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
-                <a [href]="automaticPublsihingInfoTextBullet2Link"
-                   target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
-                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
-                                   class="open-in-new-link"></app-svg-sprites>
-                </a></li>
-            </div>
-
-            <br>
-            <div class="col-12 button-row">
-              <app-secondary-button
+          @if (this.automaticPublishingState === true) {
+            <div class="row pb-1 mt-3 bordered-section">
+              <div class="col-12 pt-3 pb-2">
+                <h3>{{automaticPublishingTitle}}</h3>
+                <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
+                <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
+                  <a [href]="automaticPublsihingInfoTextBullet2Link"
+                    target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                    class="open-in-new-link"></app-svg-sprites>
+                  </a></li>
+                </div>
+                <br>
+                  <div class="col-12 button-row">
+                    <app-secondary-button
                       (click)="
                 openDialog({
                   title: automaticPublishingModalTitleDisable,
@@ -95,21 +93,22 @@
               "
                       i18n-content="@@disableAutomaticPublishing"
                       content="Ota automaattinen julkaiseminen pois käytöstä"
-              ></app-secondary-button>
-            </div>
-          </div>
-        </ng-container>
+                    ></app-secondary-button>
+                  </div>
+                </div>
+              }
 
-        <!-- Orcid section -->
-        <div class="row pb-1 mt-3 py-3 bordered-section d-none">
-          <div class="col-12 px-0">
-            <h3>ORCID-tietojen automaattinen päivittyminen</h3>
-          <p class="px-0">{{generalInfoOrcid}}</p>
-          <br>
-          </div>
+              <!-- Orcid section -->
+              <div class="row pb-1 mt-3 py-3 bordered-section d-none">
+                <div class="col-12 px-0">
+                  <h3>ORCID-tietojen automaattinen päivittyminen</h3>
+                  <p class="px-0">{{generalInfoOrcid}}</p>
+                  <br>
+                  </div>
 
-          <div class="col-12 button-row">
-          <app-secondary-button *ngIf="!isOrcidFetchInUse"
+                  <div class="col-12 button-row">
+                    @if (!isOrcidFetchInUse) {
+                      <app-secondary-button
             (click)="
                 openDialog({
                   title: automaticOrcidFetchCaption,
@@ -118,12 +117,14 @@
                   disableDialogClose: true
                 })
               "
-            i18n-content="@@enableOrcidDataFetch"
-            content="Ota käyttöön" [disabled]="hideProfileInProgress || deleteProfileInProgress"
-          ></app-secondary-button>
+                        i18n-content="@@enableOrcidDataFetch"
+                        content="Ota käyttöön" [disabled]="hideProfileInProgress || deleteProfileInProgress"
+                      ></app-secondary-button>
+                    }
 
 
-          <app-secondary-button *ngIf="isOrcidFetchInUse"
+                    @if (isOrcidFetchInUse) {
+                      <app-secondary-button
               (click)="
                 openDialog({
                   title: automaticOrcidFetchCaption,
@@ -132,20 +133,21 @@
                   disableDialogClose: true
                 })
               "
-              i18n-content="@@disableOrcidDataFetch"
-              content="Poista käytöstä" [disabled]="hideProfileInProgress || deleteProfileInProgress"
-          ></app-secondary-button>
-          </div>
-        </div>
+                        i18n-content="@@disableOrcidDataFetch"
+                        content="Poista käytöstä" [disabled]="hideProfileInProgress || deleteProfileInProgress"
+                      ></app-secondary-button>
+                    }
+                  </div>
+                </div>
 
-        <!-- Delete profile section -->
-        <div class="row pb-1 mt-3 py-3 bordered-section">
-          <div class="col-12 pt-2">
-            <h3>{{deleteProfileTitle}}</h3>
-          <p class="px-0 pt-2">{{generalInfoDeleteProfile}}</p>
-          </div>
-          <div class="col-12 button-row">
-            <app-secondary-button
+                <!-- Delete profile section -->
+                <div class="row pb-1 mt-3 py-3 bordered-section">
+                  <div class="col-12 pt-2">
+                    <h3>{{deleteProfileTitle}}</h3>
+                    <p class="px-0 pt-2">{{generalInfoDeleteProfile}}</p>
+                  </div>
+                  <div class="col-12 button-row">
+                    <app-secondary-button
               (click)="
                 openDialog({
                   title: deleteProfileModalTitle,
@@ -154,206 +156,208 @@
                   disableDialogClose: true
                 })
               "
-              i18n-content="@@deleteProfile"
-              content="Poista profiili"
-              [disabled]="hideProfileInProgress"
-            ></app-secondary-button>
+                      i18n-content="@@deleteProfile"
+                      content="Poista profiili"
+                      [disabled]="hideProfileInProgress"
+                    ></app-secondary-button>
 
-            <!-- Delete profile modal template -->
-            <ng-template #deleteProfileTemplate>
-              <p class="px-3 pt-3 mini-modal-width" >
-                {{deleteProfileModalText}}
-              </p>
-            </ng-template>
+                    <!-- Delete profile modal template -->
+                    <ng-template #deleteProfileTemplate>
+                      <p class="px-3 pt-3 mini-modal-width" >
+                        {{deleteProfileModalText}}
+                      </p>
+                    </ng-template>
 
-            <!-- Show profile modal template -->
-            <ng-template #showProfileTemplate>
-              <p class=" pt-3 mini-modal-width">
-                {{showProfileModalText}}
-              </p>
-            </ng-template>
+                    <!-- Hide profile modal template -->
+                    <ng-template #hideProfileTemplate>
+                      <p class="px-3 pt-3 mini-modal-width">
+                        {{hideProfileModalText}}
+                      </p>
+                    </ng-template>
 
-            <!-- Hide profile modal template -->
-            <ng-template #hideProfileTemplate>
-              <p class="px-3 pt-3 mini-modal-width">
-                {{hideProfileModalText}}
-              </p>
-            </ng-template>
-
-            <ng-template #showProfileTemplate>
-              <p class="px-3 pt-3 mini-modal-width">
-                {{showProfileModalText}}
-              </p>
-            </ng-template>
+                    <ng-template #showProfileTemplate>
+                      <p class="px-3 pt-3 mini-modal-width">
+                        {{showProfileModalText}}
+                      </p>
+                    </ng-template>
 
 
-            <!-- Enable or disable automatic publishing modal template (general info) -->
-            <ng-template #automaticPublishingTemplate>
-              <p class="px-3 mini-modal-width">
-                <ng-container>
-                  <div class="row">
-                    <div>
-                      <div>{{automaticPublishingAccountSettingsInfoText1}}</div>
-                      <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
-                        <a [href]="automaticPublsihingInfoTextBullet2Link"
-                           target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
-                          <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
-                                           class="open-in-new-link"></app-svg-sprites>
-                        </a></li>
-                    </div>
-                  </div>
-                </ng-container>
-              </p>
-            </ng-template>
+                    <!-- Enable or disable automatic publishing modal template (general info) -->
+                    <ng-template #automaticPublishingTemplate>
+                      <p class="px-3 mini-modal-width">
+                        <ng-container>
+                          <div class="row">
+                            <div>
+                              <div>{{automaticPublishingAccountSettingsInfoText1}}</div>
+                              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
+                                <a [href]="automaticPublsihingInfoTextBullet2Link"
+                                  target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                                  class="open-in-new-link"></app-svg-sprites>
+                                </a></li>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </p>
+                      </ng-template>
 
 
-            <!-- Disable automatic publishing modal template -->
-            <ng-template #disableAutomaticPublishingTemplate>
-              <p class="px-3 pt-3 mini-modal-width">
-                {{automaticPublishingModalTitleDisable}}
-              </p>
-            </ng-template>
+                      <!-- Disable automatic publishing modal template -->
+                      <ng-template #disableAutomaticPublishingTemplate>
+                        <p class="px-3 pt-3 mini-modal-width">
+                          {{automaticPublishingModalTitleDisable}}
+                        </p>
+                      </ng-template>
 
 
-            <!-- Enable orcid fetch modal template -->
-            <ng-template #enableOrcidTemplate>
-              <p class="px-3 pt-3 mini-modal-width">
-                {{orcidFetchModalTextEnable}}
-              </p>
-            </ng-template>
+                      <!-- Enable orcid fetch modal template -->
+                      <ng-template #enableOrcidTemplate>
+                        <p class="px-3 pt-3 mini-modal-width">
+                          {{orcidFetchModalTextEnable}}
+                        </p>
+                      </ng-template>
 
-            <!-- Disable orcid fetch modal template -->
-            <ng-template #disableOrcidTemplate>
-              <p class="px-3 pt-3 mini-modal-width">
-                {{orcidFetchModalTextDisable}}
-              </p>
-            </ng-template>
+                      <!-- Disable orcid fetch modal template -->
+                      <ng-template #disableOrcidTemplate>
+                        <p class="px-3 pt-3 mini-modal-width">
+                          {{orcidFetchModalTextDisable}}
+                        </p>
+                      </ng-template>
 
-            <ng-template #deletingProfileTemplate>
-              <div
-                class="row d-flex justify-content-center mini-modal-width"
-                *ngIf="deleteProfileInProgress && !connProblemDeleteProfile"
-              >
-                <div class="col-auto align-self-center">
-                  <mat-spinner
-                    class="mx-auto"
-                    [diameter]="80"
-                    i18n-aria-label="@@loading"
-                    aria-label="Ladataan"
-                  ></mat-spinner>
-                  <span
-                    class="d-block col pt-3 text-center"
-                    i18n="@@deletingProfileWait"
-                    aria-live="polite"
-                  >{{deleteProfileWait}}</span
-                  >
-                </div>
-              </div>
+                      <ng-template #deletingProfileTemplate>
+                        @if (deleteProfileInProgress && !connProblemDeleteProfile) {
+                          <div
+                            class="row d-flex justify-content-center mini-modal-width"
+                            >
+                            <div class="col-auto align-self-center">
+                              <mat-spinner
+                                class="mx-auto"
+                                [diameter]="80"
+                                i18n-aria-label="@@loading"
+                                aria-label="Ladataan"
+                              ></mat-spinner>
+                              <span
+                                class="d-block col pt-3 text-center"
+                                i18n="@@deletingProfileWait"
+                                aria-live="polite"
+                                >{{deleteProfileWait}}</span
+                                >
+                              </div>
+                            </div>
+                          }
 
-              <div *ngIf="connProblemDeleteProfile">
-                <div class="row">
-                  <div class="col mx-3">
-                      <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
-                    <ng-container i18n="@@deleteProfileConnProblem"
-                    >{{connectionProblemDeleteProfile}}
+                          @if (connProblemDeleteProfile) {
+                            <div>
+                              <div class="row">
+                                <div class="col mx-3">
+                                  <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
+                                  <ng-container i18n="@@deleteProfileConnProblem"
+                                    >{{connectionProblemDeleteProfile}}
                     </ng-container
-                    >
-                  </div>
-                </div>
-                <div class="row py-3">
-                  <div class="col text-center">
-                    <app-primary-action-button
-                      i18n-content="@@close"
-                      content="Sulje"
-                      (click)="closeDialog()"
-                    ></app-primary-action-button>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
+                                    >
+                                  </div>
+                                </div>
+                                <div class="row py-3">
+                                  <div class="col text-center">
+                                    <app-primary-action-button
+                                      i18n-content="@@close"
+                                      content="Sulje"
+                                      (click)="closeDialog()"
+                                    ></app-primary-action-button>
+                                  </div>
+                                </div>
+                              </div>
+                            }
+                          </ng-template>
 
-            <ng-template #hidingProfileTemplate>
-              <div
-                class="row d-flex justify-content-center mini-modal-width"
-                *ngIf="hideProfileInProgress && !connProblemHideProfile"
-              >
-                <div class="col-auto align-self-center">
-                  <mat-spinner
-                    class="mx-auto"
-                    [diameter]="80"
-                    i18n-aria-label="@@loading"
-                    aria-label="Ladataan"
-                  ></mat-spinner>
-                  <span
-                    class="d-block col pt-3 text-center"
-                    i18n="@@deletingProfileWait"
-                    aria-live="polite"
-                  >{{hideProfileWait}}</span
-                  >
-                </div>
-              </div>
+                          <ng-template #hidingProfileTemplate>
+                            @if (hideProfileInProgress && !connProblemHideProfile) {
+                              <div
+                                class="row d-flex justify-content-center mini-modal-width"
+                                >
+                                <div class="col-auto align-self-center">
+                                  <mat-spinner
+                                    class="mx-auto"
+                                    [diameter]="80"
+                                    i18n-aria-label="@@loading"
+                                    aria-label="Ladataan"
+                                  ></mat-spinner>
+                                  <span
+                                    class="d-block col pt-3 text-center"
+                                    i18n="@@deletingProfileWait"
+                                    aria-live="polite"
+                                    >{{hideProfileWait}}</span
+                                    >
+                                  </div>
+                                </div>
+                              }
 
-              <div *ngIf="connProblemHideProfile">
-                <div class="row mini-modal-width">
-                  <div class="col mx-3">
-                      <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
-                    <ng-container i18n="@@deleteProfileConnProblem"
-                    >Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile
+                              @if (connProblemHideProfile) {
+                                <div>
+                                  <div class="row mini-modal-width">
+                                    <div class="col mx-3">
+                                      <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
+                                      <ng-container i18n="@@deleteProfileConnProblem"
+                                        >Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile
                       hetken kuluttua uudestaan.
                     </ng-container
-                    >
-                  </div>
-                </div>
-                <div class="row py-3">
-                  <div class="col text-center">
-                    <app-primary-action-button
-                      i18n-content="@@close"
-                      content="Sulje"
-                      (click)="closeDialog()"
-                    ></app-primary-action-button>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="row py-3">
+                                      <div class="col text-center">
+                                        <app-primary-action-button
+                                          i18n-content="@@close"
+                                          content="Sulje"
+                                          (click)="closeDialog()"
+                                        ></app-primary-action-button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                }
+                              </ng-template>
 
-            <!-- Dialog for delete profile loading indicator-->
-            <app-dialog
-              *ngIf="deleteProfileInProgress"
-              [template]="deletingProfileTemplate"
-              [small]="true"
-              [disableClose]="disableDialogClose"
-            ></app-dialog>
+                              <!-- Dialog for delete profile loading indicator-->
+                              @if (deleteProfileInProgress) {
+                                <app-dialog
+                                  [template]="deletingProfileTemplate"
+                                  [small]="true"
+                                  [disableClose]="disableDialogClose"
+                                ></app-dialog>
+                              }
 
-            <!-- Dialog for hide profile loading indicator-->
-            <app-dialog
-              *ngIf="hideProfileInProgress"
-              [template]="hidingProfileTemplate"
-              [small]="true"
-              [disableClose]="disableDialogClose"
-            ></app-dialog>
+                              <!-- Dialog for hide profile loading indicator-->
+                              @if (hideProfileInProgress) {
+                                <app-dialog
+                                  [template]="hidingProfileTemplate"
+                                  [small]="true"
+                                  [disableClose]="disableDialogClose"
+                                ></app-dialog>
+                              }
 
-            <!-- Reusable dialog -->
-            <app-dialog
-              *ngIf="showDialog"
-              [template]="dialogTemplate"
-              [title]="dialogTitle"
-              [extraContentTemplate]="dialogExtraContentTemplate"
-              (onActionClick)="doDialogAction($event)"
-              [actions]="currentDialogActions"
-            ></app-dialog>
-          </div>
-        </div>
+                              <!-- Reusable dialog -->
+                              @if (showDialog) {
+                                <app-dialog
+                                  [template]="dialogTemplate"
+                                  [title]="dialogTitle"
+                                  [extraContentTemplate]="dialogExtraContentTemplate"
+                                  (onActionClick)="doDialogAction($event)"
+                                  [actions]="currentDialogActions"
+                                ></app-dialog>
+                              }
+                            </div>
+                          </div>
 
-        <!-- Show/hide profile section -->
-        <ng-container *ngIf='(profileVisibility$ | async) === true'>
-          <div class="row pb-1 mt-3 bordered-section">
-          <div class="col-12 pt-3 pb-2">
-            <h3>{{hideProfileTitle}}</h3>
-          <p class="px-0 mini pt-2">{{generalInfoHideProfile}}</p>
-          </div>
-          <br>
-          <div class="col-12 button-row">
-          <app-secondary-button
+                          <!-- Show/hide profile section -->
+                          @if ((profileVisibility$ | async) === true) {
+                            <div class="row pb-1 mt-3 bordered-section">
+                              <div class="col-12 pt-3 pb-2">
+                                <h3>{{hideProfileTitle}}</h3>
+                                <p class="px-0 mini pt-2">{{generalInfoHideProfile}}</p>
+                              </div>
+                              <br>
+                                <div class="col-12 button-row">
+                                  <app-secondary-button
                                 (click)="
                 openDialog({
                   title: hideProfileModalTitle,
@@ -362,12 +366,11 @@
                   disableDialogClose: true
                 })
               "
-                                i18n-content="@@hideProfile"
-                                content="Piilota profiili"
-          ></app-secondary-button>
-
-          <!--
-          <app-secondary-button *ngIf="isProfileHidden"
+                                    i18n-content="@@hideProfile"
+                                    content="Piilota profiili"
+                                  ></app-secondary-button>
+                                  <!--
+                                  <app-secondary-button *ngIf="isProfileHidden"
                                 (click)="
                 openDialog({
                   title: hideProfileTitle,
@@ -376,24 +379,24 @@
                   disableDialogClose: true
                 })
               "
-                                i18n-content="@@showProfile"
-                                content="Näytä profiili"
-                                [disabled]="hideProfileInProgress || deleteProfileInProgress"
-          ></app-secondary-button>
-          -->
-          </div>
-        </div>
-        </ng-container>
+                                    i18n-content="@@showProfile"
+                                    content="Näytä profiili"
+                                    [disabled]="hideProfileInProgress || deleteProfileInProgress"
+                                  ></app-secondary-button>
+                                  -->
+                                </div>
+                              </div>
+                            }
 
-        <ng-container *ngIf='(profileVisibility$ | async) === false'>
-          <div class="row pb-1 mt-3 bordered-section">
-          <div class="col-12 pt-3">
-            <h3>{{showProfileTitle}}</h3>
-          <p class="pt-2">{{showProfileText}}</p>
-          </div>
-          <br>
-          <div class="col-12 button-row">
-          <app-secondary-button
+                            @if ((profileVisibility$ | async) === false) {
+                              <div class="row pb-1 mt-3 bordered-section">
+                                <div class="col-12 pt-3">
+                                  <h3>{{showProfileTitle}}</h3>
+                                  <p class="pt-2">{{showProfileText}}</p>
+                                </div>
+                                <br>
+                                  <div class="col-12 button-row">
+                                    <app-secondary-button
                                 (click)="
                 openDialog({
                   title: showProfileModalTitle,
@@ -402,15 +405,15 @@
                   disableDialogClose: true
                 })
               "
-                                i18n-content="@@mydata.account.republish-button.text"
-                                content="Julkaise profiili"
-          ></app-secondary-button>
-          </div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-</main>
+                                      i18n-content="@@mydata.account.republish-button.text"
+                                      content="Julkaise profiili"
+                                    ></app-secondary-button>
+                                  </div>
+                                </div>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      </main>
 
-<app-sticky-footer class="d-none"></app-sticky-footer>
+                      <app-sticky-footer class="d-none"></app-sticky-footer>

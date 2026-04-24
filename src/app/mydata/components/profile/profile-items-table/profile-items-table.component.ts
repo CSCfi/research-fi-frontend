@@ -27,7 +27,7 @@ import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
 import { MatPaginator } from '@angular/material/paginator';
 import { DatasetAuthorComponent } from '../../../../portal/components/single/single-dataset/dataset-author/dataset-author.component';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -38,29 +38,27 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./profile-items-table.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        MatTable,
-        MatSort,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatHeaderCell,
-        MatCheckbox,
-        MatCellDef,
-        MatCell,
-        NgFor,
-        MatSortHeader,
-        NgIf,
-        SecondaryButtonComponent,
-        DatasetAuthorComponent,
-        MatHeaderRowDef,
-        MatHeaderRow,
-        MatRowDef,
-        MatRow,
-        MatPaginator,
-        CutContentPipe,
-        GetValuePipe,
-        IsPortalItemPipe,
-        SvgSpritesComponent
-    ]
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCheckbox,
+    MatCellDef,
+    MatCell,
+    MatSortHeader,
+    SecondaryButtonComponent,
+    DatasetAuthorComponent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatPaginator,
+    CutContentPipe,
+    GetValuePipe,
+    IsPortalItemPipe,
+    SvgSpritesComponent
+]
 })
 export class ProfileItemsTableComponent implements OnInit, OnChanges {
   @Input() columns: EditorModalColumn[];

@@ -34,7 +34,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -44,10 +44,8 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./single-dataset.component.scss'],
   imports: [
     SearchBarComponent,
-    NgIf,
     RouterLink,
     BreadcrumbComponent,
-    NgFor,
     SecondaryButtonComponent,
     MatMenuTrigger,
     MatMenu,
@@ -62,8 +60,8 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     ShareComponent,
     MatProgressSpinner,
     SafeUrlPipe,
-    SvgSpritesComponent,
-  ]
+    SvgSpritesComponent
+]
 })
 export class SingleDatasetComponent implements OnInit {
   public singleId: any;

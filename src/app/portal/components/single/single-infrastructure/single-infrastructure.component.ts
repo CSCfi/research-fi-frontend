@@ -15,7 +15,7 @@ import {
   Inject,
   DOCUMENT, QueryList, ViewChildren, AfterViewInit, inject
 } from '@angular/core';
-import { NgIf, NgFor, NgClass, NgSwitch, ViewportScroller } from '@angular/common';
+import { NgClass, ViewportScroller } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -41,20 +41,17 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
   styleUrls: ['./single-infrastructure.component.scss'],
   imports: [
     SearchBarComponent,
-    NgIf,
     RouterLink,
     BreadcrumbComponent,
-    NgFor,
     TooltipModule,
     NgClass,
-    NgSwitch,
     MatCard,
     MatCardTitle,
     SingleResultLinkComponent,
     RelatedLinksComponent,
     ShareComponent,
-    SvgSpritesComponent,
-  ]
+    SvgSpritesComponent
+]
 })
 export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnDestroy {
   public singleId: any;

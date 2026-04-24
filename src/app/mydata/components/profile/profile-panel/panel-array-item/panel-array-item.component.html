@@ -2,7 +2,7 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
-<div [ngClass]="fieldType === (fieldTypes.activityPublication || fieldTypes.activityDataset || fieldTypes.activityDatasetOrcid) ? 'publication-item': ''">
+<div [ngClass]="(fieldType === fieldTypes.activityPublication || fieldType === fieldTypes.activityDataset || fieldType === fieldTypes.activityDatasetOrcid) ? 'publication-item': ''">
 <ng-container *ngIf="!localized; else localizedTemplate">
   <ng-container [ngSwitch]="fieldType">
     <ng-container *ngSwitchCase="fieldTypes.personWebLink">
@@ -45,16 +45,54 @@
       ></app-activity-item>
     </ng-container>
 
-    <ng-container
-            *ngSwitchCase="fieldTypes.activityPublication"
-            [ngTemplateOutlet]="publicationTemplate"
-    >
+    <ng-container *ngSwitchCase="fieldTypes.activityPublication">
+        <!-- item from search (portal) -->
+        <ng-container *ngIf="_item.title">
+          <app-activity-item [fieldType]="fieldType" [link]="link"
+                             [rows]="summary ? [_item.title] : [_item.title, _item.journalName]"
+                             [smallLastItem]="false"></app-activity-item>
+        </ng-container>
+
+        <ng-container *ngIf="!_item.title">
+          <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.journalName]"
+                             [smallLastItem]="false"></app-activity-item>
+        </ng-container>
+
+        <!-- Publications badges -->
+        <div *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi" class="badge-row gx-0 flex-wrap">
+          <div class="d-flex flex-wrap">
+            <app-tag-open-access class='me-2' *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access>
+            <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+          </div>
+          <div>
+            <app-tag-peer-reviewed *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed>
+          </div>
+        </div>
     </ng-container>
 
-    <ng-container
-            *ngSwitchCase="fieldTypes.activityOrcidPublication"
-            [ngTemplateOutlet]="publicationTemplate"
-    >
+    <ng-container *ngSwitchCase="fieldTypes.activityOrcidPublication">
+      <!-- item from search (portal) -->
+      <ng-container *ngIf="_item.title">
+        <app-activity-item [fieldType]="fieldType" [link]="link"
+                           [rows]="summary ? [_item.title] : [_item.title, _item.journalName]"
+                           [smallLastItem]="false"></app-activity-item>
+      </ng-container>
+
+      <ng-container *ngIf="!_item.title">
+        <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.journalName]"
+                           [smallLastItem]="false"></app-activity-item>
+      </ng-container>
+
+      <!-- Publications badges -->
+      <div *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi" class="badge-row gx-0 flex-wrap">
+        <div class="d-flex flex-wrap">
+          <app-tag-open-access class='me-2' *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access>
+          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+        </div>
+        <div>
+          <app-tag-peer-reviewed *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed>
+        </div>
+      </div>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityDataset">
@@ -98,13 +136,13 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityDatasetOrcid">
-      <ng-container *ngIf="_item?.name; else localized">
+      <ng-container *ngIf="_item?.name; else localized2">
         <app-activity-item
                 [rows]="[_item['name'], _item.year]"
                 [smallLastItem]="true"
         ></app-activity-item>
       </ng-container>
-      <ng-template #localized>
+      <ng-template #localized2>
         <app-activity-item
                 [rows]="[_item['name' + locale], _item.datasetCreated]"
                 [smallLastItem]="true"
@@ -143,33 +181,6 @@
               [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
-
-    <!-- TODO: Undefined variable for [ngTemplateOutlet]="currentTemplate" during Angular 17 upgrade -->
-    <ng-template #publicationTemplate>
-      <!-- item from search (portal) -->
-      <ng-container *ngIf="_item.title">
-        <app-activity-item [fieldType]="fieldType" [link]="link"
-                           [rows]="summary ? [_item.title] : [_item.title, _item.journalName]"
-                           [smallLastItem]="false"></app-activity-item>
-      </ng-container>
-
-      <ng-container *ngIf="!_item.title">
-        <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.journalName]"
-                           [smallLastItem]="false"></app-activity-item>
-      </ng-container>
-
-      <!-- Publications badges -->
-      <div *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi" class="badge-row gx-0 flex-wrap">
-        <div class="d-flex flex-wrap">
-          <app-tag-open-access class='me-2' *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access>
-          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
-        </div>
-          <div>
-            <app-tag-peer-reviewed *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed>
-          </div>
-      </div>
-    </ng-template>
-
 
     <ng-container *ngSwitchDefault>
       {{ _item.value }}
