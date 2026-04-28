@@ -11,16 +11,18 @@ import { FilterEmptyFieldPipe } from '../../../../pipes/filter-empty-field.pipe'
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-organization-information',
     templateUrl: './organization-information.component.html',
     styleUrls: ['./organization-information.component.scss'],
-    imports: [
+  imports: [
     TooltipModule,
     FilterEmptyFieldPipe,
-    MatIcon
-]
+    MatIcon,
+    SvgSpritesComponent
+  ]
 })
 export class OrganizationInformationComponent implements OnInit {
   @Input() item: any;
