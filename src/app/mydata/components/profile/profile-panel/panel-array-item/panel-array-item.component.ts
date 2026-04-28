@@ -11,16 +11,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { ParseDatePipe } from '../../../../pipes/parse-date.pipe';
 import { GetLocalizedValuesPipe } from '../../../../pipes/getLocalizedValues.pipe';
 import { ActivityItemComponent } from '../activity-item/activity-item.component';
-import {
-  NgIf,
-  NgSwitch,
-  NgSwitchCase,
-  NgFor,
-  NgTemplateOutlet,
-  NgSwitchDefault,
-  NgClass,
-  JsonPipe
-} from '@angular/common';
+import { NgTemplateOutlet, NgClass, JsonPipe } from '@angular/common';
 import { TagOpenAccessComponent } from '@shared/components/tags/tag-open-access/tag-open-access.component';
 import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
 import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
@@ -31,24 +22,19 @@ import { PeerReviewedPipe } from '@shared/pipes/peer-reviewed.pipe';
     selector: 'app-panel-array-item',
     templateUrl: './panel-array-item.component.html',
     styleUrls: ['./panel-array-item.component.scss'],
-    imports: [
-        NgIf,
-        NgSwitch,
-        NgSwitchCase,
-        NgFor,
-        ActivityItemComponent,
-        NgTemplateOutlet,
-        NgSwitchDefault,
-        GetLocalizedValuesPipe,
-        ParseDatePipe,
-        NgClass,
-        TagOpenAccessComponent,
-        JsonPipe,
-        TagDoiComponent,
-        TagPeerReviewedComponent,
-        FirstLetterPipe,
-        PeerReviewedPipe
-    ]
+  imports: [
+    ActivityItemComponent,
+    NgTemplateOutlet,
+    GetLocalizedValuesPipe,
+    ParseDatePipe,
+    NgClass,
+    TagOpenAccessComponent,
+    JsonPipe,
+    TagDoiComponent,
+    TagPeerReviewedComponent,
+    FirstLetterPipe,
+    PeerReviewedPipe
+]
 })
 export class PanelArrayItemComponent implements OnInit {
   @Input() set item(item: any) {

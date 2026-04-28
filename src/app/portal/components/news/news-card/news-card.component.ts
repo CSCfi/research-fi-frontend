@@ -5,7 +5,7 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 import { HighlightSearchPipe } from '../../../pipes/highlight.pipe';
 import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgClass, DatePipe } from '@angular/common';
+import { NgClass, DatePipe } from '@angular/common';
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatCardFooter } from '@angular/material/card';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -15,25 +15,21 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./news-card.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        MatCard,
-        MatCardHeader,
-        MatCardTitle,
-        NgIf,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        RouterLink,
-        MatCardSubtitle,
-        MatCardContent,
-        NgClass,
-        MatCardActions,
-        MatCardFooter,
-        DatePipe,
-        CutContentPipe,
-        HighlightSearchPipe,
-        SafeUrlPipe,
-        SvgSpritesComponent
-    ]
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    RouterLink,
+    MatCardSubtitle,
+    MatCardContent,
+    NgClass,
+    MatCardActions,
+    MatCardFooter,
+    DatePipe,
+    CutContentPipe,
+    HighlightSearchPipe,
+    SafeUrlPipe,
+    SvgSpritesComponent
+]
 })
 export class NewsCardComponent implements OnInit {
   @Input() itemTypeFundingCalls = false;

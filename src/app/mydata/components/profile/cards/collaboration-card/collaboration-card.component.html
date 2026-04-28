@@ -1,52 +1,57 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
-<aside *ngIf="hasCheckedOption || isEditorView" class="group-wrapper">
-  <div class="card-content-wrapper">
-<app-collaboration-view [hasEditRights]="isEditorView" [label]="label" [hasCheckedOption]="hasCheckedOption"
-                        [collaborationOptions]="collaborationOptions"
-                        (handleOpenDialog)="openDialog()"></app-collaboration-view>
-
-<!-- Basic views -->
-<div [ngClass]="isEditorView ? 'row mt-3 gx-1' : 'row mt-3'">
-  <div class="col-12">
-    <ul>
-      <ng-container *ngFor="let option of collaborationOptions">
-        <li *ngIf="option?.selected">{{ option[nameLocale] }}</li>
-      </ng-container>
-    </ul>
-  </div>
-</div>
-  </div>
-</aside>
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
+@if (hasCheckedOption || isEditorView) {
+  <aside class="group-wrapper">
+    <div class="card-content-wrapper">
+      <app-collaboration-view [hasEditRights]="isEditorView" [label]="label" [hasCheckedOption]="hasCheckedOption"
+        [collaborationOptions]="collaborationOptions"
+      (handleOpenDialog)="openDialog()"></app-collaboration-view>
+      <!-- Basic views -->
+      <div [ngClass]="isEditorView ? 'row mt-3 gx-1' : 'row mt-3'">
+        <div class="col-12">
+          <ul>
+            @for (option of collaborationOptions; track option) {
+              @if (option?.selected) {
+                <li>{{ option[nameLocale] }}</li>
+              }
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </aside>
+}
 
 <!-- Editor modal -->
 <ng-template #dialogTemplate>
   <div class="profile-tool-modal">
     <div class="row pb-3">
-    <span class="col" i18n="@@selectInformationToDisplayInProfile"
-    >Valitse profiilissasi näytettävät tiedot</span>
+      <span class="col" i18n="@@selectInformationToDisplayInProfile"
+      >Valitse profiilissasi näytettävät tiedot</span>
     </div>
 
     <section class="col py-3 px-3">
-      <mat-checkbox
-              class="py-1 w-100"
-              *ngFor="let option of collaborationOptions; let i = index"
-              (change)="toggleOption(i, $event)"
-              [checked]="option.selected"
-      >{{ option[nameLocale] }}
-      </mat-checkbox
-      >
-    </section>
-  </div>
-</ng-template>
+      @for (option of collaborationOptions; track option; let i = $index) {
+        <mat-checkbox
+          class="py-1 w-100"
+          (change)="toggleOption(i, $event)"
+          [checked]="option.selected"
+          >{{ option[nameLocale] }}
+          </mat-checkbox
+          >
+        }
+      </section>
+    </div>
+  </ng-template>
 
-<app-dialog
-        *ngIf="showDialog"
-        [template]="dialogTemplate"
-        [actions]="dialogActions"
-        i18n-title="@@cooperation"
-        title="Yhteistyö"
-        (onActionClick)="doDialogAction($event)"
-></app-dialog>
+  @if (showDialog) {
+    <app-dialog
+      [template]="dialogTemplate"
+      [actions]="dialogActions"
+      i18n-title="@@cooperation"
+      title="Yhteistyö"
+      (onActionClick)="doDialogAction($event)"
+    ></app-dialog>
+  }

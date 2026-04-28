@@ -23,7 +23,7 @@ import { TabChangeService } from '../../../services/tab-change.service';
 import { StaticDataService } from '../../../services/static-data.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Subscription } from 'rxjs';
-import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
@@ -52,30 +52,25 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './single-publication.component.html',
     styleUrls: ['./single-publication.component.scss'],
     imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        NgClass,
-        OrcidComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        PublicationLinksComponent,
-        MatCard,
-        MatCardTitle,
-        RelatedLinksComponent,
-        SecondaryButtonComponent,
-        ShareComponent,
-        DialogComponent,
-        CdkCopyToClipboard,
-        MatProgressSpinner,
-        CleanCitationPipe,
-        MatIcon,
-        SvgSpritesComponent
-    ]
+    SearchBarComponent,
+    RouterLink,
+    BreadcrumbComponent,
+    TooltipModule,
+    NgClass,
+    OrcidComponent,
+    PublicationLinksComponent,
+    MatCard,
+    MatCardTitle,
+    RelatedLinksComponent,
+    SecondaryButtonComponent,
+    ShareComponent,
+    DialogComponent,
+    CdkCopyToClipboard,
+    MatProgressSpinner,
+    CleanCitationPipe,
+    MatIcon,
+    SvgSpritesComponent
+]
 })
 export class SinglePublicationComponent
   implements OnInit, AfterViewInit, OnDestroy

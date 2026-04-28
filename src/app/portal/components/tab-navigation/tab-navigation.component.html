@@ -1,77 +1,72 @@
-<ng-container *ngIf='(moreThan900$ | async) || homepage'>
+@if ((moreThan900$ | async) || homepage) {
   <div class='navigation-layout'>
-    <ng-container *ngIf='slicedButtons$ | async as buttons'>
-      <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
-          <app-tab-button [icon]='button.icon'
-                          [label]='button.label'
-                          [count]='button.count'
-                          [active]='button.active'
-                          [disabled]='button.disabled'
-                          [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                          [queryParams]='button.queryParams | async'
-                          tabindex="-1">
-          </app-tab-button>
-      </ng-container>
-    </ng-container>
-
-    <ng-container *ngIf='(isActiveVisible$ | async) === false'>
-      <ng-container *ngIf='activeButton$ | async as button'>
-
+    @if (slicedButtons$ | async; as buttons) {
+      @for (button of buttons; track trackByLabel($index, button)) {
         <app-tab-button [icon]='button.icon'
-                        [label]='button.label'
-                        [count]='button.count'
-                        [active]='button.active'
-                        [disabled]='button.disabled'
-                        [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                        [queryParams]='pageSizeParams$ | async'
-                        tabindex="-1">
+          [label]='button.label'
+          [count]='button.count'
+          [active]='button.active'
+          [disabled]='button.disabled'
+          [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+          [queryParams]='button.queryParams | async'
+          tabindex="-1">
         </app-tab-button>
-
-      </ng-container>
-    </ng-container>
+      }
+    }
+    @if ((isActiveVisible$ | async) === false) {
+      @if (activeButton$ | async; as button) {
+        <app-tab-button [icon]='button.icon'
+          [label]='button.label'
+          [count]='button.count'
+          [active]='button.active'
+          [disabled]='button.disabled'
+          [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+          [queryParams]='pageSizeParams$ | async'
+          tabindex="-1">
+        </app-tab-button>
+      }
+    }
   </div>
-
-  <ng-container *ngIf='(moreThan1200$ | async) === false'>
-    <ng-container *ngIf='(showAll$ | async) === false'>
+  @if ((moreThan1200$ | async) === false) {
+    @if ((showAll$ | async) === false) {
       <div class="expand-text" (click)='toggleAll()'>
         <div style='margin-right: 0.25rem' i18n="@@showMore">Näytä lisää</div>
         <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon theme-color"></app-svg-sprites>
       </div>
-    </ng-container>
-
-    <ng-container *ngIf='(showAll$ | async) === true'>
+    }
+    @if ((showAll$ | async) === true) {
       <div class='expand-text' (click)='toggleAll()'>
         <div style='margin-right: 0.25rem' i18n="@@showLess">Näytä vähemmän</div>
         <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon theme-color"></app-svg-sprites>
       </div>
-    </ng-container>
-  </ng-container>
-</ng-container>
+    }
+  }
+}
 
 <div class='scroll-wrapper' [class.d-none]='(moreThan900$ | async) === true || homepage'>
   <div class='left-btn left-gradient-container' [style.visibility]='(scrollAtStart$ | async) === false ? "visible" : "hidden"' (click)='scrollLeft()'>
     <div class='nav-arrow'>
-        <app-svg-sprites [iconName]="'fa-arrow-left'" cssClass="arrow-left-icon nav-icon"></app-svg-sprites>
+      <app-svg-sprites [iconName]="'fa-arrow-left'" cssClass="arrow-left-icon nav-icon"></app-svg-sprites>
     </div>
   </div>
 
   <div class='right-btn right-gradient-container' [style.visibility]='(scrollAtEnd$ | async) === false ? "visible" : "hidden"' (click)='scrollRight()'>
     <div class='nav-arrow'>
-        <app-svg-sprites [iconName]="'fa-arrow-right'" cssClass="arrow-right-icon nav-icon"></app-svg-sprites>
+      <app-svg-sprites [iconName]="'fa-arrow-right'" cssClass="arrow-right-icon nav-icon"></app-svg-sprites>
     </div>
   </div>
 
   <div class='scroll-menu' #scroll>
-    <ng-container *ngIf='defaultOrderButtons$ | async as buttons'>
-      <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
-          <app-tab-navigation-button [label]='button.label'
-                                     [count]='button.count'
-                                     [active]='button.active'
-                                     [disabled]='button.disabled'
-                                     [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                                     [queryParams]='pageSizeParams$ | async'>
-          </app-tab-navigation-button>
-      </ng-container>
-    </ng-container>
+    @if (defaultOrderButtons$ | async; as buttons) {
+      @for (button of buttons; track trackByLabel($index, button)) {
+        <app-tab-navigation-button [label]='button.label'
+          [count]='button.count'
+          [active]='button.active'
+          [disabled]='button.disabled'
+          [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+          [queryParams]='pageSizeParams$ | async'>
+        </app-tab-navigation-button>
+      }
+    }
   </div>
 </div>

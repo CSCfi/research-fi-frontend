@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
@@ -17,7 +17,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-activity-item',
     templateUrl: './activity-item.component.html',
     styleUrls: ['./activity-item.component.scss'],
-    imports: [NgFor, NgIf, RouterLink, JsonPipe, FirstLetterPipe, CapitalizeFirstLetterPipe, NgClass, SvgSpritesComponent]
+    imports: [RouterLink, JsonPipe, FirstLetterPipe, CapitalizeFirstLetterPipe, NgClass, SvgSpritesComponent]
 })
 export class ActivityItemComponent implements OnInit {
   @Input() rows: any[];

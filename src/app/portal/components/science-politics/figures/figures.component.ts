@@ -19,7 +19,7 @@ import {
   QueryList,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser, ViewportScroller, NgIf, NgClass, NgFor, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, ViewportScroller, NgClass, NgTemplateOutlet } from '@angular/common';
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
@@ -51,23 +51,21 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './figures.component.html',
     styleUrls: ['./figures.component.scss'],
     imports: [
-        BannerDividerComponent,
-        NgIf,
-        NgClass,
-        MatProgressSpinner,
-        NgFor,
-        FormsModule,
-        ReactiveFormsModule,
-        FigureFiltersComponent,
-        ScrollSpyDirective,
-        MatButton,
-        NgTemplateOutlet,
-        RouterLink,
-        MatChip,
-        CutContentPipe,
-        MatIcon,
-        SvgSpritesComponent
-    ]
+    BannerDividerComponent,
+    NgClass,
+    MatProgressSpinner,
+    FormsModule,
+    ReactiveFormsModule,
+    FigureFiltersComponent,
+    ScrollSpyDirective,
+    MatButton,
+    NgTemplateOutlet,
+    RouterLink,
+    MatChip,
+    CutContentPipe,
+    MatIcon,
+    SvgSpritesComponent
+]
 })
 export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   currentSection: any;

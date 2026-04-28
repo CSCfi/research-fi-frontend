@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
 import { DialogComponent } from '../../../../../shared/components/dialog/dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
-import { NgIf, NgFor, JsonPipe, NgClass } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 import {
   CollaborationViewComponent
@@ -33,16 +33,14 @@ import { Constants } from '@mydata/constants';
     styleUrls: ['./collaboration-card.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        ProfileEditorCardHeaderComponent,
-        NgIf,
-        EmptyCardComponent,
-        NgFor,
-        MatCheckbox,
-        DialogComponent,
-        CollaborationViewComponent,
-        JsonPipe,
-        NgClass
-    ]
+    ProfileEditorCardHeaderComponent,
+    EmptyCardComponent,
+    MatCheckbox,
+    DialogComponent,
+    CollaborationViewComponent,
+    JsonPipe,
+    NgClass
+]
 })
 export class CollaborationCardComponent implements OnInit, OnDestroy {
   @Input() label: string;

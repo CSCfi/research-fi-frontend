@@ -13,20 +13,18 @@ import { map } from 'rxjs/operators';
 import { ResultCountComponent } from '../result-count/result-count.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { SecondaryButtonComponent } from '../buttons/secondary-button/secondary-button.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.scss'],
     imports: [
-        NgIf,
-        SecondaryButtonComponent,
-        NgFor,
-        TooltipModule,
-        ResultCountComponent,
-        AsyncPipe,
-    ]
+    SecondaryButtonComponent,
+    TooltipModule,
+    ResultCountComponent,
+    AsyncPipe
+]
 })
 export class PaginationComponent implements OnChanges {
   @Input() page = 1;

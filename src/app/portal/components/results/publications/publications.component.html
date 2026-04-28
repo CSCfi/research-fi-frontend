@@ -1,64 +1,69 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
-<div class="spinner-center" *ngIf="!resultData">
-  <mat-spinner [diameter]="80"></mat-spinner>
-</div>
+@if (!resultData) {
+  <div class="spinner-center">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
+}
 <!-- Data -->
-<div *ngIf="resultData && resultData.total > 0; else noResults">
-  <app-table
-    *ngIf="dataMapped"
-    [columns]="tableColumns"
-    [rows]="tableRows"
-    [svgSymbolName]="svgSymbolName"
-    [iconTitle]="iconTitlePublications"
-    iconLinkField="name"
-    [sortColumn]="sortService.sortColumn"
-    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
-    (onSortChange)="utilityService.sortBy($event.active)"
-  ></app-table>
-
-  <!-- Templates -->
-  <div *ngIf="resultData" class="result-container">
-    <div *ngFor="let publication of resultData.publications; let i = index">
-      <ng-template #publicationNameColumn>
-        <div class="title">
-          <a routerLink="/results/publication/{{ publication.id }}">
-            <h4
-              class="result-title"
+@if (resultData && resultData.total > 0) {
+  <div>
+    @if (dataMapped) {
+      <app-table
+        [columns]="tableColumns"
+        [rows]="tableRows"
+        [svgSymbolName]="svgSymbolName"
+        [iconTitle]="iconTitlePublications"
+        iconLinkField="name"
+        [sortColumn]="sortService.sortColumn"
+        [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+        (onSortChange)="utilityService.sortBy($event.active)"
+      ></app-table>
+    }
+    <!-- Templates -->
+    @if (resultData) {
+      <div class="result-container">
+        @for (publication of resultData.publications; track publication; let i = $index) {
+          <div>
+            <ng-template #publicationNameColumn>
+              <div class="title">
+                <a routerLink="/results/publication/{{ publication.id }}">
+                  <h4
+                    class="result-title"
               [attr.lang]="
                 publication.languageCode !== documentLang
                   ? publication.languageCode
                   : null
               "
-              [innerHtml]="publication.title | highlight: input"
-            ></h4>
-          </a>
-          <div class="tags">
-            <!-- Peer-reviewed -->
-            <app-tag-peer-reviewed
-              *ngIf="isReviewed(publication.publicationTypeCode)"
-            ></app-tag-peer-reviewed>
-
-            <!-- Open Access -->
-            <app-tag-open-access
-              *ngIf="publication.openAccess"
-              [link]="publication | links"
-            ></app-tag-open-access>
-
-            <!-- DOI -->
-            <app-tag-doi
-              *ngIf="publication.doi?.trim()"
-              [linkDoi]="publication.doi"
-            ></app-tag-doi>
-          </div>
-        </div>
-      </ng-template>
-
-      <ng-template #publicationChannelColumn>
-        <span
+                    [innerHtml]="publication.title | highlight: input"
+                  ></h4>
+                </a>
+                <div class="tags">
+                  <!-- Peer-reviewed -->
+                  @if (isReviewed(publication.publicationTypeCode)) {
+                    <app-tag-peer-reviewed
+                    ></app-tag-peer-reviewed>
+                  }
+                  <!-- Open Access -->
+                  @if (publication.openAccess) {
+                    <app-tag-open-access
+                      [link]="publication | links"
+                    ></app-tag-open-access>
+                  }
+                  <!-- DOI -->
+                  @if (publication.doi?.trim()) {
+                    <app-tag-doi
+                      [linkDoi]="publication.doi"
+                    ></app-tag-doi>
+                  }
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #publicationChannelColumn>
+              <span
           [attr.lang]="
             publication.languageCode !== documentLang
               ? publication.languageCode
@@ -67,19 +72,22 @@
           [innerHtml]="
             publication.publicationChannel | cutContent: 100 | highlight: input
           "
-        >
-        </span>
-      </ng-template>
-    </div>
+                >
+              </span>
+            </ng-template>
+          </div>
+        }
+      </div>
+    }
+    <!-- Pagination -->
+    <app-results-pagination [data]="resultData"></app-results-pagination>
   </div>
-  <!-- Pagination -->
-  <app-results-pagination [data]="resultData"></app-results-pagination>
-</div>
+} @else {
+  @if (resultData && resultData.total === 0) {
+    <app-no-results
+      heading="Ei julkaisuja"
+      i18n-heading="@@noPublications"
+    ></app-no-results>
+  }
+}
 
-<ng-template #noResults>
-  <app-no-results
-    *ngIf="resultData && resultData.total === 0"
-    heading="Ei julkaisuja"
-    i18n-heading="@@noPublications"
-  ></app-no-results>
-</ng-template>

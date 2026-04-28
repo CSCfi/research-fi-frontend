@@ -13,26 +13,27 @@
         <h1 i18n="@@externalLinksHeader">Tieteestä ja tutkimuksesta muualla</h1>
       </div>
     </div>
-    <ng-container *ngFor="let section of data">
+    @for (section of data; track section) {
       <app-divider [headingText]="section.title"></app-divider>
       <div class="row">
-        <div
-          [ngClass]="section.links.length === 3 ? 'col-lg-4' : 'col-lg-6'"
-          class="col-12 pb-3"
-          *ngFor="let link of section.links"
-        >
-          <ul class="item-container list-unstyled">
-            <li class="item-heading pb-2">
-              {{ link.label }}
-            </li>
-            <li class="pb-1">{{ link.content }}</li>
-            <a #mainFocus [href]="link.url" target="_blank"
-              ><app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
-              {{ link.url }}</a
+        @for (link of section.links; track link) {
+          <div
+            [ngClass]="section.links.length === 3 ? 'col-lg-4' : 'col-lg-6'"
+            class="col-12 pb-3"
             >
-          </ul>
+            <ul class="item-container list-unstyled">
+              <li class="item-heading pb-2">
+                {{ link.label }}
+              </li>
+              <li class="pb-1">{{ link.content }}</li>
+              <a #mainFocus [href]="link.url" target="_blank"
+                ><app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                {{ link.url }}</a
+                >
+              </ul>
+            </div>
+          }
         </div>
-      </div>
-    </ng-container>
-  </div>
-</main>
+      }
+    </div>
+  </main>

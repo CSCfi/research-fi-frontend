@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -10,12 +10,11 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './collapsible.component.html',
     styleUrls: ['./collapsible.component.scss'],
     imports: [
-        NgIf,
-        MatIconModule,
-        NgClass,
-        TooltipModule,
-        SvgSpritesComponent
-    ],
+    MatIconModule,
+    NgClass,
+    TooltipModule,
+    SvgSpritesComponent
+],
     animations: [
         trigger('expandCollapse', [
             state('collapsed', style({ height: '0px', overflow: 'hidden' })),

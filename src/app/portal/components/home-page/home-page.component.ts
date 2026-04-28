@@ -19,7 +19,7 @@ import {
   OnDestroy,
   DOCUMENT
 } from '@angular/core';
-import { NgFor, NgIf, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
@@ -47,18 +47,16 @@ import { TabNavigationComponent } from '../tab-navigation/tab-navigation.compone
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     imports: [
-        SearchBarComponent,
-        TabNavigationComponent,
-        NgFor,
-        NgIf,
-        RouterLink,
-        NewsCardComponent,
-        DividerComponent,
-        NgStyle,
-        ReviewComponent,
-        DialogComponent,
-        SafeUrlPipe,
-    ]
+    SearchBarComponent,
+    TabNavigationComponent,
+    RouterLink,
+    NewsCardComponent,
+    DividerComponent,
+    NgStyle,
+    ReviewComponent,
+    DialogComponent,
+    SafeUrlPipe
+]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   allData: any[];

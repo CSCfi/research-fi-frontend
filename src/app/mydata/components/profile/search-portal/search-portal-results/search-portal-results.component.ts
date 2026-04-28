@@ -31,7 +31,7 @@ import { CutContentPipe } from '../../../../../shared/pipes/cut-content.pipe';
 import { DatasetAuthorComponent } from '../../../../../portal/components/single/single-dataset/dataset-author/dataset-author.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
-import { NgIf, NgFor } from '@angular/common';
+
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -40,27 +40,25 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./search-portal-results.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        MatTable,
-        MatSort,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatHeaderCell,
-        MatCellDef,
-        MatCell,
-        MatCheckbox,
-        NgFor,
-        MatSortHeader,
-        DatasetAuthorComponent,
-        MatHeaderRowDef,
-        MatHeaderRow,
-        MatRowDef,
-        MatRow,
-        MatPaginator,
-        CutContentPipe,
-        GetValuePipe,
-        SvgSpritesComponent
-    ]
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatCheckbox,
+    MatSortHeader,
+    DatasetAuthorComponent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatPaginator,
+    CutContentPipe,
+    GetValuePipe,
+    SvgSpritesComponent
+]
 })
 export class SearchPortalResultsComponent
   implements OnInit, OnChanges, OnDestroy

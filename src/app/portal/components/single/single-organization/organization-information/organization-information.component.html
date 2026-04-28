@@ -1,44 +1,50 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <div>
-  <ng-container *ngFor="let row of infoFields">
-    <div class="row content" *ngIf="item[row.field]">
-      <!-- Label -->
-      <h2 class="col-12 col-sm-6 col-lg-3 th">
-        <span class="pe-1">{{ row.label }}</span>
-        <!-- Show year with staff count -->
-        <span *ngIf="row.field === 'staffCountAsFte'"
-          >({{ item.staffYear }})</span
-        >
-        <!-- Tooltip -->
-        <ng-container *ngIf="sources[row.tooltip]">
-          <ng-template #tooltipTemplate
-            ><div [innerHtml]="sources[row.tooltip]"></div
-          ></ng-template>
-          <span
-            [tooltip]="tooltipTemplate"
-            container="body"
-            tabindex="0"
-            placement="top"
-            #elem
-          >
-            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-          </span>
-        </ng-container>
-      </h2>
-      <!-- Value -->
-      <div class="col-12 col-sm-6 col-lg-9 td">
-        {{ item[row.field] }}<span *ngIf="row['fieldEn']">,</span>
-        {{ item[row['fieldEn']] }}
+  @for (row of infoFields; track row) {
+    @if (item[row.field]) {
+      <div class="row content">
+        <!-- Label -->
+        <h2 class="col-12 col-sm-6 col-lg-3 th">
+          <span class="pe-1">{{ row.label }}</span>
+          <!-- Show year with staff count -->
+          @if (row.field === 'staffCountAsFte') {
+            <span
+              >({{ item.staffYear }})</span
+              >
+            }
+            <!-- Tooltip -->
+            @if (sources[row.tooltip]) {
+              <ng-template #tooltipTemplate
+                ><div [innerHtml]="sources[row.tooltip]"></div
+              ></ng-template>
+              <span
+                [tooltip]="tooltipTemplate"
+                container="body"
+                tabindex="0"
+                placement="top"
+                #elem
+                >
+                <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+              </span>
+            }
+          </h2>
+          <!-- Value -->
+          <div class="col-12 col-sm-6 col-lg-9 td">
+            {{ item[row.field] }}@if (row['fieldEn']) {
+            <span>,</span>
+          }
+          {{ item[row['fieldEn']] }}
+        </div>
       </div>
-    </div>
-  </ng-container>
+    }
+  }
 
   <!-- Student counts -->
-  <ng-container *ngIf="(studentCounts | filterEmptyField: item).length">
+  @if ((studentCounts | filterEmptyField: item).length) {
     <div class="row content">
       <h2 class="col-12 col-sm-6 col-lg-3 th">
         <span class="pe-1" i18n="@@thesisCount">Tutkintojen määrä</span>
@@ -49,27 +55,28 @@
           tabindex="0"
           placement="top"
           #elem
-        >
+          >
           <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
         </span>
       </h2>
       <div class="col px-0">
         <div class="row">
-          <div
-            *ngFor="let degree of studentCounts; let i = index"
-            class="col-12 col-lg-6 td"
-          >
-            <h3 class="th">{{ degree.label }}</h3>
-            <p class="td">
-              <ng-container
-                *ngIf="item[degree.field] === 'below_5'; else valueTemplate"
-                ><span i18n="@@below">Alle</span> 5
-              </ng-container>
-              <ng-template #valueTemplate>{{ item[degree.field] }}</ng-template>
-            </p>
-          </div>
+          @for (degree of studentCounts; track degree; let i = $index) {
+            <div
+              class="col-12 col-lg-6 td"
+              >
+              <h3 class="th">{{ degree.label }}</h3>
+              <p class="td">
+                @if (item[degree.field] === 'below_5') {
+                  <span i18n="@@below">Alle</span> 5
+                } @else {
+                  {{ item[degree.field] }}
+                }
+              </p>
+            </div>
+          }
         </div>
       </div>
     </div>
-  </ng-container>
+  }
 </div>

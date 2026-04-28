@@ -12,7 +12,7 @@ import { OrcidLoginComponent } from './orcid-login/orcid-login.component';
 import { ServiceTermsComponent } from './service-terms/service-terms.component';
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -22,20 +22,17 @@ type Step = { label: string; icon: string; loading?: boolean };
     templateUrl: './service-deployment.component.html',
     styleUrls: ['./service-deployment.component.scss'],
     imports: [
-        NgIf,
-        MatProgressSpinner,
-        NgSwitch,
-        NgSwitchCase,
-        PrimaryActionButtonComponent,
-        ServiceTermsComponent,
-        OrcidLoginComponent,
-        OrcidDataFetchComponent,
-        SecondaryButtonComponent,
-        RouterLink,
-        OrcidComponent,
-        BannerDividerComponent,
-        SvgSpritesComponent
-    ]
+    MatProgressSpinner,
+    PrimaryActionButtonComponent,
+    ServiceTermsComponent,
+    OrcidLoginComponent,
+    OrcidDataFetchComponent,
+    SecondaryButtonComponent,
+    RouterLink,
+    OrcidComponent,
+    BannerDividerComponent,
+    SvgSpritesComponent
+]
 })
 export class ServiceDeploymentComponent implements OnInit, OnDestroy {
   step: number;

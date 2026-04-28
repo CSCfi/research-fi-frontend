@@ -19,7 +19,7 @@ import {
 } from '@angular/core';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
-import { isPlatformBrowser, NgIf } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,14 +38,13 @@ import { BannerDividerComponent } from '../../../shared/components/banner-divide
     templateUrl: './privacy.component.html',
     styleUrls: ['./privacy.component.scss'],
     imports: [
-        BannerDividerComponent,
-        BreadcrumbComponent,
-        MatTabGroup,
-        MatTab,
-        NgIf,
-        MatButton,
-        SanitizeHtmlPipe,
-    ]
+    BannerDividerComponent,
+    BreadcrumbComponent,
+    MatTabGroup,
+    MatTab,
+    MatButton,
+    SanitizeHtmlPipe
+]
 })
 export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;

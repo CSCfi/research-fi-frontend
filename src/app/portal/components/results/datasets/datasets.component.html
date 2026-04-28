@@ -1,120 +1,138 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
-<div class="spinner-center" *ngIf="!resultData">
-  <mat-spinner [diameter]="80"></mat-spinner>
-</div>
+@if (!resultData) {
+  <div class="spinner-center">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
+}
 <!-- Data -->
-<div *ngIf="resultData && resultData.total > 0; else noResults">
-  <app-table
-    *ngIf="dataMapped"
-    [columns]="tableColumns"
-    [rows]="tableRows"
-    [iconTitle]="iconTitleDatasets"
-    [svgSymbolName]="svgSymbolName"
-    iconLinkField="name"
-    [sortColumn]="sortService.sortColumn"
-    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
-    (onSortChange)="utilityService.sortBy($event.active)"
-  ></app-table>
-
-  <!-- Templates -->
-  <div *ngIf="resultData">
-    <div *ngFor="let dataset of resultData.datasets; let i = index">
-      <ng-template #datasetNameColumn>
-        <a routerLink="/results/dataset/{{ dataset.id }}">
-          <h4
-            class="result-title"
+@if (resultData && resultData.total > 0) {
+  <div>
+    @if (dataMapped) {
+      <app-table
+        [columns]="tableColumns"
+        [rows]="tableRows"
+        [iconTitle]="iconTitleDatasets"
+        [svgSymbolName]="svgSymbolName"
+        iconLinkField="name"
+        [sortColumn]="sortService.sortColumn"
+        [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+        (onSortChange)="utilityService.sortBy($event.active)"
+      ></app-table>
+    }
+    <!-- Templates -->
+    @if (resultData) {
+      <div>
+        @for (dataset of resultData.datasets; track dataset; let i = $index) {
+          <div>
+            <ng-template #datasetNameColumn>
+              <a routerLink="/results/dataset/{{ dataset.id }}">
+                <h4
+                  class="result-title"
             [attr.lang]="
               dataset.languageCode !== documentLang
                 ? dataset.languageCode
                 : null
             "
-            [innerHtml]="dataset.name | highlight: input"
-          ></h4>
-        </a>
-        <div class="tags d-xl-none mt-2">
-          <!-- <a
-              *ngIf="dataset.openAccess"
-              href=""
-              target="_blank"
-              class="open-access div"
-            >
-              <span class="open-access-image"></span>
-              <span i18n="@@openAccess">Avoin saatavuus</span
-              ><app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
-            </a> -->
-          <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-
-            <!-- Open access -->
-            <div *ngIf="dataset.openAccess">
-              <app-tag-open-access [link]='dataset.fairdataUrl?.trim()'></app-tag-open-access>
-          </div>
-
-            <!-- DOI -->
-            <div *ngIf="dataset.doi?.trim()">
-                <app-tag-doi [linkDoi]="dataset.doi?.trim()"></app-tag-doi>
+                  [innerHtml]="dataset.name | highlight: input"
+                ></h4>
+              </a>
+              <div class="tags d-xl-none mt-2">
+                <!-- <a
+                *ngIf="dataset.openAccess"
+                href=""
+                target="_blank"
+                class="open-access div"
+                >
+                <span class="open-access-image"></span>
+                <span i18n="@@openAccess">Avoin saatavuus</span
+                  ><app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                </a> -->
+                <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
+                <!-- Open access -->
+                @if (dataset.openAccess) {
+                  <div>
+                    <app-tag-open-access [link]='dataset.fairdataUrl?.trim()'></app-tag-open-access>
+                  </div>
+                }
+                <!-- DOI -->
+                @if (dataset.doi?.trim()) {
+                  <div>
+                    <app-tag-doi [linkDoi]="dataset.doi?.trim()"></app-tag-doi>
+                  </div>
+                }
+                <!-- Dataset versions tag -->
+                <ng-container *ngTemplateOutlet="versionTag"></ng-container>
+                <!-- URN -->
+                <!-- URN -->
+                @if (dataset.urn?.trim()) {
+                  <div class="doi">
+                    <app-tag-doi [linkUrn]="dataset.urn?.trim()"></app-tag-doi>
+                  </div>
+                }
+              </div>
+            </ng-template>
+            <ng-template #datasetTagsColumn>
+              <div class="tags d-none d-xl-block">
+                <!-- <a
+                *ngIf="dataset.openAccess"
+                href=""
+                target="_blank"
+                class="open-access div"
+                >
+                <span class="open-access-image"></span>
+                <span i18n="@@openAccess">Avoin saatavuus</span
+                  ><app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                </a> -->
+                <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
+                @if (dataset.openAccess) {
+                  <span>
+                    <app-tag-open-access [link]='dataset.fairdataUrl?.trim()'></app-tag-open-access>
+                  </span>
+                }
+                <!-- DOI -->
+                @if (dataset.doi?.trim()) {
+                  <div>
+                    <app-tag-doi [linkDoi]="dataset.doi?.trim()"></app-tag-doi>
+                  </div>
+                }
+                <!-- Dataset versions tag -->
+                <ng-container *ngTemplateOutlet="versionTag"></ng-container>
+                <!-- URN -->
+                @if (dataset.urn?.trim()) {
+                  <div class="doi">
+                    <app-tag-doi [linkUrn]="dataset.urn?.trim()"></app-tag-doi>
+                  </div>
+                }
+              </div>
+            </ng-template>
+            <!-- Template for version tag -->
+            <ng-template #versionTag>
+              @if (dataset.datasetVersions?.length > 1) {
+                <div class="version">
+                  <span class="primary-color"
+                    >{{ dataset.datasetVersions.length }}
+                    <ng-container i18n="@@versions">versiota</ng-container></span
+                    >
+                  </div>
+                }
+              </ng-template>
             </div>
-          <!-- Dataset versions tag -->
-          <ng-container *ngTemplateOutlet="versionTag"></ng-container>
-          <!-- URN -->
-            <!-- URN -->
-            <div *ngIf="dataset.urn?.trim()" class="doi">
-                <app-tag-doi [linkUrn]="dataset.urn?.trim()"></app-tag-doi>
-            </div>
+          }
         </div>
-      </ng-template>
-
-      <ng-template #datasetTagsColumn>
-        <div class="tags d-none d-xl-block">
-          <!-- <a
-              *ngIf="dataset.openAccess"
-              href=""
-              target="_blank"
-              class="open-access div"
-            >
-              <span class="open-access-image"></span>
-              <span i18n="@@openAccess">Avoin saatavuus</span
-              ><app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
-            </a> -->
-          <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-          <span *ngIf="dataset.openAccess">
-              <app-tag-open-access [link]='dataset.fairdataUrl?.trim()'></app-tag-open-access>
-          </span>
-          <!-- DOI -->
-            <div *ngIf="dataset.doi?.trim()">
-            <app-tag-doi [linkDoi]="dataset.doi?.trim()"></app-tag-doi>
-            </div>
-          <!-- Dataset versions tag -->
-          <ng-container *ngTemplateOutlet="versionTag"></ng-container>
-          <!-- URN -->
-          <div *ngIf="dataset.urn?.trim()" class="doi">
-              <app-tag-doi [linkUrn]="dataset.urn?.trim()"></app-tag-doi>
-          </div>
-        </div>
-      </ng-template>
-
-      <!-- Template for version tag -->
-      <ng-template #versionTag>
-        <div *ngIf="dataset.datasetVersions?.length > 1" class="version">
-          <span class="primary-color"
-            >{{ dataset.datasetVersions.length }}
-            <ng-container i18n="@@versions">versiota</ng-container></span
-          >
-        </div>
-      </ng-template>
+      }
+      <!-- Pagination -->
+      <app-results-pagination [data]="resultData"></app-results-pagination>
     </div>
-  </div>
-  <!-- Pagination -->
-  <app-results-pagination [data]="resultData"></app-results-pagination>
-</div>
+  } @else {
+    @if (resultData && resultData.total === 0) {
+      <app-no-results
+        heading="Ei tutkimusaineistoja"
+        i18n-heading="@@noDatasets"
+      ></app-no-results>
+    }
+  }
 
-<ng-template #noResults>
-  <app-no-results
-    *ngIf="resultData && resultData.total === 0"
-    heading="Ei tutkimusaineistoja"
-    i18n-heading="@@noDatasets"
-  ></app-no-results>
-</ng-template>

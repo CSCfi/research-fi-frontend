@@ -1,79 +1,76 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 <div class="draft-summary-wrap">
   <mat-accordion multi>
     <mat-expansion-panel hideToggle disabled="true" (click)="$event.preventDefault()"
-                         class="draft-summary-panel-header">
+      class="draft-summary-panel-header">
       <mat-expansion-panel-header aria-disabled="true" (click)="$event.preventDefault()">
         <mat-panel-title>{{dataToBePublished}}</mat-panel-title>
       </mat-expansion-panel-header>
     </mat-expansion-panel>
-    <ng-container *ngFor="let group of profileData; let i = index">
-      <mat-expansion-panel
-              *ngIf="
+    @for (group of profileData; track group; let i = $index) {
+      @if (
         (
-          group.fields
-          | countFieldItems
-            : {
-                filterSelected: true,
-                patchItems: combinedPatchItems,
-                onlyCount: true
-              }
-        ).length > 0
-      "
-              [expanded]="openPanels.indexOf(i) > -1"
-      >
+        group.fields
+        | countFieldItems
+        : {
+        filterSelected: true,
+        patchItems: combinedPatchItems,
+        onlyCount: true
+      }
+      ).length > 0
+      ) {
+      <mat-expansion-panel
+        [expanded]="openPanels.indexOf(i) > -1"
+        >
         <mat-expansion-panel-header class="pe-3">
           <mat-panel-title class="fw-bold">
             {{ group.label }} ({{
-              (
-                group.fields
-                  | countFieldItems
-                  : {
-                    filterSelected: true,
-                    patchItems: combinedPatchItems,
-                    onlyCount: true
-                  }
-              ).length
-            }})
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <ng-container
-                *ngFor="
-          let item of group.fields
+            (
+            group.fields
             | countFieldItems
-              : {
-                  filterSelected: true,
-                  patchItems: combinedPatchItems,
-                  onlyCount: false
-                };
-          let i = index
-        "
-        >
-          <ng-container [ngSwitch]="item.itemMeta.type">
-            <!-- person keyword fields -->
-            <ng-container *ngSwitchCase="fieldTypes.personKeyword">
-            <span
-                    *ngIf="fieldTypes.personKeyword && i === 0"
-                    class="fw-bold d-block pt-2"
-                    i18n="@@keywords"
-            >Avainsanat</span
-            >
+            : {
+            filterSelected: true,
+            patchItems: combinedPatchItems,
+            onlyCount: true
+          }
+          ).length
+          }})
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      @for (
+        item of group.fields
+        | countFieldItems
+        : {
+        filterSelected: true,
+        patchItems: combinedPatchItems,
+        onlyCount: false
+        }; track
+        item; let i = $index) {
+        @switch (item.itemMeta.type) {
+          <!-- person keyword fields -->
+          @case (fieldTypes.personKeyword) {
+            @if (fieldTypes.personKeyword && i === 0) {
+              <span
+                class="fw-bold d-block pt-2"
+                i18n="@@keywords"
+                >Avainsanat</span
+                >
+              }
               <!--
-                Special case for keywords.
-                Keywords are patched as separate keywords
-                but displayed as a joined list. Show only the first row, since
-                all rows are equal when combined.
+              Special case for keywords.
+              Keywords are patched as separate keywords
+              but displayed as a joined list. Show only the first row, since
+              all rows are equal when combined.
               -->
-              <ng-container *ngIf="i === 0">
+              @if (i === 0) {
                 <div class="row pt-2">
                   <div class="col px-0">
                     <div class="row">
                       <div
-                              class="col px-0 pb-2 font-size-smaller"
+                        class="col px-0 pb-2 font-size-smaller"
                               [class.text-strike]="
                         !(
                           combinedPatchItems
@@ -82,26 +79,28 @@
                             : group.fields[0].items[0].itemMeta.id
                         ).show
                       "
-                      >
+                        >
                         {{ group.fields[0].items | joinItems: 'value' }}
                       </div>
                     </div>
                   </div>
                 </div>
-              </ng-container>
-            </ng-container>
+              }
+            }
             <!-- Default view -->
-            <ng-container *ngSwitchDefault>
+            @default {
               <div class="row gx-0">
-                <app-summary-divider *ngIf="i > 0"></app-summary-divider>
+                @if (i > 0) {
+                  <app-summary-divider></app-summary-divider>
+                }
                 <div [ngClass]="i === 0 ? 'col px-0 pt-3' : 'col px-0'">
                   <div
-                          class="row d-flex justify-content-between pt-1"
-                          [class.justify-content-between]="true"
-                  >
-                    <div
-                            class="col px-0 font-size-smaller"
+                    class="row d-flex justify-content-between pt-1"
+                    [class.justify-content-between]="true"
                     >
+                    <div
+                      class="col px-0 font-size-smaller"
+                      >
                       <app-panel-array-item
                               [class.text-strike]="
                         !(
@@ -109,81 +108,95 @@
                           | findByKeyValue: 'id':item.itemMeta.id
                         ).show
                       "
-                              [item]="item"
-                              [fieldType]="item.itemMeta.type"
-                              [localized]="item.localized"
-                              [isModalSummaryView]="true"
+                        [item]="item"
+                        [fieldType]="item.itemMeta.type"
+                        [localized]="item.localized"
+                        [isModalSummaryView]="true"
                       ></app-panel-array-item>
                     </div>
                     <!-- check *ngIf="
                         item.itemMeta.primaryValue &&
                         groupItem.groupMeta.type ===
                           fieldTypes.activityAffiliation -->
-                    <div
-                            *ngIf="
+                    @if (
                       item.itemMeta.primaryValue &&
                       item.itemMeta.type === fieldTypes.activityAffiliation
-                    "
+                    ) {
+<div
+                           
                             class="col-auto px-4 mx-3 cursor-pointer"
-                    >
-                      <app-general-badge class="d-none d-sm-flex ms-2" [textInput]="primary"></app-general-badge>
-                    </div>
+                        >
+                        <app-general-badge class="d-none d-sm-flex ms-2" [textInput]="primary"></app-general-badge>
+                      </div>
+                    }
                   </div>
                 </div>
               </div>
-            </ng-container>
-          </ng-container>
-        </ng-container>
+            }
+          }
+        }
       </mat-expansion-panel>
-    </ng-container>
+    }
+  }
 
+  @if (collaborationOptions.length) {
     <mat-expansion-panel
-            id="collaboration-options-panel"
-            [expanded]="false"
-            *ngIf="collaborationOptions.length"
-    >
+      id="collaboration-options-panel"
+      [expanded]="false"
+      >
       <mat-expansion-panel-header class="pe-1 pe-md-3">
         <mat-panel-title class="fw-bold">
           {{ collaborationHeader }} ({{ collaborationOptions.length }})
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ul>
-        <ng-container *ngFor="let option of collaborationOptions; let j = index">
+        @for (option of collaborationOptions; track option; let j = $index) {
           <li [ngClass]="option?.selected ? '' : 'text-strike'">{{ option[nameLocale] }}</li>
-        </ng-container>
+        }
       </ul>
     </mat-expansion-panel>
+  }
 
+  @if (highlightOpenness?.length) {
     <mat-expansion-panel
-            id="highlight-openness-panel"
-            [expanded]="false"
-            *ngIf="highlightOpenness?.length"
-    >
+      id="highlight-openness-panel"
+      [expanded]="false"
+      >
       <mat-expansion-panel-header class="pe-1 pe-md-3">
         <mat-panel-title class="fw-bold">
           {{ accountSettingsHeader }} (1)
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <ul *ngIf="highlightOpenness[0] === true">
-        <li>{{ highlightOpennessHeader }}</li>
-      </ul>
-      <div *ngIf="highlightOpenness[0] === false" class="text-strike">{{ highlightOpennessHeader }}</div>
+      @if (highlightOpenness[0] === true) {
+        <ul>
+          <li>{{ highlightOpennessHeader }}</li>
+        </ul>
+      }
+      @if (highlightOpenness[0] === false) {
+        <div class="text-strike">{{ highlightOpennessHeader }}</div>
+      }
     </mat-expansion-panel>
+  }
 
+  @if (automaticPublishing?.length) {
     <mat-expansion-panel
-            id="automatic-publishing-panel"
-            [expanded]="false"
-            *ngIf="automaticPublishing?.length"
-    >
+      id="automatic-publishing-panel"
+      [expanded]="false"
+      >
       <mat-expansion-panel-header class="pe-1 pe-md-3">
         <mat-panel-title class="fw-bold">
           {{ automaticPublishingHeader }} (1)
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <ul *ngIf="automaticPublishing[0] === true">
-        <li>{{ automaticPublishingBullet }}</li>
-      </ul>
-      <div *ngIf="automaticPublishing[0] === false" class="text-strike">{{ automaticPublishingBullet }}</div>
+      @if (automaticPublishing[0] === true) {
+        <ul>
+          <li>{{ automaticPublishingBullet }}</li>
+        </ul>
+      }
+      @if (automaticPublishing[0] === false) {
+        <div class="text-strike">{{ automaticPublishingBullet }}</div>
+      }
     </mat-expansion-panel>
-  </mat-accordion>
+  }
+</mat-accordion>
 </div>

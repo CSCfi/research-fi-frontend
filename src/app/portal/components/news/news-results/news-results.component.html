@@ -1,88 +1,89 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
-<div class="row pt-3" *ngIf="data">
-  <!-- Filters -->
-  <div class="col-12 col-lg-3 px-3 pb-3 pb-lg-0">
-    <aside>
-      <!-- results/filters -->
-      <app-filters
-        [responseData]="filterValues"
-        [filterOrigin]="'news'"
-      ></app-filters>
-    </aside>
-  </div>
-  <div class="col-12 col-xl-6 col-lg-7 col" [class.p-0]="mobile">
-    <!-- Search -->
-    <div class="col-lg-12 px-3 pt-1 pb-4">
-      <app-search
-        i18n-placeholder="@@searchNewsPlaceHolder"
-        placeholder="Hae uutisista..."
-        (getSearchTerm)="searchNews($event)"
-        (resetSearch)="resetSearch()"
-        [initialTerm]="searchService.currentInput | async"
-        [autofocus]="true"
-      ></app-search>
+@if (data) {
+  <div class="row pt-3">
+    <!-- Filters -->
+    <div class="col-12 col-lg-3 px-3 pb-3 pb-lg-0">
+      <aside>
+        <!-- results/filters -->
+        <app-filters
+          [responseData]="filterValues"
+          [filterOrigin]="'news'"
+        ></app-filters>
+      </aside>
     </div>
-
-    <!-- Active filters -->
-    <aside class="col-12 col-lg-7 pt-3 px-0">
-      <!-- results/active-filters -->
-      <app-active-filters></app-active-filters>
-    </aside>
-
-    <div class="row" *ngIf="loading">
-      <div class="col-auto px-0 pb-3">
-        <mat-spinner
-          [diameter]="80"
-          i18n-aria-label="@@loading"
-          aria-label="Ladataan"
-        ></mat-spinner>
+    <div class="col-12 col-xl-6 col-lg-7 col" [class.p-0]="mobile">
+      <!-- Search -->
+      <div class="col-lg-12 px-3 pt-1 pb-4">
+        <app-search
+          i18n-placeholder="@@searchNewsPlaceHolder"
+          placeholder="Hae uutisista..."
+          (getSearchTerm)="searchNews($event)"
+          (resetSearch)="resetSearch()"
+          [initialTerm]="searchService.currentInput | async"
+          [autofocus]="true"
+        ></app-search>
       </div>
-    </div>
-
-    <div *ngIf="!loading" class="px-3 pb-2 fst-italic h5 fw-normal">
-      {{ data[0]?.total | thousandSeparator }}
-      <span
-        *ngIf="data[0]?.total === 1; else resultsLabel"
-        i18n="@@singleResult"
-        >hakutulos</span
-      >
-
-      <ng-template #resultsLabel
-        ><span i18n="@@resultCount">hakutulosta</span></ng-template
-      >
-    </div>
-
-    <!-- News -->
-    <app-news-card
-      *ngFor="let item of data"
-      [item]="item"
-      [term]="currentTerm"
-    ></app-news-card>
-
-    <!-- Fallback if no news -->
-    <div
-      *ngIf="!loading && data.length === 0"
-      role="alert"
-      class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column px-0"
-    >
-      <h3>
-        <ng-container i18n="@@noResultsWithTerm"
-          >Ei tuloksia hakutermillä</ng-container
-        >
-        "{{ currentTerm }}".
-      </h3>
-      <br />
-      <p i18n="@@noResultsInfo">
+      <!-- Active filters -->
+      <aside class="col-12 col-lg-7 pt-3 px-0">
+        <!-- results/active-filters -->
+        <app-active-filters></app-active-filters>
+      </aside>
+      @if (loading) {
+        <div class="row">
+          <div class="col-auto px-0 pb-3">
+            <mat-spinner
+              [diameter]="80"
+              i18n-aria-label="@@loading"
+              aria-label="Ladataan"
+            ></mat-spinner>
+          </div>
+        </div>
+      }
+      @if (!loading) {
+        <div class="px-3 pb-2 fst-italic h5 fw-normal">
+          {{ data[0]?.total | thousandSeparator }}
+          @if (data[0]?.total === 1) {
+            <span
+              i18n="@@singleResult"
+              >hakutulos</span
+              >
+            } @else {
+              <span i18n="@@resultCount">hakutulosta</span>
+            }
+          </div>
+        }
+        <!-- News -->
+        @for (item of data; track item) {
+          <app-news-card
+            [item]="item"
+            [term]="currentTerm"
+          ></app-news-card>
+        }
+        <!-- Fallback if no news -->
+        @if (!loading && data.length === 0) {
+          <div
+            role="alert"
+            class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column px-0"
+            >
+            <h3>
+              <ng-container i18n="@@noResultsWithTerm"
+                >Ei tuloksia hakutermillä</ng-container
+                >
+                "{{ currentTerm }}".
+              </h3>
+              <br />
+              <p i18n="@@noResultsInfo">
         Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää
         ei ole tarjolla tässä osiossa.
       </p>
-    </div>
-
-    <!-- Pagination -->
-    <app-news-pagination [responseData]="data"></app-news-pagination>
-  </div>
-</div>
+            </div>
+          }
+          <!-- Pagination -->
+          <app-news-pagination [responseData]="data"></app-news-pagination>
+        </div>
+      </div>
+    }

@@ -8,7 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '@shared/services/notification.service';
 import { NotificationObject } from '@shared/types';
-import { NgIf, NgFor } from '@angular/common';
+
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { MatButton } from '@angular/material/button';
@@ -18,12 +18,10 @@ import { MatButton } from '@angular/material/button';
     templateUrl: './notification-banner.component.html',
     styleUrls: ['./notification-banner.component.scss'],
     imports: [
-        CollapseModule,
-        NgIf,
-        NgFor,
-        MatButton,
-        SvgSpritesComponent
-    ]
+    CollapseModule,
+    MatButton,
+    SvgSpritesComponent
+]
 })
 export class NotificationBannerComponent implements OnInit {
   isCollapsed = true;

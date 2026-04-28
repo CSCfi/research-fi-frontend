@@ -21,7 +21,7 @@ import { FilterPipe } from '../../../../pipes/filter.pipe';
 import { EditorModalComponent } from '../../editor-modal/editor-modal.component';
 import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
-import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, JsonPipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import {
@@ -32,19 +32,15 @@ import {
     selector: 'app-contact-card',
     templateUrl: './contact-card.component.html',
     imports: [
-        ProfileEditorCardHeaderComponent,
-        NgIf,
-        EmptyCardComponent,
-        NgFor,
-        NgSwitch,
-        NgSwitchCase,
-        EditorModalComponent,
-        FilterPipe,
-        JoinAllGroupItemsPipe,
-        HasSelectedItemsPipe,
-        SvgSpritesComponent,
-        ContactInfoViewComponent
-    ]
+    ProfileEditorCardHeaderComponent,
+    EmptyCardComponent,
+    EditorModalComponent,
+    FilterPipe,
+    JoinAllGroupItemsPipe,
+    HasSelectedItemsPipe,
+    SvgSpritesComponent,
+    ContactInfoViewComponent
+]
 })
 export class ContactCardComponent implements OnInit, OnChanges {
   @Input() data: any;
