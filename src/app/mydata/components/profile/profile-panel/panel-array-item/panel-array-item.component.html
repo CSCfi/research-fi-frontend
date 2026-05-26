@@ -53,7 +53,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                              [smallLastItem]="false"></app-activity-item>
         }
         <!-- Publications badges -->
-        @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi) {
+        @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi || (_item.publicationTypeCode | peerReviewed)) {
           <div class="badge-row gx-0 flex-wrap">
             <div class="d-flex flex-wrap">
               @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1) {
@@ -83,7 +83,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                              [smallLastItem]="false"></app-activity-item>
         }
         <!-- Publications badges -->
-        @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi) {
+        @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || _item.doi  || (_item.publicationTypeCode | peerReviewed)) {
           <div class="badge-row gx-0 flex-wrap">
             <div class="d-flex flex-wrap">
               @if (_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1) {
