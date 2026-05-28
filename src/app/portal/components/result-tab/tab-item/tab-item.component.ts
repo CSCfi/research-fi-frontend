@@ -14,7 +14,7 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
 import { DataService } from 'src/app/portal/services/data.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { CountUpModule } from 'ngx-countup';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -23,11 +23,10 @@ import { RouterLink } from '@angular/router';
     styleUrls: ['./tab-item.component.scss'],
     standalone: true,
     imports: [
-        RouterLink,
-        NgIf,
-        CountUpModule,
-        AsyncPipe,
-    ],
+    RouterLink,
+    CountUpModule,
+    AsyncPipe
+],
 })
 export class TabItemComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

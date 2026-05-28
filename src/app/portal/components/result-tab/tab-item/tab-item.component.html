@@ -1,7 +1,7 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <ng-template #tooltipTemplate
   ><div [innerHtml]="tab.tooltip"></div
@@ -18,43 +18,46 @@
   [title]="tab.tooltip"
   placement="bottom"
   #elem
->
-  <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
-    <div
-      class="tab-icon"
-      class="tab-icon {{ tab.data }}"
-      [style.display]="isHomepage ? 'block' : 'none'"
-    >
-      <!-- Icon removed. Component deprecated.
-      <fa-icon [icon]="tab.icon"></fa-icon>
-      -->
-    </div>
-    <div class="label text-center" [class.homepage-label]="isHomepage">
-      {{ tab.label }}
-    </div>
-    <div class="numeric-box d-sm-block">
+  >
+  @if (tab.data.length > 0) {
+    <div #tabList [id]="tab.link">
       <div
-        *ngIf="!tab.disabled"
+        class="tab-icon"
+        class="tab-icon {{ tab.data }}"
+        [style.display]="isHomepage ? 'block' : 'none'"
+        >
+        <!-- Icon removed. Component deprecated.
+        <fa-icon [icon]="tab.icon"></fa-icon>
+        -->
+      </div>
+      <div class="label text-center" [class.homepage-label]="isHomepage">
+        {{ tab.label }}
+      </div>
+      <div class="numeric-box d-sm-block">
+        @if (!tab.disabled) {
+          <div
         [countUp]="
           tab.data
             ? counted.aggregations._index.buckets[tab.data]?.doc_count
             : 999
         "
-        [options]="countOps"
-        [reanimateOnClick]="false"
-      >
-        0
+            [options]="countOps"
+            [reanimateOnClick]="false"
+            >
+            0
+          </div>
+        }
+        @if (tab.disabled) {
+          <div i18n="@@comingSoon">Tulossa</div>
+        }
       </div>
-      <div *ngIf="tab.disabled" i18n="@@comingSoon">Tulossa</div>
     </div>
-  </div>
-
-  <ng-template #disabledTab>
+  } @else {
     <div
       class="tab-icon"
       class="tab-icon {{ tab.data }}"
       [style.display]="isHomepage ? 'block' : 'none'"
-    >
+      >
       <!-- Icon removed. Component deprecated.
       <fa-icon [icon]="tab.icon"></fa-icon>
       -->
@@ -63,5 +66,6 @@
       {{ tab.label }}
     </div>
     <div class="numeric-box d-sm-block" i18n="@@comingSoon">Tulossa</div>
-  </ng-template>
+  }
+
 </a>

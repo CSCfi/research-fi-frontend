@@ -1,0 +1,38 @@
+<div ngAccordionGroup class="basic-accordion" [multiExpandable]="false">
+  @for (singleService of infraData; track singleService; let i = $index) {
+    <div class="accordion-section-wrap">
+      <h3>
+    <span ngAccordionTrigger class="accordion-section-trigger" [panel]="panel1" #trigger1="ngAccordionTrigger">
+      {{singleService.serviceName}}
+      @if (!trigger1.expanded()) {
+        <span class="accordion-section-toggle-switch" aria-hidden="true">
+          Avaa
+       <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon theme-color"></app-svg-sprites>
+        </span>
+      }
+      @if (trigger1.expanded()) {
+        <span class="accordion-section-toggle-switch" aria-hidden="true">
+                Sulje
+              <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon theme-color"></app-svg-sprites>
+              </span>
+      }
+    </span>
+      </h3>
+      <div ngAccordionPanel #panel1="ngAccordionPanel">
+        <ng-template ngAccordionContent>
+          <div class="row px-1">
+            <div class="col-3 col-md-3 fw-bold">
+              Palvelun kuvaus
+            </div>
+            <div class="col-9 col-md-6">
+              {{singleService.serviceDescription}}
+            </div>
+            <div class="col-6 col-md-3">
+            </div>
+          </div>
+          <br/>
+        </ng-template>
+      </div>
+    </div>
+  }
+</div>

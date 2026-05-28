@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
+
+
+:host {
+  display: flex;
+  justify-content: center;
+  --vivid-pink: #FF0080;
+  --senary-contrast: #666666;
+  --quaternary-contrast: #999999;
+  --tertiary-contrast: #4b4b4b;
+  --septenary-contrast: #4b4b4b;
+  --secondary-contrast: #000000;
+  --purple-primary: #4546B9;
+  --pink-to-purple-horizontal-gradient: linear-gradient(to right, var(--vivid-pink), var(--purple-primary));
+
+  --purple-dark-bg: #C5C5E5;
+  --purple-bg: #E8E8F5;
+}
+
+
+:host {
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  font-family: var(--inter-font);
+}
+[ngTree] {
+  min-width: 24rem;
+  background-color: #fafafa;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0rem;
+}
+[ngTreeItem] {
+  cursor: pointer;
+  list-style: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.1rem 0.8rem 0.1rem 0.5em;
+  color: var(--purple-primary);
+}
+[ngTreeItem][aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: default;
+}
+[ngTreeItem]:focus,
+[ngTreeItem]:hover {
+  background-color: var(--quinary-contrast);
+}
+[ngTreeItem]:focus {
+  outline: 1px solid color-mix(in srgb, var(--purple-primary) 60%, transparent);
+}
+[ngTreeItem][aria-selected='true'],
+[ngTreeItem][aria-selected='true'] .expand-icon {
+  background-image: var(--purple-primary);
+  //background-clip: text;
+  //color: transparent;
+}
+.material-symbols-outlined {
+  margin: 0;
+  width: 24px;
+}
+.expand-icon {
+  transition: transform 0.2s ease;
+  color: var(--purple-primary);
+}
+[ngTreeItem][aria-expanded='true'] .expand-icon {
+  transform: rotate(90deg);
+}
+.selected-icon {
+  visibility: hidden;
+  margin-left: auto;
+}
+[ngTreeItem][aria-current] .selected-icon,
+[ngTreeItem][aria-selected='true'] .selected-icon {
+  visibility: visible;
+}
+li[aria-expanded='false'] + ul[role='group'] {
+  display: none;
+}
+
+.current-node {
+  background: green;
+  color: #fff;
+  padding: 0px 7px;
+  border-radius: 4px;
+}

@@ -24,6 +24,7 @@ export class SingleItemService {
   datasetApiUrl = '';
   organizationApiUrl = '';
   infrastructureApiUrl = '';
+  infrastructureNetworkUrl = '';
   fundingCallApiUrl = '';
   projectApiUrl = '';
   private getIdSubject = new Subject<string>();
@@ -43,6 +44,7 @@ export class SingleItemService {
     this.datasetApiUrl = this.apiUrl + 'dataset/_search';
     this.organizationApiUrl = this.apiUrl + 'organization/_search';
     this.infrastructureApiUrl = this.apiUrl + 'infrastructure/_search';
+    this.infrastructureNetworkUrl = this.apiUrl + 'infranetwork/_search';
     this.fundingCallApiUrl = this.apiUrl + 'funding-call/_search';
     this.projectApiUrl = this.apiUrl + 'project/_search';
   }
@@ -118,6 +120,21 @@ export class SingleItemService {
       .pipe(
         map((data: any) => this.searchAdapter.adapt(data, 'infrastructures'))
       );
+  }
+
+  getInfrastructureNetworkData(id: any): any {
+    console.log('get infrastructure network id', id);
+    const body = { };
+    if (id) {
+      return this.http
+        .post<Search>(
+          this.infrastructureApiUrl,
+          this.constructPayload('infraKeyIdentifier', decodeURIComponent( 'urn:nbn:fi:' + id)) // Decode escaped url characters with actual characters, elasticsearch match query doesn't work properly with escaped characters
+        );
+    } else {
+      let res = this.http.post(this.infrastructureNetworkUrl, body);
+      return res;
+    }
   }
 
   getSingleFundingCall(id): Observable<Search> {

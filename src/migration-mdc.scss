@@ -57,7 +57,8 @@ bs-tooltip-container {
 }
 
 .mat-dialog-content {
-  max-height: 65vh !important;
+  //max-height: 65vh !important;
+  height: 95vh !important;
 }
 
 .cdk-overlay-pane {

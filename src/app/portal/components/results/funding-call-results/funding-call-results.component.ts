@@ -171,8 +171,6 @@ export class FundingCallResultsComponent
       },
     }));
 
-    console.log(this.tableRows);
-
     this.dataMapped = true;
   }
 
