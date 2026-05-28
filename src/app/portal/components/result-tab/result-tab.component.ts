@@ -18,7 +18,7 @@ import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription, take } from 'rxjs';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Router } from '@angular/router';
-import { isPlatformBrowser, NgIf, NgFor, NgStyle } from '@angular/common';
+import { isPlatformBrowser, NgStyle } from '@angular/common';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { DataService } from 'src/app/portal/services/data.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -32,13 +32,11 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     encapsulation: ViewEncapsulation.None,
     standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     NgStyle,
     TabItemComponent,
     MatProgressSpinner,
     SvgSpritesComponent
-  ]
+]
 })
 export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;

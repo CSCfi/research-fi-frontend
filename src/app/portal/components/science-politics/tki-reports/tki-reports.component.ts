@@ -12,7 +12,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import dummyData from 'src/app/portal/components/science-politics/tki-reports/tki-dummydata.json';
-import { DOCUMENT, NgIf, NgStyle, NgFor } from '@angular/common';
+import { DOCUMENT, NgStyle } from '@angular/common';
 import { UtilityService } from '@shared/services/utility.service';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
@@ -43,7 +43,7 @@ export interface Report {
     templateUrl: './tki-reports.component.html',
     styleUrls: ['./tki-reports.component.scss'],
     standalone: true,
-  imports: [BannerDividerComponent, NgIf, NgStyle, MatInput, FormsModule, PrimaryActionButtonComponent, NgFor, ListItemComponent_1, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, HighlightSearchPipe, MatIcon, SvgSpritesComponent]
+  imports: [BannerDividerComponent, NgStyle, MatInput, FormsModule, PrimaryActionButtonComponent, ListItemComponent_1, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, HighlightSearchPipe, MatIcon, SvgSpritesComponent]
 })
 export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 

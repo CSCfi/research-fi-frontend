@@ -13,7 +13,7 @@ import {
   LOCALE_ID,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser, NgIf, NgFor } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../../services/search.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { map } from 'rxjs/operators';
@@ -25,7 +25,7 @@ import { UtilityService } from '@shared/services/utility.service';
     templateUrl: './suggest.component.html',
     styleUrls: ['./suggest.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor],
+    imports: [],
 })
 export class SuggestComponent implements OnInit, OnDestroy {
   suggests: any;

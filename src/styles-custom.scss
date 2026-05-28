@@ -68,14 +68,15 @@ body {
   input:focus-visible,
   select:focus-visible,
   textarea:not(.mat-mdc-input-element):focus-visible,
-  *:not(.bundler:not(.homepage)):not(.mat-expansion-panel-header):not(.mat-input-element):focus-visible {
+  *:not(.bundler:not(.homepage)):not(.mat-expansion-panel-header):not(.mat-input-element):not(.accordion-section-trigger):focus-visible {
     // High contrast focus indicator for keyboard users
     outline: 2px transparent solid !important;
     box-shadow: 0 0 0 2px white, 0 0 0 4px mat-color($primary, default),
-      0 0 3px 5px white;
+    0 0 3px 5px white;
     z-index: 55; // If no margin between next focusable element, high number because of target serach button
   }
 }
+
 
 body.menu-open {
   & .content-container {
@@ -698,7 +699,7 @@ app-single-dataset, app-single-funding, app-single-funding-call, app-single-infr
 }
 
 .mat-mdc-dialog-content {
-  // max-height: 85vh !important;
+   max-height: 95vh !important;
   // padding: 0 1rem !important;
   //max-width: 800px !important;
 

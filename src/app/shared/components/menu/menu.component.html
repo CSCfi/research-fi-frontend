@@ -1,17 +1,18 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <a href="javascript:void(0)" [matMenuTriggerFor]="menu" class="primary-color">
   <span class="pe-2">{{ label }}</span> > <app-svg-sprites [iconName]="'chevron-down'"></app-svg-sprites>
 </a>
 <mat-menu #menu="matMenu" xPosition="before">
-  <button
-    mat-menu-item
-    *ngFor="let option of options"
-    (click)="selectOption(option)"
-  >
-    {{ option.value }}
-  </button>
+  @for (option of options; track option) {
+    <button
+      mat-menu-item
+      (click)="selectOption(option)"
+      >
+      {{ option.value }}
+    </button>
+  }
 </mat-menu>

@@ -17,8 +17,10 @@
         [queryParams]="tabQueryParams"
       >&lt;
         <ng-container i18n="@@backToResults"
-        >Takaisin hakutuloksiin</ng-container
-        ></a
+        >Takaisin hakutuloksiin
+        </ng-container
+        >
+      </a
       >
     </p>
   </div>
@@ -40,6 +42,12 @@
       <h2 i18n="@@404">404 - Virheellinen osoite</h2>
     </div>
     <main class="col-12 col-md-8">
+      <h1 class="result-header mb-4">Tutkimusinfrastruktuurin palvelut</h1>
+      <!--      <h3 class="result-header">Infrastruktuuriverkosto</h3>
+            <app-vis [infraId]=this.infraId></app-vis>-->
+      <h3 class="result-header">Aktiiviset palvelut (2)</h3>
+      <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
+      <br/>
       <div *ngFor="let item of [responseData.infrastructures[0]]">
         <h1 class="result-header">{{ item.name }}</h1>
         <div id="info">
@@ -50,8 +58,10 @@
                   <span class="pe-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate
-                    ><div [innerHtml]="row.tooltip"></div
-                    ></ng-template>
+                    >
+                      <div [innerHtml]="row.tooltip"></div
+                      >
+                    </ng-template>
                     <span
                             [tooltip]="tooltipTemplate"
                             tabindex="0"
@@ -116,8 +126,10 @@
                     {{ service.acronym ? '(' + service.acronym + ')' : '' }}
                   </h3>
                   <div class="chevron-wrapper">
-                    <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon single-page" *ngIf="showService[i]"></app-svg-sprites>
-                    <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon single-page" *ngIf="!showService[i]"></app-svg-sprites>
+                    <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon single-page"
+                                     *ngIf="showService[i]"></app-svg-sprites>
+                    <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon single-page"
+                                     *ngIf="!showService[i]"></app-svg-sprites>
                   </div>
                 </div>
                 <div *ngIf="showService[i]" class="ps-4">
@@ -130,8 +142,10 @@
                         <span class="pe-1">{{ row.label }}</span>
                         <ng-container *ngIf="row.tooltip">
                           <ng-template #tooltipTemplate
-                          ><div [innerHtml]="row.tooltip"></div
-                          ></ng-template>
+                          >
+                            <div [innerHtml]="row.tooltip"></div
+                            >
+                          </ng-template>
                           <span
                                   [tooltip]="tooltipTemplate"
                                   tabindex="0"
@@ -224,7 +238,8 @@
                             >
                             <ng-template #nonEmailAddress>{{
                                 servicePoint[row.field]
-                              }}</ng-template>
+                              }}
+                            </ng-template>
                           </div>
                         </ng-container>
                       </div>
@@ -291,8 +306,10 @@
                     <span class="pe-1">{{ row.label }}</span>
                     <ng-container *ngIf="row.tooltip">
                       <ng-template #tooltipTemplate
-                      ><div [innerHtml]="row.tooltip"></div
-                      ></ng-template>
+                      >
+                        <div [innerHtml]="row.tooltip"></div
+                        >
+                      </ng-template>
                       <span
                               [tooltip]="tooltipTemplate"
                               tabindex="0"
@@ -416,12 +433,60 @@
         <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title
-            ><h2>
-              <ng-container i18n="@@relatedInfrastructures"
-              >Hae infrastruktuuriin liittyvät</ng-container
-              >
-              (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
-            </h2></mat-card-title
+            >
+              <h2>
+                <ng-container i18n="@@test"
+                >Infrastruktuuriverkosto
+                </ng-container
+                >
+              </h2>
+            </mat-card-title
+            >
+            <app-infra-tree [infraId]="selectedInfraId"></app-infra-tree>
+          </div>
+          <div class="row">
+            <div class="col-12 d-flex justify-content-center mt-4 mb-2">
+              <app-primary-action-button
+                      [content]="'Näytä infrastruktuuriverkosto'"
+                      [svgSymbolName]="'lan'"
+                      [svgCssClass]="'show-as-image-button'"
+                      (click)="openDialog(0)"
+              ></app-primary-action-button>
+            </div>
+            <div class="col-12 d-flex justify-content-center mt-4 mb-2">
+              <app-primary-action-button
+                      [content]="'Näytä infrastruktuuriverkosto demo 1'"
+                      [svgSymbolName]="'lan'"
+                      [svgCssClass]="'show-as-image-button'"
+                      (click)="openDialog(1)"
+              ></app-primary-action-button>
+            </div>
+            <div class="col-12 d-flex justify-content-center mt-4 mb-2">
+              <app-primary-action-button
+                      [content]="'Näytä infrastruktuuriverkosto demo 2'"
+                      [svgSymbolName]="'lan'"
+                      [svgCssClass]="'show-as-image-button'"
+                      (click)="openDialog(2)"
+              ></app-primary-action-button>
+            </div>
+          </div>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card appearance="outlined">
+          <div class="inner">
+            <mat-card-title
+            >
+              <h2>
+                <ng-container i18n="@@relatedInfrastructures"
+                >Hae infrastruktuuriin liittyvät
+                </ng-container
+                >
+                (
+                <ng-container i18n="@@comingSoon">tulossa</ng-container>
+                )
+              </h2>
+            </mat-card-title
             >
             <app-related-links
                     [id]=""
@@ -473,3 +538,187 @@
     </div>
   </div>
 </div>
+
+
+<app-dialog
+        *ngIf="(showDialog | async) === true"
+        [template]="infrastructureNetworkGraph"
+        [title]="'Infrastruktuuriverkosto'"
+        (onActionClick)="doDialogAction($event)"
+        [actions]="currentDialogActions"
+></app-dialog>
+
+<!-- Enable or disable automatic publishing modal template (general info) -->
+<ng-template #infrastructureNetworkGraph>
+  <div class="row mini-modal-width w-100">
+    <p>Näet kuvasta mihin infrastruktuureihin <span
+            class="fw-bold">{{ responseData.infrastructures[0].acronym }}</span>
+      ({{ responseData.infrastructures[0].name }}) on yhteydessä.<br/>Saat lisätietoja
+      verkoston infrastruktuureista klikkaamalla.</p>
+    <app-vis class="vis-component" [infraId]="selectedInfraId" [rootId]="infraRootId | async" [nodeList]="nodeList"
+             [edges]="edges" (selectedNodeId)="infraNodeClick($event)"></app-vis>
+
+
+    <div class="d-flex flex-column dropdown-container">
+
+      <!-- Is part of dropdown -->
+      <!--
+  <div ngCombobox readonly class="is-part-of-select-combobox">
+    <div class="select-heading">
+      <span class="selected-label-text">{{ modalInfraData.infrastructures[0].acronym }}</span>
+    </div>
+    <div #origin class="select">
+    <span class="combobox-label">
+  <span class="selected-label-text">On osa infrastruktuureja</span>
+</span>
+      <input aria-label="Label dropdown" placeholder="Select a label" ngComboboxInput/>
+      <span class="example-arrow material-symbols-outlined" translate="no" aria-hidden="true"
+      >arrow_drop_down</span
+      >
+    </div>
+
+    <ng-template ngComboboxPopupContainer>
+      <ng-template
+              [cdkConnectedOverlay]="{origin, usePopover: 'inline', matchWidth: true}"
+              [cdkConnectedOverlayOpen]="true"
+      >
+        <div class="is-part-of-popup-container">
+          <div ngListbox>
+            @for (label of isPartOfLabels; track label) {
+              <div ngOption [value]="label" [label]="label">
+                <span class="example-option-text">{{ label }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+-->
+      <div class="relations-dropdown-container">
+        <div class="relations-heading">Verkosto: {{ responseData.infrastructures[0].acronym }}</div>
+        @if (isPartOfLabels.length > 0) {
+          <div class="relations-sub-heading" (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">On osa
+            infrastruktuureja
+          </div>
+          @if (isPartOfLabelsVisible) {
+            @for (label of isPartOfLabels; track label) {
+              <div>{{ label }}</div>
+            }
+          }
+        }
+        @if (hasPartLabels.length > 0) {
+          <div class="relations-sub-heading" (click)="hasPartLabelsVisible = !hasPartLabelsVisible">Sisältää
+            infrastruktuurit
+          </div>
+          @if (hasPartLabelsVisible) {
+            @for (label of hasPartLabels; track label) {
+              <div>{{ label }}</div>
+            }
+          }
+        }
+      </div>
+<!--
+        &lt;!&ndash; Has part dropdown &ndash;&gt;
+        <div ngCombobox readonly class="has-part-select-combobox">
+          <div #origin class="select">
+        <span class="combobox-label">
+      <span class="selected-label-text">Kuuluu infrastruktuureihin</span>
+    </span>
+            <input aria-label="Label dropdown" placeholder="Select a label" ngComboboxInput/>
+            <span class="example-arrow material-symbols-outlined" translate="no" aria-hidden="true"
+            >arrow_drop_down</span
+            >
+          </div>
+
+          <ng-template ngComboboxPopupContainer>
+            <ng-template
+                    [cdkConnectedOverlay]="{origin, usePopover: 'inline', matchWidth: true}"
+                    [cdkConnectedOverlayOpen]="true"
+            >
+              <div class="has-part-popup-container">
+                <div ngListbox>
+                  @for (label of hasPartLabels; track label) {
+                    <div ngOption [value]="label" [label]="label">
+                      <span class="example-option-text">{{ label }}</span>
+                      <span
+                              class="example-option-check material-symbols-outlined"
+                              translate="no"
+                              aria-hidden="true"
+                      >check</span
+                      >
+                    </div>
+                  }
+                </div>
+              </div>
+            </ng-template>
+          </ng-template>
+        </div>-->
+      </div>
+
+
+    </div>
+    <div class="row">
+      <div class="infra-network-modal-legend">
+        <!--<h2 class="result-header mb-3">Valitun infrastruktuurin tiedot</h2>-->
+        <div class="row">
+          <div class="col-3 d-flex">
+            <div class="vr"></div>
+            <div class="">
+              <h3>
+                <span class="">{{ modalInfoFielLabels.acronym }}</span>
+              </h3>
+              <p><span class="fw-bold">{{ modalInfraData.infrastructures[0]?.acronym }}</span>
+                - {{ modalInfraData.infrastructures[0]?.name }}</p>
+              <a [routerLink]="'/results/infrastructure/' + selectedInfraId" (click)="navigateToSelectedInfra()">
+                <p class="fw-bold">
+                  Siirry infrastruktuurin sivulle
+                </p>
+              </a>
+            </div>
+          </div>
+          <div class="col-auto d-flex">
+            <div class="vr"></div>
+            <div class="">
+              <h3>
+                <span class="pe-1">{{ modalInfoFielLabels.startYear }}</span>
+              </h3>
+              <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
+            </div>
+          </div>
+          <div class="col-4 d-flex">
+            <div class="vr"></div>
+            <div class="">
+              <h3>
+                <span class="pe-1">{{ modalInfoFielLabels.description }}</span>
+              </h3>
+              <p>{{ modalInfraData.infrastructures[0]?.description }}</p>
+            </div>
+          </div>
+          <div class="col-3 d-flex">
+            <div class="vr"></div>
+            <div class="">
+              <h3>
+                <span class="">{{ modalInfoFielLabels.relationToOtherInfras }}</span>
+              </h3>
+              <p><span class="fw-bold">{{ modalInfraData.infrastructures[0]?.acronym }}</span>
+                @if (isPartOfLabels.length > 0) {
+                  <div>On osa <a (click)="isPartOfLabelsVisible = true" href="javascript:void(0)"><span class="fw-bold" (>{{isPartOfLabels.length}} infrastrukruuria</span></a></div>
+                }
+                @if (hasPartLabels.length > 0) {
+                  <div>Sisältää <a (click)="hasPartLabelsVisible = true" href="javascript:void(0)"><span class="fw-bold" (click)="hasPartLabelsVisible = true">{{hasPartLabels.length}} infrastruktuuria</span></a></div>
+                }
+
+              <br/>
+              <a (click)="reloadNewInfra(modalInfraData.infrastructures[0]?.acronym)" href="javascript:void(0)">
+                <p class="fw-bold">
+                  Näytä verkosto
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</ng-template>
+

@@ -8,7 +8,7 @@
 import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
 
 @Component({
@@ -18,14 +18,12 @@ import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-
     encapsulation: ViewEncapsulation.None,
     standalone: true,
     imports: [
-        MatButtonToggleGroup,
-        NgFor,
-        MatButtonToggle,
-        NgIf,
-        MatCheckbox,
-        MatRadioGroup,
-        MatRadioButton,
-    ],
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    MatCheckbox,
+    MatRadioGroup,
+    MatRadioButton
+],
 })
 export class ButtonGroupComponent {
   @Input() multiple: boolean;

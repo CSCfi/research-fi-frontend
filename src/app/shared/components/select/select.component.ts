@@ -16,7 +16,7 @@ import {
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-select',
@@ -25,13 +25,11 @@ import { NgIf, NgFor } from '@angular/common';
     encapsulation: ViewEncapsulation.None,
     standalone: true,
     imports: [
-        NgIf,
-        MatFormField,
-        MatLabel,
-        MatSelect,
-        NgFor,
-        MatOption,
-    ],
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption
+],
 })
 export class SelectComponent implements OnInit {
   @Input() options: any[];

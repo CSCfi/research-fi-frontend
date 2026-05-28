@@ -1,0 +1,32 @@
+.tooltip:hover:after {
+  background:rgba(0,0,0,0.85);
+  color:#fff;
+  content:attr(rel);
+  display:block;
+  margin-top:-42px;
+  position:absolute;
+  white-space:nowrap;
+  padding:4px
+}
+
+.test {
+  background: green !important;
+}
+
+.test:hover:after {
+  background:rgba(0,0,0,0.85);
+  color:#fff;
+  content:attr(rel);
+  display:block;
+  margin-top:-42px;
+  position:absolute;
+  white-space:nowrap;
+  padding:4px
+}
+
+#vis-network {
+  background-color: #fff;
+  border: 1px solid var(--purple-dark-2, #9F9FD4) !important;
+  border-radius: 4px;
+  height: 100%;
+}

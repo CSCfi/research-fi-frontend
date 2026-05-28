@@ -3,12 +3,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 :license: MIT -->
 
-<div *ngIf="currentTab.data === 'publications'">
-  <h4>Ehdotuksia:</h4>
-  <div
-    class="suggests col-center col"
-    *ngFor="let suggest of suggests?.options"
-  >
-    <li (click)="navigate(suggest.text)">{{ suggest.text }}</li>
+@if (currentTab.data === 'publications') {
+  <div>
+    <h4>Ehdotuksia:</h4>
+    @for (suggest of suggests?.options; track suggest) {
+      <div
+        class="suggests col-center col"
+        >
+        <li (click)="navigate(suggest.text)">{{ suggest.text }}</li>
+      </div>
+    }
   </div>
-</div>
+}
