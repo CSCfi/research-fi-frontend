@@ -427,6 +427,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   private selectedServiceIndex: number = undefined;
   selectedInfraId = '';
   selectedInfraNodeId = '';
+  selectedInfraName = '';
   infraPageLink = '/results/infrastructures/';
   showDialog  = new BehaviorSubject(undefined);
   infraRootId  = new BehaviorSubject(undefined);
@@ -536,7 +537,6 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
   getInfraNetworkData(id?: string){
     this.infraNetworkSub = this.singleService.getInfrastructureNetworkData(undefined).subscribe({next: (responseData) => {
-      console.log('infra network data', responseData);
       this.infraNetworkResponseData = responseData;
       },
       error: (error) => (this.errorMessage = error as any)
@@ -560,7 +560,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         } else if (node.nodeTypeInternational) {
           tempNodeList.push({
             id: node.internalId,
-            label: node.nodeTypeInternational.internationalInfraWeblink,
+            label: node.nodeTypeInternational.internationalInfraName,
             length: this.edgeLength
           });
         }
@@ -568,7 +568,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
     tempEdges.forEach((edge) => {
       if (edge?.relationFrom && edge?.relationTo) {
-        tempEdgeList.push({from: edge.relationFrom?.internalId, to: edge.relationTo?.internalId, length: this.edgeLength});
+        tempEdgeList.push({to: edge.relationFrom?.internalId, from: edge.relationTo?.internalId, length: this.edgeLength});
       }
     });
     this.nodeList = tempNodeList;
@@ -779,8 +779,9 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   infraNodeClick(nodeId: number){
-    let nodeInfraId = this.nodeList.filter(node => node.id === nodeId);
-    this.getData(nodeInfraId[0].infraId, true);
+    let selectedInfraNode = this.nodeList.filter(node => node.id === nodeId);
+    this.selectedInfraName = selectedInfraNode[0].label;
+    this.getData(selectedInfraNode[0].infraId, true);
     this.calculateIsPartOf(nodeId);
     this.calculateHasPart(nodeId);
   }

@@ -596,10 +596,10 @@
   </div>
 -->
       <div class="relations-dropdown-container">
-        <div class="relations-heading">Verkosto: {{ modalInfraData.infrastructures[0].acronym }}</div>
+        <div class="relations-heading">Verkosto: {{ selectedInfraName }}</div>
         @if (isPartOfLabels.length > 0) {
           <div class="relations-sub-heading" (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">On osa
-            infrastruktuureja
+            infrastruktuureja:
           </div>
           @if (isPartOfLabelsVisible) {
             @for (label of isPartOfLabels; track label) {
@@ -609,7 +609,7 @@
         }
         @if (hasPartLabels.length > 0) {
           <div class="relations-sub-heading" (click)="hasPartLabelsVisible = !hasPartLabelsVisible">Sisältää
-            infrastruktuurit
+            infrastruktuurit:
           </div>
           @if (hasPartLabelsVisible) {
             @for (label of hasPartLabels; track label) {
