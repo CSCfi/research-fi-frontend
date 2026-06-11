@@ -3,6 +3,15 @@ import { ElementRef, Renderer2 } from '@angular/core';
 import { Network } from 'vis-network/standalone';
 import { TooltipContainerComponent } from 'ngx-bootstrap/tooltip';
 import { Subscription } from 'rxjs';
+import { toInteger } from 'lodash-es';
+
+export interface visualizationData {
+  nodeList: [];
+  edges: [];
+  rootId: string;
+  selectedNodeId?: number;
+}
+
 
 @Component({
   selector: 'app-vis',
@@ -17,17 +26,53 @@ export class VisComponent implements OnInit, OnDestroy {
   @Input() infraId?: string;
   @Input() visualizationWidth?: number;
   @Input() visualizationHeight?: number;
-  @Input() nodeList: any[]
-  @Input() edges: any[];
   @Output() selectedNodeId = new EventEmitter<string>();
 
-  _rootId: string | undefined = 'asd';
-  @Input() set rootId(value: string | undefined) {
-    if (this._rootId !== value) {
-      this._rootId = value;
+  private _nodeList: any[] = [];
+  @Input() set nodeList(value: any[]) {
+    this._nodeList = value;
+  }
+
+  get nodeList(): any[] {
+    return this._nodeList;
+  }
+
+  private _edges: any[] = [];
+  @Input() set edges(value: any[]) {
+    this._edges = value;
+  }
+
+  get edges(): any[] {
+    return this._edges;
+  }
+
+  private _visData: any;
+
+  @Input() set visData(value: any) {
+    if (value) {
+      this._visData = value;
+      this._edges = value.edges;
+      this._nodeList = value.nodeList;
+      this._rootId = value.rootId;
+      this._selectedNodeId = value.selectedNodeId;
+
       let treeData = this.generateNetworkData();
       this.container = this.networkContainer.nativeElement;
       this.loadVisTree(treeData);
+    }
+  }
+
+  get visData(): any {
+    return this._visData;
+  }
+
+  _selectedNodeId = undefined;
+  _rootId: string | undefined = 'default';
+
+
+  @Input() set rootId(value: string | undefined) {
+    if (this._rootId !== value) {
+      this._rootId = value;
     }
   }
 
@@ -59,8 +104,8 @@ export class VisComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.edges = this.edges.map(edge => {
-    edge.color = '#4546B9';
-    return edge;
+      edge.color = '#4546B9';
+      return edge;
     });
 
 
@@ -69,10 +114,10 @@ export class VisComponent implements OnInit, OnDestroy {
     this.loadVisTree(treeData);
   }
 
-  nodeClick(params: any){
+  nodeClick(params: any) {
     this.nodeList.filter(node => node.id === params.nodes[0]).map(node => {
       this.selectedNodeId.emit(node.id);
-    })
+    });
   }
 
   loadVisTree(treedata) {
@@ -80,17 +125,20 @@ export class VisComponent implements OnInit, OnDestroy {
       autoResize: true,
       interaction: {
         hover: true,
-        navigationButtons: true,
+        navigationButtons: true
       },
       manipulation: {
         enabled: false
+      },
+      layout: {
+        randomSeed: 1 // Change this number to try different static layouts
       },
       nodes: {
         shape: 'dot',
         size: 30,
         font: {
           size: 20,
-          color: '#000',
+          color: '#000'
         },
         color: {
           background: 'white',
@@ -110,7 +158,7 @@ export class VisComponent implements OnInit, OnDestroy {
             scaleFactor: 1
           }
         }
-      },
+      }
     };
 
     this.resizeObserver = new ResizeObserver(entries => {
@@ -171,6 +219,9 @@ export class VisComponent implements OnInit, OnDestroy {
 
     this.network.on('showPopup', function(params) {
     });
+    if (this._selectedNodeId){
+      this.network?.selectNodes([this._selectedNodeId]);
+    }
   }
 
   imaginaryDemoConnections = [
@@ -205,9 +256,9 @@ export class VisComponent implements OnInit, OnDestroy {
 
   generatedNodes = [];
 
-  setNodeColors(nodeList: any[]){
+  setNodeColors(nodeList: any[]) {
     return nodeList.map(node => {
-      if (node.id === this.rootId) {
+      if (node.id === toInteger(this._rootId)) {
         node.color = {
           border: '#068411',
           background: '#4546B9',
@@ -218,12 +269,11 @@ export class VisComponent implements OnInit, OnDestroy {
           hover: {
             background: '#C5C5E5',
             border: '#068411'
-          },
+          }
         };
         //node.font = { size: 20, color: '#068411', borderWidth: 5 };
         node.borderWidth = 7;
-      }
-      else {
+      } else {
         node.color = {
           background: '#E8E8F5',
           border: '#4546B9',
@@ -235,7 +285,7 @@ export class VisComponent implements OnInit, OnDestroy {
           hover: {
             background: '#C5C5E5',
             border: '#4546B9'
-          },
+          }
         };
         node.borderWidth = 2;
       }
