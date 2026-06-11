@@ -71,6 +71,10 @@ h4.th.classification {
   }
 }
 
+.infra-legend-column {
+  height: 300px;
+}
+
 .vis-network {
   background-color: #fff;
   border: 1px solid var(--purple-dark-2, #9F9FD4) !important;
@@ -106,6 +110,17 @@ h4.th.classification {
     color: #4546B9;
     cursor: pointer;
   }
+}
+
+.network-radio-button-container {
+  position: absolute;
+  top: 171px;
+  right: 49px;
+  width: 219px;
+  z-index: 5000;
+  padding: 6px 15px;
+  border: 1px solid #4546B9;
+  border-radius: 4px;
 }
 
 .dropdown-container {

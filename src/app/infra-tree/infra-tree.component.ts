@@ -53,7 +53,6 @@ export class InfraTreeComponent implements OnInit {
   }
 
   build3LevelTestTree(){
-    console.log('iid', this.infraId);
     let rootNode = this.getRootNodeAndChildren(this.infraId);
       let currentNodeChildren = this.getChildNodes(this.infraId);
       let currentNode: TreeNode = {name: this.infraId, value: this.infraId, hasChildren: false, children: currentNodeChildren};
