@@ -1,9 +1,11 @@
+@if (inputReceived) {
 <ul ngTree #tree="ngTree" [(values)]="selected" class="basic-tree">
   <ng-template
           [ngTemplateOutlet]="treeNodes"
           [ngTemplateOutletContext]="{nodes: nodes, parent: tree}"
   />
 </ul>
+
 <ng-template #treeNodes let-nodes="nodes" let-parent="parent">
   @for (node of nodes; track node.value) {
     <li class="d-flex justify-content-between"
@@ -41,3 +43,4 @@
     }
   }
 </ng-template>
+}

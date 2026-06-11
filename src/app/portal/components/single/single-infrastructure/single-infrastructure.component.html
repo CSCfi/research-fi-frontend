@@ -275,7 +275,7 @@
                 <ng-template #simpleServicePoints>
                   <p class="header trHeader">
                     {{ service?.name }}
-                    {{ service.acronym ? '(' + service.acronym + ')' : '' }}
+                    {{ service?.acronym ? '(' + service.acronym + ')' : '' }}
                   </p>
                 </ng-template>
               </div>
@@ -439,13 +439,13 @@
               >
                 <h2>
                   <ng-container i18n="@@test"
-                  >Infrastruktuuriverkosto
+                  >Lähi-infrastruktuurit
                   </ng-container
                   >
                 </h2>
               </mat-card-title
               >
-              <app-infra-tree [infraId]="selectedInfraId"></app-infra-tree>
+              <app-infra-tree [infraId]="selectedInfraId" [inputNodes]="testNodes"></app-infra-tree>
             </div>
             <div class="row">
               <div class="col-12 d-flex justify-content-center mt-4 mb-2">

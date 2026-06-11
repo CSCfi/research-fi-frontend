@@ -20,7 +20,23 @@ type TreeNode = {
   styleUrl: './infra-tree.component.scss'
 })
 export class InfraTreeComponent implements OnInit {
+  inputReceived = false;
+
   @Input() infraId?: string;
+  private _inputNodes: TreeNode[] = [];
+
+  @Input()
+  get inputNodes(): TreeNode[] {
+    return this._inputNodes;
+  }
+
+  set inputNodes(nodes: TreeNode[]) {
+    this.nodes = [...nodes];
+    this.inputReceived = true;
+    console.log('inputNodes set to', nodes);
+  }
+
+  @Input() hasPartArray?: string;
 
   imaginaryDemoConnections = [
     {"id": "ttv-202512000769763", "name": "FIN-ENV-RI", "isPartOf": [], "hasPart": ["ttv-202601000812049", "ttv-202602000823839", "ttv-202603000873597"]},
@@ -42,14 +58,13 @@ export class InfraTreeComponent implements OnInit {
   }
 
   getChildNodes(id: string): any[] {
-    console.log('getting child nodes for ', id, ' with connections ', this.imaginaryDemoConnections);
-    console.log('children found', this.imaginaryDemoConnections.filter(connection => connection.isPartOf.includes(id)).map(connection => connection));
     return this.imaginaryDemoConnections.filter(connection => connection.isPartOf.includes(id)).map(connection => connection);
   }
 
 
   ngOnInit(): void {
     this.build3LevelTestTree();
+    //this.nodes = this.inputNodes;
   }
 
   build3LevelTestTree(){
