@@ -67,6 +67,17 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { cloneDeep, toInteger } from 'lodash-es';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 
+type TreeNode = {
+  name: string;
+  value: string;
+  hasChildren?: boolean;
+  hasParent?: boolean;
+  children?: TreeNode[];
+  disabled?: boolean;
+  expanded?: boolean;
+  isCurrent?: boolean;
+};
+
 @Component({
   selector: 'app-single-infrastructure',
   templateUrl: './single-infrastructure.component.html',
@@ -123,6 +134,74 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
   isPartOfDropdownVisible = false;
   hasPartDropdownVisible = false;
+
+  testNodes: TreeNode[];
+
+  testNodes2: TreeNode[] = [
+    {
+      name: 'INAAAAAR RI',
+      value: 'ID_INAR_RI',
+      hasParent: true,
+      children: [
+        {
+          name: 'ACTIRS-FI',
+          value: 'ID_ACTIRS-FI',
+          hasChildren: true
+        },
+        {
+          name: 'ANAEE-FI',
+          value: 'ID_ANAEE-FI',
+          hasChildren: true
+        },
+        {
+          name: 'eLTER-FI',
+          value: 'ID_eLTER-FI',
+          hasChildren: true
+        },
+        {
+          name: 'ICOS Suomi',
+          value: 'ID_ICOS_Suomi',
+          isCurrent: true,
+          expanded: true,
+          children: [
+            {
+              name: 'Lettosuo',
+              value: 'ID_Lettosuo',
+              hasChildren: true
+            },
+            {
+              name: 'PALLAS',
+              value: 'ID_PALLAS',
+              hasChildren: true
+            },
+            {
+              name: 'SMEAR',
+              value: 'ID_SMEAR',
+              expanded: true,
+              children: [
+                { name: 'SMEAR1', value: 'ID_SMEAR1', hasChildren: true},
+                { name: 'SMEAR2', value: 'ID_SMEAR2', hasChildren: true},
+                { name: 'SMEAR3', value: 'ID_SMEAR3', hasChildren: true},
+                { name: 'SMEAR4', value: 'ID_SMEAR4', hasChildren: true},
+              ],
+            },
+            {
+              name: 'SODANKYLÄ',
+              value: 'ID_SODANKYLÄ',
+              hasChildren: true
+            },
+            {
+              name: 'UTÖ',
+              value: 'ID_UTÖ',
+              hasChildren: true
+            },
+          ]
+        },
+
+      ],
+      expanded: true
+    }
+  ];
 
   tab = 'infrastructures';
   infoFields = [
@@ -473,6 +552,9 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     return values.length ? values[0] : 'Select a label';
   });
 
+  isPartOfConnectionsForTree = [];
+  hasPartConnectionsForTree = [];
+
 
   isPartOfLabelsUpper = [];
   hasPartLabelsUpper = [];
@@ -564,12 +646,17 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   getInfraNetworkData(id?: string) {
-    this.infraNetworkSub = this.singleService.getInfrastructureNetworkData(undefined).subscribe({
-      next: (responseData) => {
-        this.infraNetworkResponseData = responseData;
-      },
-      error: (error) => (this.errorMessage = error as any)
-    });
+    if (id) {
+      this.infraNetworkSub = this.singleService.getInfrastructureNetworkData(undefined).subscribe({
+        next: (responseData) => {
+          this.infraNetworkResponseData = responseData;
+          this.processInfraNetworkData(this.infraNetworkResponseData);
+          this.changeNetworkSize(this.reduceNetworkSize);
+
+        },
+        error: (error) => (this.errorMessage = error as any)
+      });
+    }
   }
 
   processInfraNetworkData(data: any) {
@@ -604,6 +691,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         });
       }
     });
+
     this.nodeList = tempNodeList;
     this.edges = tempEdgeList;
     this.visibleNodes.next(tempNodeList);
@@ -612,6 +700,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.calculateIsPartOf(toInteger(this.infraRootId.getValue()), true);
     this.calculateHasPart(toInteger(this.infraRootId.getValue()), true);
     this.rootId = this.infraRootId.getValue();
+
+    this.calculateConnectionsForTree();
 
     const rootNode = this.nodeList.filter(node => node.id === toInteger(this.rootId));
     this.rootNodeName = rootNode[0].label;
@@ -645,14 +735,14 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   getData(id: string, isModalData: boolean) {
-    this.selectedInfraId = id;
+    //this.selectedInfraId = id;
     this.dataSub = this.singleService.getSingleInfrastructure(id).subscribe({
       next: (responseData) => {
 
         if (isModalData) {
           // Reload modal data
           this.modalInfraData = responseData;
-          this.infraRootId.next(this.nodeList.filter(node => node.label === this.responseData.infrastructures[0]?.acronym)[0]?.id);
+          //this.infraRootId.next(this.nodeList.filter(node => node.label === this.responseData.infrastructures[0]?.acronym)[0]?.id);
           //this.shapeData(isModalData);
           //this.filterData(isModalData);
           return;
@@ -803,17 +893,72 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   openDialog(infraNumber: number) {
-    if (infraNumber === 1) {
-      this.nodeList = [...this.nodeListDemo1];
-      this.edges = [...this.edgesDemo1];
-    } else if (infraNumber === 2) {
-      this.nodeList = [...this.nodeListDemo2];
-      this.edges = [...this.edgesDemo2];
-    } else {
-      this.processInfraNetworkData(this.infraNetworkResponseData);
-      this.changeNetworkSize(this.reduceNetworkSize);
-    }
     this.showDialog.next(true);
+  }
+
+  calculateConnectionsForTree(){
+    this.edges.filter(node => node.from === this.infraRootId.getValue()).forEach(edge => {
+      this.nodeList.filter(node => {
+        if (node.id === edge.to) {
+         this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label });
+        }
+        ;
+      });
+    });
+    this.edges.filter(node => node.to === this.infraRootId.getValue()).forEach(edge => {
+      this.nodeList.filter(node => {
+        if (node.id === edge.from) {
+         this.hasPartConnectionsForTree.push({ id: node.id, label: node.label });
+        }
+        ;
+      });
+    });
+    let rootNodeName = this.nodeList.filter(node => node.id === this.infraRootId.getValue())[0].label;
+    this.generateInfraTrees(rootNodeName);
+  }
+
+  generateInfraTrees(rootNodeName: string){
+    let nodes = [
+      {
+        name: rootNodeName,
+        value: this.infraRootId.getValue(),
+        hasParent: false,
+        isCurrent: true,
+        children: [],
+        expanded: true,
+      }];
+    let childNodes = [];
+    this.hasPartConnectionsForTree.forEach(node => {
+      let childNode = {
+        name: node.label,
+        value: node.id,
+        hasParent: true,
+        expanded: true,
+      };
+      childNodes.push(childNode);
+    });
+    nodes[0].children = childNodes;
+
+    let rootTrees = [];
+
+    if (this.isPartOfConnectionsForTree.length > 0){
+      this.isPartOfConnectionsForTree.forEach(node => {
+        let childNode = {
+          name: node.label,
+          value: node.id + '',
+          hasParent: true,
+          expanded: true,
+          children: []
+        };
+        childNode.children.push(nodes[0]);
+        rootTrees.push(childNode);
+      });
+    } else {
+      rootTrees.push(nodes[0]);
+    }
+
+
+    this.testNodes = rootTrees;
   }
 
   calculateIsPartOf(selectedNodeId: number, isUpperLegend: boolean) {
@@ -892,8 +1037,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     // Use unfiltered data
     this.changeNetworkSize(false);
 
-    // This updates the bottom legend texts
-    this.responseData = cloneDeep(this.modalInfraData);
+    this.visData.next({
+      edges: [...this.edges],
+      nodeList: [...this.nodeList],
+      rootId: '' + this.infraRootId.getValue()
+    });
   }
 
   navigateToSelectedInfra() {
