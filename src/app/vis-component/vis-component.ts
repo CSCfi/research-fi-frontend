@@ -179,7 +179,7 @@ export class VisComponent implements OnInit, OnDestroy {
     this.network.canvas.body.container.style.cursor = 'drag';
 
     let that = this;
-    this.network.on('hoverEdge', function(params) {
+/*    this.network.on('hoverEdge', function(params) {
       that.showVisTooltip = true;
       that.network.canvas.body.container.style.cursor = 'default';
       const edgeTooltip = that.getEdgeTooltip(params.edge);
@@ -192,7 +192,7 @@ export class VisComponent implements OnInit, OnDestroy {
 
       //that.network.canvas.body.container.title = edgeTooltip;
       that.visTooltipText = edgeTooltip;
-    });
+    });*/
 
     this.network.on('blurEdge', function(params) {
       that.showVisTooltip = false;

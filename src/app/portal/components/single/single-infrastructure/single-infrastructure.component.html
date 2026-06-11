@@ -49,7 +49,7 @@
       <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
       <br/>
 
-      @if (this.infraServices.length > 0) {
+
         <div *ngFor="let item of [responseData.infrastructures[0]]">
           <h1 class="result-header">{{ item?.name }}</h1>
           <div id="info">
@@ -391,7 +391,6 @@
             </div>
           </div>
         </div>
-      }
     </main>
 
     <!-- Sidebar -->
@@ -399,7 +398,7 @@
     @if (responseData?.infrastructures[0]) {
       <div
               *ngFor="let item of [responseData.infrastructures[0]]"
-              class="col-12 col-md-4"
+              class="col-12 col-md-4"@
       >
         <aside>
           <mat-card appearance="outlined">
