@@ -119,7 +119,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   private metaTags = MetaTags.singleInfrastructure;
   private commonTags = MetaTags.common;
   viewportScroller = inject(ViewportScroller);
-  reduceNetworkSize = false;
+  reduceNetworkSize = true;
 
   isPartOfDropdownVisible = false;
   hasPartDropdownVisible = false;
@@ -811,6 +811,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       this.edges = [...this.edgesDemo2];
     } else {
       this.processInfraNetworkData(this.infraNetworkResponseData);
+      this.changeNetworkSize(this.reduceNetworkSize);
     }
     this.showDialog.next(true);
   }
