@@ -119,6 +119,7 @@ export class FundingAdapter implements Adapter<Funding> {
           recipientObj.roleInFundingGroup = {
             labelFi: 'Johtaja',
             labelEn: 'Leader',
+            labelSv: 'Ledare',
           };
           break;
         }
@@ -126,6 +127,7 @@ export class FundingAdapter implements Adapter<Funding> {
           recipientObj.roleInFundingGroup = {
             labelFi: 'Partneri',
             labelEn: 'Partner',
+            labelSv: 'Partner',
           };
           break;
         }
