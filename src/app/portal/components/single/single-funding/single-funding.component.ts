@@ -377,7 +377,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     let output = "Suomen Akatemia";
 
     if (locale === 'en') {
-      output = "Academy of Finland";
+      output = "Research Council of Finland";
     }
 
     if (locale === 'sv') {
