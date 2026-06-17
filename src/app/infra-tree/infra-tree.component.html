@@ -1,0 +1,46 @@
+@if (inputReceived) {
+<ul ngTree #tree="ngTree" [(values)]="selected" class="basic-tree">
+  <ng-template
+          [ngTemplateOutlet]="treeNodes"
+          [ngTemplateOutletContext]="{nodes: nodes, parent: tree}"
+  />
+</ul>
+
+<ng-template #treeNodes let-nodes="nodes" let-parent="parent">
+  @for (node of nodes; track node.value) {
+    <li class="d-flex justify-content-between"
+            ngTreeItem
+            [parent]="parent"
+            [value]="node.value"
+            [label]="node.name"
+            [disabled]="node.disabled"
+            [(expanded)]="node.expanded"
+            #treeItem="ngTreeItem"
+    >
+      <span aria-hidden="true" class="material-symbols-outlined expand-icon" translate="no">{{
+          node.children ? 'chevron_right' : ''
+        }}</span>
+      <span class="d-flex justify-content-between w-100">
+      <span>
+        <div class="text-padder infra-name" [class.clickable-infra]="node.infraId" [class.current-node]="node.isCurrent"] (click)="navigateToInfraLink(node.infraId)">
+      {{ node.name }}
+        </div>
+        </span>
+           <span aria-hidden="true" class="material-symbols-outlined" translate="no" (click)="navigateToInfraLink(node.infraId)">{{
+               node.infraId ? 'arrow_circle_right' : ''
+              }}</span>
+        </span>
+    </li>
+    @if (node.children) {
+      <ul role="group">
+        <ng-template ngTreeItemGroup [ownedBy]="treeItem" #group="ngTreeItemGroup">
+          <ng-template
+                  [ngTemplateOutlet]="treeNodes"
+                  [ngTemplateOutletContext]="{nodes: node.children, parent: group}"
+          />
+        </ng-template>
+      </ul>
+    }
+  }
+</ng-template>
+}

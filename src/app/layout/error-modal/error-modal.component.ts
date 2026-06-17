@@ -69,6 +69,7 @@ export class ErrorModalComponent implements OnInit {
   }
 
   openModal(template) {
+
     if (this.error.status) {
       if (this.cmsError) {
         this.dialogTitle = $localize`:@@dataFetchError:Virhe tiedon hakemisessa`;
