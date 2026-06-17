@@ -619,6 +619,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     // Init expand and show lists
     this.infoFields.forEach((_) => this.infoExpand.push(false));
     this.serviceFields.forEach((_) => this.serviceExpand.push(false));
+    this.infraServices = [];
     this.responseData.infrastructures[0].services.forEach((service, idx) => {
       this.infraServices.push({ serviceName: service.name, serviceDescription: service.description });
       this.showService.push(false);
