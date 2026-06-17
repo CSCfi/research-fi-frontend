@@ -33,7 +33,7 @@ import { MatCard, MatCardTitle } from '@angular/material/card';
 import { OrcidComponent } from '../../../../shared/components/orcid/orcid.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
-import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe, JsonPipe } from '@angular/common';
+import { NgClass, DatePipe, JsonPipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -43,28 +43,23 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './single-project.component.html',
     styleUrls: ['./single-project.component.scss'],
     imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        NgClass,
-        NgSwitch,
-        NgSwitchDefault,
-        OrcidComponent,
-        NgSwitchCase,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        DatePipe,
-        ThousandSeparatorPipe,
-        JsonPipe,
-        MatIcon,
-        SvgSpritesComponent
-    ]
+    SearchBarComponent,
+    RouterLink,
+    BreadcrumbComponent,
+    TooltipModule,
+    NgClass,
+    OrcidComponent,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    DatePipe,
+    ThousandSeparatorPipe,
+    JsonPipe,
+    MatIcon,
+    SvgSpritesComponent
+]
 })
 export class SingleProjectComponent implements OnInit, OnDestroy {
   public singleId: any;

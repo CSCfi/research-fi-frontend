@@ -40,6 +40,13 @@
   padding: 0.1rem 0.8rem 0.1rem 0.5em;
   color: var(--purple-primary);
 }
+
+:focus-visible {
+  outline: 2px transparent solid !important;
+  box-shadow: none !important;
+  z-index: 55;
+}
+
 [ngTreeItem][aria-disabled='true'] {
   opacity: 0.5;
   cursor: default;
@@ -85,4 +92,13 @@ li[aria-expanded='false'] + ul[role='group'] {
   color: #fff;
   padding: 0px 7px;
   border-radius: 4px;
+}
+
+.infra-name {
+  &.clickable-infra {
+    text-decoration: underline;
+    &:hover {
+      font-weight: bold;
+    }
+  }
 }

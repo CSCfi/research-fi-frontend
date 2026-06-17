@@ -1,45 +1,44 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <div
   class="table-card p-3 my-3"
   [class.active]="active"
   [class.selected]="selected"
->
-  <div
-    class="row py-2"
-    *ngFor="let column of columns"
-    [class.selection]="column.key === 'selection'"
   >
+  @for (column of columns; track column) {
     <div
-      class="px-0 py-1"
-      [ngClass]="column.cardClass ? column.cardClass : 'col'"
-      [ngSwitch]="column.key"
-      [class.text-end]="column.key === 'selection'"
-      [class.text-end]="column.key === 'selection'"
-    >
-      <!-- Display column header -->
-      <div class="fw-bold pb-2" *ngIf="!column.labelHiddenMobile">
-        <span [class.pe-2]="column.tooltip">{{ column.label }}</span>
-          <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-      </div>
-
-      <!-- Selectable row -->
-      <ng-container *ngSwitchCase="'selection'">
-        <mat-checkbox
-          #rowSelect
-          [checked]="selected"
-          (change)="handleSelection($event)"
+      class="row py-2"
+      [class.selection]="column.key === 'selection'"
+      >
+      <div
+        class="px-0 py-1"
+        [ngClass]="column.cardClass ? column.cardClass : 'col'"
+        [class.text-end]="column.key === 'selection'"
+        [class.text-end]="column.key === 'selection'"
         >
-        </mat-checkbox>
-      </ng-container>
-
-      <app-table-cell
-        *ngSwitchDefault
-        [data]="row[column.key]"
-      ></app-table-cell>
+        <!-- Display column header -->
+        @if (!column.labelHiddenMobile) {
+          <div class="fw-bold pb-2">
+            <span [class.pe-2]="column.tooltip">{{ column.label }}</span>
+            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+          </div>
+        }
+        <!-- Selectable row -->
+        @if (column.key === 'selection') {
+          <mat-checkbox
+            #rowSelect
+            [checked]="selected"
+            (change)="handleSelection($event)"
+            >
+          </mat-checkbox>
+        }
+        @else {
+        <app-table-cell [data]="row[column.key]"></app-table-cell>
+      }
     </div>
   </div>
+}
 </div>

@@ -21,13 +21,13 @@
           node.children ? 'chevron_right' : ''
         }}</span>
       <span class="d-flex justify-content-between w-100">
-      <span [class.fw-bold]="node.children">
-        <div class="text-padder" [class.current-node]="node.isCurrent"]>
+      <span>
+        <div class="text-padder infra-name" [class.clickable-infra]="node.infraId" [class.current-node]="node.isCurrent"] (click)="navigateToInfraLink(node.infraId)">
       {{ node.name }}
         </div>
         </span>
-           <span aria-hidden="true" class="material-symbols-outlined" translate="no">{{
-               node.hasChildren ? 'arrow_circle_right' : (!node.hasChildren && !node.children) ? '' : node.expanded ? '' : ''
+           <span aria-hidden="true" class="material-symbols-outlined" translate="no" (click)="navigateToInfraLink(node.infraId)">{{
+               node.infraId ? 'arrow_circle_right' : ''
               }}</span>
         </span>
     </li>

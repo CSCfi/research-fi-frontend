@@ -1,14 +1,14 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <div
   class="mx-auto"
   id="navbar-toggle"
   [class.d-block]="showButton"
   [class.d-none]="!mobile"
->
+  >
   <app-secondary-button
     [content]="filterHeading"
     [svgSymbolName]="'sliders'"
@@ -26,112 +26,122 @@
 </ng-template>
 
 <!-- showButton enables mobile behaviour on desktop -->
-<ng-container *ngIf="!mobile && !showButton">
-  <mat-spinner
-    *ngIf="!responseData"
-    i18n-aria-label="@@loading"
-    aria-label="Ladataan"
-  ></mat-spinner>
+@if (!mobile && !showButton) {
+  @if (!responseData) {
+    <mat-spinner
+      i18n-aria-label="@@loading"
+      aria-label="Ladataan"
+    ></mat-spinner>
+  }
   <ng-container *ngTemplateOutlet="filters"></ng-container>
-</ng-container>
+}
 
 <ng-template #filters>
-  <div class="filter-sidebar" *ngIf="responseData">
-    <h3 class="header" *ngIf="!mobile && !showButton">
-        <app-svg-sprites [iconName]="'sliders'" cssClass="sliders-icon"></app-svg-sprites>{{ filterHeading }}
-    </h3>
-
-    <div class="filter-wrapper">
-      <mat-expansion-panel
-        *ngFor="let filter of currentFilter; let i = index"
-        class="parent"
-        [expanded]="filter.open"
+  @if (responseData) {
+    <div class="filter-sidebar">
+      @if (!mobile && !showButton) {
+        <h3 class="header">
+          <app-svg-sprites [iconName]="'sliders'" cssClass="sliders-icon"></app-svg-sprites>{{ filterHeading }}
+        </h3>
+      }
+      <div class="filter-wrapper">
+        @for (filter of currentFilter; track filter; let i = $index) {
+          <mat-expansion-panel
+            class="parent"
+            [expanded]="filter.open"
         [hidden]="
           filter.field === 'field' &&
           (filter.label === 'Hakuala' ||
             filter.label === 'Category' ||
             filter.label === 'Ämnesområde')
         "
-        (opened)="setOpenStatus(filter.field)"
-        (closed)="closePanel(filter.field)"
-      >
-        <mat-expansion-panel-header
-          expandedHeight="{{ panelHeight }}"
-          collapsedHeight="{{ panelHeight }}"
-          [ngClass]="filter.hasSubFields ? 'has-children' : 'single'"
-        >
-          <mat-panel-title>
-            <div class="row d-flex justify-content-between">
-              <!-- Show / hide sub filters -->
-              <div *ngIf="filter.hasSubFields" class="col col-1">
-                <button tabindex="-1" class="show-options">
-                  <span *ngIf="!filter.open">
-                      <app-svg-sprites [iconName]="'plus'" cssClass="plus-icon"></app-svg-sprites>
-                  </span>
-                  <span *ngIf="filter.open">
-                      <app-svg-sprites [iconName]="'minus'" cssClass="minus-icon"></app-svg-sprites>
-                  </span>
-                </button>
+            (opened)="setOpenStatus(filter.field)"
+            (closed)="closePanel(filter.field)"
+            >
+            <mat-expansion-panel-header
+              expandedHeight="{{ panelHeight }}"
+              collapsedHeight="{{ panelHeight }}"
+              [ngClass]="filter.hasSubFields ? 'has-children' : 'single'"
+              >
+              <mat-panel-title>
+                <div class="row d-flex justify-content-between">
+                  <!-- Show / hide sub filters -->
+                  @if (filter.hasSubFields) {
+                    <div class="col col-1">
+                      <button tabindex="-1" class="show-options">
+                        @if (!filter.open) {
+                          <span>
+                            <app-svg-sprites [iconName]="'plus'" cssClass="plus-icon"></app-svg-sprites>
+                          </span>
+                        }
+                        @if (filter.open) {
+                          <span>
+                            <app-svg-sprites [iconName]="'minus'" cssClass="minus-icon"></app-svg-sprites>
+                          </span>
+                        }
+                      </button>
+                    </div>
+                  }
+                  <!-- Filter label -->
+                  <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
+                    <span class="pe-2">{{ filter?.label }}</span>
+                    @if (filter.tooltip) {
+                      <ng-template #tooltipTemplate1>
+                        <div [innerHtml]="filter?.tooltip"></div>
+                      </ng-template>
+                      <span
+                        [tooltip]="tooltipTemplate1"
+                        tabindex="0"
+                        placement="top"
+                        #elem
+                        >
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
+                      </span>
+                    }
+                    @if (filter.errorTooltip) {
+                      <ng-template #tooltipTemplate2>
+                        <div [innerHtml]="filter?.errorTooltip"></div>
+                      </ng-template>
+                      <span
+                        class="ml-2"
+                        [tooltip]="tooltipTemplate2"
+                        tabindex="0"
+                        placement="top"
+                        #elem
+                        ><app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
+                      </span>
+                    }
+                  </div>
+                  <!-- <div class="col" [ngClass]="filter.hasSubFields ? 'col-1 px-2 text-start' : 'col-1 pe-0 text-end'" *ngIf="filter?.tooltip">
+                  <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltip"></div></ng-template>
+                  <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                </div>
+                <div class="col" *></div> -->
               </div>
-              <!-- Filter label -->
-              <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
-                <span class="pe-2">{{ filter?.label }}</span>
-                <ng-container *ngIf="filter.tooltip">
-                  <ng-template #tooltipTemplate>
-                    <div [innerHtml]="filter?.tooltip"></div>
-                  </ng-template>
-                  <span
-                    [tooltip]="tooltipTemplate"
-                    tabindex="0"
-                    placement="top"
-                    #elem
-                  >
-                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
-                  </span>
-                </ng-container>
-                <ng-container *ngIf="filter.errorTooltip">
-                  <ng-template #tooltipTemplate>
-                    <div [innerHtml]="filter?.errorTooltip"></div>
-                  </ng-template>
-                  <span
-                    class="ml-2"
-                    [tooltip]="tooltipTemplate"
-                    tabindex="0"
-                    placement="top"
-                    #elem
-                  ><app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
-                  </span>
-                </ng-container>
-              </div>
-              <!-- <div class="col" [ngClass]="filter.hasSubFields ? 'col-1 px-2 text-start' : 'col-1 pe-0 text-end'" *ngIf="filter?.tooltip">
-                                <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltip"></div></ng-template>
-                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
-                            </div>
-                            <div class="col" *></div> -->
-            </div>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <!-- Co publications toggle -->
-        <div class="row" *ngIf="filter.relatedPublications">
-          <div class="col py-3">
-            <mat-slide-toggle
-              class="slider"
-              (change)="selectionChange('coPublication', true)"
-              (keydown.enter)="selectionChange('coPublication', true)"
-              [labelPosition]="'before'"
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- Co publications toggle -->
+          @if (filter.relatedPublications) {
+            <div class="row">
+              <div class="col py-3">
+                <mat-slide-toggle
+                  class="slider"
+                  (change)="selectionChange('coPublication', true)"
+                  (keydown.enter)="selectionChange('coPublication', true)"
+                  [labelPosition]="'before'"
               [checked]="
                 (activeFilters ? activeFilters.coPublication?.length : 0) > 0
               "
-            >
-              <strong>
-                <ng-container i18n="@@filterCoPublications"
-                  >Näytä ainoastaan yhteisjulkaisut</ng-container
-                >
-              </strong>
-            </mat-slide-toggle>
-            <div class="ps-2 d-inline-block">
-              <ng-template #tooltipTemplate>
-                <div i18n="@@filterCoPublicationsTooltip">
+                  >
+                  <strong>
+                    <ng-container i18n="@@filterCoPublications"
+                      >Näytä ainoastaan yhteisjulkaisut</ng-container
+                      >
+                    </strong>
+                  </mat-slide-toggle>
+                  <div class="ps-2 d-inline-block">
+                    <ng-template #tooltipTemplate3>
+                      <div i18n="@@filterCoPublicationsTooltip">
                   Valitsemalla ”näytä ainoastaan yhteisjulkaisut” voit
                   tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja.
                   Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa
@@ -139,478 +149,496 @@
                   mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos
                   näyttää kaikki yhteisjulkaisut.
                 </div>
-              </ng-template>
-              <span
-                [tooltip]="tooltipTemplate"
-                tabindex="0"
-                placement="top"
-                #elem
-              >
-                <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
-              </span>
-            </div>
-          </div>
-        </div>
-        <!-- Search in Filter -->
-        <ng-container *ngIf="!filter.hasSubFields">
-          <label for="filter-query-{{ i }}" class="sr-only" i18n="@@search"
-            >Hae</label
-          >
-          <input
-            [id]="'filter-query-' + i"
-            #filterSearch
-            *ngIf="
-              (responseData.aggregations[filter.field]?.buckets?.length > 7 ||
-                responseData.aggregations[filter.field]?.original?.length >
+                    </ng-template>
+                    <span
+                      [tooltip]="tooltipTemplate3"
+                      tabindex="0"
+                      placement="top"
+                      #elem
+                      >
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            }
+            <!-- Search in Filter -->
+            @if (!filter.hasSubFields) {
+              <label for="filter-query-{{ i }}" class="sr-only" i18n="@@search"
+                >Hae</label
+                >
+                @if (
+                  (responseData.aggregations[filter.field]?.buckets?.length > 7 ||
+                  responseData.aggregations[filter.field]?.original?.length >
                   7) &&
-              !filter.hideSearch
-            "
-            i18n-placeholder="@@search"
-            placeholder="Hae"
-            autocomplete="off"
-            (keyup)="filterInput($event, filter.field)"
-            class="filter-search"
+                  !filter.hideSearch
+                  ) {
+                  <input
+                    [id]="'filter-query-' + i"
+                    #filterSearch
+                    i18n-placeholder="@@search"
+                    placeholder="Hae"
+                    autocomplete="off"
+                    (keyup)="filterInput($event, filter.field)"
+                    class="filter-search"
             [value]="
               responseData.aggregations[filter.field]?.filterTerm
                 ? responseData.aggregations[filter.field]?.filterTerm
                 : ''
             "
-          />
-          <!-- Time frame for year filter -->
-          <ng-container *ngIf="filter.hideSearch && filter.field === 'year'">
-            <div class="row mt-2">
-              <div class="col">
-                <p i18n="Year range filter@@yearRange">Valitse aikaväli</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-4">
-                <mat-form-field>
-                  <mat-label i18n="Year start filter@@yearRangeStart"
-                    >Alku</mat-label
-                  >
-                  <mat-select
+                    />
+                }
+                <!-- Time frame for year filter -->
+                @if (filter.hideSearch && filter.field === 'year') {
+                  <div class="row mt-2">
+                    <div class="col">
+                      <p i18n="Year range filter@@yearRange">Valitse aikaväli</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+                      <mat-form-field>
+                        <mat-label i18n="Year start filter@@yearRangeStart"
+                          >Alku</mat-label
+                          >
+                          <mat-select
                     (selectionChange)="
                       rangeChange($event, 'fromYear'); range($event, 'from')
                     "
-                    [value]="activeFilters['fromYear']?.slice(1)"
-                  >
-                    <mat-option
+                            [value]="activeFilters['fromYear']?.slice(1)"
+                            >
+                            <mat-option
                       i18n="
                         Year range filter no selection@@yearRangeNoSelection"
-                      >Ei valintaa</mat-option
-                    >
-                    <mat-option
-                      *ngFor="
-                        let year of responseData.aggregations?.year?.buckets
-                      "
-                      [ngClass]="{ 'd-none': year.key >= toYear }"
-                      [value]="year.key"
-                      >{{ year.key }}</mat-option
-                    >
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-1 align-self-center p-0 text-center">
-                <span>-</span>
-              </div>
-              <div class="col-4">
-                <mat-form-field>
-                  <mat-label i18n="Year end filter@@yearRangeEnd"
-                    >Loppu</mat-label
-                  >
-                  <mat-select
+                              >Ei valintaa</mat-option
+                              >
+                              @for (
+                                year of responseData.aggregations?.year?.buckets
+                                ; track
+                                year) {
+                                <mat-option
+                                  [ngClass]="{ 'd-none': year.key >= toYear }"
+                                  [value]="year.key"
+                                  >{{ year.key }}</mat-option
+                                  >
+                                }
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-1 align-self-center p-0 text-center">
+                            <span>-</span>
+                          </div>
+                          <div class="col-4">
+                            <mat-form-field>
+                              <mat-label i18n="Year end filter@@yearRangeEnd"
+                                >Loppu</mat-label
+                                >
+                                <mat-select
                     (selectionChange)="
                       rangeChange($event, 'toYear'); range($event, 'to')
                     "
-                    [value]="activeFilters['toYear']?.slice(1)"
-                  >
-                    <mat-option
+                                  [value]="activeFilters['toYear']?.slice(1)"
+                                  >
+                                  <mat-option
                       i18n="
                         Year range filter no selection@@yearRangeNoSelection"
-                      >Ei valintaa</mat-option
-                    >
-                    <mat-option
-                      *ngFor="
-                        let year of responseData.aggregations?.year?.buckets
-                      "
-                      [ngClass]="{ 'd-none': year.key <= fromYear }"
-                      [value]="year.key"
-                      >{{ year.key }}</mat-option
-                    >
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <p i18n="Year filter separate@@yearFilterSeparateSelection">
+                                    >Ei valintaa</mat-option
+                                    >
+                                    @for (
+                                      year of responseData.aggregations?.year?.buckets
+                                      ; track
+                                      year) {
+                                      <mat-option
+                                        [ngClass]="{ 'd-none': year.key <= fromYear }"
+                                        [value]="year.key"
+                                        >{{ year.key }}</mat-option
+                                        >
+                                      }
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <p i18n="Year filter separate@@yearFilterSeparateSelection">
                   Valitse yksitellen
                 </p>
-              </div>
-            </div>
-          </ng-container>
-          <!-- Date selector for funding calls -->
-          <ng-container *ngIf="filter.hideSearch && filter.field === 'date'">
-            <div class="row">
-              <div class="col">
-                <p i18n="@@yearRange">Valitse aikaväli</p>
-              </div>
-            </div>
-            <div class="row">
-
-              <!-- Start date -->
-              <div class="col-10">
-                <mat-form-field appearance="fill">
-                  <mat-label i18n="@@dateRangeStart"
-                    >Haku alkaa aikaisintaan</mat-label
-                  >
-                  <input
-                    matInput
-                    (dateChange)="dateChange($event, 'start')"
-                    i18n-placeholder="@@startDate"
-                    placeholder="Aloituspäivä"
-                    [value]="getActiveDate('start')"
-                    [matDatepicker]="startPicker"
-                    [max]="getActiveDate('end')"
-                    #startDate
-                  />
-                  <mat-datepicker-toggle class="d-flex x-button"
-                    *ngIf="startDate.value"
-                    matSuffix
-                    (click)="dateChange(null, 'start')"
-                  >
-                    <mat-icon matDatepickerToggleIcon
-                      >x</mat-icon
-                    >
-                  </mat-datepicker-toggle>
-                  <mat-datepicker-toggle class="d-flex"
-                    matSuffix
-                    [for]="startPicker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #startPicker></mat-datepicker>
-                </mat-form-field>
-              </div>
-
-              <!-- End date -->
-              <div class="col-10">
-                <mat-form-field appearance="fill">
-                  <mat-label i18n="@@dateRangeEnd"
-                    >Haku päättyy viimeistään</mat-label
-                  >
-                  <input
-                    matInput
-                    (dateChange)="dateChange($event, 'end')"
-                    i18n-placeholder="@@endDate"
-                    placeholder="Päättymispäivä"
-                    [value]="getActiveDate('end')"
-                    [matDatepicker]="endPicker"
-                    [min]="getActiveDate('start')"
-                    #endDate
-                  />
-                  <mat-datepicker-toggle class="d-flex x-button"
-                    *ngIf="endDate.value"
-                    matSuffix
-                    (click)="dateChange(null, 'end')"
-                  >
-                    <mat-icon matDatepickerToggleIcon
-                      >x</mat-icon
-                    >
-                  </mat-datepicker-toggle>
-                  <mat-datepicker-toggle class="d-flex"
-                    matSuffix
-                    [for]="endPicker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #endPicker></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-          </ng-container>
-          <!-- TODO: Change aria label field when content available -->
-          <mat-selection-list
-            [attr.aria-label]="filter.field"
+                                </div>
+                              </div>
+                            }
+                            <!-- Date selector for funding calls -->
+                            @if (filter.hideSearch && filter.field === 'date') {
+                              <div class="row">
+                                <div class="col">
+                                  <p i18n="@@yearRange">Valitse aikaväli</p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <!-- Start date -->
+                                <div class="col-10">
+                                  <mat-form-field appearance="fill">
+                                    <mat-label i18n="@@dateRangeStart"
+                                      >Haku alkaa aikaisintaan</mat-label
+                                      >
+                                      <input
+                                        matInput
+                                        (dateChange)="dateChange($event, 'start')"
+                                        i18n-placeholder="@@startDate"
+                                        placeholder="Aloituspäivä"
+                                        [value]="getActiveDate('start')"
+                                        [matDatepicker]="startPicker"
+                                        [max]="getActiveDate('end')"
+                                        #startDate
+                                        />
+                                      @if (startDate.value) {
+                                        <mat-datepicker-toggle class="d-flex x-button"
+                                          matSuffix
+                                          (click)="dateChange(null, 'start')"
+                                          >
+                                          <mat-icon matDatepickerToggleIcon
+                                            >x</mat-icon
+                                            >
+                                          </mat-datepicker-toggle>
+                                        }
+                                        <mat-datepicker-toggle class="d-flex"
+                                          matSuffix
+                                          [for]="startPicker"
+                                        ></mat-datepicker-toggle>
+                                        <mat-datepicker #startPicker></mat-datepicker>
+                                      </mat-form-field>
+                                    </div>
+                                    <!-- End date -->
+                                    <div class="col-10">
+                                      <mat-form-field appearance="fill">
+                                        <mat-label i18n="@@dateRangeEnd"
+                                          >Haku päättyy viimeistään</mat-label
+                                          >
+                                          <input
+                                            matInput
+                                            (dateChange)="dateChange($event, 'end')"
+                                            i18n-placeholder="@@endDate"
+                                            placeholder="Päättymispäivä"
+                                            [value]="getActiveDate('end')"
+                                            [matDatepicker]="endPicker"
+                                            [min]="getActiveDate('start')"
+                                            #endDate
+                                            />
+                                          @if (endDate.value) {
+                                            <mat-datepicker-toggle class="d-flex x-button"
+                                              matSuffix
+                                              (click)="dateChange(null, 'end')"
+                                              >
+                                              <mat-icon matDatepickerToggleIcon
+                                                >x</mat-icon
+                                                >
+                                              </mat-datepicker-toggle>
+                                            }
+                                            <mat-datepicker-toggle class="d-flex"
+                                              matSuffix
+                                              [for]="endPicker"
+                                            ></mat-datepicker-toggle>
+                                            <mat-datepicker #endPicker></mat-datepicker>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                    }
+                                    <!-- TODO: Change aria label field when content available -->
+                                    <mat-selection-list
+                                      [attr.aria-label]="filter.field"
             (selectionChange)="
               selectionChange(filter.field, $event.options[0].value)
             "
-          >
-            <!-- Options -->
-            <mat-list-option disableRipple
-              togglePosition="before"
-              *ngFor="
-                let item of responseData.aggregations[
-                  filter.field
-                ]?.buckets?.slice(
-                  0,
-                  showMoreCount[filter.field]
-                    ? showMoreCount[filter.field].count
-                    : defaultOpen
-                );
-                let j = index;
-                trackBy: trackByFn
-              "
-              [value]="item.key"
+                                      >
+                                      <!-- Options -->
+                                      @for (
+                                        item of responseData.aggregations[
+                                        filter.field
+                                        ]?.buckets?.slice(
+                                        0,
+                                        showMoreCount[filter.field]
+                                        ? showMoreCount[filter.field].count
+                                        : defaultOpen
+                                        ); track trackByFn(j,
+                                        item); let j = $index) {
+                                        <mat-list-option disableRipple
+                                          togglePosition="before"
+                                          [value]="item.key"
               [selected]="
                 activeFilters[filter.field] &&
                 activeFilters[filter.field].indexOf(item.key.toString()) > -1
               "
-            >
-              <!--<div class="row d-flex justify-content-around">-->
-              <div class="row d-flex justify-content-between">
-                <div class="col-8 pe-0">
-                  <span class="label pe-2">{{
-                    item.label ? item.label : item.key
-                  }}</span>
-                </div>
-                <div class="col-2 text-end" *ngIf="item.tooltip">
-                  <ng-template #tooltipTemplate>
-                    <div [innerHtml]="item?.tooltip"></div>
-                  </ng-template>
-                  <span
-                    [tooltip]="tooltipTemplate"
-                    tabindex="0"
-                    placement="top"
-                    #elem
-                  >
-                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
-                  </span>
-                </div>
-                <!-- [ngClass]="['item.tooltip', { 'col-2': item.tooltip }, { 'col-2': !item.tooltip }]" -->
-                <div [className]="item.tooltip ? 'count col-2' : 'count col-4'">
-                  <span
-                    class="amount"
-                    [innerHtml]="item.doc_count | thousandSeparator"
-                  ></span>
-                </div>
-              </div>
-            </mat-list-option>
-            <div
-              *ngIf="
-                !responseData.aggregations[filter.field]?.buckets?.length &&
-                !filter.hideNoResults
-              "
-              class="empty-filter-search"
-              role="alert"
-            >
-              <ng-container i18n="@@noResults">Ei tuloksia.</ng-container><br />
-              <ng-container i18n="@@noResultsInfo"
-                >Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
+                                          >
+                                          <!--<div class="row d-flex justify-content-around">-->
+                                          <div class="row d-flex justify-content-between">
+                                            <div class="col-8 pe-0">
+                                              <span class="label pe-2">{{
+                                                item.label ? item.label : item.key
+                                              }}</span>
+                                            </div>
+                                            @if (item.tooltip) {
+                                              <div class="col-2 text-end">
+                                                <ng-template #tooltipTemplate4>
+                                                  <div [innerHtml]="item?.tooltip"></div>
+                                                </ng-template>
+                                                <span
+                                                  [tooltip]="tooltipTemplate4"
+                                                  tabindex="0"
+                                                  placement="top"
+                                                  #elem
+                                                  >
+                                                  <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
+                                                </span>
+                                              </div>
+                                            }
+                                            <!-- [ngClass]="['item.tooltip', { 'col-2': item.tooltip }, { 'col-2': !item.tooltip }]" -->
+                                            <div [className]="item.tooltip ? 'count col-2' : 'count col-4'">
+                                              <span
+                                                class="amount"
+                                                [innerHtml]="item.doc_count | thousandSeparator"
+                                              ></span>
+                                            </div>
+                                          </div>
+                                        </mat-list-option>
+                                      }
+                                      @if (
+                                        !responseData.aggregations[filter.field]?.buckets?.length &&
+                                        !filter.hideNoResults
+                                        ) {
+                                        <div
+                                          class="empty-filter-search"
+                                          role="alert"
+                                          >
+                                          <ng-container i18n="@@noResults">Ei tuloksia.</ng-container><br />
+                                          <ng-container i18n="@@noResultsInfo"
+                                            >Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
                 rajaustekijää ei ole tarjolla tässä osiossa.</ng-container
-              >
-            </div>
-          </mat-selection-list>
-          <!-- Show more / Less -->
-          <div
-            *ngIf="
-              responseData.aggregations[filter.field]?.buckets?.length >
-              defaultOpen
-            "
-            class="button-wrapper"
-          >
-            <button
+                                            >
+                                          </div>
+                                        }
+                                      </mat-selection-list>
+                                      <!-- Show more / Less -->
+                                      @if (
+                                        responseData.aggregations[filter.field]?.buckets?.length >
+                                        defaultOpen
+                                        ) {
+                                        <div
+                                          class="button-wrapper"
+                                          >
+                                          <button
               [disabled]="
                 (showMoreCount[filter.field]
                   ? showMoreCount[filter.field].count
                   : defaultOpen) >=
                 responseData.aggregations[filter.field]?.buckets?.length
               "
-              mat-button
-              class="show-more"
-              (click)="showMore(filter.field)"
-              i18n="@@showMoreFilters"
-            >
+                                            mat-button
+                                            class="show-more"
+                                            (click)="showMore(filter.field)"
+                                            i18n="@@showMoreFilters"
+                                            >
               Näytä enemmän
             </button>
-            <button
+                                          <button
               [disabled]="
                 !(
                   showMoreCount[filter.field] &&
                   showMoreCount[filter.field].count > defaultOpen
                 )
               "
-              mat-button
-              class="show-more"
-              (click)="showLess(filter.field)"
-              i18n="@@showLess"
-            >
+                                            mat-button
+                                            class="show-more"
+                                            (click)="showLess(filter.field)"
+                                            i18n="@@showLess"
+                                            >
               Näytä vähemmän
             </button>
-          </div>
-        </ng-container>
-        <!-- Filters with subfields -->
-        <div class="subFields" *ngIf="filter.hasSubFields">
-          <div
-            *ngFor="
-              let item of responseData.aggregations[filter.field]?.buckets;
-              let k = index
-            "
-          >
-            <mat-expansion-panel
-              *ngIf="item.subData?.length > 0 || item.original?.length > 0"
-              [expanded]="subPanel === item.key"
-              (opened)="subPanel = item.key"
-            >
-              <mat-expansion-panel-header
-                collapsedHeight="{{ panelHeight }}"
-                expandedHeight="{{ panelHeight }}"
-              >
-                <mat-panel-title>
-                  <!-- Aiheet-->
-                  <div class="row d-flex justify-content-between">
-                    <div class="col col-10 label">
-                      {{ item.key }}
-                      <ng-container *ngIf="item.tooltip">
-                        <ng-template #tooltipTemplate>
-                          <div [innerHtml]="item?.tooltip"></div>
-                        </ng-template>
-                        <span
-                          [tooltip]="tooltipTemplate"
-                          tabindex="0"
-                          placement="top"
-                          #elem
-                        >
-                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
-                        </span>
-                      </ng-container>
-                    </div>
-                  </div>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <!-- Search in filter -->
-              <label
-                for="filter-query-{{ i }}{{ k }}"
-                i18n="@@search"
-                class="sr-only"
-                >Hae</label
-              >
-              <input
-                [id]="'filter-query-' + i + k"
-                #filterSearch
-                *ngIf="item.subData.length > 7 || item.original?.length > 7"
-                i18n-placeholder="@@search"
-                placeholder="Hae"
-                autocomplete="off"
-                (keyup)="subFilterInput($event, filter.field, item.key)"
-                class="filter-search"
-                [value]="item.filterTerm ? item.filterTerm : ''"
-              />
-              <!-- TODO: Change aria label field when content available -->
-              <mat-selection-list [attr.aria-label]="filter.field">
-                <!-- Select all -->
-                <mat-list-option disableRipple
-                  *ngIf="item.subData?.length"
-                  checkboxPosition="before"
-                  (click)="selectAll(filter.field, item)"
-                  (keydown.enter)="selectAll(filter.field, item)"
-                  (keydown.space)="selectAll(filter.field, item)"
+                                        </div>
+                                      }
+                                    }
+                                    <!-- Filters with subfields -->
+                                    @if (filter.hasSubFields) {
+                                      <div class="subFields">
+                                        @for (
+                                          item of responseData.aggregations[filter.field]?.buckets; track
+                                          item; let k = $index) {
+                                          <div
+                                            >
+                                            @if (item.subData?.length > 0 || item.original?.length > 0) {
+                                              <mat-expansion-panel
+                                                [expanded]="subPanel === item.key"
+                                                (opened)="subPanel = item.key"
+                                                >
+                                                <mat-expansion-panel-header
+                                                  collapsedHeight="{{ panelHeight }}"
+                                                  expandedHeight="{{ panelHeight }}"
+                                                  >
+                                                  <mat-panel-title>
+                                                    <!-- Aiheet-->
+                                                    <div class="row d-flex justify-content-between">
+                                                      <div class="col col-10 label">
+                                                        {{ item.key }}
+                                                        @if (item.tooltip) {
+                                                          <ng-template #tooltipTemplate5>
+                                                            <div [innerHtml]="item?.tooltip"></div>
+                                                          </ng-template>
+                                                          <span
+                                                            [tooltip]="tooltipTemplate5"
+                                                            tabindex="0"
+                                                            placement="top"
+                                                            #elem
+                                                            >
+                                                            <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
+                                                          </span>
+                                                        }
+                                                      </div>
+                                                    </div>
+                                                  </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <!-- Search in filter -->
+                                                <label
+                                                  for="filter-query-{{ i }}{{ k }}"
+                                                  i18n="@@search"
+                                                  class="sr-only"
+                                                  >Hae</label
+                                                  >
+                                                  @if (item.subData.length > 7 || item.original?.length > 7) {
+                                                    <input
+                                                      [id]="'filter-query-' + i + k"
+                                                      #filterSearch
+                                                      i18n-placeholder="@@search"
+                                                      placeholder="Hae"
+                                                      autocomplete="off"
+                                                      (keyup)="subFilterInput($event, filter.field, item.key)"
+                                                      class="filter-search"
+                                                      [value]="item.filterTerm ? item.filterTerm : ''"
+                                                      />
+                                                  }
+                                                  <!-- TODO: Change aria label field when content available -->
+                                                  <mat-selection-list [attr.aria-label]="filter.field">
+                                                    <!-- Select all -->
+                                                    @if (item.subData?.length) {
+                                                      <mat-list-option disableRipple
+                                                        checkboxPosition="before"
+                                                        (click)="selectAll(filter.field, item)"
+                                                        (keydown.enter)="selectAll(filter.field, item)"
+                                                        (keydown.space)="selectAll(filter.field, item)"
                   [selected]="
                     item
                       | filterItem
                         : (activeFilters ? activeFilters[filter.field] : '')
                   "
-                  [id]="filter.field + 'all' | replaceSpace"
-                >
-                  <div class="row d-flex justify-content-start">
-                    <div class="col-9">
-                      <span class="fw-bold label" i18n="@@selectAll"
-                        >Valitse kaikki</span
-                      >
-                    </div>
-                  </div>
-                  <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
-                </mat-list-option>
-                <!-- Options -->
-                <mat-list-option disableRipple
-                  checkboxPosition="before"
-                  *ngFor="
-                    let field of item.subData.slice(
-                      0,
-                      showMoreCount[item.key]
-                        ? showMoreCount[item.key].count
-                        : defaultOpen
-                    );
-                    trackBy: trackByFn
-                  "
-                  (click)="selectionChange(filter.field, field.key)"
-                  (keydown.enter)="selectionChange(filter.field, field.key)"
-                  (keydown.space)="selectionChange(filter.field, field.key)"
-                  [value]="field.key"
+                                                        [id]="filter.field + 'all' | replaceSpace"
+                                                        >
+                                                        <div class="row d-flex justify-content-start">
+                                                          <div class="col-9">
+                                                            <span class="fw-bold label" i18n="@@selectAll"
+                                                              >Valitse kaikki</span
+                                                              >
+                                                            </div>
+                                                          </div>
+                                                          <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
+                                                        </mat-list-option>
+                                                      }
+                                                      <!-- Options -->
+                                                      @for (
+                                                        field of item.subData.slice(
+                                                        0,
+                                                        showMoreCount[item.key]
+                                                        ? showMoreCount[item.key].count
+                                                        : defaultOpen
+                                                        ); track trackByFn($index,
+                                                        field)) {
+                                                        <mat-list-option disableRipple
+                                                          checkboxPosition="before"
+                                                          (click)="selectionChange(filter.field, field.key)"
+                                                          (keydown.enter)="selectionChange(filter.field, field.key)"
+                                                          (keydown.space)="selectionChange(filter.field, field.key)"
+                                                          [value]="field.key"
                   [selected]="
                     (activeFilters[filter.field] | convertToArray)?.indexOf(
                       field.key
                     ) > -1
                   "
-                  [id]="filter.field + field.key | replaceSpace"
-                >
-                  <!--<div class="row d-flex justify-content-around">-->
-                  <div class="row d-flex justify-content-between">
-                    <div class="col-9">
-                      <span class="label">{{ field.label }}</span>
-                    </div>
-                    <div class="col-3 count align-self-center">
-                      <span
-                        class="amount"
-                        [innerHtml]="field.doc_count | thousandSeparator"
-                      ></span>
-                    </div>
-                  </div>
-                </mat-list-option>
-                <div
-                  *ngIf="!item.subData.length"
-                  class="empty-filter-search"
-                  role="alert"
-                >
-                  <ng-container i18n="@@noResults">Ei tuloksia.</ng-container
-                  ><br />
-                  <ng-container i18n="@@noResultsInfo"
-                    >Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
+                                                          [id]="filter.field + field.key | replaceSpace"
+                                                          >
+                                                          <!--<div class="row d-flex justify-content-around">-->
+                                                          <div class="row d-flex justify-content-between">
+                                                            <div class="col-9">
+                                                              <span class="label">{{ field.label }}</span>
+                                                            </div>
+                                                            <div class="col-3 count align-self-center">
+                                                              <span
+                                                                class="amount"
+                                                                [innerHtml]="field.doc_count | thousandSeparator"
+                                                              ></span>
+                                                            </div>
+                                                          </div>
+                                                        </mat-list-option>
+                                                      }
+                                                      @if (!item.subData.length) {
+                                                        <div
+                                                          class="empty-filter-search"
+                                                          role="alert"
+                                                          >
+                                                          <ng-container i18n="@@noResults">Ei tuloksia.</ng-container
+                                                            ><br />
+                                                            <ng-container i18n="@@noResultsInfo"
+                                                              >Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
                     rajaustekijää ei ole tarjolla tässä osiossa.</ng-container
-                  >
-                </div>
-              </mat-selection-list>
-              <!-- Shor more / Less -->
-              <div
-                *ngIf="item.subData?.length > defaultOpen"
-                class="button-wrapper"
-              >
-                <button
+                                                              >
+                                                            </div>
+                                                          }
+                                                        </mat-selection-list>
+                                                        <!-- Shor more / Less -->
+                                                        @if (item.subData?.length > defaultOpen) {
+                                                          <div
+                                                            class="button-wrapper"
+                                                            >
+                                                            <button
                   [disabled]="
                     (showMoreCount[item.key]
                       ? showMoreCount[item.key].count
                       : defaultOpen) >= item.subData?.length
                   "
-                  mat-button
-                  class="show-more"
-                  (click)="showMore(item.key)"
-                  i18n="@@showMoreFilters"
-                >
+                                                              mat-button
+                                                              class="show-more"
+                                                              (click)="showMore(item.key)"
+                                                              i18n="@@showMoreFilters"
+                                                              >
                   Näytä enemmän
                 </button>
-                <button
+                                                            <button
                   [disabled]="
                     !(
                       showMoreCount[item.key] &&
                       showMoreCount[item.key].count > defaultOpen
                     )
                   "
-                  mat-button
-                  class="show-more"
-                  (click)="showLess(item.key)"
-                  i18n="@@showLess"
-                >
+                                                              mat-button
+                                                              class="show-more"
+                                                              (click)="showLess(item.key)"
+                                                              i18n="@@showLess"
+                                                              >
                   Näytä vähemmän
                 </button>
-              </div>
-            </mat-expansion-panel>
-          </div>
-        </div>
-      </mat-expansion-panel>
-      <!-- Items with single checkbox -->
-      <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
-        <div class="row single">
-          <div class="col">
-            <div
-              class="row"
-              *ngIf="responseData.aggregations[item.field]?.buckets?.length > 0"
+                                                          </div>
+                                                        }
+                                                      </mat-expansion-panel>
+                                                    }
+                                                  </div>
+                                                }
+                                              </div>
+                                            }
+                                          </mat-expansion-panel>
+                                        }
+                                        <!-- Items with single checkbox -->
+                                        @for (item of currentSingleFilter; track item) {
+                                          <div class="single-checkbox">
+                                            <div class="row single">
+                                              <div class="col">
+                                                @if (responseData.aggregations[item.field]?.buckets?.length > 0) {
+                                                  <div
+                                                    class="row"
               (click)="
                 selectionChange(
                   item.field,
@@ -631,35 +659,36 @@
                     : responseData.aggregations[item?.field]?.buckets[0].key
                 )
               "
-            >
-              <div class="col">
-                <span class="panel-title pe-2">{{ item?.label }}</span>
-                <ng-container *ngIf="item.tooltip">
-                  <ng-template #tooltipTemplate>
-                    <div [innerHtml]="item.tooltip"></div>
-                  </ng-template>
-                  <span
-                    [tooltip]="tooltipTemplate"
-                    tabindex="0"
-                    placement="top"
-                    #elem
-                  >
-                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
-                  </span>
-                </ng-container>
-              </div>
-              <!-- <div class="col-1 px-0 text-end" *ngIf="!filter?.hideInfo">
-                                <ng-template #tooltipTemplate><div [innerHtml]="item?.tooltip"></div></ng-template>
-                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
-                            </div> -->
-            </div>
-            <div
-              class="row slider d-flex justify-content-between"
-              *ngIf="responseData.aggregations[item.field]?.buckets?.length > 0"
-            >
-              <div class="col col-2">
-                <mat-slide-toggle
-                  class="slider"
+                                                    >
+                                                    <div class="col">
+                                                      <span class="panel-title pe-2">{{ item?.label }}</span>
+                                                      @if (item.tooltip) {
+                                                        <ng-template #tooltipTemplate6>
+                                                          <div [innerHtml]="item.tooltip"></div>
+                                                        </ng-template>
+                                                        <span
+                                                          [tooltip]="tooltipTemplate6"
+                                                          tabindex="0"
+                                                          placement="top"
+                                                          #elem
+                                                          >
+                                                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
+                                                        </span>
+                                                      }
+                                                    </div>
+                                                    <!-- <div class="col-1 px-0 text-end" *ngIf="!filter?.hideInfo">
+                                                    <ng-template #tooltipTemplate><div [innerHtml]="item?.tooltip"></div></ng-template>
+                                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                                  </div> -->
+                                                </div>
+                                              }
+                                              @if (responseData.aggregations[item.field]?.buckets?.length > 0) {
+                                                <div
+                                                  class="row slider d-flex justify-content-between"
+                                                  >
+                                                  <div class="col col-2">
+                                                    <mat-slide-toggle
+                                                      class="slider"
                   [checked]="
                     (activeFilters ? activeFilters[item?.field]?.length : 0) > 0
                   "
@@ -683,58 +712,63 @@
                         : responseData.aggregations[item?.field]?.buckets[0].key
                     )
                   "
-                >
-                </mat-slide-toggle>
-              </div>
-              <div class="col col-3 count align-self-center">
-                <span
-                  class="amount"
-                  *ngIf="responseData.aggregations[item.field].buckets"
-                  >{{
-                    responseData.aggregations[item.field]?.buckets[0]?.doc_count
-                      | thousandSeparator
-                  }}</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
-<ng-container *ngIf="filterOrigin === 'fundingCalls'">
-  <div class="filter-sidebar d-none d-lg-block">
-    <div class="mat-expansion-panel">
-      <mat-panel-title>
-      <div class="col ms-2" i18n="@@serviceInfoHeader">Tietoa palvelusta</div>
-      </mat-panel-title>
-      <div class="mb-2 about-link">
-      <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
-        <strong>
-          <ng-container i18n="@@fundingCallsIncluded">Mitä rahoitushakutietoja palvelu sisältää?</ng-container>
-        </strong>
-      </a>
-      </div>
-      <div class="mb-4 about-link">
-      <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
-        <strong>
-          <ng-container i18n="@@howToDeliverFcInstructions">Näin toimitat avautuvan rahoitushaun tiedot</ng-container>
-        </strong>
-      </a>
-      </div>
-    </div>
-  </div>
-</ng-container>
+                                                      >
+                                                    </mat-slide-toggle>
+                                                  </div>
+                                                  <div class="col col-3 count align-self-center">
+                                                    @if (responseData.aggregations[item.field].buckets) {
+                                                      <span
+                                                        class="amount"
+                                                        >{{
+                                                        responseData.aggregations[item.field]?.buckets[0]?.doc_count
+                                                        | thousandSeparator
+                                                        }}</span
+                                                        >
+                                                      }
+                                                    </div>
+                                                  </div>
+                                                }
+                                              </div>
+                                            </div>
+                                          </div>
+                                        }
+                                      </div>
+                                    </div>
+                                  }
+                                </ng-template>
+                                @if (filterOrigin === 'fundingCalls') {
+                                  <div class="filter-sidebar d-none d-lg-block">
+                                    <div class="mat-expansion-panel">
+                                      <mat-panel-title>
+                                        <div class="col ms-2" i18n="@@serviceInfoHeader">Tietoa palvelusta</div>
+                                      </mat-panel-title>
+                                      <div class="mb-2 about-link">
+                                        <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
+                                          <strong>
+                                            <ng-container i18n="@@fundingCallsIncluded">Mitä rahoitushakutietoja palvelu sisältää?</ng-container>
+                                          </strong>
+                                        </a>
+                                      </div>
+                                      <div class="mb-4 about-link">
+                                        <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
+                                          <strong>
+                                            <ng-container i18n="@@howToDeliverFcInstructions">Näin toimitat avautuvan rahoitushaun tiedot</ng-container>
+                                          </strong>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                }
 
-<!-- Reusable dialog for mobile view -->
-<app-dialog
-  *ngIf="showDialog"
-  [template]="dialogTemplate"
-  [title]="dialogTitle"
-  [icon]="'sliders'"
-  [svgCssClass]="'sliders-icon dialog-icon'"
-  (onActionClick)="closeDialog()"
-  noPadding
-  extraClass="filters-dialog"
-></app-dialog>
+                                <!-- Reusable dialog for mobile view -->
+                                @if (showDialog) {
+                                  <app-dialog
+                                    [template]="dialogTemplate"
+                                    [title]="dialogTitle"
+                                    [icon]="'sliders'"
+                                    [svgCssClass]="'sliders-icon dialog-icon'"
+                                    (onActionClick)="closeDialog()"
+                                    noPadding
+                                    extraClass="filters-dialog"
+                                  ></app-dialog>
+                                }

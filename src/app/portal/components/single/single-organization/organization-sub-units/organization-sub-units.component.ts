@@ -10,16 +10,18 @@ import { RouterLink } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-organization-sub-units',
     templateUrl: './organization-sub-units.component.html',
     styleUrls: ['./organization-sub-units.component.scss'],
-    imports: [
+  imports: [
     TooltipModule,
     RouterLink,
-    MatIcon
-]
+    MatIcon,
+    SvgSpritesComponent
+  ]
 })
 export class OrganizationSubUnitsComponent implements OnInit {
   @Input() item: any;

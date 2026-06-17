@@ -34,7 +34,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { OwsRelatedPieChartComponent } from '@shared/components/ows-related-pie-chart/ows-related-pie-chart.component';
@@ -45,10 +45,8 @@ import { OwsRelatedPieChartComponent } from '@shared/components/ows-related-pie-
     styleUrls: ['./single-dataset.component.scss'],
   imports: [
     SearchBarComponent,
-    NgIf,
     RouterLink,
     BreadcrumbComponent,
-    NgFor,
     SecondaryButtonComponent,
     MatMenuTrigger,
     MatMenu,

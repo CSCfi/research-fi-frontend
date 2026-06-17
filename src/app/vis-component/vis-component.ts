@@ -115,7 +115,9 @@ export class VisComponent implements OnInit, OnDestroy {
   }
 
   nodeClick(params: any) {
+    console.log('node clicked', params);
     this.nodeList.filter(node => node.id === params.nodes[0]).map(node => {
+      console.log('node found', node);
       this.selectedNodeId.emit(node.id);
     });
   }
@@ -131,7 +133,10 @@ export class VisComponent implements OnInit, OnDestroy {
         enabled: false
       },
       layout: {
-        randomSeed: 1 // Change this number to try different static layouts
+        //hierarchical: { // Using this makes the nodes order in more horizontally lined style
+        //  nodeSpacing: 40,
+        //},
+        randomSeed: 3 // Change this number to try different static layouts
       },
       nodes: {
         shape: 'dot',
@@ -224,44 +229,17 @@ export class VisComponent implements OnInit, OnDestroy {
     }
   }
 
-  imaginaryDemoConnections = [
-    {
-      'id': 'ttv-202512000769763',
-      'name': 'FIN-ENV-RI',
-      'isPartOf': [],
-      'hasPart': ['ttv-202601000812049', 'ttv-202602000823839', 'ttv-202603000873597']
-    },
-    { 'id': 'research-infras-2016111643', 'name': 'ESO', 'isPartOf': ['ttv-202512000769763'], 'hasPart': [] },
-    { 'id': 'research-infras-2016072528', 'name': 'CTA (Suomi)', 'isPartOf': ['ttv-202512000769763'], 'hasPart': [] },
-    { 'id': 'ttv-202602000823839', 'name': 'OULU-CLIM-OBS', 'isPartOf': ['ttv-202512000769763'], 'hasPart': [] },
-    {
-      'id': 'ttv-202603000873597',
-      'name': 'OULU-CLIM-OBS2',
-      'isPartOf': ['ttv-202512000769763'],
-      'hasPart': ['ttv-202601000812049']
-    },
-    {
-      'id': 'ttv-202601000812049',
-      'name': 'OULU-ENV-RI',
-      'isPartOf': ['ttv-202512000769763'],
-      'hasPart': ['ttv-202601000812030']
-    },
-    {
-      'id': 'ttv-202601000812030',
-      'name': 'OULU-ARC-RI',
-      'isPartOf': ['ttv-202601000812049'],
-      'hasPart': ['ttv-202601000812058']
-    },
-    { 'id': 'ttv-202601000812058', 'name': 'OULU-MAR-RI', 'isPartOf': ['ttv-202601000812030'], 'hasPart': [] }];
-
-  generatedNodes = [];
-
-  setNodeColors(nodeList: any[]) {
-    return nodeList.map(node => {
+  setNodeProperties(nodeList: any[]) {
+    console.log('setting node properties', nodeList, this._rootId);
+    let params = {nodes: []};
+    const ret = nodeList.map(node => {
+      //console.log('setting node colors', nodeList, this._rootId);
       if (node.id === toInteger(this._rootId)) {
+        params.nodes.push(toInteger(this._rootId));
+        console.log('params', params);
         node.color = {
           border: '#068411',
-          background: '#4546B9',
+          background: '#C5C5E5',
           highlight: {
             border: '#068411',
             background: '#4546B9'
@@ -292,11 +270,13 @@ export class VisComponent implements OnInit, OnDestroy {
       //node.border = '#5852A7';
       return node;
     });
+    //this.nodeClick(params);
+    return ret;
   }
 
   generateNetworkData() {
     // Color all nodes
-    this.nodeList = this.setNodeColors(this.nodeList);
+    this.nodeList = this.setNodeProperties(this.nodeList);
 
     let treeData = {
       nodes: this.nodeList,

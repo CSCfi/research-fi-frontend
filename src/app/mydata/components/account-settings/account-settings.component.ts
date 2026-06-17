@@ -13,7 +13,7 @@ import { DialogComponent } from '../../../shared/components/dialog/dialog.compon
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import {
@@ -35,19 +35,18 @@ import {
     styleUrls: ['./account-settings.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        SecondaryButtonComponent,
-        MatProgressSpinner,
-        PrimaryActionButtonComponent,
-        DialogComponent,
-        AsyncPipe,
-        BannerDividerComponent,
-        SvgSpritesComponent,
-        MydataSideNavigationComponent,
-        StickyFooterComponent,
-        AutomaticPublishingSettingsComponent,
-        GeneralInfoBannerComponent
-    ]
+    SecondaryButtonComponent,
+    MatProgressSpinner,
+    PrimaryActionButtonComponent,
+    DialogComponent,
+    AsyncPipe,
+    BannerDividerComponent,
+    SvgSpritesComponent,
+    MydataSideNavigationComponent,
+    StickyFooterComponent,
+    AutomaticPublishingSettingsComponent,
+    GeneralInfoBannerComponent
+]
 })
 export class AccountSettingsComponent implements OnInit {
   orcid: any;

@@ -17,7 +17,7 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
-import { NgIf, NgFor, NgClass, JsonPipe, DatePipe } from '@angular/common';
+import { NgClass, JsonPipe, DatePipe } from '@angular/common';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { ShareComponent } from '../share/share.component';
 import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
@@ -30,21 +30,19 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './single-funding-call.component.html',
     styleUrls: ['./single-funding-call.component.scss'],
     imports: [
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        NgClass,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        ShareComponent,
-        JsonPipe,
-        DatePipe,
-        NgArrayPipesModule,
-        MatIcon
-    ]
+    RouterLink,
+    BreadcrumbComponent,
+    TooltipModule,
+    NgClass,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    ShareComponent,
+    JsonPipe,
+    DatePipe,
+    NgArrayPipesModule,
+    MatIcon
+]
 })
 export class SingleFundingCallComponent implements OnInit {
   newUiToggle = true;

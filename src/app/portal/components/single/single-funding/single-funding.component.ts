@@ -33,7 +33,7 @@ import { MatCard, MatCardTitle } from '@angular/material/card';
 import { OrcidComponent } from '../../../../shared/components/orcid/orcid.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
-import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe } from '@angular/common';
+import { NgClass, DatePipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { OwsRelatedPieChartComponent } from '@shared/components/ows-related-pie-chart/ows-related-pie-chart.component';
@@ -44,16 +44,11 @@ import { OwsRelatedPieChartComponent } from '@shared/components/ows-related-pie-
     styleUrls: ['./single-funding.component.scss'],
   imports: [
     SearchBarComponent,
-    NgIf,
     RouterLink,
     BreadcrumbComponent,
-    NgFor,
     TooltipModule,
     NgClass,
-    NgSwitch,
-    NgSwitchDefault,
     OrcidComponent,
-    NgSwitchCase,
     MatCard,
     MatCardTitle,
     SingleResultLinkComponent,
@@ -384,7 +379,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     let output = "Suomen Akatemia";
 
     if (locale === 'en') {
-      output = "Academy of Finland";
+      output = "Research Council of Finland";
     }
 
     if (locale === 'sv') {

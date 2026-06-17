@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { afterRenderEffect, Component, DOCUMENT, Inject, Input, LOCALE_ID, OnInit, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Tree, TreeItem, TreeItemGroup } from '@angular/aria/tree';
+import { ActivatedRoute, Router } from '@angular/router';
 
 type TreeNode = {
   name: string;
@@ -31,8 +32,11 @@ export class InfraTreeComponent implements OnInit {
   }
 
   set inputNodes(nodes: TreeNode[]) {
-    this.nodes = [...nodes];
-    this.inputReceived = true;
+    if (nodes) {
+      this.nodes = [];
+      this.nodes = [...nodes];
+      this.inputReceived = true;
+    }
     console.log('inputNodes set to', nodes);
   }
 
@@ -48,6 +52,13 @@ export class InfraTreeComponent implements OnInit {
     {"id": "ttv-202601000812030", "name": "OULU-ARC-RI", "isPartOf": ["ttv-202601000812049"], "hasPart": ["ttv-202601000812058"]},
     {"id": "ttv-202601000812058", "name": "OULU-MAR-RI", "isPartOf": ["ttv-202601000812030"], "hasPart": []}
   ];
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+
+  }
 
   getRootNodeAndChildren(id: string): TreeNode {
     let rootNode: TreeNode = {name: 'ROOT', value: 'ROOT', hasParent: false, children: []};
@@ -67,6 +78,15 @@ export class InfraTreeComponent implements OnInit {
     //this.nodes = this.inputNodes;
   }
 
+  navigateToInfraLink(infraId){
+    console.log('infraId', infraId);
+    if (infraId) {
+    this.router.navigateByUrl('/results/infrastructure/' + infraId).then(() => {
+      //window.location.reload();
+      });
+    }
+  }
+
   build3LevelTestTree(){
     let rootNode = this.getRootNodeAndChildren(this.infraId);
       let currentNodeChildren = this.getChildNodes(this.infraId);
@@ -74,16 +94,13 @@ export class InfraTreeComponent implements OnInit {
 
       // Set last children to be current node
       if (rootNode.children.length > 0) {
-        console.log('current node', currentNode);
         let tempNode = rootNode.children[rootNode.children.length - 1];
         rootNode.children[rootNode.children.length - 1] = currentNode;
-        console.log('rootNode node after', rootNode);
       } else {
         rootNode.children.push(currentNode);
       }
       let testNodes: TreeNode[] = [];
       testNodes.push(rootNode);
-      console.log('testNodes', testNodes);
     }
 
   nodes: TreeNode[] = [

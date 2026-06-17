@@ -1,126 +1,137 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
 <!-- If clause is for JS error in tables with icon column.
-  Mat-table doesn't keep up with change detection in component destroy lifecycle hook
-  and tries to find a icon column which is only populated in init -->
-<mat-table
-  *ngIf="(svgSymbolName && columns[0].key === 'icon') || !svgSymbolName"
-  [dataSource]="rows"
-  matSort
-  (matSortChange)="sortData($event)"
-  [matSortActive]="sortColumn"
-  [matSortDirection]="sortColumn ? sortDirection : ''"
-  [@.disabled]="true"
-  class="d-none d-lg-block"
-  [class.ms-4]="columns.length < 5"
-  [class.align-center]="alignCenter"
-  [class.select-row]="displayedColumns.indexOf('selection') > -1"
-  [class.profile-tool-background]="profileToolThemeBackground"
->
-  <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
-    <mat-header-cell
-      *matHeaderCellDef
-      [mat-sort-header]="column.key"
-      [disabled]="column.sortDisabled"
-      [class.invisible]="column.labelHidden"
+Mat-table doesn't keep up with change detection in component destroy lifecycle hook
+and tries to find a icon column which is only populated in init -->
+@if ((svgSymbolName && columns[0].key === 'icon') || !svgSymbolName) {
+  <mat-table
+    [dataSource]="rows"
+    matSort
+    (matSortChange)="sortData($event)"
+    [matSortActive]="sortColumn"
+    [matSortDirection]="sortColumn ? sortDirection : ''"
+    [@.disabled]="true"
+    class="d-none d-lg-block"
+    [class.ms-4]="columns.length < 5"
+    [class.align-center]="alignCenter"
+    [class.select-row]="displayedColumns.indexOf('selection') > -1"
+    [class.profile-tool-background]="profileToolThemeBackground"
+    >
+    @for (column of columns; track column) {
+      <ng-container [matColumnDef]="column.key">
+        <mat-header-cell
+          *matHeaderCellDef
+          [mat-sort-header]="column.key"
+          [disabled]="column.sortDisabled"
+          [class.invisible]="column.labelHidden"
       [class.no-active-sort]="
         sortColumn?.length === 0 || sortColumn !== column.key
       "
-      [ngClass]="column.class ? column.class : 'col-auto'"
-      [class.icon-cell]="column.key === 'icon'"
-      [class.dense]="'dense'"
-    >
-      <ng-container [ngSwitch]="column.key">
-        <!-- Select all -->
-        <ng-container *ngSwitchCase="'selection'">
-          <mat-checkbox
-            (change)="handleSelectAll($event)"
-            [(ngModel)]="allSelected"
+          [ngClass]="column.class ? column.class : 'col-auto'"
+          [class.icon-cell]="column.key === 'icon'"
+          [class.dense]="'dense'"
           >
-          </mat-checkbox>
-        </ng-container>
-
-        <!-- Column label -->
-        <div *ngSwitchDefault class="column-label">
-          <!-- seems deprecated <span [class.pe-2]="column.tooltip">{{ column.label }}</span> --><span>{{ column.label }}</span>
-            <!--<app-svg-sprites *ngIf="column.tooltip && column.showTooltipIcon" [iconName]="'info'" cssClass="info-icon table-icon"></app-svg-sprites>-->
-        </div>
-      </ng-container>
-
-      <!-- Sort indicator -->
-      <div class="sort-indicator" *ngIf="!column.sortDisabled">
-          <app-svg-sprites *ngIf="sortColumn !== column.key; else activeSortIndicatorTemplate" [iconName]="'sort'" cssClass="sort-icon"></app-svg-sprites>
-        <ng-template #activeSortIndicatorTemplate>
-            <app-svg-sprites [ngClass]="sortDirection === 'asc' ? 'chev-up' : ''" *ngIf="sortDirection === 'asc'"  [iconName]="'sort-asc'" cssClass="sort-icon-asc"></app-svg-sprites>
-            <app-svg-sprites [ngClass]="sortDirection === 'desc' ? 'chev-down' : ''" *ngIf="sortDirection === 'desc'"  [iconName]="'sort-desc'" cssClass="sort-icon-desc"></app-svg-sprites>
-        </ng-template>
-      </div>
-    </mat-header-cell>
-
-    <mat-cell
-      *matCellDef="let row; let i = index"
-      [ngSwitch]="column.key"
-      [ngClass]="column.class ? column.class : 'col-auto'"
-      [class.overflow-visible]="column.overflowEnabled"
-      class="d-block"
-      [title]="row[column.key].title | cutContent: 200"
-      [class.icon-cell]="column.key === 'icon'"
-      [class.d-flex]="column.key === 'icon'"
-      [class.justify-content-center]="column.key === 'icon'"
-      [class.flex-column]="column.key === 'icon'"
-      [class.active-cell]="row[activeRowIdentifierField]?.value"
-      [class.borders]="borders"
-      [class.dense]="'dense'"
-    >
-      <!-- Optional icon -->
-      <ng-container *ngIf="column.key === 'icon' && iconLinkField">
-        <a
-          *ngIf="row[iconLinkField].link"
-          tabindex="-1"
-          [routerLink]="row[iconLinkField].link"
-        >
-          <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
-        </a>
-      </ng-container>
-      <ng-template #iconTemplate>
-          <app-svg-sprites [iconName]="row.icon" cssClass="table-column-icon" class="category-icon"></app-svg-sprites>
-      </ng-template>
-
-      <!-- Selectable row -->
-      <ng-container *ngSwitchCase="'selection'">
-        <mat-checkbox
-          #rowSelect
-          [disabled]="row[column.key].checkboxDisabled"
+          @if (column.key) {
+            @if (column.key === 'selection') {
+              <!-- Select all -->
+              <mat-checkbox
+                (change)="handleSelectAll($event)"
+                [(ngModel)]="allSelected"
+                >
+              </mat-checkbox>
+            }
+            @else {
+              <div class="column-label">
+                <!-- Column label -->
+                <!-- seems deprecated <span [class.pe-2]="column.tooltip">{{ column.label }}</span> --><span>{{ column.label }}</span>
+                <!--<app-svg-sprites *ngIf="column.tooltip && column.showTooltipIcon" [iconName]="'info'" cssClass="info-icon table-icon"></app-svg-sprites>-->
+              </div>
+            }
+          }
+          <!-- Sort indicator -->
+          @if (!column.sortDisabled) {
+            <div class="sort-indicator">
+              @if (sortColumn !== column.key) {
+                <app-svg-sprites [iconName]="'sort'" cssClass="sort-icon"></app-svg-sprites>
+              } @else {
+                @if (sortDirection === 'asc') {
+                  <app-svg-sprites [ngClass]="sortDirection === 'asc' ? 'chev-up' : ''"  [iconName]="'sort-asc'" cssClass="sort-icon-asc"></app-svg-sprites>
+                }
+                @if (sortDirection === 'desc') {
+                  <app-svg-sprites [ngClass]="sortDirection === 'desc' ? 'chev-down' : ''"  [iconName]="'sort-desc'" cssClass="sort-icon-desc"></app-svg-sprites>
+                }
+              }
+            </div>
+          }
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let row; let i = index"
+          [ngClass]="column.class ? column.class : 'col-auto'"
+          [class.overflow-visible]="column.overflowEnabled"
+          class="d-block"
+          [title]="row[column.key].title | cutContent: 200"
+          [class.icon-cell]="column.key === 'icon'"
+          [class.d-flex]="column.key === 'icon'"
+          [class.justify-content-center]="column.key === 'icon'"
+          [class.flex-column]="column.key === 'icon'"
+          [class.active-cell]="row[activeRowIdentifierField]?.value"
+          [class.borders]="borders"
+          [class.dense]="'dense'"
+          >
+          <!-- Optional icon -->
+          @if (column.key === 'icon' && iconLinkField) {
+            @if (row[iconLinkField].link) {
+              <a
+                tabindex="-1"
+                [routerLink]="row[iconLinkField].link"
+                >
+                <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+              </a>
+            }
+          }
+          <ng-template #iconTemplate>
+            <app-svg-sprites [iconName]="row.icon" cssClass="table-column-icon" class="category-icon"></app-svg-sprites>
+          </ng-template>
+          @if (column.key) {
+            @if (column.key === 'selection') {
+              <!-- Selectable row -->
+              <mat-checkbox
+                #rowSelect
+                [disabled]="row[column.key].checkboxDisabled"
           [checked]="
             currentSelection.indexOf((pageNumber - 1) * pageSize + i) > -1 || currentSelection.includes(row[column.key].entryId)
           "
-          (change)="handleSelection($event, i, row[column.key].entryId)"
-        >
-        </mat-checkbox>
+                (change)="handleSelection($event, i, row[column.key].entryId)"
+                >
+              </mat-checkbox>
+            }
+            @else {
+              <!-- Cell data  -->
+              @if (column.key !== 'icon') {
+                <app-table-cell [data]="row[column.key]"></app-table-cell>
+              }
+            }
+          }
+        </mat-cell>
       </ng-container>
-
-      <!-- Cell data  -->
-      <ng-container *ngSwitchDefault>
-        <app-table-cell *ngIf="column.key !== 'icon'" [data]="row[column.key]"></app-table-cell>
-      </ng-container>
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row
-    *matHeaderRowDef="displayedColumns; sticky: true"
-  ></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-</mat-table>
+    }
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+}
 
 <!-- Mobile list view -->
 <div class="mobile-list d-block d-lg-none" [class.d-none]="mobileCards">
-  <div class="row py-3 justify-content-between" *ngFor="let row of rows">
-    <ng-container *ngFor="let column of columns">
-      <div
-        *ngIf="column.mobile"
+  @for (row of rows; track row) {
+    <div class="row py-3 justify-content-between">
+      @for (column of columns; track column) {
+        @if (column.mobile) {
+          <div
         [ngClass]="
           column.mobileColumnSize
             ? 'col-' + column.mobileColumnSize
@@ -128,34 +139,40 @@
             ? 'col-auto'
             : 'col'
         "
-      >
-        <ng-container>
-          <app-table-cell [data]="row[column.key]"></app-table-cell>
-        </ng-container>
-      </div>
-    </ng-container>
-  </div>
+            >
+            <ng-container>
+              <app-table-cell [data]="row[column.key]"></app-table-cell>
+            </ng-container>
+          </div>
+        }
+      }
+    </div>
+  }
 </div>
 
 <!-- Mobile card view -->
-<div class="d-lg-none py-3 mx-n2" *ngIf="mobileCards">
-  <div class="row" *ngIf="selectable">
-    <mat-checkbox
-      (change)="handleSelectAll($event)"
-      [(ngModel)]="allSelected"
-      i18n="@@selectAll"
-    >
+@if (mobileCards) {
+  <div class="d-lg-none py-3 mx-n2">
+    @if (selectable) {
+      <div class="row">
+        <mat-checkbox
+          (change)="handleSelectAll($event)"
+          [(ngModel)]="allSelected"
+          i18n="@@selectAll"
+          >
       Valitse kaikki
     </mat-checkbox>
+      </div>
+    }
+    @for (row of rows; track row; let i = $index) {
+      <app-table-card
+        [index]="i"
+        [columns]="columns"
+        [row]="row"
+        [active]="row[activeRowIdentifierField]?.value"
+        [selectedRows]="selectedRows"
+        (onSelectionChange)="handleSelection($event, i)"
+      ></app-table-card>
+    }
   </div>
-
-  <app-table-card
-    *ngFor="let row of rows; let i = index"
-    [index]="i"
-    [columns]="columns"
-    [row]="row"
-    [active]="row[activeRowIdentifierField]?.value"
-    [selectedRows]="selectedRows"
-    (onSelectionChange)="handleSelection($event, i)"
-  ></app-table-card>
-</div>
+}

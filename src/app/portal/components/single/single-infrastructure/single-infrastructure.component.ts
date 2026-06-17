@@ -66,6 +66,7 @@ import { Listbox, Option } from '@angular/aria/listbox';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { cloneDeep, toInteger } from 'lodash-es';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 type TreeNode = {
   name: string;
@@ -115,7 +116,8 @@ type TreeNode = {
     Option,
     OverlayModule,
     MatRadioButton,
-    MatRadioGroup
+    MatRadioGroup,
+    MatProgressSpinner
   ]
 })
 export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -130,78 +132,14 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   private metaTags = MetaTags.singleInfrastructure;
   private commonTags = MetaTags.common;
   viewportScroller = inject(ViewportScroller);
-  reduceNetworkSize = true;
+  reducedNetworkSize = true;
+
+  infraTreeLoading = false;
 
   isPartOfDropdownVisible = false;
   hasPartDropdownVisible = false;
 
-  testNodes: TreeNode[];
-
-  testNodes2: TreeNode[] = [
-    {
-      name: 'INAAAAAR RI',
-      value: 'ID_INAR_RI',
-      hasParent: true,
-      children: [
-        {
-          name: 'ACTIRS-FI',
-          value: 'ID_ACTIRS-FI',
-          hasChildren: true
-        },
-        {
-          name: 'ANAEE-FI',
-          value: 'ID_ANAEE-FI',
-          hasChildren: true
-        },
-        {
-          name: 'eLTER-FI',
-          value: 'ID_eLTER-FI',
-          hasChildren: true
-        },
-        {
-          name: 'ICOS Suomi',
-          value: 'ID_ICOS_Suomi',
-          isCurrent: true,
-          expanded: true,
-          children: [
-            {
-              name: 'Lettosuo',
-              value: 'ID_Lettosuo',
-              hasChildren: true
-            },
-            {
-              name: 'PALLAS',
-              value: 'ID_PALLAS',
-              hasChildren: true
-            },
-            {
-              name: 'SMEAR',
-              value: 'ID_SMEAR',
-              expanded: true,
-              children: [
-                { name: 'SMEAR1', value: 'ID_SMEAR1', hasChildren: true},
-                { name: 'SMEAR2', value: 'ID_SMEAR2', hasChildren: true},
-                { name: 'SMEAR3', value: 'ID_SMEAR3', hasChildren: true},
-                { name: 'SMEAR4', value: 'ID_SMEAR4', hasChildren: true},
-              ],
-            },
-            {
-              name: 'SODANKYLÄ',
-              value: 'ID_SODANKYLÄ',
-              hasChildren: true
-            },
-            {
-              name: 'UTÖ',
-              value: 'ID_UTÖ',
-              hasChildren: true
-            },
-          ]
-        },
-
-      ],
-      expanded: true
-    }
-  ];
+  infraTreeNodes: TreeNode[];
 
   tab = 'infrastructures';
   infoFields = [
@@ -346,162 +284,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   visibleNodes = new BehaviorSubject([]);
   visibleEdges = new BehaviorSubject([]);
 
-  edgeLength = 350;
-  edgeLength1 = 200;
-
-
-  nodeListDemo1 = [
-    {
-      'id': 1,
-      'color': '#8080da',
-      'infraId': 'ttv-202512000769763',
-      'label': 'FIN-ENV-RI',
-      'isPartOf': [],
-      'hasPart': ['ttv-202601000812049', 'ttv-202602000823839', 'ttv-202603000873597']
-    },
-    {
-      'id': 2,
-      'color': '#8080da',
-      'infraId': 'research-infras-2016111643',
-      'label': 'ESO',
-      'isPartOf': ['ttv-202512000769763'],
-      'hasPart': []
-    },
-    {
-      'id': 3,
-      'color': '#8080da',
-      'infraId': 'research-infras-2016072528',
-      'label': 'CTA (Suomi)',
-      'isPartOf': ['ttv-202512000769763'],
-      'hasPart': []
-    },
-    {
-      'id': 4,
-      'color': '#8080da',
-      'infraId': 'ttv-202602000823839',
-      'label': 'OULU-CLIM-OBS',
-      'isPartOf': ['ttv-202512000769763'],
-      'hasPart': []
-    },
-    {
-      'id': 5,
-      'color': '#8080da',
-      'infraId': 'ttv-202603000873597',
-      'label': 'OULU-CLIM-OBS2',
-      'isPartOf': ['ttv-202512000769763'],
-      'hasPart': ['ttv-202601000812049']
-    },
-    {
-      'id': 6,
-      'color': '#8080da',
-      'infraId': 'ttv-202601000812049',
-      'label': 'OULU-ENV-RI',
-      'isPartOf': ['ttv-202512000769763'],
-      'hasPart': ['ttv-202601000812030']
-    },
-    {
-      'id': 7,
-      'color': '#8080da',
-      'infraId': 'ttv-202601000812030',
-      'label': 'OULU-ARC-RI',
-      'isPartOf': ['ttv-202601000812049'],
-      'hasPart': ['ttv-202601000812058']
-    },
-    {
-      'id': 8,
-      'color': '#8080da',
-      'infraId': 'ttv-202601000812058',
-      'label': 'OULU-MAR-RI',
-      'isPartOf': ['ttv-202601000812030'],
-      'hasPart': []
-    }
-  ];
-
-  nodeListDemo2 = [
-    { id: 301, infraId: 'ICOS-FI', label: 'ICOS-FI', length: this.edgeLength },
-    { id: 302, infraId: 'eLTER-FI', label: 'eLTER-FI', length: this.edgeLength },
-    { id: 303, infraId: 'ANAEE-FI', label: 'ANAEE-FI', length: this.edgeLength },
-    { id: 304, infraId: 'ACTRIS-FI', label: 'ACTRIS-FI', length: this.edgeLength },
-    { id: 305, infraId: 'PALLAS', label: 'PALLAS', length: this.edgeLength },
-    { id: 306, infraId: 'UTO', label: 'UTO', length: this.edgeLength },
-    { id: 307, infraId: 'Marambio', label: 'Marambio', length: this.edgeLength },
-    { id: 308, infraId: 'UAV', label: 'UAV', length: this.edgeLength },
-    { id: 309, infraId: 'Radars', label: 'Radars', length: this.edgeLength },
-    { id: 310, infraId: 'FMI-ARC', label: 'FMI-ARC', length: this.edgeLength },
-    { id: 311, infraId: 'Lettosuo', label: 'Lettosuo', length: this.edgeLength },
-    { id: 312, infraId: 'MAL', label: 'MAL', length: this.edgeLength },
-    { id: 313, infraId: 'Ku-AtmSim', label: 'Ku-AtmSim', length: this.edgeLength },
-    { id: 314, infraId: 'SMEAR', label: 'SMEAR', length: this.edgeLength },
-    { id: 315, infraId: 'SMEAR1', label: 'SMEAR1', length: this.edgeLength },
-    { id: 316, infraId: 'SMEAR2', label: 'SMEAR2', length: this.edgeLength },
-    { id: 317, infraId: 'SMEAR3', label: 'SMEAR3', length: this.edgeLength },
-    { id: 318, infraId: 'SMEAR4', label: 'SMEAR4', length: this.edgeLength },
-    { id: 319, infraId: 'CAUS.CCC', label: 'CAUS.CCC', length: this.edgeLength },
-    { id: 320, infraId: 'CiGas-UHEL', label: 'CiGas-UHEL', length: this.edgeLength },
-    { id: 321, infraId: 'DC-CLU', label: 'DC-CLU', length: this.edgeLength },
-    { id: 322, infraId: 'CCRES-fi', label: 'CCRES-fi', length: this.edgeLength },
-    { id: 323, infraId: 'MRL', label: 'MRL', length: this.edgeLength },
-    { id: 324, infraId: 'ACTGL', label: 'ACTGL', length: this.edgeLength },
-    { id: 325, infraId: 'INAR-RI', label: 'INAR-RI', length: this.edgeLength },
-    { id: 326, infraId: 'ICOS', label: 'ICOS', length: this.edgeLength },
-    { id: 327, infraId: 'ELTER', label: 'ELTER', length: this.edgeLength },
-    { id: 328, infraId: 'ANAEE', label: 'ANAEE', length: this.edgeLength },
-    { id: 329, infraId: 'ACTRIS', label: 'ACTRIS', length: this.edgeLength }
-  ];
-
-  // Create imaginary network of connected nodes
-  edgesDemo1 = [
-    { from: 1, to: 3, length: this.edgeLength1 },
-    { from: 3, to: 2, length: this.edgeLength1 },
-    { from: 2, to: 3, length: this.edgeLength1 },
-    { from: 2, to: 4, length: this.edgeLength1 },
-    { from: 3, to: 5, length: this.edgeLength1 },
-    { from: 5, to: 4, length: this.edgeLength1 },
-    { from: 4, to: 7, length: this.edgeLength1 },
-    { from: 6, to: 8, length: this.edgeLength1 },
-    { from: 8, to: 7, length: this.edgeLength1 }
-  ];
-
-
-  edgesDemo2 = [
-    { from: 305, to: 301, length: this.edgeLength },
-    { from: 305, to: 304, length: this.edgeLength },
-    { from: 306, to: 301, length: this.edgeLength },
-    { from: 306, to: 304, length: this.edgeLength },
-    { from: 307, to: 304, length: this.edgeLength },
-    { from: 308, to: 304, length: this.edgeLength },
-    { from: 309, to: 304, length: this.edgeLength },
-    { from: 310, to: 301, length: this.edgeLength },
-    { from: 311, to: 301, length: this.edgeLength },
-    { from: 312, to: 304, length: this.edgeLength },
-    { from: 324, to: 304, length: this.edgeLength },
-    { from: 313, to: 304, length: this.edgeLength },
-    { from: 315, to: 301, length: this.edgeLength },
-    { from: 315, to: 304, length: this.edgeLength },
-    { from: 316, to: 301, length: this.edgeLength },
-    { from: 316, to: 304, length: this.edgeLength },
-    { from: 317, to: 301, length: this.edgeLength },
-    { from: 317, to: 304, length: this.edgeLength },
-    { from: 318, to: 301, length: this.edgeLength },
-    { from: 318, to: 304, length: this.edgeLength },
-    { from: 315, to: 314, length: this.edgeLength },
-    { from: 316, to: 314, length: this.edgeLength },
-    { from: 317, to: 314, length: this.edgeLength },
-    { from: 318, to: 314, length: this.edgeLength },
-    { from: 319, to: 304, length: this.edgeLength },
-    { from: 320, to: 304, length: this.edgeLength },
-    { from: 321, to: 304, length: this.edgeLength },
-    { from: 322, to: 304, length: this.edgeLength },
-    { from: 323, to: 301, length: this.edgeLength },
-    { from: 301, to: 325, length: this.edgeLength },
-    { from: 302, to: 325, length: this.edgeLength },
-    { from: 303, to: 325, length: this.edgeLength },
-    { from: 304, to: 325, length: this.edgeLength },
-    { from: 301, to: 326, length: this.edgeLength },
-    { from: 302, to: 327, length: this.edgeLength },
-    { from: 303, to: 328, length: this.edgeLength },
-    { from: 304, to: 329, length: this.edgeLength }
-  ];
+  edgeLength = 500;
 
   linkFields = [{ field: 'homepage' }];
 
@@ -511,6 +294,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   @ViewChildren('servicesRefs') private servicesRefs: QueryList<ElementRef>;
 
   idSub: Subscription;
+  routeParamsSub: Subscription;
+  serviceSub: Subscription
   servicesRefsSub: Subscription;
   infoExpand: boolean[] = [];
   serviceExpand: boolean[] = [];
@@ -566,6 +351,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   rootId = '';
   rootNodeName = '';
 
+  isInited = false;
+
   constructor(
     private route: ActivatedRoute,
     private singleService: SingleItemService,
@@ -599,14 +386,22 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngOnInit() {
+    //this.infraTreeLoading = true;
     this.idSub = this.singleService.currentId.subscribe((id) => {
-        this.selectedInfraId = id;
-        this.getData(id, false);
+      this.selectedInfraId = id;
+      this.getData(id, false);
       }
     );
-    this.route.queryParamMap.subscribe(params => {
+    this.serviceSub = this.route.queryParamMap.subscribe(params => {
       this.selectedServiceUrn = params.get('service');
     });
+
+    this.routeParamsSub = this.route.params.subscribe(params => {
+      this.singleService.updateId(params.id);
+      //this.selectedInfraId = params.id;
+      //this.getData(params.id, false);
+    });
+
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
@@ -638,6 +433,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.routeParamsSub?.unsubscribe();
+    this.serviceSub?.unsubscribe();
     this.focusSub?.unsubscribe();
     this.dataSub?.unsubscribe();
     this.servicesRefsSub?.unsubscribe();
@@ -651,12 +448,19 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         next: (responseData) => {
           this.infraNetworkResponseData = responseData;
           this.processInfraNetworkData(this.infraNetworkResponseData);
-          this.changeNetworkSize(this.reduceNetworkSize);
+          this.reduceNetworkSize(this.reducedNetworkSize);
 
         },
         error: (error) => (this.errorMessage = error as any)
       });
     }
+  }
+
+  calculateNodeSize(node: any){
+    const defaultSize = 30;
+    if (false && node?.hasPartMetrics?.hasPartTotal > 0){
+      return node?.hasPartMetrics?.hasPartTotal * 3 + defaultSize;
+    } else return defaultSize;
   }
 
   processInfraNetworkData(data: any) {
@@ -671,13 +475,15 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
           id: node.internalId,
           label: node.nodeTypeNational?.acronym,
           infraId: node.nodeTypeNational.infraKeyIdentifier.substring(11),
-          length: this.edgeLength
+          length: this.edgeLength,
+          size: this.calculateNodeSize(node)
         });
       } else if (node.nodeTypeInternational) {
         tempNodeList.push({
           id: node.internalId,
           label: node.nodeTypeInternational.internationalInfraName,
-          length: this.edgeLength
+          length: this.edgeLength,
+          size: this.calculateNodeSize(node)
         });
       }
     });
@@ -713,8 +519,9 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     });
   }
 
-  changeNetworkSize(isReduced: boolean) {
-    this.reduceNetworkSize = isReduced;
+
+  reduceNetworkSize(isReduced: boolean) {
+    this.reducedNetworkSize = isReduced;
     if (isReduced) {
       const visEdges = this.edges.filter(edge => (edge.from === toInteger(this.rootId) || edge.to === toInteger(this.rootId)));
       const visNodes = this.nodeList.filter(node => visEdges.find(edge => edge.from === node.id || edge.to === node.id));
@@ -772,7 +579,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
               }
             }
             const titleString = this.utilityService.getTitle();
-            this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+            //this.srHeader.nativeElement.innerHTML = titleString?.split(' - ', 1) ?? '';
             this.utilityService.addMeta(
               titleString,
               this.metaTags['description' + this.currentLocale],
@@ -897,10 +704,12 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   calculateConnectionsForTree(){
+    this.isPartOfConnectionsForTree = [];
+    this.hasPartConnectionsForTree = [];
     this.edges.filter(node => node.from === this.infraRootId.getValue()).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.to) {
-         this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label });
+         this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
         }
         ;
       });
@@ -908,7 +717,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.edges.filter(node => node.to === this.infraRootId.getValue()).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.from) {
-         this.hasPartConnectionsForTree.push({ id: node.id, label: node.label });
+         this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
         }
         ;
       });
@@ -934,6 +743,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         value: node.id,
         hasParent: true,
         expanded: true,
+        infraId: node.infraId,
       };
       childNodes.push(childNode);
     });
@@ -948,6 +758,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
           value: node.id + '',
           hasParent: true,
           expanded: true,
+          infraId: node.infraId,
           children: []
         };
         childNode.children.push(nodes[0]);
@@ -957,8 +768,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       rootTrees.push(nodes[0]);
     }
 
-
-    this.testNodes = rootTrees;
+    this.infraTreeNodes = rootTrees;
+    this.infraTreeLoading = false;
   }
 
   calculateIsPartOf(selectedNodeId: number, isUpperLegend: boolean) {
@@ -987,7 +798,6 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     } else {
       this.hasPartLabelsBottom = [];
     }
-    this.hasPartLabelsUpper = [];
     this.edges.filter(node => node.to === selectedNodeId).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.from) {
@@ -1018,7 +828,10 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.selectedInfraNodeId = nodeId;
     let selectedInfraNode = this.nodeList.filter(node => node.id === nodeId);
     this.selectedInfraName = selectedInfraNode[0].label;
+    this.selectedInfraId = selectedInfraNode[0].infraId;
     this.getData(selectedInfraNode[0].infraId, true);
+    this.calculateIsPartOf(nodeId, false);
+    this.calculateHasPart(nodeId, false);
   }
 
   setNewRootNode(infraAcronym: string) {
@@ -1035,20 +848,22 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.rootNodeName = rootNode[0].label;
 
     // Use unfiltered data
-    this.changeNetworkSize(false);
-
     this.visData.next({
       edges: [...this.edges],
       nodeList: [...this.nodeList],
       rootId: '' + this.infraRootId.getValue()
     });
+    this.reduceNetworkSize(true);
   }
 
   navigateToSelectedInfra() {
-    this.showDialog.next(false);
-    this.dialog.closeAll();
-    this.router.navigateByUrl('/results/infrastructure/' + this.selectedInfraId);
-    //this.infraServices = [];
-    //this.ngOnInit();
+    if (this.selectedInfraId) {
+      this.router.navigateByUrl('/results/infrastructure/' + this.selectedInfraId).then(() => {
+        this.showDialog.next(false);
+        this.dialog.closeAll();
+        //window.location.reload();
+      });;
+      //this.infraServices = [];
+    }
   }
 }

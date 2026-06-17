@@ -25,16 +25,7 @@ import { TableCellComponent } from './table-cell/table-cell.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule } from '@angular/forms';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
-import {
-  NgIf,
-  NgFor,
-  NgClass,
-  NgSwitch,
-  NgSwitchCase,
-  NgSwitchDefault,
-  NgTemplateOutlet,
-  JsonPipe
-} from '@angular/common';
+import { NgClass, NgTemplateOutlet, JsonPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -46,36 +37,31 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     styleUrls: ['./table.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
-        MatTable,
-        MatSort,
-        NgFor,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatHeaderCell,
-        MatSortHeader,
-        NgClass,
-        NgSwitch,
-        NgSwitchCase,
-        MatCheckbox,
-        FormsModule,
-        NgSwitchDefault,
-        TooltipModule,
-        MatCellDef,
-        MatCell,
-        RouterLink,
-        NgTemplateOutlet,
-        TableCellComponent,
-        MatHeaderRowDef,
-        MatHeaderRow,
-        MatRowDef,
-        MatRow,
-        TableCardComponent,
-        CutContentPipe,
-        MatIcon,
-        SvgSpritesComponent,
-        JsonPipe
-    ]
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatSortHeader,
+    NgClass,
+    MatCheckbox,
+    FormsModule,
+    TooltipModule,
+    MatCellDef,
+    MatCell,
+    RouterLink,
+    NgTemplateOutlet,
+    TableCellComponent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TableCardComponent,
+    CutContentPipe,
+    MatIcon,
+    SvgSpritesComponent,
+    JsonPipe
+]
 })
 export class TableComponent implements OnInit {
   @Input() columns: TableColumn[];

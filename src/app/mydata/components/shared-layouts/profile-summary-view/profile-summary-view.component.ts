@@ -5,7 +5,7 @@ import { GetItemsByPipe } from '@mydata/pipes/get-items-by.pipe';
 import {
   SummaryDividerComponent
 } from '@mydata/components/profile/profile-summary/summary-divider/summary-divider.component';
-import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, JsonPipe, AsyncPipe } from '@angular/common';
+import { JsonPipe, AsyncPipe } from '@angular/common';
 import { ModelUtilsService } from '@shared/services/model-util.service';
 import { CheckLangPipe } from '@mydata/pipes/check-lang.pipe';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
@@ -34,12 +34,7 @@ import { checkTranslation } from '@portal/models/person/profiletool-person-adapt
   templateUrl: './profile-summary-view.component.html',
   styleUrl: './profile-summary-view.component.scss',
   imports: [
-    NgIf,
-    NgFor,
     SummaryDividerComponent,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
     GetItemsByPipe,
     JsonPipe,
     CheckLangPipe,
@@ -53,7 +48,7 @@ import { checkTranslation } from '@portal/models/person/profiletool-person-adapt
     CountSelectedItemsPipe,
     SortDropdownMenuComponent,
     AsyncPipe
-  ]
+]
 })
 
 
