@@ -413,6 +413,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 </div>
               </mat-card>
             </aside>
+
+            <aside>
+              <ows-related-pie-chart [inputData]="responseData.datasets" [dataSource]="'dataset'"></ows-related-pie-chart>
+            </aside>
+
             <aside>
               <mat-card appearance="outlined">
                 <div class="inner">
