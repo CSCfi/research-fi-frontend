@@ -42,14 +42,6 @@
       <h2 i18n="@@404">404 - Virheellinen osoite</h2>
     </div>
     <main class="col-12 col-md-8">
-      <h1 class="result-header mb-4">Tutkimusinfrastruktuurin palvelut</h1>
-      <!--      <h3 class="result-header">Infrastruktuuriverkosto</h3>
-            <app-vis [infraId]=this.infraId></app-vis>-->
-      <h3 class="result-header">Aktiiviset palvelut (2)</h3>
-      <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
-      <br/>
-
-
       <div *ngFor="let item of [responseData.infrastructures[0]]">
         <h1 class="result-header">{{ item?.name }}</h1>
         <div id="info">
@@ -93,7 +85,7 @@
               </div>
             </ng-container>
           </div>
-          <div *ngIf="item?.services.length > 0" class="content">
+<!--          <div *ngIf="item?.services.length > 0" class="content">
             <h2 class="subheader trHeader">
               <span class="pe-1" i18n="@@infraServices"
               >Tutkimusinfrastruktuurin palvelut</span
@@ -279,7 +271,9 @@
                 </p>
               </ng-template>
             </div>
-          </div>
+          </div>-->
+
+
           <div class="content">
             <h2 class="subheader trHeader" i18n="@@infraOtherInfo">
               Tutkimusinfrastruktuurin muut tiedot
@@ -391,6 +385,24 @@
           </div>
         </div>
       </div>
+
+      @if (infraServices.length > 0) {
+        <h2 class="result-header mb-4"><span i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut </span><span
+                i18n-tooltip="@@infraServicesTooltip"
+                class="ms-2"
+                tooltip="Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu.
+                            Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle.
+                            Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste."
+                tabindex="0"
+                placement="top"
+                #elem
+        >
+                <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+              </span></h2>
+        <h3 class="result-header">Aktiiviset palvelut ({{ infraServices.length }})</h3>
+        <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
+        <br/>
+      }
     </main>
 
     <!-- Sidebar -->
