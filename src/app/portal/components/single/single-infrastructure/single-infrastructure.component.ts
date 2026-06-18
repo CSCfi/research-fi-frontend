@@ -867,7 +867,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       nodeList: [...this.nodeList],
       rootId: '' + this.infraRootId.getValue()
     });
-    this.reduceNetworkSize(true);
+    this.reduceNetworkSize(this.reducedNetworkSize);
   }
 
   navigateToSelectedInfra() {

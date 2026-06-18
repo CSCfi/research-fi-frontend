@@ -94,6 +94,7 @@ h4.th.classification {
   justify-content: start;
   align-content: start;
   flex-direction: row;
+  max-width: 1400px;
 }
 
 .vis-component-container {
@@ -114,6 +115,7 @@ h4.th.classification {
 .relations-dropdown-container {
   //position: absolute;
   //top: 156px;
+  font-size: 14px;
   margin-left: 1px;
   width: 250px;
   padding: 10px;
@@ -142,6 +144,7 @@ h4.th.classification {
   border: 1px solid #4546B9;
   border-radius: 4px;
   background: #F7F7FB;
+  font-size: 14px;
 }
 
 .dropdown-container, .relations-text {
