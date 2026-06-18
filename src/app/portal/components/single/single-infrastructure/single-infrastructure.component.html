@@ -455,6 +455,7 @@
                   </ng-container
                   >
                 </h2>
+                <p>{{infraTreeInfoText}}</p>
               </mat-card-title
               >
               @if (infraTreeLoading) {
@@ -615,8 +616,7 @@
       <div class="relations-dropdown-container">
         <div class="relations-heading">Verkosto: {{ rootNodeName }}</div>
         @if (isPartOfLabelsUpper.length > 0) {
-          <div class="relations-sub-heading" (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">On osa
-            infrastruktuureja:
+          <div class="relations-sub-heading" (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{infraModalTexts.isPartOfInfrastructures}}:
           </div>
           @if (isPartOfLabelsVisible) {
             @for (item of isPartOfLabelsUpper; track item) {
@@ -625,8 +625,7 @@
           }
         }
         @if (hasPartLabelsUpper.length > 0) {
-          <div class="relations-sub-heading" (click)="hasPartLabelsVisible = !hasPartLabelsVisible">Sisältää
-            infrastruktuurit:
+          <div class="relations-sub-heading fw-bold" (click)="hasPartLabelsVisible = !hasPartLabelsVisible">{{infraModalTexts.includesInfrastructures}}:
           </div>
           @if (hasPartLabelsVisible) {
             @for (item of hasPartLabelsUpper; track item) {
@@ -648,7 +647,7 @@
                   [checked]="reducedNetworkSize"
                   (change)="reduceNetworkSize(true)"
           >
-            Näytä suorat liitokset
+            {{infraModalTexts.showDirectConnections}}
           </mat-radio-button>
           <mat-radio-button
                   class="radio-button"
@@ -656,7 +655,7 @@
                   [checked]="!reducedNetworkSize"
                   (change)="reduceNetworkSize(false)"
           >
-            Näytä koko verkosto
+            {{infraModalTexts.showFullNetwork}}
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -708,13 +707,23 @@
           <div class="vr"></div>
           <div class="">
             <h3>
-              <span class="">{{ selectedInfraName }}</span>
+              <span class="pe-1">{{ infraModalTexts.acronym }}</span>
             </h3>
-            <p><span class="fw-bold">{{ modalInfraData?.infrastructures[0]?.acronym }}</span>
-              - {{ modalInfraData.infrastructures[0]?.name }}</p>
+            <p>
+              @if (selectedInfraName?.length > 0) {
+                <span class="fw-bold">{{ selectedInfraName }}</span>
+              }
+              @else {
+                <span class="fw-bold">{{modalInfraData?.infrastructures[0]?.acronym}}</span>
+              }
+              @if (modalInfraData.infrastructures[0]?.name?.length > 0) {
+                - {{ modalInfraData.infrastructures[0]?.name }}
+              }
+            </p>
+
             <a href="javascript:void(0)" (click)="navigateToSelectedInfra()">
               <p class="fw-bold">
-                Siirry infrastruktuurin sivulle
+                {{infraModalTexts.goToInfraPage}}
               </p>
             </a>
           </div>
@@ -723,53 +732,63 @@
           <div class="vr"></div>
           <div class="">
             <h3>
-              <span class="pe-1">{{ modalInfoFielLabels.startYear }}</span>
+              <span class="pe-1">{{ infraModalTexts.startYear }}</span>
             </h3>
-            <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
+            @if (modalInfraData.infrastructures[0]?.startYear?.length > 0) {
+              <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
+            }
+            @else {
+              <p>{{ infraModalTexts.dataMissing }}</p>
+            }
           </div>
         </div>
         <div class="col-4 d-flex">
           <div class="vr"></div>
           <div class="">
             <h3>
-              <span class="pe-1">{{ modalInfoFielLabels.description }}</span>
+              <span class="pe-1">{{ infraModalTexts.description }}</span>
             </h3>
+            @if (modalInfraData.infrastructures[0]?.description?.length > 0) {
             <p>{{ modalInfraData.infrastructures[0]?.description }}</p>
+            }
+            @else {
+              <p>{{ infraModalTexts.dataMissing }}</p>
+            }
           </div>
         </div>
         <div class="col-3 d-flex">
           <div class="vr"></div>
           <div class="">
             <h3>
-              <span class="">{{ modalInfoFielLabels.relationToOtherInfras }}</span>
+              <span class="">{{ infraModalTexts.relationToOtherInfras }}</span>
             </h3>
             @if (selectedInfraName && (selectedInfraName !== rootNodeName)) {
               <p>
                 <app-primary-action-button
-                        [content]="'Näytä verkostokuva'"
+                        [content]="infraModalTexts.showNetworkGraph"
                         (click)="setNewRootNode(modalInfraData?.infrastructures[0]?.acronym)"
                 ></app-primary-action-button>
               <h3>
                 <span class="">{{ selectedInfraName }}</span>
               </h3>
               @if (isPartOfLabelsBottom.length > 0) {
-                <div class="mt-2">On osa <span>({{ isPartOfLabelsBottom.length }})
-                  </span> infrastruktuuria:
+                <div class="mt-2 relations-text fw-bold">{{infraModalTexts.isPart}} <span>({{ isPartOfLabelsBottom.length }})
+                  </span> {{infraModalTexts.ofInfrastructure}}
                 </div>
                 @for (item of isPartOfLabelsBottom; track item) {
-                  <div><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
+                  <div class="relations-text"><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
                 }
               }
               @if (hasPartLabelsBottom.length > 0) {
-                <div class="mt-1">Sisältää infrastruktuurit <span>({{ hasPartLabelsBottom.length }})
+                <div class="mt-1 relations-text fw-bold">{{infraModalTexts.includesInfrastructures}} <span>({{ hasPartLabelsBottom.length }})
                   </span>:
                 </div>
                 @for (item of hasPartLabelsBottom; track item) {
-                  <div><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
+                  <div class="relations-text"><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
                 }
               }
             } @else {
-              <div>Verkosto esitetty kuvassa</div>
+              <div class="relations-text">{{infraModalTexts.networkShownInPicture}}</div>
             }
           </div>
         </div>

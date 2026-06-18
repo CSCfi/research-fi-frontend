@@ -180,11 +180,24 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     }
   ];
 
-  modalInfoFielLabels = {
+  infraTreeInfoText = $localize`:@@infraTreeInfoText:Näet tässä valitun infrastruktuurin osana laajempaa infrastruktuurien verkostoa`;
+  infraTreeBelongsToManyNetworks = $localize`:@@infraTreeBelongsToManyNetworks:Kohde kuuluu useaan infrastruktuuriverkostoon`;
+
+  infraModalTexts = {
     'acronym': $localize`:@@infraAcronymAndName:Lyhenne ja nimi`,
     'startYear': $localize`:@infraStartYear:Toiminta alkanut`,
     'description': $localize`:@@infraDescription:Infrastruktuurin kuvaus`,
-    'relationToOtherInfras': $localize`:@@relationToOtherInfras:Yhteydet muihin infrastruktuureihin`
+    'relationToOtherInfras': $localize`:@@relationToOtherInfras:Yhteydet muihin infrastruktuureihin`,
+    'showDirectConnections': $localize`:@@showDirectConnections:Näytä suorat liitokset`,
+    'showFullNetwork': $localize`:@@showFullNetwork:Näytä koko verkosto`,
+    'dataMissing': $localize`:@@dataMissing:Tietoja ei ole saatavilla.`,
+    'goToInfraPage': $localize`:@@moveToInfraPage:Siirry infrastruktuurin sivulle`,
+    'includesInfrastructures': $localize`:@@includesInfrastructures:Sisältää infrastruktuurit`,
+    'isPartOfInfrastructures': $localize`:@@includesInfrastructures:On osa infrastruktuureja`,
+    'networkShownInPicture': $localize`:@@networkShownInPicture:Verkosto esitetty kuvassa.`,
+    'showNetworkGraph': $localize`:@@showNetworkGraph:Näytä verkostokuva`,
+    'isPart': $localize`:@@isPart:On osa`,
+    'ofInfrastructure': $localize`:@@ofInfrastructure:infrastrukuuria`
   };
 
   modalInfoFields = [
