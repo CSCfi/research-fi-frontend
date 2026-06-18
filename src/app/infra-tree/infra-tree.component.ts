@@ -27,17 +27,16 @@ export class InfraTreeComponent implements OnInit {
   private _inputNodes: TreeNode[] = [];
 
   @Input()
-  get inputNodes(): TreeNode[] {
+  get inputNodes(): any {
     return this._inputNodes;
   }
 
-  set inputNodes(nodes: TreeNode[]) {
+  set inputNodes(nodes: any) {
     if (nodes) {
       this.nodes = [];
-      this.nodes = [...nodes];
+      this.nodes.push(nodes);
       this.inputReceived = true;
     }
-    console.log('inputNodes set to', nodes);
   }
 
   @Input() hasPartArray?: string;
@@ -79,7 +78,6 @@ export class InfraTreeComponent implements OnInit {
   }
 
   navigateToInfraLink(infraId){
-    console.log('infraId', infraId);
     if (infraId) {
     this.router.navigateByUrl('/results/infrastructure/' + infraId).then(() => {
       //window.location.reload();

@@ -387,7 +387,7 @@
       </div>
 
       @if (infraServices.length > 0) {
-        <h2 class="result-header mb-4"><span i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut </span><span
+        <h2 class="ps-1 mb-4"><span i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut </span><span
                 i18n-tooltip="@@infraServicesTooltip"
                 class="ms-2"
                 tooltip="Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu.
@@ -446,7 +446,7 @@
         </aside>
         <aside>
           <mat-card appearance="outlined">
-            <div class="inner">
+            <div class="inner infra-trees-container">
               <mat-card-title
               >
                 <h2>
@@ -471,7 +471,15 @@
                   </div>
                 </div>
               }
-              <app-infra-tree [infraId]="selectedInfraId" [inputNodes]="infraTreeNodes"></app-infra-tree>
+              @for (subTrees of infraTreeNodes; track subTrees; let i = $index) {
+                @if (infraTreeNodes?.length > 1 && i === 0){
+                  <div class="fw-bold mb-2">Kohde kuuluu useaan infrastruktuuriverkostoon</div>
+                }
+                @if (!infraTreeLoading) {
+                <hr>
+                }
+                <app-infra-tree class="m" [infraId]="selectedInfraId" [inputNodes]="subTrees"></app-infra-tree>
+              }
             </div>
             <div class="row">
               <div class="col-12 d-flex justify-content-center mt-4 mb-2">

@@ -190,11 +190,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     'relationToOtherInfras': $localize`:@@relationToOtherInfras:Yhteydet muihin infrastruktuureihin`,
     'showDirectConnections': $localize`:@@showDirectConnections:Näytä suorat liitokset`,
     'showFullNetwork': $localize`:@@showFullNetwork:Näytä koko verkosto`,
-    'dataMissing': $localize`:@@dataMissing:Tietoja ei ole saatavilla.`,
+    'dataMissing': $localize`:@@dataMissing:Tietoja ei ole saatavilla`,
     'goToInfraPage': $localize`:@@moveToInfraPage:Siirry infrastruktuurin sivulle`,
     'includesInfrastructures': $localize`:@@includesInfrastructures:Sisältää infrastruktuurit`,
     'isPartOfInfrastructures': $localize`:@@includesInfrastructures:On osa infrastruktuureja`,
-    'networkShownInPicture': $localize`:@@networkShownInPicture:Verkosto esitetty kuvassa.`,
+    'networkShownInPicture': $localize`:@@networkShownInPicture:Verkosto esitetty kuvassa`,
     'showNetworkGraph': $localize`:@@showNetworkGraph:Näytä verkostokuva`,
     'isPart': $localize`:@@isPart:On osa`,
     'ofInfrastructure': $localize`:@@ofInfrastructure:infrastrukuuria`
