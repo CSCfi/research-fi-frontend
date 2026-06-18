@@ -85,193 +85,193 @@
               </div>
             </ng-container>
           </div>
-<!--          <div *ngIf="item?.services.length > 0" class="content">
-            <h2 class="subheader trHeader">
-              <span class="pe-1" i18n="@@infraServices"
-              >Tutkimusinfrastruktuurin palvelut</span
-              >
-              <span
-                      i18n-tooltip="@@infraServicesTooltip"
-                      tooltip="Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu.
-                            Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle.
-                            Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste."
-                      tabindex="0"
-                      placement="top"
-                      #elem
-              >
-                <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-              </span>
-            </h2>
-            <div
-                    class="content"
-                    *ngFor="let service of item.services; let i = index"
-            >
-              <ng-container>
-                <div class="d-flex" (click)="toggleService(i)" #servicesRefs>
-                  <h3
-                          class="header ms-2 trHeader subtitle service-name"
-                          [ngClass]="showService[i] ? 'open' : 'closed'"
-                  >
-                    {{
-                      stringHasContent(service.name)
-                        ? service.name
-                        : serviceHeader
-                    }}
-                    {{ service.acronym ? '(' + service.acronym + ')' : '' }}
-                  </h3>
-                  <div class="chevron-wrapper">
-                    <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon single-page"
-                                     *ngIf="showService[i]"></app-svg-sprites>
-                    <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon single-page"
-                                     *ngIf="!showService[i]"></app-svg-sprites>
-                  </div>
-                </div>
-                <div *ngIf="showService[i]" class="ps-4">
-                  <div
-                          *ngFor="let row of serviceFields; let j = index"
-                          class="row"
-                  >
-                    <ng-container *ngIf="stringHasContent(service[row.field])">
-                      <h4 class="col-12 col-sm-6 col-lg-3 th">
-                        <span class="pe-1">{{ row.label }}</span>
-                        <ng-container *ngIf="row.tooltip">
-                          <ng-template #tooltipTemplate
-                          >
-                            <div [innerHtml]="row.tooltip"></div
-                            >
-                          </ng-template>
-                          <span
-                                  [tooltip]="tooltipTemplate"
-                                  tabindex="0"
-                                  placement="top"
-                                  #elem
-                          >
-                            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                          </span>
-                        </ng-container>
-                      </h4>
-                      <div class="col-12 col-sm-6 col-lg-9 td">
-                        <p
-                                [ngClass]="
-                            serviceExpand[serviceExpandId(i, j)]
-                              ? 'expand'
-                              : 'short'
-                          "
-                                #overflow
-                        >
-                          {{ service[row.field] }}
-                        </p>
-                        <a
-                                href="javascript:void(0)"
-                                class="read-more"
-                                *ngIf="
-                            checkOverflow(overflow) ||
-                            serviceExpand[serviceExpandId(i, j)]
-                          "
-                                (click)="
-                            expandServiceDescription(serviceExpandId(i, j))
-                          "
-                                [innerHTML]="
-                            serviceExpand[serviceExpandId(i, j)]
-                              ? showLess
-                              : showMore
-                          "
-                        ></a>
-                      </div>
-                    </ng-container>
-                  </div>
-                  <div
-                          *ngFor="
-                      let servicePoint of service.servicePoints;
-                      let j = index
-                    "
-                  >
-                    <div class="row">
-                      <h4 class="col-12 col-sm-6 col-lg-3 th">
-                        <span class="pe-1" i18n="@@infraServicePoint"
-                        >Palvelupiste</span
+          <!--          <div *ngIf="item?.services.length > 0" class="content">
+                      <h2 class="subheader trHeader">
+                        <span class="pe-1" i18n="@@infraServices"
+                        >Tutkimusinfrastruktuurin palvelut</span
                         >
                         <span
-                                i18n-tooltip="@@contactInfoTooltip"
-                                tooltip="Kertoo palvelun yhteystiedot ja mahdolliset käyttöehdot.
-                                                Kuvauksessa voidaan kertoa palvelupisteestä tarkemmin. Joskus palvelu voi olla erilainen eri palvelupisteissä esimerkiksi tarjolla olevan laitteiston kannalta."
+                                i18n-tooltip="@@infraServicesTooltip"
+                                tooltip="Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu.
+                                      Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle.
+                                      Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste."
                                 tabindex="0"
                                 placement="top"
                                 #elem
                         >
                           <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                         </span>
-                      </h4>
-                      <div class="col-12 col-sm-6 col-lg-9 td">
-                        {{ servicePoint.name }}
-                      </div>
-                    </div>
-                    <div>
+                      </h2>
                       <div
-                              *ngFor="let row of servicePointContactFields"
-                              class="row"
+                              class="content"
+                              *ngFor="let service of item.services; let i = index"
                       >
-                        <ng-container *ngIf="servicePoint[row.field]?.trim()">
-                          <h5 class="sr-only">{{ row.label }}</h5>
-                          <div
-                                  class="offset-0 offset-sm-6 offset-lg-3 col-12 col-sm-6 col-lg-9 pt-0 pb-0 td"
-                          >
-                            <ng-container
-                                    *ngIf="
-                                row.field === 'emailAddress';
-                                else nonEmailAddress
-                              "
-                            ><a
-                                    href="javascript:void(0)"
-                                    (click)="
-                                  showEmail($event, servicePoint[row.field])
-                                "
-                                    i18n="@@showEmailAddress"
-                            >Näytä sähköpostiosoite</a
-                            ></ng-container
+                        <ng-container>
+                          <div class="d-flex" (click)="toggleService(i)" #servicesRefs>
+                            <h3
+                                    class="header ms-2 trHeader subtitle service-name"
+                                    [ngClass]="showService[i] ? 'open' : 'closed'"
                             >
-                            <ng-template #nonEmailAddress>{{
-                                servicePoint[row.field]
+                              {{
+                                stringHasContent(service.name)
+                                  ? service.name
+                                  : serviceHeader
                               }}
-                            </ng-template>
+                              {{ service.acronym ? '(' + service.acronym + ')' : '' }}
+                            </h3>
+                            <div class="chevron-wrapper">
+                              <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon single-page"
+                                               *ngIf="showService[i]"></app-svg-sprites>
+                              <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon single-page"
+                                               *ngIf="!showService[i]"></app-svg-sprites>
+                            </div>
                           </div>
-                        </ng-container>
-                      </div>
-                      <div
-                              *ngFor="let row of servicePointInfoFields"
-                              class="row"
-                      >
-                        <ng-container *ngIf="servicePoint[row.field]?.trim()">
-                          <h5 class="col-12 col-sm-6 col-lg-3 th">
-                            {{ row.label }}
-                          </h5>
-                          <div class="col-12 col-sm-6 col-lg-9 td">
-                            <a
-                                    [target]="
-                                row.field === 'infoUrl' ? '_blank' : null
+                          <div *ngIf="showService[i]" class="ps-4">
+                            <div
+                                    *ngFor="let row of serviceFields; let j = index"
+                                    class="row"
+                            >
+                              <ng-container *ngIf="stringHasContent(service[row.field])">
+                                <h4 class="col-12 col-sm-6 col-lg-3 th">
+                                  <span class="pe-1">{{ row.label }}</span>
+                                  <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate
+                                    >
+                                      <div [innerHtml]="row.tooltip"></div
+                                      >
+                                    </ng-template>
+                                    <span
+                                            [tooltip]="tooltipTemplate"
+                                            tabindex="0"
+                                            placement="top"
+                                            #elem
+                                    >
+                                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                                    </span>
+                                  </ng-container>
+                                </h4>
+                                <div class="col-12 col-sm-6 col-lg-9 td">
+                                  <p
+                                          [ngClass]="
+                                      serviceExpand[serviceExpandId(i, j)]
+                                        ? 'expand'
+                                        : 'short'
+                                    "
+                                          #overflow
+                                  >
+                                    {{ service[row.field] }}
+                                  </p>
+                                  <a
+                                          href="javascript:void(0)"
+                                          class="read-more"
+                                          *ngIf="
+                                      checkOverflow(overflow) ||
+                                      serviceExpand[serviceExpandId(i, j)]
+                                    "
+                                          (click)="
+                                      expandServiceDescription(serviceExpandId(i, j))
+                                    "
+                                          [innerHTML]="
+                                      serviceExpand[serviceExpandId(i, j)]
+                                        ? showLess
+                                        : showMore
+                                    "
+                                  ></a>
+                                </div>
+                              </ng-container>
+                            </div>
+                            <div
+                                    *ngFor="
+                                let servicePoint of service.servicePoints;
+                                let j = index
                               "
-                                    href="{{ servicePoint[row.field] }}"
-                            >{{ servicePoint[row.field] }}
-                              <app-svg-sprites *ngIf="
-                                  row.field === 'infoUrl' ||
-                                  row.field === 'accessPolicyUrl'
-                                " [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                            </a>
+                            >
+                              <div class="row">
+                                <h4 class="col-12 col-sm-6 col-lg-3 th">
+                                  <span class="pe-1" i18n="@@infraServicePoint"
+                                  >Palvelupiste</span
+                                  >
+                                  <span
+                                          i18n-tooltip="@@contactInfoTooltip"
+                                          tooltip="Kertoo palvelun yhteystiedot ja mahdolliset käyttöehdot.
+                                                          Kuvauksessa voidaan kertoa palvelupisteestä tarkemmin. Joskus palvelu voi olla erilainen eri palvelupisteissä esimerkiksi tarjolla olevan laitteiston kannalta."
+                                          tabindex="0"
+                                          placement="top"
+                                          #elem
+                                  >
+                                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                                  </span>
+                                </h4>
+                                <div class="col-12 col-sm-6 col-lg-9 td">
+                                  {{ servicePoint.name }}
+                                </div>
+                              </div>
+                              <div>
+                                <div
+                                        *ngFor="let row of servicePointContactFields"
+                                        class="row"
+                                >
+                                  <ng-container *ngIf="servicePoint[row.field]?.trim()">
+                                    <h5 class="sr-only">{{ row.label }}</h5>
+                                    <div
+                                            class="offset-0 offset-sm-6 offset-lg-3 col-12 col-sm-6 col-lg-9 pt-0 pb-0 td"
+                                    >
+                                      <ng-container
+                                              *ngIf="
+                                          row.field === 'emailAddress';
+                                          else nonEmailAddress
+                                        "
+                                      ><a
+                                              href="javascript:void(0)"
+                                              (click)="
+                                            showEmail($event, servicePoint[row.field])
+                                          "
+                                              i18n="@@showEmailAddress"
+                                      >Näytä sähköpostiosoite</a
+                                      ></ng-container
+                                      >
+                                      <ng-template #nonEmailAddress>{{
+                                          servicePoint[row.field]
+                                        }}
+                                      </ng-template>
+                                    </div>
+                                  </ng-container>
+                                </div>
+                                <div
+                                        *ngFor="let row of servicePointInfoFields"
+                                        class="row"
+                                >
+                                  <ng-container *ngIf="servicePoint[row.field]?.trim()">
+                                    <h5 class="col-12 col-sm-6 col-lg-3 th">
+                                      {{ row.label }}
+                                    </h5>
+                                    <div class="col-12 col-sm-6 col-lg-9 td">
+                                      <a
+                                              [target]="
+                                          row.field === 'infoUrl' ? '_blank' : null
+                                        "
+                                              href="{{ servicePoint[row.field] }}"
+                                      >{{ servicePoint[row.field] }}
+                                        <app-svg-sprites *ngIf="
+                                            row.field === 'infoUrl' ||
+                                            row.field === 'accessPolicyUrl'
+                                          " [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                                      </a>
+                                    </div>
+                                  </ng-container>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </ng-container>
+                        <ng-template #simpleServicePoints>
+                          <p class="header trHeader">
+                            {{ service?.name }}
+                            {{ service?.acronym ? '(' + service.acronym + ')' : '' }}
+                          </p>
+                        </ng-template>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-template #simpleServicePoints>
-                <p class="header trHeader">
-                  {{ service?.name }}
-                  {{ service?.acronym ? '(' + service.acronym + ')' : '' }}
-                </p>
-              </ng-template>
-            </div>
-          </div>-->
+                    </div>-->
 
 
           <div class="content">
@@ -455,7 +455,7 @@
                   </ng-container
                   >
                 </h2>
-                <p>{{infraTreeInfoText}}</p>
+                <p>{{ infraTreeInfoText }}</p>
               </mat-card-title
               >
               @if (infraTreeLoading) {
@@ -472,11 +472,11 @@
                 </div>
               }
               @for (subTrees of infraTreeNodes; track subTrees; let i = $index) {
-                @if (infraTreeNodes?.length > 1 && i === 0){
+                @if (infraTreeNodes?.length > 1 && i === 0) {
                   <div class="fw-bold mb-2">Kohde kuuluu useaan infrastruktuuriverkostoon</div>
                 }
                 @if (!infraTreeLoading) {
-                <hr>
+                  <hr>
                 }
                 <app-infra-tree class="m" [infraId]="selectedInfraId" [inputNodes]="subTrees"></app-infra-tree>
               }
@@ -572,20 +572,79 @@
 
 <!-- Enable or disable automatic publishing modal template (general info) -->
 <ng-template #infrastructureNetworkGraph>
-  <div class="row mini-modal-width w-100">
+  <div class="row vis-container h-100">
+  <div class="row mini-modal-width w-100 gx-4">
     <p>Näet kuvasta mihin infrastruktuureihin <span
             class="fw-bold">{{ rootNodeName }}</span> @if (responseData?.infrastructures[0]?.name) {
       ({{ responseData?.infrastructures[0]?.name }})
     }
       on yhteydessä.<br/>Saat lisätietoja
       verkoston infrastruktuureista klikkaamalla.</p>
-    <app-vis class="vis-component" [infraId]="selectedInfraId" [rootId]="infraRootId | async"
-             [nodeList]="visibleNodes | async"
-             [visData]="visData | async"
-             [edges]="visibleEdges | async" (selectedNodeId)="infraNodeClick($event)"></app-vis>
+  </div>
+    <div class="row position-relative vis-component-container w-100">
 
+      <div class="position-absolute vis-component-container top-0 start-0 w-100">
+        <app-vis class="vis-component" [infraId]="selectedInfraId" [rootId]="infraRootId | async"
+                 [nodeList]="visibleNodes | async"
+                 [visData]="visData | async"
+                 [edges]="visibleEdges | async" (selectedNodeId)="infraNodeClick($event)"></app-vis>
+      </div>
 
-    <div class="d-flex flex-column dropdown-container">
+      <div class="position-absolute vis-legend-container start-0">
+        <div class="relations-dropdown-container">
+          <div class="relations-heading">Verkosto: {{ rootNodeName }}</div>
+          @if (isPartOfLabelsUpper.length > 0) {
+            <div class="relations-sub-heading"
+                 (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}:
+            </div>
+            @if (isPartOfLabelsVisible) {
+              @for (item of isPartOfLabelsUpper; track item) {
+                <div><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
+              }
+            }
+          }
+          @if (hasPartLabelsUpper.length > 0) {
+            <div class="relations-sub-heading fw-bold"
+                 (click)="hasPartLabelsVisible = !hasPartLabelsVisible">{{ infraModalTexts.includesInfrastructures }}:
+            </div>
+            @if (hasPartLabelsVisible) {
+              @for (item of hasPartLabelsUpper; track item) {
+                <div><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
+              }
+            }
+          }
+        </div>
+      </div>
+      <div class="position-absolute vis-legend-container end-0">
+        <div class="network-radio-button-container">
+          <mat-radio-group
+                  aria-labelledby="test"
+                  class="form-group"
+                  required="true"
+          >
+            <mat-radio-button
+                    class="radio-button"
+                    [value]="true"
+                    [checked]="reducedNetworkSize"
+                    (change)="reduceNetworkSize(true)"
+            >
+              {{ infraModalTexts.showDirectConnections }}
+            </mat-radio-button>
+            <mat-radio-button
+                    class="radio-button"
+                    [value]="false"
+                    [checked]="!reducedNetworkSize"
+                    (change)="reduceNetworkSize(false)"
+            >
+              {{ infraModalTexts.showFullNetwork }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+  <div class="row mini-modal-width w-100 position-relative">
+
+    <div class="d-flex flex-column dropdown-container d-none">
 
       <!-- Is part of dropdown -->
       <!--
@@ -621,52 +680,7 @@
     </ng-template>
   </div>
 -->
-      <div class="relations-dropdown-container">
-        <div class="relations-heading">Verkosto: {{ rootNodeName }}</div>
-        @if (isPartOfLabelsUpper.length > 0) {
-          <div class="relations-sub-heading" (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{infraModalTexts.isPartOfInfrastructures}}:
-          </div>
-          @if (isPartOfLabelsVisible) {
-            @for (item of isPartOfLabelsUpper; track item) {
-              <div><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
-            }
-          }
-        }
-        @if (hasPartLabelsUpper.length > 0) {
-          <div class="relations-sub-heading fw-bold" (click)="hasPartLabelsVisible = !hasPartLabelsVisible">{{infraModalTexts.includesInfrastructures}}:
-          </div>
-          @if (hasPartLabelsVisible) {
-            @for (item of hasPartLabelsUpper; track item) {
-              <div><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
-            }
-          }
-        }
-      </div>
 
-      <div class="network-radio-button-container">
-        <mat-radio-group
-                aria-labelledby="test"
-                class="form-group"
-                required="true"
-        >
-          <mat-radio-button
-                  class="radio-button"
-                  [value]="true"
-                  [checked]="reducedNetworkSize"
-                  (change)="reduceNetworkSize(true)"
-          >
-            {{infraModalTexts.showDirectConnections}}
-          </mat-radio-button>
-          <mat-radio-button
-                  class="radio-button"
-                  [value]="false"
-                  [checked]="!reducedNetworkSize"
-                  (change)="reduceNetworkSize(false)"
-          >
-            {{infraModalTexts.showFullNetwork}}
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
       <!--
               &lt;!&ndash; Has part dropdown &ndash;&gt;
               <div ngCombobox readonly class="has-part-select-combobox">
@@ -707,10 +721,10 @@
 
 
   </div>
-  <div class="row">
+  <div class="row gx-0">
     <div class="infra-network-modal-legend">
       <!--<h2 class="result-header mb-3">Valitun infrastruktuurin tiedot</h2>-->
-      <div class="row">
+      <div class="row gx-0 d-flex justify-content-between">
         <div class="col-3 d-flex infra-legend-column">
           <div class="vr"></div>
           <div class="">
@@ -720,9 +734,8 @@
             <p>
               @if (selectedInfraName?.length > 0) {
                 <span class="fw-bold">{{ selectedInfraName }}</span>
-              }
-              @else {
-                <span class="fw-bold">{{modalInfraData?.infrastructures[0]?.acronym}}</span>
+              } @else {
+                <span class="fw-bold">{{ modalInfraData?.infrastructures[0]?.acronym }}</span>
               }
               @if (modalInfraData.infrastructures[0]?.name?.length > 0) {
                 - {{ modalInfraData.infrastructures[0]?.name }}
@@ -731,7 +744,7 @@
 
             <a href="javascript:void(0)" (click)="navigateToSelectedInfra()">
               <p class="fw-bold">
-                {{infraModalTexts.goToInfraPage}}
+                {{ infraModalTexts.goToInfraPage }}
               </p>
             </a>
           </div>
@@ -744,8 +757,7 @@
             </h3>
             @if (modalInfraData.infrastructures[0]?.startYear?.length > 0) {
               <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
-            }
-            @else {
+            } @else {
               <p>{{ infraModalTexts.dataMissing }}</p>
             }
           </div>
@@ -757,9 +769,8 @@
               <span class="pe-1">{{ infraModalTexts.description }}</span>
             </h3>
             @if (modalInfraData.infrastructures[0]?.description?.length > 0) {
-            <p>{{ modalInfraData.infrastructures[0]?.description }}</p>
-            }
-            @else {
+              <p>{{ modalInfraData.infrastructures[0]?.description }}</p>
+            } @else {
               <p>{{ infraModalTexts.dataMissing }}</p>
             }
           </div>
@@ -780,28 +791,33 @@
                 <span class="">{{ selectedInfraName }}</span>
               </h3>
               @if (isPartOfLabelsBottom.length > 0) {
-                <div class="mt-2 relations-text fw-bold">{{infraModalTexts.isPart}} <span>({{ isPartOfLabelsBottom.length }})
-                  </span> {{infraModalTexts.ofInfrastructure}}
+                <div class="mt-2 relations-text fw-bold">{{ infraModalTexts.isPart }}
+                  <span>({{ isPartOfLabelsBottom.length }})
+                  </span> {{ infraModalTexts.ofInfrastructure }}
                 </div>
                 @for (item of isPartOfLabelsBottom; track item) {
-                  <div class="relations-text"><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
+                  <div class="relations-text"><a (click)="infraNodeClickFromList(item)"
+                                                 href="javascript:void(0)">{{ item.label }}</a></div>
                 }
               }
               @if (hasPartLabelsBottom.length > 0) {
-                <div class="mt-1 relations-text fw-bold">{{infraModalTexts.includesInfrastructures}} <span>({{ hasPartLabelsBottom.length }})
+                <div class="mt-1 relations-text fw-bold">{{ infraModalTexts.includesInfrastructures }}
+                  <span>({{ hasPartLabelsBottom.length }})
                   </span>:
                 </div>
                 @for (item of hasPartLabelsBottom; track item) {
-                  <div class="relations-text"><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
+                  <div class="relations-text"><a (click)="infraNodeClickFromList(item)"
+                                                 href="javascript:void(0)">{{ item.label }}</a></div>
                 }
               }
             } @else {
-              <div class="relations-text">{{infraModalTexts.networkShownInPicture}}</div>
+              <div class="relations-text">{{ infraModalTexts.networkShownInPicture }}</div>
             }
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </ng-template>
 

@@ -51,7 +51,7 @@ h4.th.classification {
 }
 
 .infra-network-modal-legend {
-  padding: 20px 0px;
+  padding: 30px 0px;
 
   h1 {
     font-size: 1.2rem
@@ -88,8 +88,20 @@ h4.th.classification {
   border: 1px solid var(--purple-dark-2, #9F9FD4) !important;
 }
 
+.vis-container {
+  height: 90vh !important;
+  display: flex;
+  justify-content: start;
+  align-content: start;
+  flex-direction: row;
+}
+
+.vis-component-container {
+  height: 440px;
+}
+
 .vis-component {
-  height: 50vh;
+  max-height: 50vh;
 }
 
 .vr {
@@ -100,8 +112,8 @@ h4.th.classification {
 }
 
 .relations-dropdown-container {
-  position: absolute;
-  top: 156px;
+  //position: absolute;
+  //top: 156px;
   margin-left: 1px;
   width: 250px;
   padding: 10px;
@@ -122,17 +134,27 @@ h4.th.classification {
 
 .network-radio-button-container {
   position: absolute;
-  top: 171px;
-  right: 49px;
+  top: 14px;
+  right: 32px;
   width: 219px;
   z-index: 5000;
   padding: 6px 15px;
   border: 1px solid #4546B9;
   border-radius: 4px;
+  background: #F7F7FB;
 }
 
 .dropdown-container, .relations-text {
   font-size: 14px;
+}
+
+.infra-inner-frame {
+  height: 90vh;
+}
+
+.vis-legend-container {
+  top: 1px;
+  width: auto;
 }
 
 .is-part-of-select-combobox {
