@@ -123,7 +123,6 @@ export class SingleItemService {
   }
 
   getInfrastructureNetworkData(id: any): any {
-    console.log('get infrastructure network id', id);
     const body = { };
     if (id) {
       return this.http

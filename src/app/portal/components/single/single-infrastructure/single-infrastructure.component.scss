@@ -75,6 +75,14 @@ h4.th.classification {
   height: 300px;
 }
 
+.infra-trees-container {
+  hr {
+    opacity: 1;
+    color: #4546b9;
+    margin: 0;
+  }
+}
+
 .vis-network {
   background-color: #fff;
   border: 1px solid var(--purple-dark-2, #9F9FD4) !important;
@@ -123,7 +131,7 @@ h4.th.classification {
   border-radius: 4px;
 }
 
-.dropdown-container {
+.dropdown-container, .relations-text {
   font-size: 14px;
 }
 

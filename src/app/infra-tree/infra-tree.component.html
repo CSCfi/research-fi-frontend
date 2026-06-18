@@ -1,3 +1,4 @@
+
 @if (inputReceived) {
 <ul ngTree #tree="ngTree" [(values)]="selected" class="basic-tree">
   <ng-template
@@ -18,7 +19,7 @@
             #treeItem="ngTreeItem"
     >
       <span aria-hidden="true" class="material-symbols-outlined expand-icon" translate="no">{{
-          node.children ? 'chevron_right' : ''
+          node?.children?.length > 0 ? 'chevron_right' : ''
         }}</span>
       <span class="d-flex justify-content-between w-100">
       <span>
