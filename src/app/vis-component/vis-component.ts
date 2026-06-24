@@ -242,7 +242,8 @@ export class VisComponent implements OnInit, OnDestroy {
           background: '#C5C5E5',
           highlight: {
             border: '#068411',
-            background: '#4546B9'
+            background: '#4546B9',
+            borderWidth: 2
           },
           hover: {
             background: '#C5C5E5',

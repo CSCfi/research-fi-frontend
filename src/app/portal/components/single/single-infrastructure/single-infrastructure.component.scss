@@ -112,16 +112,35 @@ h4.th.classification {
   margin: 0px 20px 0px 0px;
 }
 
-.relations-dropdown-container {
-  //position: absolute;
-  //top: 156px;
+.vis-legend-container {
+  position: absolute;
+  z-index: 5000;
   font-size: 14px;
-  margin-left: 1px;
+  //margin-left: 17px;
+  width: 250px;
+  //padding: 10px;
+  border-top-left-radius: 4px;
+  //background-color: #E8E8F5;
+  //overflow: auto;
+  height: 335px;
+  padding: 0;
+}
+
+.relations-dropdown-container {
+  font-size: 14px;
+  border: 1px solid var(--purple-dark-2, #9F9FD4) !important;
+  //margin-bottom: 16px;
   width: 250px;
   padding: 10px;
   border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   background-color: #E8E8F5;
   z-index: 5000;
+  height: auto;
+  max-height: 100%;
+  position: absolute;
+  overflow: auto;
+  left: 16px;
   .relations-heading {
     font-weight: bold;
   }
@@ -151,13 +170,18 @@ h4.th.classification {
   font-size: 14px;
 }
 
-.infra-inner-frame {
-  height: 90vh;
+.selected-infra-text {
+  color: #4546B9;;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
-.vis-legend-container {
-  top: 1px;
-  width: auto;
+.root-infra-text-color {
+  color: #068411;
+}
+
+.infra-inner-frame {
+  height: 90vh;
 }
 
 .is-part-of-select-combobox {

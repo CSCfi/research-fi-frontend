@@ -584,37 +584,37 @@
     <div class="row position-relative vis-component-container w-100">
 
       <div class="position-absolute vis-component-container top-0 start-0 w-100">
+        <div class="position-absolute vis-legend-container start-0">
+          <div class="relations-dropdown-container">
+            <div class="relations-heading">Verkosto: <span class="root-infra-text-col">{{ rootNodeName }}</span></div>
+            @if (isPartOfLabelsUpper.length > 0) {
+              <div class="relations-sub-heading"
+                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}:
+              </div>
+              @if (isPartOfLabelsVisible) {
+                @for (item of isPartOfLabelsUpper; track item) {
+                  <div><a [class.selected-infra-text]="item.label === selectedInfraName" (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
+                }
+              }
+            }
+            @if (hasPartLabelsUpper.length > 0) {
+              <div class="relations-sub-heading fw-bold"
+                   (click)="hasPartLabelsVisible = !hasPartLabelsVisible">{{ infraModalTexts.includesInfrastructures }}:
+              </div>
+              @if (hasPartLabelsVisible) {
+                @for (item of hasPartLabelsUpper; track item) {
+                  <div><a [class.selected-infra-text]="item.label === selectedInfraName" (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
+                }
+              }
+            }
+          </div>
+        </div>
         <app-vis class="vis-component" [infraId]="selectedInfraId" [rootId]="infraRootId | async"
                  [nodeList]="visibleNodes | async"
                  [visData]="visData | async"
                  [edges]="visibleEdges | async" (selectedNodeId)="infraNodeClick($event)"></app-vis>
       </div>
 
-      <div class="position-absolute vis-legend-container start-0">
-        <div class="relations-dropdown-container">
-          <div class="relations-heading">Verkosto: {{ rootNodeName }}</div>
-          @if (isPartOfLabelsUpper.length > 0) {
-            <div class="relations-sub-heading"
-                 (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}:
-            </div>
-            @if (isPartOfLabelsVisible) {
-              @for (item of isPartOfLabelsUpper; track item) {
-                <div><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
-              }
-            }
-          }
-          @if (hasPartLabelsUpper.length > 0) {
-            <div class="relations-sub-heading fw-bold"
-                 (click)="hasPartLabelsVisible = !hasPartLabelsVisible">{{ infraModalTexts.includesInfrastructures }}:
-            </div>
-            @if (hasPartLabelsVisible) {
-              @for (item of hasPartLabelsUpper; track item) {
-                <div><a (click)="infraNodeClickFromList(item)" href="javascript:void(0)">{{ item.label }}</a></div>
-              }
-            }
-          }
-        </div>
-      </div>
       <div class="position-absolute vis-legend-container end-0">
         <div class="network-radio-button-container">
           <mat-radio-group
