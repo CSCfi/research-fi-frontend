@@ -23,10 +23,10 @@ export class ListComponent implements AfterContentInit {
 
   ngAfterContentInit() {
 
-    // 2. Instantiate FocusKeyManager
+/*    // 2. Instantiate FocusKeyManager
     this.keyManager = new FocusKeyManager(this.items)
 
       // 3. Enabling wrapping
-      .withWrap();
+      .withWrap();*/
   }
 }
