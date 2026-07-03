@@ -110,6 +110,20 @@
     gap: 16px;
     font-size: 16px;
   }
+
+  .keywords-checkbox-wrapper {
+    padding: 10px 10px 10px 16px;
+    background: #E8E8F5;
+    margin-top: 16px;
+    border-radius: 5px;
+    align-items: center;
+    font-weight: 500;
+  }
+
+  .keywords-label {
+    margin-right: 20px;
+  }
+
   .datasource-label {
     font-weight: 500;
     line-height: 0.5;
@@ -149,10 +163,6 @@
 
   .biography-container {
     max-width: 588px;
-  }
-  .keywords-checkbox-label {
-    font-weight: 500;
-    margin-top: 20px;
   }
 
   .use-description-checkbox-container {

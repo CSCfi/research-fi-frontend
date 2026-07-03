@@ -390,12 +390,16 @@
             </div>
 
             <!--Keywords -->
-            <div *ngIf="selectedKeywordsStr.length > 0" class="d-flex flex-column">
-              <label id="keywords-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}</label>
-              <mat-checkbox aria-labelledby="keywords-checkbox-label" [checked]="keywordsSelected" color="primary"
-                            (change)=toggleKeywordsSelected()>
-                {{ selectedKeywordsStr }}
-              </mat-checkbox>
+            <div *ngIf="selectedKeywordsStr.length > 0" class="d-flex flex-row keywords-checkbox-wrapper">
+              <div class="keywords-label">
+                <label id="keywords-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}:</label>
+              </div>
+              <div class="w-100">
+                <mat-checkbox aria-labelledby="wrapper" [checked]="keywordsSelected" color="primary"
+                              (change)=toggleKeywordsSelected()>
+                  {{ selectedKeywordsStr }}
+                </mat-checkbox>
+              </div>
             </div>
           </div>
         </div>
