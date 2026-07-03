@@ -340,8 +340,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         // Ai generated biography exists
         if (item.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
           //this.aiGeneratedBiographyExists = true;
-          console.log('AI GENERATED ITEM', item);
-
           // User has not edited biography yet, so fetch ai generated biography
           if (this.userEditableBiographiesObs$.getValue().fi.length < 1 && this.userEditableBiographiesObs$.getValue().en.length < 1 && this.userEditableBiographiesObs$.getValue().sv.length < 1) {
             this.aiBiographiesFromBackend['fi'] = item?.researchDescriptionFi;
@@ -357,7 +355,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             }
           }
         } else {
-          console.log('NOT AI GENERATED ITEM', item);
           // Add biographies from not ai sources
           let biographyStub = {
             fi: item?.researchDescriptionFi ?? '',
@@ -380,7 +377,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           currentlyVisibleBiography['en'] = item?.researchDescriptionEn;
           currentlyVisibleBiography['sv'] = item?.researchDescriptionSv;
           currentlyVisibleBiography['itemMeta'] = item.itemMeta;
-          console.log('update currently visible biography', currentlyVisibleBiography);
           if (true) {
             this.savedDraftBiographiesObs$.next(currentlyVisibleBiography);
           }
@@ -400,12 +396,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.selectDescriptionLanguageAi(0);
     this.biographyModalTextAreaValue = this.userEditableBiographiesObs$.getValue().fi;
     this.initDoneOnce = true;
-
-    console.log('!!!!!!!!!! INIT DONE', this.savedDraftBiographiesObs$.getValue(), this.userEditableBiographiesObs$.getValue());
   };
 
   generateAndPatchBiographyPayload() {
-    console.log('generateAndPatchBiographyPayload');
     this.translationsRequested$.next(false);
     // Take biography from old api
 
@@ -693,7 +686,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.selectDescriptionSource(1);
         this.generateAndPatchBiographyPayload();
         this.useAiBiography = false;
-        console.log('!!!!!!!!!! PRESSED addnot');
       }
 
       case 'closeToBackgroundButtonText': {
