@@ -4,20 +4,24 @@ import {
 } from '@mydata/components/shared-layouts/profile-summary-view/profile-summary-view.component';
 import { EditorModalComponent } from '@mydata/components/profile/editor-modal/editor-modal.component';
 import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, NgForOf, NgIf } from '@angular/common';
 import {
   NameAndOrcidViewComponent
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
+import { GenerateDescriptionComponent } from '@mydata/components/generate-description/generate-description.component';
 
 @Component({
     selector: 'app-person-profile-view',
-    imports: [
+  imports: [
     ProfileSummaryViewComponent,
     EditorModalComponent,
     HasSelectedItemsPipe,
+    NgForOf,
+    NgIf,
     NameAndOrcidViewComponent,
-    JsonPipe
-],
+    JsonPipe,
+    GenerateDescriptionComponent
+  ],
     templateUrl: './person-profile-view.component.html',
     styleUrl: './person-profile-view.component.scss'
 })

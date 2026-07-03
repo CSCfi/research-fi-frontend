@@ -1,0 +1,752 @@
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { AsyncPipe, isPlatformBrowser, JsonPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
+import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { CommonStrings } from '@mydata/constants/strings';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { AutofocusDirective } from '@shared/directives/autofocus.directive';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { SimpleDropdownComponent } from '@shared/components/simple-dropdown/simple-dropdown.component';
+import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-button/secondary-button.component';
+import { BiographyService } from '@mydata/services/biography.service';
+import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { cloneDeep } from 'lodash-es';
+import { PatchService } from '@mydata/services/patch.service';
+import { unsignedDecimalNumber } from 'docx';
+import { Constants } from '@mydata/constants';
+import { SnackbarService } from '@mydata/services/snackbar.service';
+import { ProfileService } from '@mydata/services/profile.service';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-generate-description',
+  imports: [
+    AsyncPipe,
+    TertiaryButtonComponent,
+    DialogComponent,
+    MatCheckbox,
+    SvgSpritesComponent,
+    SimpleDropdownComponent,
+    SecondaryButtonComponent,
+    NgClass,
+    FormsModule,
+    NgIf,
+    NgForOf,
+    JsonPipe
+  ],
+  templateUrl: './generate-description.component.html',
+  styleUrl: './generate-description.component.scss'
+})
+export class GenerateDescriptionComponent implements OnInit, OnDestroy {
+  @Input() fullProfiledata: any;
+  @Input() data: any;
+  @Input() hasSelectedItems: any = false;
+  @Input() sectionIndex: number = 0;
+  @Output() openDialogCall = new EventEmitter<number>();
+
+  showDialog$ = new BehaviorSubject(false);
+
+  editString = CommonStrings.reselect;
+  selectString = CommonStrings.select;
+
+  contentCreationStep = 1;
+
+  descriptionOfResearchText = $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`;
+
+  aitta_modalIntroText = $localize`:@@aitta_modalIntroText:Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja.`;
+
+  selectInformationToDisplayInProfile = $localize`:@@aitta_selectInformationToDisplayInProfile:Valitse profiilissasi näytettävät tiedot`;
+  noPublicDataText = $localize`:@@aitta_youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
+  languageVersionsTitle = $localize`:@@aitta_languageVersionsTitle:Kieliversiot`;
+
+  selectDescriptionSourceTitle = $localize`:@@aitta_selectDescriptionSourceTitle:Kuvauksen tietolähde:`;
+  aiGeneratedDescription = $localize`:@@aitta_aiGeneratedDescription:Tekoälyavusteinen kuvaus`;
+  descriptionFromOtherDataSources = $localize`:@@aitta_descriptionFromOtherDataSources:Kuvaus muista tietolähteistä`;
+  descriptionOptions = [this.aiGeneratedDescription, this.descriptionFromOtherDataSources];
+
+  editDescriptionLabel = $localize`:@@aitta_editDescription:Muokkaa kuvausta`;
+
+  originalDescriptionLabel = $localize`:@@aitta_originalDescriptionLabel:Alkuperäinen kuvaus`;
+  editDescriptionLabelFi = $localize`:@@aitta_editDescriptionEn:Muokkaa suomenkielistä kuvausta`;
+  editDescriptionLabelEn = $localize`:@@aitta_editDescriptionEn:Muokkaa englanninkielistä kuvausta`;
+  editDescriptionLabelSv = $localize`:@@aitta_editDescriptionSv:Muokkaa ruotsinkielistä kuvausta`;
+
+  selectDescriptionLanguageTitle = $localize`:@@aitta_selectDescriptionLanguageTitle:Valitse kuvauksen kieli:`;
+  languageFi = $localize`:@@languageFi:Suomi`;
+  languageSv = $localize`:@@languageSv:Ruotsi`;
+  languageEn = $localize`:@@languageSv:Englanti`;
+
+  generatingLanguageVersionsInfoText = $localize`:@@aitta_generatingLanguageVersionsInfoText:Luodaan kieliversioita. Tämä voi viedä pari minuuttia.`;
+
+
+  generateDescriptionButtonText = $localize`:@@aitta_generateDescriptionButtonText:Luo kuvaus`;
+  generateNewDescriptionButtonText = $localize`:@@aitta_generateNewDescriptionButtonText:Luo uusi kuvaus`;
+  deleteDescriptionButtonText = $localize`:@@aitta_deleteDescriptionButtonText:Poista kuvaus`;
+  generateAndCreateLocalizationsButtonText = $localize`:@@aitta_generateAndCreateLocalizationsButtonText:Käytä ja luo kieliversiot`;
+  reviewAndCreateLanguageVersionsButtonText = $localize`:@@aitta_reviewAndCreateLanguageVersionsButtonText:Tarkista ja luo kieliversiot`;
+  selectLanguageVersionsText = $localize`:@@aitta_selectLanguageVersionsText:Valitse kieliversiot`;
+  editLanguageVersionsText = $localize`:@@aitta_selectLanguageVersionsText:Muokkaa kieliversioita`;
+  useLocalizationButtonText = $localize`:@@aitta_useDescriptionButtonText:Käytä kuvausta`;
+  closeToBackgroundButtonText = $localize`:@@aitta_closeToBackgroundButtonText:Sulje taustalle`;
+
+  notAllLanguageVersionsSelectedTitle = $localize`:@@aitta_notAllLanguageVersionsSelectedTitle:Kaikkia kieliversioita ei ole valittu näytettäväksi`;
+  researchDescriptionGenerationDone = $localize`:@@aitta_researchDescriptionGenerationDone:Tutkimustoiminnan kuvauksen luonti valmistui`;
+  languageVersionsGenerationDone = $localize`:@@aitta_languageVersionsGenerationDone:Kieliversioiden luonti valmistui`;
+
+  languageVersionsInstructionBoxText = $localize`:@@aitta_languageVersionsInstructionBoxText:Tutkimustoiminnan kuvaus kannattaa kirjoittaa englanniksi, suomeksi ja ruotsiksi, jotta se saavuttaa mahdollisimman laajan yleisön.`;
+
+  researchDescriptionSavedToDraft = $localize`:@@aitta_researchDescriptionSavedToDraft:Tutkimustoiminnan kuvaus on tallennettu profiililuonnokseesi.`;
+
+  reviewButtonText = $localize`:@@reviewButtonText:Tarkista luotu kuvaus`;
+
+  cancelButtonText = $localize`:@@cancel:Peruuta`;
+
+  keywordsText = $localize`:@@keywords:Avainsanat`;
+
+  aiGeneratedTextMayContainErrors = $localize`:@@aitta_aiGeneratedTextMayContainErrors:Tekoälyn luoma teksti voi sisältää asiavirheitä. Muistathan tarkastaa tekstin.`;
+  languageVersionInfo = $localize`:@@aitta_languageVersionInfo:Kieliversiot kielillä Ruotsi ja Englanti voidaan luoda automaaattisesti tarkastamasi suomenkielisen kuvauksen pohjalta.`;
+
+  importLanguageVersionsToProfile = $localize`:@@aitta_importLanguageVersionsToProfile:Tuo kieliversiot profiiliisi`;
+
+  descriptionLanguages = [this.languageFi, this.languageSv, this.languageEn];
+
+
+  dialogActions1 = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
+    { label: $localize`:@@aitta_useDescriptionButtonText:Käytä kuvausta`, primary: true, method: 'save' }
+  ];
+
+  dialogActionsCreateDescription = [
+    {
+      label: $localize`:@@cancel:Peruuta`,
+      primary: false,
+      method: 'cancelGenerateBiography',
+      svgSymbolName: 'create-new-diamond',
+      svgCssClass: 'create-new-diamond-icon',
+      flexStart: true
+    },
+    {
+      label: $localize`:@@closeToBackgroundButtonText:Sulje taustalle`,
+      primary: true,
+      method: 'closeToBackgroundButtonText'
+    }
+  ];
+
+  dialogActionsCreateNewDescriptionAiFinished = [
+    { label: $localize`:@@cancel:Peruuta`, tertiary: true, method: 'cancel' },
+    {
+      label: $localize`:@@aitta_generateAndCreateLocalizationsButtonText:Käytä ja luo kieliversiot`,
+      primary: true,
+      method: 'saveChanges'
+    }
+  ];
+
+  dialogActionsCreateNewDescriptionAiNotFinished = [
+    { label: $localize`:@@cancel:Peruuta`, tertiary: true, method: 'cancelGenerateBiography' },
+    {
+      label: $localize`:@@aitta_generateAndCreateLocalizationsButtonText:Käytä ja luo kieliversiot`,
+      primary: true,
+      method: 'saveChanges',
+      disabled: true
+    }
+  ];
+
+  dialogActionsAddDescriptionNotAi = [
+    { label: $localize`:@@cancel:Peruuta`, tertiary: true, method: 'cancel' },
+    {
+      label: $localize`:@@aitta_useDescriptionButtonText:Käytä kuvausta`,
+      primary: true,
+      method: 'addNotAiBiographiesToPayload'
+    }
+  ];
+
+  dialogActionsCreateNewDescriptionOngoing = [
+    {
+      label: $localize`:@@generateNewDescriptionButtonText:Luo uusi kuvaus`,
+      tertiary: true,
+      method: 'generateNewBiography',
+      disabled: 'true'
+    },
+    { label: $localize`:@@cancel:Peruuta`, tertiary: true, method: 'cancel' },
+    {
+      label: $localize`:@@aitta_generateAndCreateLocalizationsButtonText:Käytä ja luo kieliversiot`,
+      primary: true,
+      method: 'saveChanges'
+    }
+  ];
+
+  dialogActionsSelectLanguageVersions = [
+    { label: $localize`:@@cancel:Peruuta`, tertiary: true, method: 'cancel' },
+    {
+      label: $localize`:@@saveSelections:Tallenna valinnat`,
+      primary: true,
+      method: 'saveLanguageVersions'
+    }
+  ];
+
+  useAiBiographyText = 'Käytä kuvausta';
+  useAiBiography = true;
+
+  generatingDescriptionInfoText = [$localize`:@@generatingDescriptionInFinnish:Luodaan kuvausta suomeksi. Tämä voi viedä pari minuuttia.`, $localize`:@@generatingDescriptionInFinnish:Luodaan kuvausta ruotsiksi. Tämä voi viedä pari minuuttia.`, $localize`:@@generatingDescriptionInFinnish:Luodaan kuvausta englanniksi. Tämä voi viedä pari minuuttia.`];
+
+  dialogActions = [];
+
+  descriptionSource = 0;
+  selectedLanguageNotAi = 0;
+  selectedLanguageTab = 0;
+
+  keywordsSelected = false;
+  keywordsSelectedInDraft = false;
+
+  useMockData = false;
+  selectedKeywordsStr = '';
+  selectedKeywordsValues = [];
+  selectedKeywordsShowItemMetas = [];
+  selectedKeywordsHideItemMetas = [];
+
+  useMockDataLabel = 'Käytä demodataa';
+
+  selectedNotAiBiographyIndex = -1;
+  selectedNotAiBiographyItem = undefined;
+
+  private currentBiography: Promise<Object>;
+
+  languageCodes = ['fi', 'en', 'sv'];
+
+  notAiBiographies = [];
+
+  aiBiographiesFromBackend = { fi: '', en: '', sv: '', itemMeta: undefined };
+
+  savedDraftBiographies: Observable<any>;
+
+  savedDraftBiographiesObs$ = new BehaviorSubject({ fi: '', en: '', sv: '', itemMeta: undefined });
+
+  isBiographyAiGeneratedObs$ = new BehaviorSubject(false);
+
+  finishedGeneratingAiBiographyObs$ = new BehaviorSubject(false);
+
+  userEditableBiographiesObs$ = new BehaviorSubject({ fi: '', en: '', sv: '', itemMeta: undefined });
+
+  biographyGenerationOngoing$ = this.biographyService.biographyGenerationOngoing;
+  generateBiographyRequested$ = new BehaviorSubject(false);
+  translationsRequested$ = this.biographyService.translationsRequested;
+  enTranslationOngoing$ = this.biographyService.biographyGenerationOngoingEn;
+  svTranslationOngoing$ = this.biographyService.biographyGenerationOngoingSv;
+
+  langVersionEnUsed$ = new BehaviorSubject(false);
+  langVersionSvUsed$ = new BehaviorSubject(false);
+
+  dropdownLanguageSelection = 0;
+
+  initDoneOnce = false;
+
+  private biographyGenerationOngoingSub: Subscription;
+  private clearDataSub: Subscription;
+  biographyModalTextAreaValue = '';
+
+  constructor(
+    public biographyService: BiographyService,
+    private patchService: PatchService,
+    private snackbarService: SnackbarService,
+    private profileService: ProfileService,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.dialogActions = [...this.dialogActionsCreateNewDescriptionAiNotFinished];
+    this.initBiographies();
+
+    // Biography generation finished
+    this.biographyGenerationOngoing$.subscribe(response => {
+      if (response === false) {
+        this.dialogActions = [...this.dialogActionsCreateNewDescriptionAiFinished];
+        this.contentCreationStep = 3;
+      }
+    });
+
+    this.clearDataSub = this.biographyService.clearDataRequested.subscribe(val => {
+      if (val === true) {
+        this.clearData();
+      }
+    });
+  }
+
+  clearData() {
+    this.contentCreationStep = 1;
+    this.aiBiographiesFromBackend = { fi: '', en: '', sv: '', itemMeta: undefined };
+    this.savedDraftBiographiesObs$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
+    this.userEditableBiographiesObs$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
+  }
+
+  ngOnDestroy(): void {
+    this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+  }
+
+  openDialog(dialogName: string) {
+    if (dialogName === 'editLanguageVersions') {
+      this.userEditableBiographiesObs$.next(this.savedDraftBiographiesObs$.getValue());
+      this.dialogActions = [...this.dialogActionsSelectLanguageVersions];
+      this.contentCreationStep = 4;
+    } else if (dialogName === 'selectLanguageVersions') {
+      this.dialogActions = [...this.dialogActionsSelectLanguageVersions];
+      this.contentCreationStep = 4;
+    } else {
+      //event.stopPropagation();
+      //this.openDialogCall.emit(index);
+      if (!this.biographyService.isBiographyGenerationOngoing()) {
+        this.initBiographies();
+      }
+    }
+    this.showDialog$.next(true);
+  }
+
+
+  initBiographies() {
+    const previousVisibleBios = this.savedDraftBiographiesObs$.getValue();
+
+    this.savedDraftBiographies = this.savedDraftBiographiesObs$.asObservable();
+
+    this.selectedKeywordsValues = [];
+    this.selectedKeywordsShowItemMetas = [];
+    this.selectedKeywordsHideItemMetas = [];
+
+    this.notAiBiographies = [];
+    this.translationsRequested$.next(false);
+    if (this.data && this.data.id === 'researchDescription') {
+      this.data?.keywordItems?.items.forEach(item => {
+
+        // One keywords is selected so show all, since they are shown as group like all or none
+        if (item.itemMeta.show = true) {
+          this.keywordsSelected = true;
+        }
+        this.selectedKeywordsValues.push(item.value);
+        item.itemMeta.show = true;
+        this.selectedKeywordsShowItemMetas.push(cloneDeep(item.itemMeta));
+        item.itemMeta.show = false;
+        this.selectedKeywordsHideItemMetas.push(cloneDeep(item.itemMeta));
+      });
+      this.selectedKeywordsStr = this.selectedKeywordsValues.join(', ');
+    }
+
+    // Take biography from old api
+    if (this.data && this.data.id === 'researchDescription') {
+      let itemIndex = -1;
+      this.data?.items.forEach(item => {
+        itemIndex += 1;
+        // Ai generated biography exists
+        if (item.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
+          //this.aiGeneratedBiographyExists = true;
+          console.log('AI GENERATED ITEM', item);
+
+          // User has not edited biography yet, so fetch ai generated biography
+          if (this.userEditableBiographiesObs$.getValue().fi.length < 1 && this.userEditableBiographiesObs$.getValue().en.length < 1 && this.userEditableBiographiesObs$.getValue().sv.length < 1) {
+            this.aiBiographiesFromBackend['fi'] = item?.researchDescriptionFi;
+            this.aiBiographiesFromBackend['en'] = item?.researchDescriptionEn;
+            this.aiBiographiesFromBackend['sv'] = item?.researchDescriptionSv;
+            this.aiBiographiesFromBackend['itemMeta'] = item?.itemMeta;
+            this.userEditableBiographiesObs$.next(this.aiBiographiesFromBackend);
+            //this.savedDraftBiographiesObs$.next(this.aiBiographiesFromBackend);
+            if (item.itemMeta.show === true) {
+              this.isBiographyAiGeneratedObs$.next(true);
+            } else {
+              this.isBiographyAiGeneratedObs$.next(false);
+            }
+          }
+        } else {
+          console.log('NOT AI GENERATED ITEM', item);
+          // Add biographies from not ai sources
+          let biographyStub = {
+            fi: item?.researchDescriptionFi ?? '',
+            en: item?.researchDescriptionEn ?? '',
+            sv: item?.researchDescriptionSv ?? '',
+            itemMeta: item?.itemMeta
+          };
+          this.notAiBiographies.push(biographyStub);
+
+          // This makes currently active checked in listing
+          if (item?.itemMeta?.show === true) {
+            this.selectedNotAiBiographyIndex = itemIndex;
+            this.selectedNotAiBiographyItem = item;
+          }
+        }
+        // Shared for old api and Ai generated
+        if (item.itemMeta.show === true) {
+          let currentlyVisibleBiography = { fi: '', en: '', sv: '', itemMeta: undefined };
+          currentlyVisibleBiography['fi'] = item?.researchDescriptionFi;
+          currentlyVisibleBiography['en'] = item?.researchDescriptionEn;
+          currentlyVisibleBiography['sv'] = item?.researchDescriptionSv;
+          currentlyVisibleBiography['itemMeta'] = item.itemMeta;
+          console.log('update currently visible biography', currentlyVisibleBiography);
+          if (true) {
+            this.savedDraftBiographiesObs$.next(currentlyVisibleBiography);
+          }
+          //this.userEditableBiographiesObs$.next(currentlyVisibleBiography);
+        }
+
+        if (this.biographyService.isBiographyGenerationOngoing()) {
+          this.dialogActions = [...this.dialogActionsCreateDescription];
+          this.contentCreationStep = 2;
+        } else {
+          this.dialogActions = [...this.dialogActionsCreateNewDescriptionAiFinished];
+          this.contentCreationStep = 3;
+        }
+      });
+    }
+    //this.userEditableBiographiesObs$.next(this.savedDraftBiographiesObs$.getValue());
+    this.selectDescriptionLanguageAi(0);
+    this.biographyModalTextAreaValue = this.userEditableBiographiesObs$.getValue().fi;
+    this.initDoneOnce = true;
+
+    console.log('!!!!!!!!!! INIT DONE', this.savedDraftBiographiesObs$.getValue(), this.userEditableBiographiesObs$.getValue());
+  };
+
+  generateAndPatchBiographyPayload() {
+    console.log('generateAndPatchBiographyPayload');
+    this.translationsRequested$.next(false);
+    // Take biography from old api
+
+    // Fetch latest saved values from backend
+    const newProfileData = this.profileService.fetchProfileDataFromBackend().then(
+      (value) => {
+        if (value) {
+          // Update profile for draft preview
+          value.profileData[1].fields[1].items = value.profileData[1].fields[1].items.map(item => {
+
+            // Ai generated biography exists
+            if (item.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
+              let patchItem = cloneDeep(item);
+              // Show or hide ai generated
+              patchItem.itemMeta.show = this.useAiBiography;
+              this.patchService.addToPayload(patchItem.itemMeta);
+              item.researchDescriptionFi = this.userEditableBiographiesObs$.getValue().fi;
+              item.researchDescriptionEn = this.userEditableBiographiesObs$.getValue().en;
+              item.researchDescriptionSv = this.userEditableBiographiesObs$.getValue().sv;
+            } else {
+              let patchItem = cloneDeep(item);
+              // Hide all not selected
+              if (patchItem.itemMeta.id === this.selectedNotAiBiographyItem?.itemMeta?.id) {
+                patchItem.itemMeta.show = true;
+              } else {
+                patchItem.itemMeta.show = false;
+              }
+              this.patchService.addToPayload(patchItem.itemMeta);
+
+              // Update visible version in UI for non AI generated
+              if (!this.useAiBiography) {
+                if (this.notAiBiographies[this.selectedNotAiBiographyIndex]) {
+                  this.savedDraftBiographiesObs$.next(this.notAiBiographies[this.selectedNotAiBiographyIndex]);
+                } else {
+                  this.savedDraftBiographiesObs$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
+                }
+              }
+            }
+            return item;
+          });
+
+          if (isPlatformBrowser(this.platformId)) {
+            sessionStorage.setItem(Constants.draftProfile, JSON.stringify(value.profileData));
+          }
+
+          // Patch keywords
+          if (this.keywordsSelected || this.keywordsSelectedInDraft) {
+            this.patchService.addToPayload(this.selectedKeywordsShowItemMetas);
+          } else {
+            this.patchService.addToPayload(this.selectedKeywordsHideItemMetas);
+          }
+          this.patchService.confirmPayload();
+        }
+      });
+    this.showDraftSaveSuccessNotification();
+  }
+
+  showDraftSaveSuccessNotification(): void {
+    this.snackbarService.show(
+      $localize`:@@draftUpdated:Luonnos päivitetty`,
+      'success'
+    );
+  }
+
+  selectDescriptionLanguageNotAi(input: any) {
+    this.selectedLanguageNotAi = input;
+  }
+
+  setSelectLanguageTab(input: any) {
+    this.selectedLanguageTab = input;
+  }
+
+  selectDescriptionLanguageAi(input) {
+    if (this.biographyGenerationOngoing$.getValue() !== true) {
+      if (input === 0) {
+        this.biographyModalTextAreaValue = this.userEditableBiographiesObs$.getValue().fi;
+      }
+      if (input === 1) {
+        this.biographyModalTextAreaValue = this.userEditableBiographiesObs$.getValue().sv;
+      }
+      if (input === 2) {
+        this.biographyModalTextAreaValue = this.userEditableBiographiesObs$.getValue().en;
+      }
+      this.dropdownLanguageSelection = input;
+    }
+  }
+
+
+  biographyFieldTextChange(languageNumber, isFirstModal: boolean) {
+    let biographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
+
+    biographyStub.fi = this.userEditableBiographiesObs$.getValue().fi;
+    biographyStub.sv = this.userEditableBiographiesObs$.getValue().sv;
+    biographyStub.en = this.userEditableBiographiesObs$.getValue().en;
+    biographyStub.itemMeta = this.userEditableBiographiesObs$.getValue().itemMeta;
+
+    if (languageNumber === 0) {
+      biographyStub.fi = this.biographyModalTextAreaValue;
+    }
+    if (languageNumber === 1) {
+      biographyStub.sv = this.biographyModalTextAreaValue;
+    }
+    if (languageNumber === 2) {
+      biographyStub.en = this.biographyModalTextAreaValue;
+    }
+    this.userEditableBiographiesObs$.next(biographyStub);
+  }
+
+  saveAiBioChanges() {
+    this.generateBiographyRequested$.next(false);
+    // Clear old language versions after generated new bio in Finnish
+    let patchBiographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
+    patchBiographyStub.itemMeta = this.userEditableBiographiesObs$.getValue().itemMeta;
+    patchBiographyStub.fi = this.userEditableBiographiesObs$.getValue().fi;
+    patchBiographyStub.sv = this.userEditableBiographiesObs$.getValue().sv;
+    patchBiographyStub.en = this.userEditableBiographiesObs$.getValue().en;
+
+    this.biographyService.updateBiography(patchBiographyStub).then();
+    this.savedDraftBiographiesObs$.next(cloneDeep(patchBiographyStub));
+
+    this.setSelectedNotAiBiographyItem(undefined);
+
+    this.generateAndPatchBiographyPayload();
+    this.showDialog$.next(false);
+    this.showDraftSaveSuccessNotification();
+
+    /*    return this.biographyService.artificialDelayResolve(3000, '').then(() => {
+          this.generateAndPatchBiographyPayload();
+          this.showDialog$.next(false);
+          this.showDraftSaveSuccessNotification();
+        });*/
+  }
+
+  saveLanguageVersions() {
+    let patchBiographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
+
+    patchBiographyStub.fi = this.userEditableBiographiesObs$.getValue().fi;
+    this.langVersionEnUsed$.next(true);
+    patchBiographyStub.en = this.userEditableBiographiesObs$.getValue().en;
+
+    this.langVersionSvUsed$.next(true);
+    patchBiographyStub.sv = this.userEditableBiographiesObs$.getValue().sv;
+    patchBiographyStub.itemMeta = this.userEditableBiographiesObs$.getValue().itemMeta;
+
+
+    // Update biography texts
+    this.biographyService.updateBiography(patchBiographyStub).then();
+    //this.aiGeneratedBiographiesObs$.next(patchBiographyStub);
+    this.savedDraftBiographiesObs$.next(patchBiographyStub);
+
+    // Add to payload
+    this.generateAndPatchBiographyPayload();
+  }
+
+  deleteSelectedDescription() {
+    this.biographyModalTextAreaValue = '';
+    let patchBiographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
+    patchBiographyStub.itemMeta = this.userEditableBiographiesObs$.getValue().itemMeta;
+
+    this.dropdownLanguageSelection === 0 ? patchBiographyStub.fi = '' : patchBiographyStub.fi = this.userEditableBiographiesObs$.getValue().fi;
+    this.dropdownLanguageSelection === 1 ? patchBiographyStub.sv = '' : patchBiographyStub.sv = this.userEditableBiographiesObs$.getValue().sv;
+    this.dropdownLanguageSelection === 2 ? patchBiographyStub.en = '' : patchBiographyStub.en = this.userEditableBiographiesObs$.getValue().en;
+    this.userEditableBiographiesObs$.next(cloneDeep(patchBiographyStub));
+
+    this.biographyService.updateBiography(cloneDeep(patchBiographyStub)).then();
+    this.savedDraftBiographiesObs$.next(cloneDeep(patchBiographyStub));
+    this.selectDescriptionLanguageAi(this.dropdownLanguageSelection);
+  }
+
+  selectDescriptionSource(input: any) {
+    this.descriptionSource = input;
+    if (this.descriptionSource === 1) {
+      this.dialogActions = [...this.dialogActionsAddDescriptionNotAi];
+    } else {
+      if (this.biographyService.isBiographyGenerationOngoing()) {
+        this.dialogActions = [...this.dialogActionsCreateDescription];
+        this.contentCreationStep = 2;
+      } else {
+        this.dialogActions = [...this.dialogActionsCreateNewDescriptionAiFinished];
+        this.contentCreationStep = 3;
+      }
+    }
+  }
+
+  async generateBiography() {
+    this.generateBiographyRequested$.next(true);
+    this.contentCreationStep = 2;
+    this.dialogActions = [...this.dialogActionsCreateDescription];
+
+    const selectedLanguageAbbreviations = ['fi', 'sv', 'en'];
+    this.biographyService.generateBiography(this.useMockData, selectedLanguageAbbreviations[this.dropdownLanguageSelection]).then();
+
+    if (this.dropdownLanguageSelection === 0) {
+      this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
+        if (onGoing === false) {
+          const generatedBiographyFi = cloneDeep(this.biographyService.generatedBiographyData.getValue());
+          this.userEditableBiographiesObs$.next({
+            fi: generatedBiographyFi,
+            en: this.userEditableBiographiesObs$.getValue().en,
+            sv: this.userEditableBiographiesObs$.getValue().sv,
+            itemMeta: this.userEditableBiographiesObs$.getValue().itemMeta
+          });
+          this.biographyModalTextAreaValue = generatedBiographyFi;
+
+          this.selectDescriptionLanguageAi(0);
+          this.contentCreationStep = 3;
+          this.finishedGeneratingAiBiographyObs$.next(true);
+          this.biographyGenerationOngoingSub.unsubscribe();
+        }
+      });
+    } else if (this.dropdownLanguageSelection === 1) {
+      this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
+        if (onGoing === false) {
+          const generatedBiographySv = cloneDeep(this.biographyService.generatedBiographyDataSv.getValue());
+          this.userEditableBiographiesObs$.next({
+            fi: this.userEditableBiographiesObs$.getValue().fi,
+            en: this.userEditableBiographiesObs$.getValue().en,
+            sv: generatedBiographySv,
+            itemMeta: this.userEditableBiographiesObs$.getValue().itemMeta
+          });
+          this.biographyModalTextAreaValue = generatedBiographySv;
+
+          this.selectDescriptionLanguageAi(1);
+          this.contentCreationStep = 3;
+          this.finishedGeneratingAiBiographyObs$.next(true);
+          this.biographyGenerationOngoingSub.unsubscribe();
+        }
+      });
+    } else if (this.dropdownLanguageSelection === 2) {
+      this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
+        if (onGoing === false) {
+          const generatedBiographyEn = cloneDeep(this.biographyService.generatedBiographyDataEn.getValue());
+
+          this.userEditableBiographiesObs$.next({
+            fi: this.userEditableBiographiesObs$.getValue().fi,
+            en: generatedBiographyEn,
+            sv: this.userEditableBiographiesObs$.getValue().sv,
+            itemMeta: this.userEditableBiographiesObs$.getValue().itemMeta
+          });
+          this.biographyModalTextAreaValue = generatedBiographyEn;
+
+          this.selectDescriptionLanguageAi(2);
+          this.contentCreationStep = 3;
+          this.finishedGeneratingAiBiographyObs$.next(true);
+          this.biographyGenerationOngoingSub.unsubscribe();
+        }
+      });
+    }
+  }
+
+  generateNewBiography() {
+    this.biographyService.generateBiography(this.useMockData, 'fi').then(response => {
+
+    });
+
+    this.dialogActions = [...this.dialogActions1];
+    this.contentCreationStep = 1;
+  }
+
+  setSelectedNotAiBiographyIndex(index: number) {
+    if (this.selectedNotAiBiographyIndex !== index) {
+      this.selectedNotAiBiographyIndex = index;
+    } else {
+      this.selectedNotAiBiographyIndex = undefined;
+    }
+  }
+
+  setSelectedNotAiBiographyItem(biographyData: any) {
+    if (this.selectedNotAiBiographyIndex) {
+      this.selectedNotAiBiographyItem = biographyData;
+    } else {
+      this.selectedNotAiBiographyItem = undefined;
+    }
+  }
+
+  toggleKeywordsSelected() {
+    this.keywordsSelected = !this.keywordsSelected;
+  }
+
+  async doDialogAction(action: string) {
+    switch (action) {
+      case 'addNotAiBiographiesToPayload': {
+        this.showDialog$.next(false);
+        this.contentCreationStep = 1;
+        this.selectDescriptionSource(1);
+        this.generateAndPatchBiographyPayload();
+        this.useAiBiography = false;
+        console.log('!!!!!!!!!! PRESSED addnot');
+      }
+
+      case 'closeToBackgroundButtonText': {
+        this.showDialog$.next(false);
+        this.keywordsSelectedInDraft = this.keywordsSelected;
+        break;
+      }
+      case 'generateNewBiography': {
+        this.generateNewBiography();
+        this.keywordsSelectedInDraft = this.keywordsSelected;
+        break;
+      }
+      case 'review': {
+        this.contentCreationStep = 3;
+        break;
+      }
+      case 'saveChanges': {
+        this.saveAiBioChanges();
+        this.isBiographyAiGeneratedObs$.next(true);
+        this.keywordsSelectedInDraft = this.keywordsSelected;
+        break;
+      }
+
+      case 'saveLanguageVersions': {
+        this.saveLanguageVersions();
+        this.isBiographyAiGeneratedObs$.next(true);
+        this.showDialog$.next(false);
+        this.contentCreationStep = 1;
+        //TODO: reload data and patched items
+        break;
+      }
+
+      case 'cancelGenerateBiography': {
+        this.biographyService.biographyGenerationOngoing.next(false);
+        this.showDialog$.next(false);
+        this.contentCreationStep = 1;
+        break;
+      }
+
+      case 'cancel': {
+        this.showDialog$.next(false);
+        this.contentCreationStep = 1;
+        break;
+      }
+
+      default: {
+        //TODO: need to check modal corner close
+        //this.biographyService.biographyGenerationOngoing.next(false);
+        this.showDialog$.next(false);
+        this.contentCreationStep = 1;
+        break;
+      }
+    }
+  }
+}
+
