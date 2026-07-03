@@ -19,6 +19,7 @@ import {
 } from '@mydata/components/automatic-publishing-settings/automatic-publishing-settings.component';
 import { BehaviorSubject } from 'rxjs';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
+import { BiographyService } from '@mydata/services/biography.service';
 
 @Component({
     selector: 'app-sticky-footer',
@@ -61,6 +62,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     public profileService: ProfileService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
+    private biographyService: BiographyService,
     public draftService: DraftService,
     public collaborationsService: CollaborationsService,
     private dialogEventService: DialogEventsService
@@ -123,6 +125,10 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     },
   ];
 
+  clearData(){
+
+  }
+
   showDiscardChangesAndLogout(){
     this.dialogEventService.setDiscardChangesModalVisibleState(true);
   }
@@ -158,6 +164,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
       }
       case 'discard': {
         this.draftService.clearDraftData();
+        this.biographyService.clearData();
         break;
       }
       case 'republish': {
