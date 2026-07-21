@@ -14,7 +14,7 @@
         <app-generate-description *ngIf="i === 1 && !isPortalSinglePage" [data]="field" [fullProfiledata]="displayData"></app-generate-description>
 
         <app-profile-summary-view
-                    *ngIf="i > 1"
+                    *ngIf="isPortalSinglePage || i > 1"
                     [isPortalSinglePage]="isPortalSinglePage"
                     [data]="field"
                     [sectionName]="group.id"
