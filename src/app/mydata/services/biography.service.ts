@@ -42,6 +42,8 @@ export class BiographyService implements OnDestroy {
   public biographyGenerationOngoingSv = new BehaviorSubject<boolean | undefined>(undefined);
   public clearDataRequested = new BehaviorSubject<boolean>(false);
 
+  public biographyGenerationError = new BehaviorSubject<any>(undefined);
+
 
   /*  setErrorMessage(errorMessage: string) {
       this.errorHandlerService.updateError({
@@ -121,18 +123,25 @@ export class BiographyService implements OnDestroy {
       } else if (langLowerCase === 'sv') {
         this.biographyGenerationOngoing.next(true);
       }
-      return lastValueFrom(this.http.get(this.apiUrl + '/biography/generate/' + langLowerCase, this.httpOptions)).then(async (result: any) => {
-        if (langLowerCase === 'fi') {
-          this.generatedBiographyData.next(result?.contentText);
-          this.biographyGenerationOngoing.next(false);
-        } else if (langLowerCase === 'en') {
-          this.generatedBiographyDataEn.next(result?.contentText);
-          this.biographyGenerationOngoing.next(false);
-        } else if (langLowerCase === 'sv') {
-          this.generatedBiographyDataSv.next(result?.contentText);
-          this.biographyGenerationOngoing.next(false);
-        }
-      });
+
+      try {
+        await lastValueFrom(this.http.get(this.apiUrl + '/biography/generate/' + langLowerCase, this.httpOptions)).then(async (result: any) => {
+          if (langLowerCase === 'fi') {
+            this.generatedBiographyData.next(result?.contentText);
+            this.biographyGenerationOngoing.next(false);
+          } else if (langLowerCase === 'en') {
+            this.generatedBiographyDataEn.next(result?.contentText);
+            this.biographyGenerationOngoing.next(false);
+          } else if (langLowerCase === 'sv') {
+            this.generatedBiographyDataSv.next(result?.contentText);
+            this.biographyGenerationOngoing.next(false);
+          }
+        });
+
+      } catch (err) {
+        this.biographyGenerationError.next(err);
+        this.biographyGenerationError.next(undefined);
+      }
     }
   }
 

@@ -94,9 +94,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="false"></app-panel-array-item>
           </div>
         </div>
-        <div class="row">
-          <app-summary-divider></app-summary-divider>
-        </div>
+        @if (i < (itemDisplayCount - 1) && (i < sortedItems?.length - 1) || sortedItems?.length > 3) {
+          <div class="row">
+            <app-summary-divider></app-summary-divider>
+          </div>
+        }
       }
       <!-- ACTIVITIES AND REWARDS -->
       @if (fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === FieldTypes.activityActivitiesAndRewardsOrcid) {
@@ -104,7 +106,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <div class="col">
             <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
           </div>
-          <app-summary-divider></app-summary-divider>
+          @if (i < sortedItems?.length - 1 || sortedItems?.length > 3) {
+            <app-summary-divider></app-summary-divider>
+          }
         </div>
       }
     </div>

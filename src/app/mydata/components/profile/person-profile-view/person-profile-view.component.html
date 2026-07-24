@@ -7,14 +7,13 @@
   <app-name-and-orcid-view [data]="displayData" [orcid]="this.displayData[10].value" [isEditorView]="!isPortalSinglePage"></app-name-and-orcid-view>
 </div>
 
-<!-- Slice first contact info out and two last infos. These are used in other views. -->
+<!-- Slice first contact info out (other names) and two last infos. These are shown in other views. -->
 <div *ngIf="displayData">
   <ng-container *ngFor="let group of displayData.slice(0, isPortalSinglePage ? -4 : -1); let i = index">
       <ng-container *ngFor="let field of group.fields">
         <app-generate-description *ngIf="i === 1 && !isPortalSinglePage" [data]="field" [fullProfiledata]="displayData"></app-generate-description>
-
         <app-profile-summary-view
-                    *ngIf="isPortalSinglePage || i > 1"
+                    *ngIf="(isPortalSinglePage) || i > 1"
                     [isPortalSinglePage]="isPortalSinglePage"
                     [data]="field"
                     [sectionName]="group.id"
