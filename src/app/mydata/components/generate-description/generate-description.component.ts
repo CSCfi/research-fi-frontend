@@ -192,7 +192,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   dialogActions = [];
 
-  descriptionSource = 0;
+  descriptionSource = -1;
   selectedLanguageNotAi = 0;
   selectedLanguageTab = 0;
 

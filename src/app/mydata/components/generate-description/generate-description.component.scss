@@ -138,9 +138,10 @@
   .language-dropdown {
     width: 180px;
   }
-  .content-container {
 
+  .content-container {
   }
+
   textarea {
     border: 0px;
     border-radius: 5px;
@@ -174,11 +175,11 @@
     height: 100px;
     max-width: unset;
     max-height: unset;
-    animation: fadeIn 5s;
-    -webkit-animation: fadeIn 5s;
-    -moz-animation: fadeIn 5s;
-    -o-animation: fadeIn 5s;
-    -ms-animation: fadeIn 5s;
+    animation: fadeInNew 5s;
+    -webkit-animation: fadeInNew 5s;
+    -moz-animation: fadeInNew 5s;
+    -o-animation: fadeInNew 5s;
+    -ms-animation: fadeInNew 5s;
   }
 
   @keyframes fadeIn {
