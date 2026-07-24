@@ -17,6 +17,7 @@ import { SnackbarService } from '@mydata/services/snackbar.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { FormsModule } from '@angular/forms';
 import { DraftService } from '@mydata/services/draft.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-generate-description',
@@ -195,7 +196,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   selectedLanguageNotAi = 0;
   selectedLanguageTab = 0;
 
-  keywordsSelected = false;
+  keywordsSelectedFromBackEnd = false;
+  keywordsSelectedDraft = false;
+  keywordsSourceLocalized = '';
 
   useMockData = false;
   selectedKeywordsStr = '';
@@ -241,6 +244,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   private biographyGenerationOngoingSub: Subscription;
   private biographyGenerationErrorSub: Subscription;
+  private capitalizedLocale: string;
 
   private clearDataSub: Subscription;
   biographyModalTextAreaValue = '';
@@ -250,9 +254,13 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     private patchService: PatchService,
     private snackbarService: SnackbarService,
     private profileService: ProfileService,
+    private appSettingsService: AppSettingsService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
+    this.capitalizedLocale = this.appSettingsService.capitalizedLocale;
   }
+
+
 
   ngOnInit(): void {
     this.dialogActions = [...this.dialogActionsCreateNewDescriptionAiNotFinished];
@@ -317,10 +325,21 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.translationsRequested$.next(false);
     if (this.data && this.data.id === 'researchDescription') {
       this.data?.keywordItems?.items.forEach(item => {
+        let kwDataSources = item?.dataSources;
+        if (kwDataSources?.length > 0) {
+          if (this.capitalizedLocale === 'Fi') {
+            this.keywordsSourceLocalized = kwDataSources[0]?.organization.nameFi;
+          } else if (this.capitalizedLocale === 'Sv') {
+            this.keywordsSourceLocalized = kwDataSources[0]?.organization.nameSv;
+          } else if (this.capitalizedLocale === 'En') {
+            this.keywordsSourceLocalized = kwDataSources[0]?.organization.nameEn;
+          }
+        }
 
         // One keywords is selected so show all, since they are shown as group like all or none
         if (item.itemMeta.show === true) {
-          this.keywordsSelected = true;
+          this.keywordsSelectedDraft = true;
+          this.keywordsSelectedFromBackEnd = true;
         }
         this.selectedKeywordsValues.push(item.value);
         item.itemMeta.show = true;
@@ -444,7 +463,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           }
 
           // Patch keywords
-          if (this.keywordsSelected) {
+          if (this.keywordsSelectedDraft) {
             this.patchService.addToPayload(this.selectedKeywordsShowItemMetas);
           } else {
             this.patchService.addToPayload(this.selectedKeywordsHideItemMetas);
@@ -689,7 +708,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   toggleKeywordsSelected() {
-    this.keywordsSelected = !this.keywordsSelected;
+    this.keywordsSelectedDraft = !this.keywordsSelectedDraft;
   }
 
   async doDialogAction(action: string) {
@@ -739,6 +758,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       case 'cancel': {
         this.showDialog$.next(false);
         this.contentCreationStep = 1;
+        this.keywordsSelectedDraft = this.keywordsSelectedFromBackEnd;
         break;
       }
 
