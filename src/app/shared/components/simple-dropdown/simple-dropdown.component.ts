@@ -25,8 +25,9 @@ export class SimpleDropdownComponent {
   @ViewChild('element') element: ElementRef;
   @ViewChildren('elementChild') elementChild: QueryList<any>;
 
+  @Input() defaultLabel: string = '';
   @Input() options: string[];
-  @Input() selection: number = 0;
+  @Input() selection: number = -1;
   @Input() activeInOpenMenu: number = 0;
   @Input() disabled: boolean;
   @Output() onSelected = new EventEmitter();

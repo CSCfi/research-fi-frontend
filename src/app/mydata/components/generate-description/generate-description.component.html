@@ -82,7 +82,7 @@
     </div>
   </div>
 
-  <div *ngIf="keywordsSelected" class="row">
+  <div *ngIf="keywordsSelectedDraft" class="row">
     <h3>{{ keywordsText }}</h3>
     <div class="row mb-2 gx-3">
       <div>{{ selectedKeywordsStr }}</div>
@@ -91,11 +91,6 @@
 
   <div class="language-versions-info-box"
        *ngIf="(biographyGenerationOngoing$ | async) === true">
-    <div class="d-flex flex-row additional-info-wrap">
-      <div class="info-circle-wrap d-flex flex-column">
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
-      </div>
-    </div>
     <div class="d-flex flex-row justify-content-center mt-2">
       <app-svg-sprites [iconName]="'create-new-diamond'"
                        cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
@@ -179,105 +174,90 @@
         <div class="row d-flex justify-content-between pb-2">
           <div class="col-12 col-lg-auto font-size-big">
             <div class="purple-box">
-              <div class="modal-width-prefer-wrapper"></div>
-              <div class="row gx-0">
-                <div class="col-3 d-flex flex-column justify-content-center font-weight-500">
-                  <label>{{ selectDescriptionSourceTitle }}:</label>
-                </div>
-                <div class="col-9 d-flex flex-column">
-                  <app-simple-dropdown [options]="descriptionOptions" [selection]="descriptionSource"
-                                       (onSelected)="selectDescriptionSource($event)"
-                                       aria-labelledby="datasource-label"
-                                       [disabled]="biographyGenerationOngoing$ | async"></app-simple-dropdown>
-                </div>
-                <div class="col-3"></div>
-                <div class="col-9">
-                  <div class="mb-2 mt-2">{{ aitta_modalIntroText }}</div>
-                </div>
-              </div>
+              <div class="modal-width-prefer-wrapper h-100"></div>
 
-              <!-- Lang selection AI generated -->
-              <div *ngIf="descriptionSource !== 1" class="row gx-0">
-                <div class="col-3 d-flex flex-column justify-content-center font-weight-500">
-                  <label>{{ selectDescriptionLanguageTitle }}:</label>
-                </div>
-                <div class="col-9 d-flex flex-row">
-                  <div class="d-flex flex-row font-weight-500 justify-content-start">
-                    <div [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.fi?.length > 0"
-                         [class.selected]="this.dropdownLanguageSelection === 0" class="modal-lang-select-button"
-                         role="button"
-                         tabindex="0"
-                         (keydown.enter)="selectDescriptionLanguageAi(0)" (click)="selectDescriptionLanguageAi(0)">
-                      FI
+              <div class="d-flex justify-content-between flex-column flex-grow-1 h-100">
+                <div>
+                  <div class="row gx-0">
+                    <div class="col-3 d-flex flex-column justify-content-center font-weight-500">
+                      <label>{{ selectDescriptionSourceTitle }}:</label>
                     </div>
-                    <div class="modal-lang-select-button"
-                         [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.en?.length > 0"
-                         [class.selected]="this.dropdownLanguageSelection === 2"
-                         role="button"
-                         tabindex="0"
-                         (keydown.enter)="selectDescriptionLanguageAi(2)" (click)="selectDescriptionLanguageAi(2)">
-                      EN
+                    <div class="col-9 d-flex flex-column">
+                      <app-simple-dropdown [options]="descriptionOptions" [selection]="descriptionSource"
+                                           (onSelected)="selectDescriptionSource($event)"
+                                           aria-labelledby="datasource-label"
+                                           [defaultLabel]="'Valitse'"
+                                           [disabled]="biographyGenerationOngoing$ | async"></app-simple-dropdown>
                     </div>
-                    <div class="modal-lang-select-button"
-                         [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.sv?.length > 0"
-                         [class.selected]="this.dropdownLanguageSelection === 1"
-                         role="button"
-                         tabindex="0"
-                         (keydown.enter)="selectDescriptionLanguageAi(1)" (click)="selectDescriptionLanguageAi(1)">
-                      SV
+                    @if (descriptionSource !== 1) {
+                      <div class="col-3"></div>
+                      <div class="col-9">
+                        <div class="mb-2 mt-2">{{ aitta_modalIntroText }}</div>
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Lang selection AI generated -->
+                  <div *ngIf="descriptionSource !== 1" class="row gx-0 my-3">
+                    <div class="col-3 d-flex flex-column justify-content-center font-weight-500">
+                      <label>{{ selectDescriptionLanguageTitle }}:</label>
                     </div>
-                    <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true && translationsRequested$.getValue() === true && (userEditableBiographiesObs$.getValue().fi?.length > 0 || userEditableBiographiesObs$.getValue().en?.length > 0 || userEditableBiographiesObs$.getValue().sv?.length > 0)"
-                         role="button" class="select-language-button"
-                         tabindex="0" (keydown.enter)="openDialog('selectLanguageVersions')"
-                         (click)="openDialog('selectLanguageVersions')">
-                      {{ selectLanguageVersionsText }}
+                    <div class="col-9 d-flex flex-row">
+                      <div class="d-flex flex-row font-weight-500 justify-content-start">
+                        <div [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.fi?.length > 0"
+                             [class.selected]="this.dropdownLanguageSelection === 0" class="modal-lang-select-button"
+                             role="button"
+                             tabindex="0"
+                             (keydown.enter)="selectDescriptionLanguageAi(0)" (click)="selectDescriptionLanguageAi(0)">
+                          FI
+                        </div>
+                        <div class="modal-lang-select-button"
+                             [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.en?.length > 0"
+                             [class.selected]="this.dropdownLanguageSelection === 2"
+                             role="button"
+                             tabindex="0"
+                             (keydown.enter)="selectDescriptionLanguageAi(2)" (click)="selectDescriptionLanguageAi(2)">
+                          EN
+                        </div>
+                        <div class="modal-lang-select-button"
+                             [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.sv?.length > 0"
+                             [class.selected]="this.dropdownLanguageSelection === 1"
+                             role="button"
+                             tabindex="0"
+                             (keydown.enter)="selectDescriptionLanguageAi(1)" (click)="selectDescriptionLanguageAi(1)">
+                          SV
+                        </div>
+                        <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true && translationsRequested$.getValue() === true && (userEditableBiographiesObs$.getValue().fi?.length > 0 || userEditableBiographiesObs$.getValue().en?.length > 0 || userEditableBiographiesObs$.getValue().sv?.length > 0)"
+                             role="button" class="select-language-button"
+                             tabindex="0" (keydown.enter)="openDialog('selectLanguageVersions')"
+                             (click)="openDialog('selectLanguageVersions')">
+                          {{ selectLanguageVersionsText }}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!--
-              <div>
-                <mat-checkbox aria-labelledby="mock-data-checkbox-label" [checked]="useMockData" color="primary"
-                              (change)=toggleUseMockData()>
-                  {{ useMockDataLabel }}
-                </mat-checkbox>
-              </div>
-              -->
-
-              <div *ngIf="descriptionSource === 0">
-                <div *ngIf="contentCreationStep === 1" class="content-container">
-                  <div class="mb-3">{{ aitta_modalIntroText }}</div>
-
-                  <label class="language-select-label">{{ selectDescriptionLanguageTitle }}</label>
-                  <div class="d-flex flex-row">
-
-                    <!--<app-simple-dropdown [options]="descriptionLanguages"
-                                         (onSelected)="selectDescriptionLanguage($event)"
-                                         aria-labelledby="language-select-label"
-                                         class="language-dropdown"></app-simple-dropdown>-->
-                    <app-secondary-button (click)="generateBiography()" content="{{generateDescriptionButtonText}}"
-                                          [svgSymbolName]="'create-new-diamond'"
-                                          [svgCssClass]="'create-new-diamond-icon'"
-                                          class="ms-3"></app-secondary-button>
-                  </div>
-                  <!--
-                  <div class="d-flex flex-column mt-2">
-                    <mat-checkbox aria-labelledby="mock-data-checkbox-label" [checked]="useMockData" color="primary"
-                                  (change)=toggleUseMockData()>
-                      {{ useMockDataLabel }}
-                    </mat-checkbox>
-                  </div>
-                  -->
+                <!--
+                <div>
+                  <mat-checkbox aria-labelledby="mock-data-checkbox-label" [checked]="useMockData" color="primary"
+                                (change)=toggleUseMockData()>
+                    {{ useMockDataLabel }}
+                  </mat-checkbox>
                 </div>
-                <div *ngIf="biographyGenerationOngoing$ | async" class="content-container">
+                -->
+
+                <div *ngIf="biographyGenerationOngoing$ | async"
+                     class="content-container d-flex flex-grow-1 flex-column justify-content-center h-100">
                   <div class="d-flex flex-row justify-content-center">
                     <app-svg-sprites [iconName]="'create-new-diamond'"
                                      cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
                   </div>
                   <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[dropdownLanguageSelection] }}</div>
                 </div>
+              </div>
 
+              <div *ngIf="descriptionSource === 0">
                 <div *ngIf="contentCreationStep === 3 && !(biographyGenerationOngoing$ | async)"
                      class="content-container">
 
@@ -334,7 +314,7 @@
               <div *ngIf="descriptionSource === 1" class="row">
                 <ng-container *ngFor="let biography of notAiBiographies; let i = index">
 
-                  <div *ngIf="descriptionSource === 1" class="row gx-0">
+                  <div *ngIf="descriptionSource === 1" class="row gx-0 mt-2">
                     <div class="col-3 d-flex flex-column justify-content-center font-weight-500">
                       <label>{{ languageVersionsTitle }}:</label>
                     </div>
@@ -395,11 +375,13 @@
                 <label id="keywords-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}:</label>
               </div>
               <div class="w-100">
-                <mat-checkbox aria-labelledby="wrapper" [checked]="keywordsSelected" color="primary" class="fw-normal"
+                <mat-checkbox aria-labelledby="wrapper" [checked]="keywordsSelectedDraft" color="primary"
+                              class="fw-normal"
                               (change)=toggleKeywordsSelected()>
                   {{ selectedKeywordsStr }}
                 </mat-checkbox>
               </div>
+              <div class="me-2 fw-normal">{{ keywordsSourceLocalized }}</div>
             </div>
           </div>
         </div>
