@@ -32,9 +32,9 @@ export class BiographyService implements OnDestroy {
   private unsubscribe = new Subject<void>();
 
 
-  public generatedBiographyData = new BehaviorSubject<any>(undefined);
-  public generatedBiographyDataSv = new BehaviorSubject<any>(undefined);
-  public generatedBiographyDataEn = new BehaviorSubject<any>(undefined);
+  public generatedBiographyData = new BehaviorSubject<any>('');
+  public generatedBiographyDataSv = new BehaviorSubject<any>('');
+  public generatedBiographyDataEn = new BehaviorSubject<any>('');
 
   public biographyGenerationOngoing = new BehaviorSubject<boolean | undefined>(undefined);
   public translationsRequested = new BehaviorSubject<boolean>(false);
