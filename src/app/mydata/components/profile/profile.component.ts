@@ -190,7 +190,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
         this.profileData = cloneDeep(this.profileService.currentProfileData);
-
         // Refetch needed after save
         if (!this.profileService.currentProfileData) {
           this.profileService.clearCurrentProfileData();

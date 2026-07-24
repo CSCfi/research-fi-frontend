@@ -1,25 +1,22 @@
 import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { AsyncPipe, isPlatformBrowser, JsonPipe, NgClass, NgForOf, NgIf } from '@angular/common';
-import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
-import { AutofocusDirective } from '@shared/directives/autofocus.directive';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { SimpleDropdownComponent } from '@shared/components/simple-dropdown/simple-dropdown.component';
 import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-button/secondary-button.component';
 import { BiographyService } from '@mydata/services/biography.service';
 import { BehaviorSubject, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
 import { PatchService } from '@mydata/services/patch.service';
-import { unsignedDecimalNumber } from 'docx';
 import { Constants } from '@mydata/constants';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { FormsModule } from '@angular/forms';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
   selector: 'app-generate-description',
@@ -199,7 +196,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   selectedLanguageTab = 0;
 
   keywordsSelected = false;
-  keywordsSelectedInDraft = false;
 
   useMockData = false;
   selectedKeywordsStr = '';
@@ -244,6 +240,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   initDoneOnce = false;
 
   private biographyGenerationOngoingSub: Subscription;
+  private biographyGenerationErrorSub: Subscription;
+
   private clearDataSub: Subscription;
   biographyModalTextAreaValue = '';
 
@@ -284,6 +282,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+    this.biographyGenerationErrorSub ? this.biographyGenerationErrorSub.unsubscribe() : undefined;
   }
 
   openDialog(dialogName: string) {
@@ -320,7 +319,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       this.data?.keywordItems?.items.forEach(item => {
 
         // One keywords is selected so show all, since they are shown as group like all or none
-        if (item.itemMeta.show = true) {
+        if (item.itemMeta.show === true) {
           this.keywordsSelected = true;
         }
         this.selectedKeywordsValues.push(item.value);
@@ -445,7 +444,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           }
 
           // Patch keywords
-          if (this.keywordsSelected || this.keywordsSelectedInDraft) {
+          if (this.keywordsSelected) {
             this.patchService.addToPayload(this.selectedKeywordsShowItemMetas);
           } else {
             this.patchService.addToPayload(this.selectedKeywordsHideItemMetas);
@@ -460,6 +459,13 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.snackbarService.show(
       $localize`:@@draftUpdated:Luonnos päivitetty`,
       'success'
+    );
+  }
+
+  showBiographyGenerationFailedNotification(): void {
+    this.snackbarService.show(
+      $localize`:@@biographyGenerationFailed:Tutkimustoiminnan kuvauksen luonti epäonnistui. Yhteys aikakatkaistiin.`,
+      'error'
     );
   }
 
@@ -591,6 +597,14 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     const selectedLanguageAbbreviations = ['fi', 'sv', 'en'];
     this.biographyService.generateBiography(this.useMockData, selectedLanguageAbbreviations[this.dropdownLanguageSelection]).then();
 
+    this.biographyGenerationErrorSub = this.biographyService.biographyGenerationError.subscribe(error => {
+      if (error) {
+        this.showBiographyGenerationFailedNotification();
+        this.biographyService.biographyGenerationOngoing.next(false);
+        this.biographyGenerationErrorSub.unsubscribe();
+      }
+    });
+
     if (this.dropdownLanguageSelection === 0) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
         if (onGoing === false) {
@@ -606,7 +620,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.selectDescriptionLanguageAi(0);
           this.contentCreationStep = 3;
           this.finishedGeneratingAiBiographyObs$.next(true);
-          this.biographyGenerationOngoingSub.unsubscribe();
+          this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
         }
       });
     } else if (this.dropdownLanguageSelection === 1) {
@@ -624,7 +638,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.selectDescriptionLanguageAi(1);
           this.contentCreationStep = 3;
           this.finishedGeneratingAiBiographyObs$.next(true);
-          this.biographyGenerationOngoingSub.unsubscribe();
+          this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
         }
       });
     } else if (this.dropdownLanguageSelection === 2) {
@@ -643,7 +657,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.selectDescriptionLanguageAi(2);
           this.contentCreationStep = 3;
           this.finishedGeneratingAiBiographyObs$.next(true);
-          this.biographyGenerationOngoingSub.unsubscribe();
+          this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
         }
       });
     }
@@ -690,12 +704,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
       case 'closeToBackgroundButtonText': {
         this.showDialog$.next(false);
-        this.keywordsSelectedInDraft = this.keywordsSelected;
         break;
       }
       case 'generateNewBiography': {
         this.generateNewBiography();
-        this.keywordsSelectedInDraft = this.keywordsSelected;
         break;
       }
       case 'review': {
@@ -705,7 +717,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       case 'saveChanges': {
         this.saveAiBioChanges();
         this.isBiographyAiGeneratedObs$.next(true);
-        this.keywordsSelectedInDraft = this.keywordsSelected;
         break;
       }
 

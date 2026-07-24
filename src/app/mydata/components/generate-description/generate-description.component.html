@@ -33,10 +33,9 @@
   <div *ngIf="(savedDraftBiographiesObs$.getValue().fi.length > 0 || savedDraftBiographiesObs$.getValue().en.length > 0 && savedDraftBiographiesObs$.getValue().sv.length > 0)"
        class="row">
     <div class="mb-2 d-flex flex-row font-weight-500">{{ languageVersionsTitle }}:
-      <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 0)}" role="button"
-           tabindex="0" (keydown.enter)="setSelectLanguageTab(0, false)" (click)="setSelectLanguageTab(0)"
-           role="button"
+      <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 0)}"
            tabindex="0"
+           role="button"
            (keydown.enter)="savedDraftBiographiesObs$.getValue().fi.length > 0 ? setSelectLanguageTab(0) : undefined"
            (click)="savedDraftBiographiesObs$.getValue().fi.length > 0 ? setSelectLanguageTab(0) : undefined">
         FI
@@ -44,7 +43,6 @@
       <div class="lang-tab-button"
            [ngClass]="{'selected': (selectedLanguageTab === 1), 'disabled': savedDraftBiographiesObs$.getValue().en.length < 1}"
            role="button"
-           tabindex="0"
            (keydown.enter)="savedDraftBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1) : undefined"
            (click)="savedDraftBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1) : undefined">
         EN
@@ -52,7 +50,6 @@
       <div class="lang-tab-button"
            [ngClass]="{'selected': (selectedLanguageTab === 2), 'disabled': savedDraftBiographiesObs$.getValue().sv.length < 1}"
            role="button"
-           tabindex="0"
            (keydown.enter)="savedDraftBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2) : undefined"
            (click)="savedDraftBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2) : undefined">
         SV
@@ -73,7 +70,6 @@
     <br/>
   </div>
 
-
   <div class="row pt-2 pb-3 justify-content-between">
     <div *ngIf="selectedLanguageTab === 0">
       <div>{{ savedDraftBiographiesObs$.getValue().fi }}</div>
@@ -86,9 +82,11 @@
     </div>
   </div>
 
-  <div *ngIf="keywordsSelectedInDraft" class="row">
-    <h3 id="mock-data-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}</h3>
-    <div>{{ selectedKeywordsStr }}</div>
+  <div *ngIf="keywordsSelected" class="row">
+    <h3>{{ keywordsText }}</h3>
+    <div class="row mb-2 gx-3">
+      <div>{{ selectedKeywordsStr }}</div>
+    </div>
   </div>
 
   <div class="language-versions-info-box"
@@ -189,7 +187,7 @@
                 <div class="col-9 d-flex flex-column">
                   <app-simple-dropdown [options]="descriptionOptions" [selection]="descriptionSource"
                                        (onSelected)="selectDescriptionSource($event)"
-                                       aria-labelledby="datasource-label" ⁄
+                                       aria-labelledby="datasource-label"
                                        [disabled]="biographyGenerationOngoing$ | async"></app-simple-dropdown>
                 </div>
                 <div class="col-3"></div>
@@ -288,7 +286,8 @@
                       <label class="biography-label">{{ editDescriptionLabel }}:</label>
                     </div>
                     <div class="col-9 d-flex flex-column">
-                      <textarea aria-labelledby="biography-label" class)="bio-textarea" rows="6" [(ngModel)]="biographyModalTextAreaValue"
+                      <textarea aria-labelledby="biography-label" class)="bio-textarea" rows="6"
+                                [(ngModel)]="biographyModalTextAreaValue"
                                 (keyup)="biographyFieldTextChange(dropdownLanguageSelection, true)">{{ biographyModalTextAreaValue }}</textarea>
                       <div class="d-flex flex-row additional-info-wrap">
                         <div class="info-circle-margin d-flex flex-column justify-content-center">
@@ -304,20 +303,21 @@
                   <br/>
                   <div class="d-flex flex-row justify-content-between mt-3">
                     <div class="d-flex flex-row justify-content-start">
-                    <!--<app-simple-dropdown [options]="descriptionLanguages"
-                                         (onSelected)="selectDescriptionLanguage($event)"
-                                         aria-labelledby="language-select-label"
-                                         class="language-dropdown"></app-simple-dropdown>-->
-                    <app-secondary-button (click)="generateBiography()" content="{{generateNewDescriptionButtonText}}"
-                                          [svgSymbolName]="'create-new-diamond'"
-                                          [svgCssClass]="'create-new-diamond-icon'"
-                                          [disabled]="biographyGenerationOngoing$ | async"
-                    ></app-secondary-button>
-                    <app-tertiary-button (click)="deleteSelectedDescription()" content="{{deleteDescriptionButtonText}}"
-                                         [svgSymbolName]="'delete'"
-                                         [svgCssClass]="'delete-icon-button'"
-                                         [disabled]="(biographyModalTextAreaValue.length < 1) && (biographyGenerationOngoing$ | async)"
-                                         class="ms-4 d-flex"></app-tertiary-button>
+                      <!--<app-simple-dropdown [options]="descriptionLanguages"
+                                           (onSelected)="selectDescriptionLanguage($event)"
+                                           aria-labelledby="language-select-label"
+                                           class="language-dropdown"></app-simple-dropdown>-->
+                      <app-secondary-button (click)="generateBiography()" content="{{generateNewDescriptionButtonText}}"
+                                            [svgSymbolName]="'create-new-diamond'"
+                                            [svgCssClass]="'create-new-diamond-icon'"
+                                            [disabled]="biographyGenerationOngoing$ | async"
+                      ></app-secondary-button>
+                      <app-tertiary-button (click)="deleteSelectedDescription()"
+                                           content="{{deleteDescriptionButtonText}}"
+                                           [svgSymbolName]="'delete'"
+                                           [svgCssClass]="'delete-icon-button'"
+                                           [disabled]="(biographyModalTextAreaValue?.length < 1) && (biographyGenerationOngoing$ | async)"
+                                           class="ms-4 d-flex"></app-tertiary-button>
                     </div>
                     <div class="use-description-checkbox-container">
                       <mat-checkbox aria-labelledby="biography-lang-versions-id"
