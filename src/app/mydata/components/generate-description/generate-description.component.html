@@ -19,9 +19,6 @@
   </div>
 
   <!-- Content (not modal) -->
-
-  <!--<div class="">{{(savedDraftBiographies | async) | json }}</div>-->
-
   <div *ngIf="savedDraftBiographiesObs$.getValue().fi.length < 1 && savedDraftBiographiesObs$.getValue().en.length < 1 && savedDraftBiographiesObs$.getValue().sv.length < 1"
        class="row pt-2 pb-3 justify-content-between">
     <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0"
@@ -106,7 +103,7 @@
       </div>
 
       <div>
-        <div>{{ generatingLanguageVersionsInfoText }}</div>
+        <div>{{ aitta_generatingDescriptionInfoText }}</div>
         <div class="d-flex flex-row justify-content-center">
           <app-svg-sprites [iconName]="'create-new-diamond'"
                            cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
@@ -198,7 +195,7 @@
                   </div>
 
                   <!-- Lang selection AI generated -->
-                  <div *ngIf="descriptionSource !== 1" class="row gx-0 my-3">
+                  <div *ngIf="descriptionSource !== -1 && descriptionSource !== 1" class="row gx-0 my-3">
                     <div class="col-3 d-flex flex-column justify-content-center font-weight-500">
                       <label>{{ selectDescriptionLanguageTitle }}:</label>
                     </div>
@@ -238,15 +235,6 @@
                   </div>
                 </div>
 
-                <!--
-                <div>
-                  <mat-checkbox aria-labelledby="mock-data-checkbox-label" [checked]="useMockData" color="primary"
-                                (change)=toggleUseMockData()>
-                    {{ useMockDataLabel }}
-                  </mat-checkbox>
-                </div>
-                -->
-
                 <div *ngIf="biographyGenerationOngoing$ | async"
                      class="content-container d-flex flex-grow-1 flex-column justify-content-center h-100">
                   <div class="d-flex flex-row justify-content-center">
@@ -283,10 +271,6 @@
                   <br/>
                   <div class="d-flex flex-row justify-content-between mt-3">
                     <div class="d-flex flex-row justify-content-start">
-                      <!--<app-simple-dropdown [options]="descriptionLanguages"
-                                           (onSelected)="selectDescriptionLanguage($event)"
-                                           aria-labelledby="language-select-label"
-                                           class="language-dropdown"></app-simple-dropdown>-->
                       <app-secondary-button (click)="generateBiography()" content="{{generateNewDescriptionButtonText}}"
                                             [svgSymbolName]="'create-new-diamond'"
                                             [svgCssClass]="'create-new-diamond-icon'"
