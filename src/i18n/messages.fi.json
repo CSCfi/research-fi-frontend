@@ -1250,7 +1250,6 @@
         "art_publication_type_info": "Tieto onko kyseessä taiteellinen erillisteos, sellaisen osatoteutus vai johonkin ei-taiteelliseen julkaisuun liittyvä taiteellinen panos.",
         "report_switch_text": "Raportti",
         "contactUs": "Ota yhteyttä",
-        "cvTool": "CV-työkalu",
         "aitta_aiGeneratedDescription": "Tekoälyavusteinen kuvaus",
         "aitta_aiGeneratedTextMayContainErrors": "Tekoälyn luoma teksti voi sisältää asiavirheitä. Muistathan tarkastaa tekstin.",
         "aitta_closeToBackgroundButtonText": "Sulje taustalle",
@@ -1268,7 +1267,7 @@
         "aitta_generatingDescriptionInFinnish": "Luodaan kuvausta suomeksi. Tämä voi kestää pari minuuttia.",
         "aitta_generatingDescriptionInfoText": "Luodaan tutkimustoiminnan kuvausta. Tämä voi kestää pari minuuttia.",
         "aitta_generatingDescriptionInSwedish": "Luodaan kuvausta ruotsiksi. Tämä voi kestää pari minuuttia.",
-        "aitta_infoText": "Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja.\nTietojasi ei käytetä kielimallin kouluttamiseen eikä niitä säilytetä CSC:n Aitta-palvelussa.",
+        "aitta_infoText": "Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja. Tietojasi ei käytetä kielimallin kouluttamiseen eikä niitä säilytetä CSC:n Aitta-palvelussa.",
         "aitta_languageVersionInfo": "Kieliversiot luodaan automaaattisesti tarkastamasi kuvauksen pohjalta.",
         "aitta_languageVersionsInstructionBoxText": "Tutkimustoiminnan kuvaus kannattaa kirjoittaa englanniksi, suomeksi ja ruotsiksi, jotta se saavuttaa mahdollisimman laajan yleisön.",
         "aitta_modalIntroText": "Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja.",
@@ -1277,6 +1276,6 @@
         "aitta_selectDescriptionLanguageTitle": "Valitse kuvauksen kieli",
         "aitta_selectDescriptionSourceTitle": "Kuvauksen tietolähde",
         "aitta_useDescriptionButtonText": "Käytä kuvausta",
-        "aitta_youHaveNotSelectedAnyPublicData": "Et ole vielä valinnut julkaistavia tietoja",
+        "aitta_youHaveNotSelectedAnyPublicData": "Et ole vielä valinnut julkaistavia tietoja"
     }
 }

@@ -1248,7 +1248,6 @@
         "art_publication_type_info": "Information on whether the publication is a separate artistic work, a partial implementation of such a work, or an artistic contribution related to a non-artistic publication.",
         "report_switch_text": "Report",
         "contactUs": "Contact us",
-        "cvTool": "CV tool",
         "aitta_aiGeneratedDescription": "AI-generated description",
         "aitta_aiGeneratedTextMayContainErrors": "Text created by artificial intelligence can contain factual errors. Remember to check the text.",
         "aitta_demoDescription": "This is a demo-generated description of research activities that includes information about affiliations, outputs, achievements, and activities. It describes the career and motivations of an expert.",
@@ -1266,16 +1265,16 @@
         "aitta_generatingDescriptionInFinnish": "Generating description in Finnish. This may take a couple of minutes.",
         "aitta_generatingDescriptionInfoText": "Generating description. This may take a couple of minutes.",
         "aitta_generatingDescriptionInSwedish": "Generating description in Swedish. This may take a couple of minutes.",
-        "aitta_infoText": "You can create a description of your research activities using artificial intelligence. Only your profile information published on Research.fi is used to create the description.\nYour data is not used to train the language model and is not stored in CSC's Aitta service.",
+        "aitta_infoText": "You can create a description of your research activities using artificial intelligence. Only your profile information published on Research.fi is used to create the description. Your data is not used to train the language model and is not stored in CSC's Aitta service.",
         "aitta_languageVersionInfo": "Language versions are created automatically based on the description you reviewed.",
         "aitta_languageVersionsInstructionBoxText": "To reach the broadest audience possible, it is recommended to write the research description in English, Finnish and Swedish.",
-        "aitta_modalIntroText": "You can create a description of your research activities using AI. Only your profile information published in Research.fi is used to create the description.",
+        "aitta_modalIntroText": "You can create a description of your research activities using AI. Only your profile information published in Research.fi is used to create the description.",
         "aitta_researchDescriptionGenerationDone": "Research description completed",
         "aitta_selectInformationToDisplayInProfile": "Select information to display in profile",
         "aitta_selectDescriptionLanguageTitle": "Select description language",
         "aitta_selectDescriptionSourceTitle": "Select description source",
         "aitta_useDescriptionButtonText": "Use description",
-        "aitta_youHaveNotSelectedAnyPublicData": "You haven't selected any information to publish yet",
+        "aitta_youHaveNotSelectedAnyPublicData": "You haven't selected any information to publish yet"
     }
 }
 
