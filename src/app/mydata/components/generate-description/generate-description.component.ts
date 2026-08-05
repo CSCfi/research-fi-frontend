@@ -57,6 +57,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   noPublicDataText = $localize`:@@aitta_youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
   languageVersionsTitle = $localize`:@@aitta_languageVersionsTitle:Kieliversiot`;
 
+  selectDefaultLabel = $localize`:@@select:Valitse`;
+
   selectDescriptionSourceTitle = $localize`:@@aitta_selectDescriptionSourceTitle:Kuvauksen tietolähde`;
   aiGeneratedDescription = $localize`:@@aitta_aiGeneratedDescription:Tekoälyavusteinen kuvaus`;
   descriptionFromOtherDataSources = $localize`:@@aitta_descriptionFromOtherDataSources:Kuvaus muista tietolähteistä`;
