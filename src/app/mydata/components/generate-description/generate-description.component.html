@@ -183,7 +183,7 @@
                       <app-simple-dropdown [options]="descriptionOptions" [selection]="descriptionSource"
                                            (onSelected)="selectDescriptionSource($event)"
                                            aria-labelledby="datasource-label"
-                                           [defaultLabel]="'Valitse'"
+                                           [defaultLabel]="selectDefaultLabel"
                                            [disabled]="biographyGenerationOngoing$ | async"></app-simple-dropdown>
                     </div>
                     @if (descriptionSource !== 1) {
