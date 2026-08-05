@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { AsyncPipe, isPlatformBrowser, JsonPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
-import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -16,7 +15,6 @@ import { Constants } from '@mydata/constants';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { FormsModule } from '@angular/forms';
-import { DraftService } from '@mydata/services/draft.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
@@ -32,8 +30,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
     NgClass,
     FormsModule,
     NgIf,
-    NgForOf,
-    JsonPipe
+    NgForOf
   ],
   templateUrl: './generate-description.component.html',
   styleUrl: './generate-description.component.scss'
@@ -60,15 +57,14 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   noPublicDataText = $localize`:@@aitta_youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
   languageVersionsTitle = $localize`:@@aitta_languageVersionsTitle:Kieliversiot`;
 
-  selectDescriptionSourceTitle = $localize`:@@aitta_selectDescriptionSourceTitle:Kuvauksen tietolähde:`;
+  selectDescriptionSourceTitle = $localize`:@@aitta_selectDescriptionSourceTitle:Kuvauksen tietolähde`;
   aiGeneratedDescription = $localize`:@@aitta_aiGeneratedDescription:Tekoälyavusteinen kuvaus`;
   descriptionFromOtherDataSources = $localize`:@@aitta_descriptionFromOtherDataSources:Kuvaus muista tietolähteistä`;
   descriptionOptions = [this.aiGeneratedDescription, this.descriptionFromOtherDataSources];
 
   editDescriptionLabel = $localize`:@@aitta_editDescription:Muokkaa kuvausta`;
 
-  originalDescriptionLabel = $localize`:@@aitta_originalDescriptionLabel:Alkuperäinen kuvaus`;
-  editDescriptionLabelFi = $localize`:@@aitta_editDescriptionEn:Muokkaa suomenkielistä kuvausta`;
+  editDescriptionLabelFi = $localize`:@@aitta_editDescriptionFi:Muokkaa suomenkielistä kuvausta`;
   editDescriptionLabelEn = $localize`:@@aitta_editDescriptionEn:Muokkaa englanninkielistä kuvausta`;
   editDescriptionLabelSv = $localize`:@@aitta_editDescriptionSv:Muokkaa ruotsinkielistä kuvausta`;
 
@@ -77,20 +73,14 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   languageSv = $localize`:@@languageSv:Ruotsi`;
   languageEn = $localize`:@@languageSv:Englanti`;
 
-  generatingLanguageVersionsInfoText = $localize`:@@aitta_generatingLanguageVersionsInfoText:Luodaan kieliversioita. Tämä voi viedä pari minuuttia.`;
-
+  aitta_generatingDescriptionInfoText = $localize`:@@aitta_generatingdescriptionInfoText:Luodaan kieliversioita. Tämä voi viedä pari minuuttia.`;
 
   generateDescriptionButtonText = $localize`:@@aitta_generateDescriptionButtonText:Luo kuvaus`;
   generateNewDescriptionButtonText = $localize`:@@aitta_generateNewDescriptionButtonText:Luo uusi kuvaus`;
   deleteDescriptionButtonText = $localize`:@@aitta_deleteDescriptionButtonText:Poista kuvaus`;
-  generateAndCreateLocalizationsButtonText = $localize`:@@aitta_generateAndCreateLocalizationsButtonText:Käytä ja luo kieliversiot`;
-  reviewAndCreateLanguageVersionsButtonText = $localize`:@@aitta_reviewAndCreateLanguageVersionsButtonText:Tarkista ja luo kieliversiot`;
   selectLanguageVersionsText = $localize`:@@aitta_selectLanguageVersionsText:Valitse kieliversiot`;
-  editLanguageVersionsText = $localize`:@@aitta_selectLanguageVersionsText:Muokkaa kieliversioita`;
-  useLocalizationButtonText = $localize`:@@aitta_useDescriptionButtonText:Käytä kuvausta`;
   closeToBackgroundButtonText = $localize`:@@aitta_closeToBackgroundButtonText:Sulje taustalle`;
 
-  notAllLanguageVersionsSelectedTitle = $localize`:@@aitta_notAllLanguageVersionsSelectedTitle:Kaikkia kieliversioita ei ole valittu näytettäväksi`;
   researchDescriptionGenerationDone = $localize`:@@aitta_researchDescriptionGenerationDone:Tutkimustoiminnan kuvauksen luonti valmistui`;
   languageVersionsGenerationDone = $localize`:@@aitta_languageVersionsGenerationDone:Kieliversioiden luonti valmistui`;
 
@@ -100,17 +90,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   reviewButtonText = $localize`:@@reviewButtonText:Tarkista luotu kuvaus`;
 
-  cancelButtonText = $localize`:@@cancel:Peruuta`;
-
   keywordsText = $localize`:@@keywords:Avainsanat`;
 
   aiGeneratedTextMayContainErrors = $localize`:@@aitta_aiGeneratedTextMayContainErrors:Tekoälyn luoma teksti voi sisältää asiavirheitä. Muistathan tarkastaa tekstin.`;
-  languageVersionInfo = $localize`:@@aitta_languageVersionInfo:Kieliversiot kielillä Ruotsi ja Englanti voidaan luoda automaaattisesti tarkastamasi suomenkielisen kuvauksen pohjalta.`;
-
-  importLanguageVersionsToProfile = $localize`:@@aitta_importLanguageVersionsToProfile:Tuo kieliversiot profiiliisi`;
-
-  descriptionLanguages = [this.languageFi, this.languageSv, this.languageEn];
-
 
   dialogActions1 = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
@@ -188,7 +170,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   useAiBiographyText = 'Käytä kuvausta';
   useAiBiography = true;
 
-  generatingDescriptionInfoText = [$localize`:@@generatingDescriptionInFinnish:Luodaan kuvausta suomeksi. Tämä voi viedä pari minuuttia.`, $localize`:@@generatingDescriptionInFinnish:Luodaan kuvausta ruotsiksi. Tämä voi viedä pari minuuttia.`, $localize`:@@generatingDescriptionInFinnish:Luodaan kuvausta englanniksi. Tämä voi viedä pari minuuttia.`];
+  generatingDescriptionInfoText = [$localize`:@@aitta_generatingDescriptionInFinnish:Luodaan kuvausta suomeksi. Tämä voi viedä pari minuuttia.`, $localize`:@@aitta_generatingDescriptionInSwedish:Luodaan kuvausta ruotsiksi. Tämä voi viedä pari minuuttia.`, $localize`:@@aitta_generatingDescriptionInEnglish:Luodaan kuvausta englanniksi. Tämä voi viedä pari minuuttia.`];
 
   dialogActions = [];
 
@@ -206,12 +188,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   selectedKeywordsShowItemMetas = [];
   selectedKeywordsHideItemMetas = [];
 
-  useMockDataLabel = 'Käytä demodataa';
-
   selectedNotAiBiographyIndex = -1;
   selectedNotAiBiographyItem = undefined;
-
-  private currentBiography: Promise<Object>;
 
   languageCodes = ['fi', 'en', 'sv'];
 
@@ -259,8 +237,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   ) {
     this.capitalizedLocale = this.appSettingsService.capitalizedLocale;
   }
-
-
 
   ngOnInit(): void {
     this.dialogActions = [...this.dialogActionsCreateNewDescriptionAiNotFinished];
@@ -310,7 +286,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     }
     this.showDialog$.next(true);
   }
-
 
   initBiographies() {
     const previousVisibleBios = this.savedDraftBiographiesObs$.getValue();
@@ -368,8 +343,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             //this.savedDraftBiographiesObs$.next(this.aiBiographiesFromBackend);
             if (item.itemMeta.show === true) {
               this.isBiographyAiGeneratedObs$.next(true);
+              this.selectDescriptionSource(0);
             } else {
               this.isBiographyAiGeneratedObs$.next(false);
+              this.selectDescriptionSource(-1);
             }
           }
         } else {
@@ -384,6 +361,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
           // This makes currently active checked in listing
           if (item?.itemMeta?.show === true) {
+            this.selectDescriptionSource(1);
             this.selectedNotAiBiographyIndex = itemIndex;
             this.selectedNotAiBiographyItem = item;
           }
@@ -395,9 +373,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           currentlyVisibleBiography['en'] = item?.researchDescriptionEn;
           currentlyVisibleBiography['sv'] = item?.researchDescriptionSv;
           currentlyVisibleBiography['itemMeta'] = item.itemMeta;
-          if (true) {
-            this.savedDraftBiographiesObs$.next(currentlyVisibleBiography);
-          }
+
+          this.savedDraftBiographiesObs$.next(currentlyVisibleBiography);
+
           //this.userEditableBiographiesObs$.next(currentlyVisibleBiography);
         }
 
@@ -510,7 +488,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       this.dropdownLanguageSelection = input;
     }
   }
-
 
   biographyFieldTextChange(languageNumber, isFirstModal: boolean) {
     let biographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
