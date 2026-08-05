@@ -1267,7 +1267,7 @@
         "aitta_generatingDescriptionInFinninsh": "Skapar beskrivning på finska. Det kan ta ett par minuter.",
         "aitta_generatingDescriptionInfoText": "Skapar forskningsbeskrivning. Det kan ta ett par minuter.",
         "aitta_generatingDescriptionInSwedish": "Skapar beskrivning på svenska. Det kan ta ett par minuter.",
-        "aitta_infoText": "Du kan skapa en beskrivning av din forskningsverksamhet med hjälp av artificiell intelligens. För att skapa beskrivningen används endast uppgifter från din profil som publicerats på Forsking.fi.\nDina uppgifter används inte för att utbilda språkmodellen och lagras inte i CSC:s Aitta-tjänst.",
+        "aitta_infoText": "Du kan skapa en beskrivning av din forskningsverksamhet med hjälp av artificiell intelligens. För att skapa beskrivningen används endast uppgifter från din profil som publicerats på Forsking.fi. Dina uppgifter används inte för att utbilda språkmodellen och lagras inte i CSC:s Aitta-tjänst.",
         "aitta_languageVersionInfo": "Språkversionerna skapas automatiskt utifrån den beskrivning som du har kontrollerat.",
         "aitta_languageVersionsInstructionBoxText": "Vi rekommenderar att beskrivningen skrivs på engelska, finska och svenska för att nå en så bred publik som möjligt.",
         "aitta_modalIntroText": "Du kan skapa en beskrivning av din forskningsverksamhet med hjälp av AI. För att skapa beskrivningen används endast uppgifter från din profil som publicerats på Forsking.fi.",
@@ -1276,6 +1276,6 @@
         "aitta_selectDescriptionSourceTitle": "Välj beskrivningskälla",
         "aitta_selectInformationToDisplayInProfile": "Välj uppgifter att publicera i din profil.",
         "aitta_useDescriptionButtonText": "Använd beskrivning",
-        "aitta_youHaveNotSelectedAnyPublicData": "Du har ännu inte valt den information som ska publiceras",
+        "aitta_youHaveNotSelectedAnyPublicData": "Du har ännu inte valt den information som ska publiceras"
     }
 }

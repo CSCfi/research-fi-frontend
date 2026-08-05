@@ -51,7 +51,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   descriptionOfResearchText = $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`;
 
-  aitta_modalIntroText = $localize`:@@aitta_modalIntroText:Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja.`;
+  aitta_modalIntroText = $localize`:@@aitta_infoText:Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja. Tietojasi ei käytetä kielimallin kouluttamiseen eikä niitä säilytetä CSC:n Aitta-palvelussa.`;
 
   selectInformationToDisplayInProfile = $localize`:@@aitta_selectInformationToDisplayInProfile:Valitse profiilissasi näytettävät tiedot`;
   noPublicDataText = $localize`:@@aitta_youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
