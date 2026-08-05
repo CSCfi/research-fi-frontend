@@ -1256,6 +1256,7 @@
         "aitta_demoDescription": "Tämä on demotarkoituksiin luotu tutkimustoiminnan kuvaus, joka sisältää tietoja affiliaatioista, tuotoksista, saavutuksista ja aktiviteeteista. Se kuvaa asiantuntijan uraa ja motivaatioita.",
         "aitta_deleteDescriptionButtonText": "Poista kuvaus",
         "aitta_descriptionFromOtherDataSources": "Kuvaus muista tietolähteistä",
+        "aitta_errorTimeout": "Tutkimustoiminnan kuvauksen luonti epäonnistui. Yhteys aikakatkaistiin.",
         "aitta_editDescription": "Muokkaa kuvausta",
         "aitta_editDescriptionEn": "Muokkaa englanninkielistä kuvausta",
         "aitta_editDescriptionFi": "Muokkaa suomenkielistä kuvausta",
