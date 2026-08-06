@@ -463,7 +463,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   showBiographyGenerationFailedNotification(): void {
     this.snackbarService.show(
-      $localize`:@@biographyGenerationFailed:Tutkimustoiminnan kuvauksen luonti epäonnistui. Yhteys aikakatkaistiin.`,
+      $localize`:@@aitta_errorTimeout:Tutkimustoiminnan kuvauksen luonti epäonnistui. Yhteys aikakatkaistiin.`,
       'error'
     );
   }
