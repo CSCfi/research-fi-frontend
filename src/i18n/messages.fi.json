@@ -1271,6 +1271,7 @@
         "aitta_infoText": "Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja. Tietojasi ei käytetä kielimallin kouluttamiseen eikä niitä säilytetä CSC:n Aitta-palvelussa.",
         "aitta_languageVersionInfo": "Kieliversiot luodaan automaaattisesti tarkastamasi kuvauksen pohjalta.",
         "aitta_languageVersionsInstructionBoxText": "Tutkimustoiminnan kuvaus kannattaa kirjoittaa englanniksi, suomeksi ja ruotsiksi, jotta se saavuttaa mahdollisimman laajan yleisön.",
+        "aitta_languageVersionsTitle": "Kieliversiot",
         "aitta_modalIntroText": "Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja.",
         "aitta_researchDescriptionGenerationDone": "Tutkimustoiminnan kuvauksen luonti valmistui",
         "aitta_selectInformationToDisplayInProfile": "Valitse profiilissasi näytettävät tiedot",
