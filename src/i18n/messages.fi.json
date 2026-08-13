@@ -1278,6 +1278,7 @@
         "aitta_selectDescriptionLanguageTitle": "Valitse kuvauksen kieli",
         "aitta_selectDescriptionSourceTitle": "Kuvauksen tietolähde",
         "aitta_useDescriptionButtonText": "Käytä kuvausta",
+        "aitta_youCanGenerateMultipleLanguageVersions": "Voit luoda kuvauksesta useita kieliversioita",
         "aitta_youHaveNotSelectedAnyPublicData": "Et ole vielä valinnut julkaistavia tietoja"
     }
 }

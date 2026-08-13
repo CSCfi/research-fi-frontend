@@ -1278,6 +1278,7 @@
         "aitta_selectDescriptionSourceTitle": "Välj beskrivningskälla",
         "aitta_selectInformationToDisplayInProfile": "Välj uppgifter att publicera i din profil.",
         "aitta_useDescriptionButtonText": "Använd beskrivning",
-        "aitta_youHaveNotSelectedAnyPublicData": "Du har ännu inte valt den information som ska publiceras"
+        "aitta_youCanGenerateMultipleLanguageVersions": "Voit luoda kuvauksesta useita kieliversioita",
+        "aitta_youHaveNotSelectedAnyPublicData": "Du har ännu inte valt den information som ska publiceras",
     }
 }
