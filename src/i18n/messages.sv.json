@@ -1261,7 +1261,6 @@
         "aitta_editDescriptionFi": "Redigera finsk beskrivning",
         "aitta_editDescriptionSv": "Redigera svensk beskrivning",
         "aitta_errorTimeout": "Det gick inte att skapa en forskningsbeskrivning. Tidsgränsen för anslutningen överskreds.",
-        "aitta_generateAndCreateLocalizationsButtonText": "Använd och skapa språkversioner",
         "aitta_generateDescriptionButtonText": "Skapa beskrivning",
         "aitta_generateNewDescriptionButtonText": "Skapa en ny beskrivning",
         "aitta_generatingDescriptionInEnglish": "Skapar beskrivning på engelska. Det kan ta ett par minuter.",
