@@ -92,6 +92,7 @@
   }
   .modal-width-prefer-wrapper {
     width: 830px;
+    max-width: 830px;
   }
   .modal-width-prefer-wrapper-lang-modal {
     width: 1010px;
@@ -101,8 +102,8 @@
     display: flex;
     flex-basis: 500px;
     flex-direction: column;
+    max-width: 980px;
     width: 100%;
-    //max-width: 588px;
     min-height: 470px;
     background: #E8E8F5;
     border-radius: 6px;
@@ -163,7 +164,7 @@
   }
 
   .biography-container {
-    max-width: 588px;
+    //max-width: 588px;
   }
 
   .use-description-checkbox-container {

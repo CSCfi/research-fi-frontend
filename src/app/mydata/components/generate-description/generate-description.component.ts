@@ -120,7 +120,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   dialogActionsCreateNewDescriptionAiFinished = [
     { label: $localize`:@@cancel:Peruuta`, tertiary: true, method: 'cancel' },
     {
-      label: $localize`:@@aitta_generateAndCreateLocalizationsButtonText:Käytä ja luo kieliversiot`,
+      label: $localize`:@@aitta_save:Tallenna`,
       primary: true,
       method: 'saveChanges'
     }
@@ -129,7 +129,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   dialogActionsCreateNewDescriptionAiNotFinished = [
     { label: $localize`:@@cancel:Peruuta`, tertiary: true, method: 'cancelGenerateBiography' },
     {
-      label: $localize`:@@aitta_generateAndCreateLocalizationsButtonText:Käytä ja luo kieliversiot`,
+      label: $localize`:@@aitta_save:Tallenna`,
       primary: true,
       method: 'saveChanges',
       disabled: true
@@ -154,7 +154,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     },
     { label: $localize`:@@cancel:Peruuta`, tertiary: true, method: 'cancel' },
     {
-      label: $localize`:@@aitta_generateAndCreateLocalizationsButtonText:Käytä ja luo kieliversiot`,
+      label: $localize`:@@aitta_save:Tallenna`,
       primary: true,
       method: 'saveChanges'
     }
@@ -287,6 +287,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       }
     }
     this.showDialog$.next(true);
+    this.selectDescriptionLanguageAi(this.dropdownLanguageSelection);
   }
 
   initBiographies() {
@@ -391,10 +392,22 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       });
     }
     //this.userEditableBiographiesObs$.next(this.savedDraftBiographiesObs$.getValue());
-    this.selectDescriptionLanguageAi(0);
     this.biographyModalTextAreaValue = this.userEditableBiographiesObs$.getValue().fi;
+    this.initLanguageSelectDefaultValue();
     this.initDoneOnce = true;
   };
+
+  initLanguageSelectDefaultValue(){
+    if (this.savedDraftBiographiesObs$.getValue().fi.length > 0) {
+      this.selectedLanguageTab = 0;
+    } else if (this.savedDraftBiographiesObs$.getValue().en.length > 0) {
+      this.selectedLanguageTab = 1;
+    } else if (this.savedDraftBiographiesObs$.getValue().sv.length > 0) {
+      this.selectedLanguageTab = 2;
+    } else {
+      this.selectedLanguageTab = 0;
+    }
+  }
 
   generateAndPatchBiographyPayload() {
     this.translationsRequested$.next(false);
@@ -455,6 +468,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   showDraftSaveSuccessNotification(): void {
+    this.generateBiographyRequested$.next(false);
     this.snackbarService.show(
       $localize`:@@draftUpdated:Luonnos päivitetty`,
       'success'
@@ -512,7 +526,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   saveAiBioChanges() {
-    this.generateBiographyRequested$.next(false);
     // Clear old language versions after generated new bio in Finnish
     let patchBiographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
     patchBiographyStub.itemMeta = this.userEditableBiographiesObs$.getValue().itemMeta;
@@ -528,6 +541,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.generateAndPatchBiographyPayload();
     this.showDialog$.next(false);
     this.showDraftSaveSuccessNotification();
+    this.initLanguageSelectDefaultValue();
 
     /*    return this.biographyService.artificialDelayResolve(3000, '').then(() => {
           this.generateAndPatchBiographyPayload();
@@ -602,7 +616,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.biographyGenerationErrorSub.unsubscribe();
       }
     });
-
+    this.finishedGeneratingAiBiographyObs$.next(false);
     if (this.dropdownLanguageSelection === 0) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
         if (onGoing === false) {
@@ -702,6 +716,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
       case 'closeToBackgroundButtonText': {
         this.showDialog$.next(false);
+        this.isBiographyAiGeneratedObs$.next(true);
         break;
       }
       case 'generateNewBiography': {
