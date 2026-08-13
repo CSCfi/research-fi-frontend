@@ -1273,6 +1273,7 @@
         "aitta_languageVersionsTitle": "Språkversioner",
         "aitta_modalIntroText": "Du kan skapa en beskrivning av din forskningsverksamhet med hjälp av AI. För att skapa beskrivningen används endast uppgifter från din profil som publicerats på Forsking.fi.",
         "aitta_researchDescriptionGenerationDone": "Forskningsbeskrivning är färdig",
+        "aitta_reviewButtonText": "Tarkista luotu kuvaus",
         "aitta_save": "Spara",
         "aitta_selectDescriptionLanguageTitle": "Välj språk för beskrivningen",
         "aitta_selectDescriptionSourceTitle": "Välj beskrivningskälla",

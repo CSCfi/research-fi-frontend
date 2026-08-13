@@ -92,7 +92,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   aitta_youCanGenerateMultipleLanguageVersions = $localize`:@@aitta_youCanGenerateMultipleLanguageVersions:Voit luoda kuvauksesta useita kieliversioita.`
 
-  reviewButtonText = $localize`:@@reviewButtonText:Tarkista luotu kuvaus`;
+  reviewButtonText = $localize`:@@aitta_reviewButtonText:Tarkista luotu kuvaus`;
 
   keywordsText = $localize`:@@keywords:Avainsanat`;
 
