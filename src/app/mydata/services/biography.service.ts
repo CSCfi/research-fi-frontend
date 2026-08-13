@@ -145,52 +145,6 @@ export class BiographyService implements OnDestroy {
     }
   }
 
-  public async generateTranslationEn(textToTranslate: string, isMock: boolean): Promise<any> {
-    const enTranslationMock = 'This is a demo-generated description of research activities that includes information about affiliations, outputs, achievements, and activities. It describes the career and motivations of an expert.';
-
-    if (isMock) {
-      this.biographyGenerationOngoingEn.next(true);
-      return this.artificialDelayResolve(3000, enTranslationMock).then(() => {
-        this.generatedBiographyDataEn.next(enTranslationMock);
-        this.biographyGenerationOngoingEn.next(false);
-      });
-
-    }
-    else {
-      await this.updateToken();
-      this.biographyGenerationOngoingEn.next(true);
-
-      const body = { textToTranslate: textToTranslate, targetLanguage: 'en' };
-
-      return lastValueFrom(this.http.post(this.apiUrl + '/biography/translate/', body, this.httpOptions)).then(result => {
-        this.generatedBiographyDataEn.next(result + '');
-        this.biographyGenerationOngoingEn.next(false);
-      });
-    }
-  }
-
-  public async generateTranslationSv(textToTranslate: string, isMock: boolean): Promise<any> {
-    const svTranslationMock = 'Detta är en beskrivning av forskningsverksamhet skapad för demoändamål som innehåller information om affiliationer, resultat, prestationer och aktiviteter. Den beskriver expertens karriär och motivatio';
-
-    if (isMock) {
-      this.biographyGenerationOngoingSv.next(true);
-      return this.artificialDelayResolve(3000, svTranslationMock).then(() => {
-        this.generatedBiographyDataSv.next(svTranslationMock);
-        this.biographyGenerationOngoingSv.next(false);
-      });
-    } else {
-      await this.updateToken();
-      this.biographyGenerationOngoingSv.next(true);
-
-      const body = { textToTranslate: textToTranslate, targetLanguage: 'sv' };
-
-      return lastValueFrom(this.http.post(this.apiUrl + '/biography/translate/', body, this.httpOptions)).then(result => {
-        this.generatedBiographyDataSv.next(result + '');
-        this.biographyGenerationOngoingSv.next(false);
-      });
-    }
-  }
-
   public async getBiographyHttp(): Promise<any> {
     await this.updateToken();
     return lastValueFrom(this.http.get(this.apiUrl + '/biography/', this.httpOptions)).then(result => {

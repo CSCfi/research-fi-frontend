@@ -27,10 +27,10 @@
     </div>
   </div>
 
-  <div *ngIf="(savedDraftBiographiesObs$.getValue().fi.length > 0 || savedDraftBiographiesObs$.getValue().en.length > 0 && savedDraftBiographiesObs$.getValue().sv.length > 0)"
+  <div *ngIf="(savedDraftBiographiesObs$.getValue().fi.length > 0 || savedDraftBiographiesObs$.getValue().en.length > 0 || savedDraftBiographiesObs$.getValue().sv.length > 0)"
        class="row">
     <div class="mb-2 d-flex flex-row font-weight-500">{{ languageVersionsTitle }}:
-      <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 0)}"
+      <div class="lang-tab-button"[ngClass]="{'selected': (selectedLanguageTab === 0), 'disabled': savedDraftBiographiesObs$.getValue().fi.length < 1}"
            tabindex="0"
            role="button"
            (keydown.enter)="savedDraftBiographiesObs$.getValue().fi.length > 0 ? setSelectLanguageTab(0) : undefined"
@@ -51,6 +51,9 @@
            (click)="savedDraftBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2) : undefined">
         SV
       </div>
+
+
+
       <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true && translationsRequested$.getValue() === true && (userEditableBiographiesObs$.getValue().fi.length > 0 || userEditableBiographiesObs$.getValue().en.length > 0 || userEditableBiographiesObs$.getValue().sv.length > 0)"
            role="button" class="select-language-button"
            tabindex="0" (keydown.enter)="openDialog('selectLanguageVersions')"
@@ -79,7 +82,7 @@
     </div>
   </div>
 
-  <div *ngIf="keywordsSelectedDraft" class="row">
+  <div *ngIf="keywordsSelectedDraft && ((showDialog$ | async) === false)" class="row">
     <h3>{{ keywordsText }}</h3>
     <div class="row mb-2 gx-3">
       <div>{{ selectedKeywordsStr }}</div>
@@ -95,42 +98,44 @@
     <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[dropdownLanguageSelection] }}</div>
   </div>
 
-  <div class="language-versions-info-box"
-       *ngIf="isBiographyAiGeneratedObs$ && !showDialog$ && (enTranslationOngoing$ | async) || (svTranslationOngoing$ | async)">
-    <div class="d-flex flex-row additional-info-wrap">
-      <div class="info-circle-wrap d-flex flex-column">
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
-      </div>
+  @if ((((generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((biographyGenerationOngoing$ | async) === false))) {
+    <div class="language-versions-info-box">
+      <div class="d-flex flex-row additional-info-wrap">
+        <div class="info-circle-wrap d-flex flex-column">
+          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+        </div>
 
-      <div>
-        <div>{{ aitta_generatingDescriptionInfoText }}</div>
-        <div class="d-flex flex-row justify-content-center">
-          <app-svg-sprites [iconName]="'create-new-diamond'"
-                           cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
+        <div>
+          <h3>{{ researchDescriptionGenerationDone }}</h3>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-center mt-2">
+        <app-secondary-button (keydown.enter)="openDialog('review')"
+                              (click)="openDialog('review')"
+                              content="{{reviewButtonText}}"></app-secondary-button>
+      </div>
+    </div>
+  }
+
+  @if (((isBiographyAiGeneratedObs$ | async) === true && generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && (savedDraftBiographiesObs$.getValue().fi.length < 1 || savedDraftBiographiesObs$.getValue().en.length < 1 || savedDraftBiographiesObs$.getValue().sv.length < 1)) {
+    <div class="language-versions-info-box">
+      <div class="d-flex flex-row additional-info-wrap">
+        <div class="info-circle-wrap d-flex flex-column">
+          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+        </div>
+
+        <div>
+          <h3>{{ aitta_youCanGenerateMultipleLanguageVersions }}</h3>
+          <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
+          <app-secondary-button (keydown.enter)="openDialog('review')"
+                                (click)="openDialog('review')"
+                                content="{{selectLanguageVersionsText}}"></app-secondary-button>
         </div>
       </div>
     </div>
-  </div>
+  }
 
-  <div class="language-versions-info-box"
-       *ngIf="(generateBiographyRequested$ | async) === true && (biographyGenerationOngoing$ | async) === false && this.contentCreationStep === 3 && (isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$| async) && !(svTranslationOngoing$ | async)">
-    <div class="d-flex flex-row additional-info-wrap">
-      <div class="info-circle-wrap d-flex flex-column">
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
-      </div>
-
-      <div>
-        <h3>{{ researchDescriptionGenerationDone }}</h3>
-      </div>
-    </div>
-    <div class="d-flex flex-row justify-content-center mt-2">
-      <app-secondary-button (keydown.enter)="openDialog('review')"
-                            (click)="openDialog('review')"
-                            content="{{reviewButtonText}}"></app-secondary-button>
-    </div>
-  </div>
-
-  <div class="language-versions-info-box"
+  <!--<div class="language-versions-info-box"
        *ngIf="(translationsRequested$ | async) === true  && (isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$| async) && !(svTranslationOngoing$ | async) && (userEditableBiographiesObs$.getValue().en.length > 0 && langVersionEnUsed$.getValue() === false) && (userEditableBiographiesObs$.getValue().sv.length > 0 && langVersionSvUsed$.getValue() === false)">
     <div class="d-flex flex-row additional-info-wrap">
       <div class="info-circle-wrap d-flex flex-column">
@@ -145,24 +150,9 @@
                               content="{{selectLanguageVersionsText}}"></app-secondary-button>
       </div>
     </div>
-  </div>
-
-  <!--<div class="language-versions-info-box"
-       *ngIf="(isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$ | async) && !(svTranslationOngoing$ | async) && userEditableBiographiesObs$.getValue().en.length > 0 && userEditableBiographiesObs$.getValue().sv.length > 0 && savedDraftBiographiesObs$.getValue().en.length < 1 && savedDraftBiographiesObs$.getValue().sv.length < 1">
-    <div class="d-flex flex-row additional-info-wrap">
-      <div class="info-circle-wrap d-flex flex-column">
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
-      </div>
-
-      <div>
-        <h3>{{ notAllLanguageVersionsSelectedTitle }}</h3>
-        <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
-        <app-secondary-button (keydown.enter)="openDialog('selectLanguageVersions')"
-                              (click)="openDialog('selectLanguageVersions')"
-                              content="{{selectLanguageVersionsText}}"></app-secondary-button>
-      </div>
-    </div>
   </div>-->
+
+
 
   <!-- Editor modal -->
   <ng-template #editorTemplate>
@@ -186,7 +176,7 @@
                                            [defaultLabel]="selectDefaultLabel"
                                            [disabled]="biographyGenerationOngoing$ | async"></app-simple-dropdown>
                     </div>
-                    @if (descriptionSource !== 1) {
+                    @if (descriptionSource === 0) {
                       <div class="col-3"></div>
                       <div class="col-9">
                         <div class="mb-2 mt-2">{{ aitta_modalIntroText }}</div>
@@ -203,6 +193,7 @@
                       <div class="d-flex flex-row font-weight-500 justify-content-start">
                         <div [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.fi?.length > 0"
                              [class.selected]="this.dropdownLanguageSelection === 0" class="modal-lang-select-button"
+                             [class.disabled]="this.dropdownLanguageSelection !== 0 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(0)" (click)="selectDescriptionLanguageAi(0)">
@@ -211,6 +202,7 @@
                         <div class="modal-lang-select-button"
                              [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.en?.length > 0"
                              [class.selected]="this.dropdownLanguageSelection === 2"
+                             [class.disabled]="this.dropdownLanguageSelection !== 2 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(2)" (click)="selectDescriptionLanguageAi(2)">
@@ -219,6 +211,7 @@
                         <div class="modal-lang-select-button"
                              [class.hasContent]="this.userEditableBiographiesObs$.getValue()?.sv?.length > 0"
                              [class.selected]="this.dropdownLanguageSelection === 1"
+                             [class.disabled]="this.dropdownLanguageSelection !== 1 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(1)" (click)="selectDescriptionLanguageAi(1)">
