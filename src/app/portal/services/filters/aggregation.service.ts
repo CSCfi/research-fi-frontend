@@ -1619,7 +1619,7 @@ export class AggregationService {
           filter: {
             bool: {
               filter: filterActive(
-                'responsibleOrganization.TKOppilaitosTunnus.keyword'
+                'infraResponsibleOrganization.organizationSector.codeValue.keyword'
               ),
             },
           },
@@ -1627,26 +1627,21 @@ export class AggregationService {
             sector: {
               terms: {
                 field:
-                  'responsibleOrganization.responsibleOrganizationSector' +
-                  this.localeC +
-                  '.keyword',
+                  'infraResponsibleOrganization.organizationSector.codeLabel.' +this.localeC.toLowerCase() +'.keyword',
                 exclude: ' ',
               },
               aggs: {
                 organizations: {
                   terms: {
                     field:
-                      'responsibleOrganization.responsibleOrganizationName' +
-                      this.localeC +
-                      '.keyword',
+                      'infraResponsibleOrganization.organizationName.' + this.localeC.toLowerCase() + '.keyword',
                     exclude: ' ',
                   },
                   aggs: {
                     organizationId: {
                       terms: {
                         field:
-                          'responsibleOrganization.TKOppilaitosTunnus.keyword',
-                        exclude: ' ',
+                          'infraResponsibleOrganization.orgNodeId.keyword',
                       },
                     },
                   },
@@ -1654,7 +1649,48 @@ export class AggregationService {
                 sectorId: {
                   terms: {
                     field:
-                      'responsibleOrganization.responsibleOrganizationSectorId.keyword',
+                      'infraResponsibleOrganization.organizationSector.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.participatingOrganizations = {
+          filter: {
+            bool: {
+              filter: filterActive(
+                'infraParticipatingOrganizations.organizationSector.codeValue.keyword'
+              ),
+            },
+          },
+          aggs: {
+            sector: {
+              terms: {
+                field:
+                  'infraParticipatingOrganizations.organizationSector.codeLabel.' + this.localeC.toLowerCase() +'.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                organizations: {
+                  terms: {
+                    field:
+                      'infraParticipatingOrganizations.organizationName.' + this.localeC.toLowerCase() + '.keyword',
+                    exclude: ' ',
+                  },
+                  aggs: {
+                    organizationId: {
+                      terms: {
+                        field:
+                          'infraParticipatingOrganizations.orgNodeId.keyword',
+                      },
+                    },
+                  },
+                },
+                sectorId: {
+                  terms: {
+                    field:
+                      'infraParticipatingOrganizations.organizationSector.codeValue.keyword',
                   },
                 },
               },
@@ -1663,12 +1699,12 @@ export class AggregationService {
         };
         payLoad.aggs.infraField = {
           nested: {
-            path: 'fieldsOfScience',
+            path: 'fieldOfScience',
           },
           aggs: {
             infraFields: {
               terms: {
-                field: 'fieldsOfScience.name' + this.localeC + '.keyword',
+                field: 'fieldOfScience.codeLabel.' + this.localeC.toLowerCase() + '.keyword',
               },
               aggs: {
                 filtered: {
@@ -1677,7 +1713,7 @@ export class AggregationService {
                     filterCount: {
                       filter: {
                         bool: {
-                          filter: filterActiveNested('fieldsOfScience'),
+                          filter: filterActiveNested('fieldOfScience'),
                         },
                       },
                     },
@@ -1685,7 +1721,38 @@ export class AggregationService {
                 },
                 majorId: {
                   terms: {
-                    field: 'fieldsOfScience.field_id.keyword',
+                    field: 'fieldOfScience.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.esfri = {
+          nested: {
+            path: 'ESFRICodes',
+          },
+          aggs: {
+            infraFields: {
+              terms: {
+                field: 'ESFRICodes.codeLabel.' + 'en' + '.keyword',
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('ESFRICodes'),
+                        },
+                      },
+                    },
+                  },
+                },
+                majorId: {
+                  terms: {
+                    field: 'ESFRICodes.codeValue.keyword',
                   },
                 },
               },

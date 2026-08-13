@@ -567,6 +567,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
           //this.filterData(isModalData);
           return;
         } else {
+          // Fetch single infra page data
           this.responseData = responseData;
           this.modalInfraData = responseData;
           if (this.responseData.infrastructures[0]) {

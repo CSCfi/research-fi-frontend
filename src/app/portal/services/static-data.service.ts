@@ -686,7 +686,7 @@ export class StaticDataService {
         break;
       }
       case 'infrastructure': {
-        res = ['responsibleOrganization.TKOppilaitosTunnus'];
+        res = ['responsibleOrganization.orgNodeId'];
         break;
       }
       case 'organization': {

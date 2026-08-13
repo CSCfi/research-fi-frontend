@@ -5,10 +5,11 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { InfraService, InfraServiceAdapter } from './infra-service.model';
 import { ModelUtilsService } from '@shared/services/model-util.service';
+import { UtilityService } from '@shared/services/utility.service';
 
 export class Infrastructure {
   constructor(
@@ -46,11 +47,16 @@ export class Infrastructure {
   providedIn: 'root',
 })
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
-  constructor(
+  constructor(@Inject(LOCALE_ID) protected localeId: string,
     private isa: InfraServiceAdapter,
     private utils: ModelUtilsService
   ) {}
+
+
   adapt(item: any): Infrastructure {
+    const capitalizedLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
     const services: InfraService[] = [];
     const fieldsOfScience: string[] = [];
 
@@ -59,13 +65,18 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     // Init and assign if available
     let responsibleOrganization = '';
     let responsibleOrganizationId = '';
-    if (item.responsibleOrganization) {
-      responsibleOrganization = this.utils.checkTranslation(
-        'responsibleOrganizationName',
-        item.responsibleOrganization[0]
-      );
-      responsibleOrganizationId =
-        item.responsibleOrganization[0]?.TKOppilaitosTunnus;
+    if (item.infraResponsibleOrganization) {
+      // TODO: fix to use localized values
+      responsibleOrganization = item.infraResponsibleOrganization?.organizationName?.fi ?? '';
+      responsibleOrganizationId = item.infraResponsibleOrganization?.organizationIdentifier[0]?.pidContent ?? '';
+    }
+
+    let participantOrganization = '';
+    let participantOrganizationId = '';
+    if (item.participantOrganization) {
+      // TODO: fix to use localized values
+      participantOrganization = item.infraParticipantOrganizations?.organizationName?.fi ?? '';
+      participantOrganizationId = item.infraParticipantOrganizations?.organizationIdentifier[0]?.pidContent ?? '';
     }
 
     let participantOrganizations = '';
@@ -99,30 +110,30 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     const fieldsOfScienceString = fieldsOfScience?.join(', ');
 
     return new Infrastructure(
-      item.nameFi,
-      this.utils.checkTranslation('name', item),
-      this.utils.checkTranslation('description', item),
+      this.utils.checkTranslationFromArray(item.infraName),
+      this.utils.checkTranslationFromArray(item.infraName),
+      this.utils.checkTranslationFromArray(item.infraDescription),
       this.utils.checkTranslation('scientificDescription', item),
-      item.startYear,
-      item.endYear,
-      item.acronym,
-      item.finlandRoadmap,
-      esfriCode,
+      item?.infraStartsOn?.year ?? '',
+      item?.infraEndsOn?.year ?? '',
+      item?.infraAcronym ?? '',
+      item?.finlandRoadmap,
+      item?.ESFRICodes ?? '',
       item.merilCode,
       this.utils.checkTranslation('infraConName', item?.infraConPoint),
       this.utils.checkTranslation('infraConDescr', item?.infraConPoint),
-      item?.infraConPoint?.infraConEmail,
-      item?.infraConPoint?.infraConPhone,
-      item?.infraConPoint?.infraConPost,
-      this.utils.checkTranslation('infraConInfo', item?.infraConPoint),
+      item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.email ?? '' : '',
+      item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.phoneNumber ?? '' : '',
+      item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.visitingAddress ?? [] : [],
+      item?.infra_homepage ?? '',
       this.utils.checkTranslation('infraConTerms', item?.infraConPoint),
-      item.urn,
+      item.infraKeyIdentifier ?? '',
       responsibleOrganization,
       responsibleOrganizationId,
       participantOrganizations,
-      item.TKOppilaitosTunnus,
+      item.orgNodeId,
       item.replacingInfraStructure,
-      item.fieldsOfScience,
+      item?.fieldOfScience ?? '',
       services,
       keywords,
       fieldsOfScienceString
