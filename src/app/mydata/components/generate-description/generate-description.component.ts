@@ -171,7 +171,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     }
   ];
 
-  useAiBiographyText = 'Käytä kuvausta';
+  useAiBiographyText = $localize`:@@aitta_useDescriptionButtonText:Käytä kuvausta`;
   useAiBiography = true;
 
   generatingDescriptionInfoText = [$localize`:@@aitta_generatingDescriptionInFinnish:Luodaan kuvausta suomeksi. Tämä voi viedä pari minuuttia.`, $localize`:@@aitta_generatingDescriptionInSwedish:Luodaan kuvausta ruotsiksi. Tämä voi viedä pari minuuttia.`, $localize`:@@aitta_generatingDescriptionInEnglish:Luodaan kuvausta englanniksi. Tämä voi viedä pari minuuttia.`];
