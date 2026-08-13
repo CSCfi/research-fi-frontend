@@ -540,11 +540,27 @@ export class ActiveFiltersComponent
                       );
                     }
                   }, 1);
-                  // Infrastructure organization name
+                  // Infrastructure organization names
                 } else if (tab === 'infrastructures') {
                   setTimeout(() => {
                     if (source.organization.sector.buckets) {
                       source.organization.sector.buckets.forEach((sector) => {
+                        if (sector.subData.find((x) => x.key === val.value)) {
+                          const foundIndex = this.activeFilters.findIndex(
+                            (x) => x.value === val.value
+                          );
+                          this.activeFilters[foundIndex].translation =
+                            sector.subData
+                              .find((x) => x.key === val.value)
+                              .label.trim();
+                        }
+                      });
+                    }
+                  }, 1);
+
+                  setTimeout(() => {
+                    if (source.participatingOrganizations.sector.buckets) {
+                      source.participatingOrganizations.sector.buckets.forEach((sector) => {
                         if (sector.subData.find((x) => x.key === val.value)) {
                           const foundIndex = this.activeFilters.findIndex(
                             (x) => x.value === val.value

@@ -145,7 +145,6 @@ export class OwsRelatedPieChartComponent implements AfterViewInit {
   }
 
   onLegendClick(clickIndex: number, $event: any) {
-    console.log('Legend click', clickIndex);
     this.chart.destroy();
 
     // If all categories are selected, select only one category

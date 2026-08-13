@@ -25,7 +25,14 @@ export class InfrastructureFilterService {
     },
     {
       field: 'organization',
-      label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`,
+      label: $localize`:@@responsibleOrganizations:Vastuuorganisaatiot`,
+      hasSubFields: true,
+      open: false,
+      limitHeight: true,
+    },
+    {
+      field: 'participatingOrganizations',
+      label: $localize`:@@participatingOrganizations:Osallistuvat organisaatiot`,
       hasSubFields: true,
       open: false,
       limitHeight: true,
@@ -51,6 +58,8 @@ export class InfrastructureFilterService {
     source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
     source.organization.buckets = this.mapOrganizations(source.organization);
+    // Participating organization & sector
+    source.participatingOrganizations.buckets = this.mapOrganizations(source.participatingOrganizations);
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science

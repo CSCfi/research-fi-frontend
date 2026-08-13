@@ -379,12 +379,12 @@ export class SortService {
         break;
       }
       case 'infrastructures': {
-        this.yearField = 'startYear';
+        this.yearField = 'infraStartsOn.year';
         switch (this.sortColumn) {
           case 'acronym': {
             this.sort = [
               {
-                'acronym.keyword': {
+                'infraAcronym.keyword': {
                   order: this.sortDirection ? 'desc' : 'asc',
                   unmapped_type: 'long',
                 },
@@ -393,7 +393,7 @@ export class SortService {
             break;
           }
           case 'name': {
-            const sortString = 'name' + this.localeC + '.keyword';
+            const sortString = 'infraName.descriptiveContent.keyword';
             this.sort = [
               {
                 [sortString]: {
@@ -406,9 +406,7 @@ export class SortService {
           }
           case 'organization': {
             const sortString =
-              'responsibleOrganization.responsibleOrganizationName' +
-              this.localeC +
-              '.keyword';
+              'infraResponsibleOrganization.organizationName.' + this.localeC.toLowerCase() + '.keyword';
             this.sort = [
               {
                 [sortString]: {

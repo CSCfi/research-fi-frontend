@@ -115,9 +115,7 @@ export class VisComponent implements OnInit, OnDestroy {
   }
 
   nodeClick(params: any) {
-    console.log('node clicked', params);
     this.nodeList.filter(node => node.id === params.nodes[0]).map(node => {
-      console.log('node found', node);
       this.selectedNodeId.emit(node.id);
     });
   }
@@ -230,7 +228,6 @@ export class VisComponent implements OnInit, OnDestroy {
   }
 
   setNodeProperties(nodeList: any[]) {
-    console.log('setting node properties', nodeList, this._rootId);
     let params = {nodes: []};
     const ret = nodeList.map(node => {
       //console.log('setting node colors', nodeList, this._rootId);

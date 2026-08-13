@@ -42,6 +42,7 @@ export type Filters = {
   topic: string[];
   sector: string[];
   organization: string[];
+  participatingOrganizations: string[];
   keyword: string[];
   position: string[];
   dataSource: string[];
@@ -88,6 +89,7 @@ export class FilterService {
   topicFilterProjects: string[];
   topicFilterPublications: string[];
   organizationFilter: string[];
+  participatingOrganizationsFilter: string[];
   keywordFilterPersons: string[];
   positionFilter: string[];
   dataSourceFilter: string[];
@@ -213,6 +215,7 @@ export class FilterService {
       accessType: mapFilter(source.accessType),
       // Infrastructures
       type: mapFilter(source.type),
+      participatingOrganizations: mapFilter(source.participatingOrganizations),
       // Funding calls
       date: mapFilter(source.date),
       status: mapFilter(source.status),
@@ -227,7 +230,8 @@ export class FilterService {
   createFilters(filter: Filters) {
     // Global
     this.yearFilter = this.filterByYear(filter.year);
-    this.organizationFilter = this.filterByOrganization(filter.organization);
+    this.organizationFilter = this.filterByOrganization(filter.organization, false);
+    this.participatingOrganizationsFilter = this.filterByOrganization(filter.participatingOrganizations, true);
     this.keywordFilterPersons = this.filterByPersonsKeyword(filter.keyword);
 
     this.positionFilter = this.filterByPosition(filter.position);
@@ -321,7 +325,7 @@ export class FilterService {
     );
     this.infraFieldFilter = this.basicFilter(
       filter.field,
-      'fieldsOfScience.field_id.keyword'
+      'fieldOfScience.codeValue.keyword'
     );
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
@@ -401,7 +405,7 @@ export class FilterService {
       }
       case 'infrastructures': {
         filter.forEach((value) => {
-          res.push({ term: { startYear: value } });
+          res.push({ term: { 'infraStartsOn.year': value } });
         });
         break;
       }
@@ -504,7 +508,7 @@ export class FilterService {
     return res;
   }
 
-  filterByOrganization(filter: any[]) {
+  filterByOrganization(filter: any[], isParticipatingOrganization: boolean) {
     const res = [];
     const currentTab = this.tabChangeService.tab;
     switch (currentTab) {
@@ -553,9 +557,9 @@ export class FilterService {
       }
       case 'infrastructures': {
         const filterString =
-          'responsibleOrganization.TKOppilaitosTunnus.keyword';
+          isParticipatingOrganization ? 'infraParticipatingOrganizations.orgNodeId.keyword' : 'infraResponsibleOrganization.orgNodeId.keyword';
         filter.forEach((value) => {
-          res.push({ term: { [filterString]: value } });
+          //res.push({ term: { [filterString]: value } });
         });
         break;
       }
@@ -1017,10 +1021,11 @@ export class FilterService {
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),
       ...basicFilter('infrastructure', this.organizationFilter),
+      ...basicFilter('infrastructure', this.participatingOrganizationsFilter),
       ...nestedFilter(
         'infrastructure',
         this.infraFieldFilter,
-        'fieldsOfScience'
+        'fieldOfScience'
       ),
 
       // Organizations
