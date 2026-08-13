@@ -98,23 +98,42 @@
     <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[dropdownLanguageSelection] }}</div>
   </div>
 
-  <div class="language-versions-info-box"
-       *ngIf="((generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((biographyGenerationOngoing$ | async) === false)">
-    <div class="d-flex flex-row additional-info-wrap">
-      <div class="info-circle-wrap d-flex flex-column">
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
-      </div>
+  @if ((((generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((biographyGenerationOngoing$ | async) === false))) {
+    <div class="language-versions-info-box">
+      <div class="d-flex flex-row additional-info-wrap">
+        <div class="info-circle-wrap d-flex flex-column">
+          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+        </div>
 
-      <div>
-        <h3>{{ researchDescriptionGenerationDone }}</h3>
+        <div>
+          <h3>{{ researchDescriptionGenerationDone }}</h3>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-center mt-2">
+        <app-secondary-button (keydown.enter)="openDialog('review')"
+                              (click)="openDialog('review')"
+                              content="{{reviewButtonText}}"></app-secondary-button>
       </div>
     </div>
-    <div class="d-flex flex-row justify-content-center mt-2">
-      <app-secondary-button (keydown.enter)="openDialog('review')"
-                            (click)="openDialog('review')"
-                            content="{{reviewButtonText}}"></app-secondary-button>
+  }
+
+  @if (((isBiographyAiGeneratedObs$ | async) === true && generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && (savedDraftBiographiesObs$.getValue().fi.length < 1 || savedDraftBiographiesObs$.getValue().en.length < 1 || savedDraftBiographiesObs$.getValue().sv.length < 1)) {
+    <div class="language-versions-info-box">
+      <div class="d-flex flex-row additional-info-wrap">
+        <div class="info-circle-wrap d-flex flex-column">
+          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+        </div>
+
+        <div>
+          <h3>{{ aitta_youCanGenerateMultipleLanguageVersions }}</h3>
+          <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
+          <app-secondary-button (keydown.enter)="openDialog('review')"
+                                (click)="openDialog('review')"
+                                content="{{selectLanguageVersionsText}}"></app-secondary-button>
+        </div>
+      </div>
     </div>
-  </div>
+  }
 
   <!--<div class="language-versions-info-box"
        *ngIf="(translationsRequested$ | async) === true  && (isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$| async) && !(svTranslationOngoing$ | async) && (userEditableBiographiesObs$.getValue().en.length > 0 && langVersionEnUsed$.getValue() === false) && (userEditableBiographiesObs$.getValue().sv.length > 0 && langVersionSvUsed$.getValue() === false)">
@@ -133,22 +152,7 @@
     </div>
   </div>-->
 
-  <!--<div class="language-versions-info-box"
-       *ngIf="(isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$ | async) && !(svTranslationOngoing$ | async) && userEditableBiographiesObs$.getValue().en.length > 0 && userEditableBiographiesObs$.getValue().sv.length > 0 && savedDraftBiographiesObs$.getValue().en.length < 1 && savedDraftBiographiesObs$.getValue().sv.length < 1">
-    <div class="d-flex flex-row additional-info-wrap">
-      <div class="info-circle-wrap d-flex flex-column">
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
-      </div>
 
-      <div>
-        <h3>{{ notAllLanguageVersionsSelectedTitle }}</h3>
-        <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
-        <app-secondary-button (keydown.enter)="openDialog('selectLanguageVersions')"
-                              (click)="openDialog('selectLanguageVersions')"
-                              content="{{selectLanguageVersionsText}}"></app-secondary-button>
-      </div>
-    </div>
-  </div>-->
 
   <!-- Editor modal -->
   <ng-template #editorTemplate>

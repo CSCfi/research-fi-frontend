@@ -90,6 +90,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   researchDescriptionSavedToDraft = $localize`:@@aitta_researchDescriptionSavedToDraft:Tutkimustoiminnan kuvaus on tallennettu profiililuonnokseesi.`;
 
+  aitta_youCanGenerateMultipleLanguageVersions = $localize`:@@aitta_youCanGenerateMultipleLanguageVersions:Voit luoda kuvauksesta useita kieliversioita.`
+
   reviewButtonText = $localize`:@@reviewButtonText:Tarkista luotu kuvaus`;
 
   keywordsText = $localize`:@@keywords:Avainsanat`;
@@ -272,20 +274,13 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   openDialog(dialogName: string) {
-    if (dialogName === 'editLanguageVersions') {
-      this.userEditableBiographiesObs$.next(this.savedDraftBiographiesObs$.getValue());
-      this.dialogActions = [...this.dialogActionsSelectLanguageVersions];
-      this.contentCreationStep = 4;
-    } else if (dialogName === 'selectLanguageVersions') {
-      this.dialogActions = [...this.dialogActionsSelectLanguageVersions];
-      this.contentCreationStep = 4;
-    } else {
-      //event.stopPropagation();
-      //this.openDialogCall.emit(index);
-      if (!this.biographyService.isBiographyGenerationOngoing()) {
-        this.initBiographies();
+    if (dialogName === 'review') {
+      this.selectDescriptionSource(0);
       }
+    if (!this.biographyService.isBiographyGenerationOngoing()) {
+      this.initBiographies();
     }
+
     this.showDialog$.next(true);
     this.selectDescriptionLanguageAi(this.dropdownLanguageSelection);
   }
