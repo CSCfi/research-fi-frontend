@@ -71,6 +71,19 @@
     }
   }
 
+  .checked-button-icon {
+    color: #fff;
+    fill: #fff;
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+    margin-top: 10px;
+    &.reverse-colors {
+      color: #4546b9;
+      fill: #4546b9;
+    }
+  }
+
   .quote-icon {
     color: #4546b9;
     fill: #4546b9;
