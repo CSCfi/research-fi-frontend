@@ -1,28 +1,26 @@
 <!--  This file is part of the research.fi API service
-Copyright 2019 Ministry of Education and Culture, Finland
-:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-:license: MIT -->
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
 
-@if (displayData && isPortalSinglePage) {
-  <div>
-    <app-name-and-orcid-view [data]="displayData" [orcid]="this.displayData[10].value" [isEditorView]="!isPortalSinglePage"></app-name-and-orcid-view>
-  </div>
-}
+<div *ngIf="displayData && isPortalSinglePage">
+  <app-name-and-orcid-view [data]="displayData" [orcid]="this.displayData[10].value" [isEditorView]="!isPortalSinglePage"></app-name-and-orcid-view>
+</div>
 
-<!-- Slice first contact info out and two last infos. These are used in other views. -->
-@if (displayData) {
-  <div>
-    @for (group of displayData.slice(1, isPortalSinglePage ? -4 : -1); track group; let i = $index) {
-      @for (field of group.fields; track field) {
-        <app-profile-summary-view
-          [isPortalSinglePage]="isPortalSinglePage"
-          [data]="field"
-          [sectionName]="group.id"
-          [highlightOpenness]="highlightOpenness"
-          [sectionIndex]="i"
-          (openDialogCall)="openDialogCall($event)"
-        ></app-profile-summary-view>
-      }
-    }
-  </div>
-}
+<!-- Slice first contact info out (other names) and two last infos. These are shown in other views. -->
+<div *ngIf="displayData">
+  <ng-container *ngFor="let group of displayData.slice(0, isPortalSinglePage ? -4 : -1); let i = index">
+    <ng-container *ngFor="let field of group.fields">
+      <app-generate-description *ngIf="i === 1 && !isPortalSinglePage" [data]="field" [fullProfiledata]="displayData"></app-generate-description>
+      <app-profile-summary-view
+              *ngIf="(isPortalSinglePage) || i > 1"
+              [isPortalSinglePage]="isPortalSinglePage"
+              [data]="field"
+              [sectionName]="group.id"
+              [highlightOpenness]="highlightOpenness"
+              [sectionIndex]="i"
+              (openDialogCall)="openDialogCall($event)"
+      ></app-profile-summary-view>
+    </ng-container>
+  </ng-container>
+</div>

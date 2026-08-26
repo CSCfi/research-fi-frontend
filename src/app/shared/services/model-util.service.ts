@@ -60,6 +60,62 @@ export class ModelUtilsService {
     return res;
   }
 
+  // Renewed checkTranslation function for renewed data structure
+  checkTranslationFromArray(inputArray: Array<any>): any {
+    function getDescriptiveContent(inputArray, lang: string) {
+      if (inputArray && inputArray.length > 0) {
+        let ret = inputArray.find(item => item?.language === lang);
+        if (UtilityService.stringHasContent(ret?.descriptiveContent)) {
+          return ret?.descriptiveContent;
+        }
+        else return '';
+      }
+      else return '';
+    }
+
+    let ret = getDescriptiveContent(inputArray, this.localeId);
+    if (ret.length > 0) {
+      return ret
+    }
+    else {
+      switch (this.localeId) {
+        case 'fi': {
+          ret = getDescriptiveContent(inputArray, 'en');
+          if (ret.length > 0) {
+            return ret;
+            break;
+          } else {
+            return getDescriptiveContent(inputArray, 'sv');
+            break;
+          }
+          break;
+        }
+        case 'en': {
+          ret = getDescriptiveContent(inputArray, 'fi');
+          if (ret.length > 0) {
+            return ret;
+            break;
+          } else {
+            return getDescriptiveContent(inputArray, 'sv');
+            break;
+          }
+          break;
+        }
+        case 'sv': {
+          ret = getDescriptiveContent(inputArray, 'en');
+          if (ret.length > 0) {
+            return ret;
+            break;
+          } else {
+            return getDescriptiveContent(inputArray, 'fi');
+            break;
+          }
+          break;
+        }
+      }
+    }
+  }
+
   translateFieldOfScience(item) {
     // Same logic as testLang but different field naming convention
     const capitalizedLocale =

@@ -33,7 +33,7 @@ export class DraftService {
 
   person$ = new BehaviorSubject<Person>(null);
   public dataHasBeenReset = new BehaviorSubject<boolean>(false);
-  private publishingInProgress$ = new BehaviorSubject<boolean>(false);
+  publishingInProgress$ = new BehaviorSubject<boolean>(false);
 
   public showLogoutConfirmModal = new BehaviorSubject<boolean>(false);
 
@@ -471,11 +471,12 @@ export class DraftService {
       if (response.includes(false)) {
         this.snackbarService.showPatchMessage('error');
       } else {
-        // Timeout to wait new data available from back end
-        setTimeout(() => {
-          this.clearDraftData();
-          this.updatePerson();
-        }, 500);
+        // Wait new data available from back end
+        await this.pollProfile();
+        this.clearDraftData();
+        this.updatePerson();
+        await this.setProfileVisible();
+        this.publishingInProgress$.next(false);
         this.snackbarService.showPatchMessage('success');
       }
     } catch (error) {
@@ -483,12 +484,7 @@ export class DraftService {
       console.error(`Error in data patching`, error);
     }
     //console.log('set draft profile data as current', this.draftProfileData);
-
     this.profileService.setCurrentProfileData(this.getDraftProfile());
-
-    await this.setProfileVisible();
-    await this.pollProfile();
-    this.publishingInProgress$.next(false);
   }
 
   /*
