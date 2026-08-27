@@ -98,7 +98,7 @@
     <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[dropdownLanguageSelection] }}</div>
   </div>
 
-  @if ((((generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((biographyGenerationOngoing$ | async) === false))) {
+  @if ((((generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((biographyGenerationOngoing$ | async) === false) && ((biographyReadyDismissed$ | async) === false))) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
@@ -256,12 +256,12 @@
                       <label class="biography-label">{{ editDescriptionLabel }}:</label>
                     </div>
                     <div class="col-9 d-flex flex-column">
-                      <textarea aria-labelledby="biography-label" class)="bio-textarea" rows="6"
+                      <textarea aria-labelledby="biography-label" class="bio-textarea ai-text-area" rows="6"
                                 [(ngModel)]="biographyModalTextAreaValue"
                                 (keyup)="biographyFieldTextChange(dropdownLanguageSelection, true)">{{ biographyModalTextAreaValue }}</textarea>
-                      <div class="d-flex flex-row additional-info-wrap">
-                        <div class="info-circle-margin d-flex flex-column justify-content-center">
-                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+                      <div class="d-flex flex-row textarea-info-bottom">
+                        <div class="d-flex flex-column justify-content-center">
+                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon text-area-bottom-info"></app-svg-sprites>
                         </div>
                         <div>
                           <div class="info-text-paragraph">{{ aiGeneratedTextMayContainErrors }}</div>
@@ -271,7 +271,9 @@
                   </div>
 
                   <br/>
-                  <div class="d-flex flex-row justify-content-between mt-3">
+                  <div class="d-flex flex-row justify-content-between mb-1">
+                    <div class="col-3"></div>
+                    <div class="col-9 d-flex justify-content-between">
                     <div class="d-flex flex-row justify-content-start">
                       <app-secondary-button (click)="generateBiography()" content="{{generateNewDescriptionButtonText}}"
                                             [svgSymbolName]="'create-new-diamond'"
@@ -293,6 +295,7 @@
                       </mat-checkbox>
                     </div>
                   </div>
+                  </div>
                 </div>
               </div>
 
@@ -307,14 +310,14 @@
                     <div class="col-9 d-flex flex-row">
                       <div class="mb-2 d-flex flex-row font-weight-500 justify-content-start">
                         <div [class.hasContent]="biography[languageCodes[selectedLanguageNotAi]]?.length > 0"
-                             [class.selected]="selectedLanguageNotAi === 0" class="modal-lang-select-button"
+                             [class.selected]="selectedLanguageNotAi === 0" class="modal-lang-select-button not-ai"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageNotAi(0)"
                              (click)="selectDescriptionLanguageNotAi(0)">
                           FI
                         </div>
-                        <div class="modal-lang-select-button"
+                        <div class="modal-lang-select-button not-ai"
                              [class.hasContent]="biography[languageCodes[selectedLanguageNotAi]]?.length > 0"
                              [class.selected]="selectedLanguageNotAi === 1"
                              role="button"
@@ -323,7 +326,7 @@
                              (click)="selectDescriptionLanguageNotAi(1)">
                           EN
                         </div>
-                        <div class="modal-lang-select-button"
+                        <div class="modal-lang-select-button not-ai"
                              [class.hasContent]="biography[languageCodes[selectedLanguageNotAi]]?.length > 0"
                              [class.selected]="selectedLanguageNotAi === 2"
                              role="button"

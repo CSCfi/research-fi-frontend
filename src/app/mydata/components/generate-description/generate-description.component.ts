@@ -70,7 +70,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   editDescriptionLabelEn = $localize`:@@aitta_editDescriptionEn:Muokkaa englanninkielistä kuvausta`;
   editDescriptionLabelSv = $localize`:@@aitta_editDescriptionSv:Muokkaa ruotsinkielistä kuvausta`;
 
-  selectDescriptionLanguageTitle = $localize`:@@aitta_selectDescriptionLanguageTitle:Valitse kuvauksen kieli:`;
+  selectDescriptionLanguageTitle = $localize`:@@aitta_descriptionLanguageTitle:Kuvauksen kieli`;
   languageFi = $localize`:@@languageFi:Suomi`;
   languageSv = $localize`:@@languageSv:Ruotsi`;
   languageEn = $localize`:@@languageSv:Englanti`;
@@ -228,6 +228,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   private clearDataSub: Subscription;
   biographyModalTextAreaValue = '';
+  biographyReadyDismissed$ = new BehaviorSubject(false);
 
   constructor(
     public biographyService: BiographyService,
@@ -241,8 +242,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.dialogActions = [...this.dialogActionsCreateNewDescriptionAiNotFinished];
-    this.initBiographies();
+    if (!this.biographyService.isBiographyGenerationOngoing()) {
+      this.initBiographies();
+    }
 
     // Biography generation finished
     this.biographyGenerationOngoing$.subscribe(response => {
@@ -274,6 +276,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   openDialog(dialogName: string) {
     if (dialogName === 'review') {
       this.selectDescriptionSource(0);
+      this.biographyReadyDismissed$.next(true);
       }
     if (!this.biographyService.isBiographyGenerationOngoing()) {
       this.initBiographies();
@@ -284,6 +287,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   initBiographies() {
+    console.log('!!!!! init called');
     const previousVisibleBios = this.savedDraftBiographiesObs$.getValue();
 
     this.savedDraftBiographies = this.savedDraftBiographiesObs$.asObservable();
@@ -596,6 +600,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   async generateBiography() {
     this.generateBiographyRequested$.next(true);
+    this.biographyReadyDismissed$.next(false);
     this.contentCreationStep = 2;
     this.dialogActions = [...this.dialogActionsCreateDescription];
 
