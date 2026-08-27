@@ -90,7 +90,7 @@
   </div>
 
   <div class="language-versions-info-box"
-       *ngIf="(biographyGenerationOngoing$ | async) === true">
+       *ngIf="(biographyGenerationOngoing$ | async) === true && ((showDialog$ | async) === false)">
     <div class="d-flex flex-row justify-content-center mt-2">
       <app-svg-sprites [iconName]="'create-new-diamond'"
                        cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
@@ -117,7 +117,7 @@
     </div>
   }
 
-  @if (((isBiographyAiGeneratedObs$ | async) === true && generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && (savedDraftBiographiesObs$.getValue().fi.length < 1 || savedDraftBiographiesObs$.getValue().en.length < 1 || savedDraftBiographiesObs$.getValue().sv.length < 1)) {
+  @if (((isBiographyAiGeneratedObs$ | async) === true && generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && ((showDialog$ | async) === false) && (savedDraftBiographiesObs$.getValue().fi.length < 1 || savedDraftBiographiesObs$.getValue().en.length < 1 || savedDraftBiographiesObs$.getValue().sv.length < 1)) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
