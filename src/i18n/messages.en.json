@@ -1274,8 +1274,8 @@
         "aitta_reviewButtonText": "Tarkista luotu kuvaus",
         "aitta_save": "Save",
         "aitta_selectInformationToDisplayInProfile": "Select information to display in profile",
-        "aitta_selectDescriptionLanguageTitle": "Select description language",
-        "aitta_selectDescriptionSourceTitle": "Select description source",
+        "aitta_selectDescriptionLanguageTitle": "Description language",
+        "aitta_selectDescriptionSourceTitle": "Description source",
         "aitta_useDescriptionButtonText": "Use description",
         "aitta_youCanGenerateMultipleLanguageVersions": "Voit luoda kuvauksesta useita kieliversioita",
         "aitta_youHaveNotSelectedAnyPublicData": "You haven't selected any information to publish yet"
