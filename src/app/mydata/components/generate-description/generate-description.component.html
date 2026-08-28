@@ -52,21 +52,6 @@
            (click)="savedDraftBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2) : undefined">
         SV
       </div>
-
-
-
-      <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true && translationsRequested$.getValue() === true && (userEditableBiographiesObs$.getValue().fi.length > 0 || userEditableBiographiesObs$.getValue().en.length > 0 || userEditableBiographiesObs$.getValue().sv.length > 0)"
-           role="button" class="select-language-button"
-           tabindex="0" (keydown.enter)="openDialog('selectLanguageVersions')"
-           (click)="openDialog('selectLanguageVersions')">
-        {{ selectLanguageVersionsText }}
-      </div>
-      <!--<div *ngIf="isBiographyAiGeneratedObs$.getValue() === true && translationsRequested$.getValue() === false  && (savedDraftBiographiesObs$.getValue().fi.length > 0 || savedDraftBiographiesObs$.getValue().en.length > 0 || savedDraftBiographiesObs$.getValue().sv.length > 0)"
-           role="button" class="select-language-button"
-           tabindex="0" (keydown.enter)="openDialog('editLanguageVersions')"
-           (click)="openDialog('editLanguageVersions')">
-        {{ editLanguageVersionsText }}
-      </div>-->
     </div>
     <br/>
   </div>
@@ -118,7 +103,7 @@
     </div>
   }
 
-  @if (((isBiographyAiGeneratedObs$ | async) === true && generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && ((showDialog$ | async) === false) && (savedDraftBiographiesObs$.getValue().fi.length < 1 || savedDraftBiographiesObs$.getValue().en.length < 1 || savedDraftBiographiesObs$.getValue().sv.length < 1)) {
+  @if ((((isBiographyAiGeneratedObs$ | async) === true && generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && ((showDialog$ | async) === false) && (savedDraftBiographiesObs$.getValue().fi.length < 1 || savedDraftBiographiesObs$.getValue().en.length < 1 || savedDraftBiographiesObs$.getValue().sv.length < 1)) && (savedDraftBiographiesObs$.getValue().fi.length > 0 || savedDraftBiographiesObs$.getValue().en.length > 0 || savedDraftBiographiesObs$.getValue().sv.length > 0)) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">

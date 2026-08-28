@@ -266,6 +266,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.aiBiographiesFromBackend = { fi: '', en: '', sv: '', itemMeta: undefined };
     this.savedDraftBiographiesObs$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
     this.userEditableBiographiesObs$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
+    this.initBiographies();
+    this.initDoneOnce = false;
   }
 
   ngOnDestroy(): void {
@@ -279,7 +281,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       this.biographyReadyDismissed$.next(true);
       }
     if (!this.biographyService.isBiographyGenerationOngoing()) {
-      this.initBiographies();
+      if (!this.initDoneOnce) {
+        this.initBiographies();
+      }
     }
 
     this.showDialog$.next(true);
@@ -414,19 +418,33 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       (value) => {
         if (value) {
           // Update profile for draft preview
-          value.profileData[1].fields[1].items = value.profileData[1].fields[1].items.map(item => {
+          value.profileData[1].fields[1].items = value.profileData[1].fields[1].items.map(previewItem => {
 
             // Ai generated biography exists
-            if (item.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
-              let patchItem = cloneDeep(item);
+            if (previewItem.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
+              let patchItem = cloneDeep(previewItem);
               // Show or hide ai generated
+              previewItem.researchDescriptionFi = this.userEditableBiographiesObs$.getValue().fi;
+              previewItem.researchDescriptionEn = this.userEditableBiographiesObs$.getValue().en;
+              previewItem.researchDescriptionSv = this.userEditableBiographiesObs$.getValue().sv;
+
+              if (this.capitalizedLocale === 'Fi') {
+                previewItem.value = previewItem.researchDescriptionFi;
+              } else if (this.capitalizedLocale === 'Sv') {
+                previewItem.value = previewItem.researchDescriptionSv;
+              } else if (this.capitalizedLocale === 'En') {
+                previewItem.value = previewItem.researchDescriptionEn;
+              }
+
+              // Hide item with empty text content, otherwise empty section with caption is shown in profile view
               patchItem.itemMeta.show = this.useAiBiography;
+              if (previewItem.researchDescriptionFi.length < 1 && previewItem.researchDescriptionEn.length < 1 && previewItem.researchDescriptionSv.length < 1) {
+                patchItem.itemMeta.show = false;
+              }
               this.patchService.addToPayload(patchItem.itemMeta);
-              item.researchDescriptionFi = this.userEditableBiographiesObs$.getValue().fi;
-              item.researchDescriptionEn = this.userEditableBiographiesObs$.getValue().en;
-              item.researchDescriptionSv = this.userEditableBiographiesObs$.getValue().sv;
+
             } else {
-              let patchItem = cloneDeep(item);
+              let patchItem = cloneDeep(previewItem);
               // Hide all not selected
               if (patchItem.itemMeta.id === this.selectedNotAiBiographyItem?.itemMeta?.id) {
                 patchItem.itemMeta.show = true;
@@ -444,7 +462,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
                 }
               }
             }
-            return item;
+            return previewItem;
           });
 
           if (isPlatformBrowser(this.platformId)) {
@@ -461,6 +479,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         }
       });
     this.showDraftSaveSuccessNotification();
+
+    // Data needs to be refetched
+    this.initDoneOnce = false;
   }
 
   showDraftSaveSuccessNotification(): void {

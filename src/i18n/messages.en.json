@@ -1269,15 +1269,15 @@
         "aitta_languageVersionInfo": "Language versions are created automatically based on the description you reviewed.",
         "aitta_languageVersionsInstructionBoxText": "To reach the broadest audience possible, it is recommended to write the research description in English, Finnish and Swedish.",
         "aitta_languageVersionsTitle": "Language versions",
-        "aitta_modalIntroText": "You can create a description of your research activities using AI. Only your profile information published in Research.fi is used to create the description.",
+        "aitta_modalIntroText": "You can create a description of your research activities using AI and edit the description produced. Only your profile information published in Research.fi is used to create the description. Your information will not be disclosed to third parties or used to train the language model.",
         "aitta_researchDescriptionGenerationDone": "Research description completed",
-        "aitta_reviewButtonText": "Tarkista luotu kuvaus",
+        "aitta_reviewButtonText": "Check description",
         "aitta_save": "Save",
         "aitta_selectInformationToDisplayInProfile": "Select information to display in profile",
         "aitta_selectDescriptionLanguageTitle": "Description language",
         "aitta_selectDescriptionSourceTitle": "Description source",
         "aitta_useDescriptionButtonText": "Use description",
-        "aitta_youCanGenerateMultipleLanguageVersions": "Voit luoda kuvauksesta useita kieliversioita",
+        "aitta_youCanGenerateMultipleLanguageVersions": "You can create multiple language versions of the description",
         "aitta_youHaveNotSelectedAnyPublicData": "You haven't selected any information to publish yet"
     }
 }

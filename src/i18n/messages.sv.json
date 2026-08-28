@@ -1271,15 +1271,15 @@
         "aitta_languageVersionInfo": "Språkversionerna skapas automatiskt utifrån den beskrivning som du har kontrollerat.",
         "aitta_languageVersionsInstructionBoxText": "Vi rekommenderar att beskrivningen skrivs på engelska, finska och svenska för att nå en så bred publik som möjligt.",
         "aitta_languageVersionsTitle": "Språkversioner",
-        "aitta_modalIntroText": "Du kan skapa en beskrivning av din forskningsverksamhet med hjälp av AI. För att skapa beskrivningen används endast uppgifter från din profil som publicerats på Forsking.fi.",
+        "aitta_modalIntroText": "Du kan skapa en beskrivning av din forskningsverksamhet med hjälp av AI och redigera den genererade beskrivningen. För att skapa beskrivningen används endast uppgifter från din profil som publicerats på Forsking.fi. Dina uppgifter lämnas inte ut till tredje part eller används för att träna språkmodellen.",
         "aitta_researchDescriptionGenerationDone": "Forskningsbeskrivning är färdig",
-        "aitta_reviewButtonText": "Tarkista luotu kuvaus",
+        "aitta_reviewButtonText": "Kontrollera beskrivningen",
         "aitta_save": "Spara",
         "aitta_selectDescriptionLanguageTitle": "Språk för beskrivningen",
         "aitta_selectDescriptionSourceTitle": "Beskrivningskälla",
         "aitta_selectInformationToDisplayInProfile": "Välj uppgifter att publicera i din profil.",
         "aitta_useDescriptionButtonText": "Använd beskrivning",
-        "aitta_youCanGenerateMultipleLanguageVersions": "Voit luoda kuvauksesta useita kieliversioita",
+        "aitta_youCanGenerateMultipleLanguageVersions": "Du kan skapa flera språkversioner av beskrivningen",
         "aitta_youHaveNotSelectedAnyPublicData": "Du har ännu inte valt den information som ska publiceras"
     }
 }
