@@ -755,6 +755,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.biographyService.biographyGenerationOngoing.next(false);
         this.showDialog$.next(false);
         this.contentCreationStep = 1;
+        this.initDoneOnce = false;
         break;
       }
 
@@ -762,6 +763,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.showDialog$.next(false);
         this.contentCreationStep = 1;
         this.keywordsSelectedDraft = this.keywordsSelectedFromBackEnd;
+        this.initDoneOnce = false;
         break;
       }
 
