@@ -12,6 +12,7 @@ export const HttpErrors = {
   404: $localize`Haluttua tietoa ei ole olemassa`,
   405: $localize`:@@forbiddenRequest:Pyyntömetodi ei ole sallittu`,
   500: $localize`Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä`,
+  504: $localize`Palvelinvirhe. Pyyntö aikakatkaistiin`,
   default: $localize`HTTP pyyntöä ei voitu käsitellä`,
 };
 
