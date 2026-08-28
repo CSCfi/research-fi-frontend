@@ -227,6 +227,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   private capitalizedLocale: string;
 
   private clearDataSub: Subscription;
+  private updateDataSub: Subscription;
+
   biographyModalTextAreaValue = '';
   biographyReadyDismissed$ = new BehaviorSubject(false);
 
@@ -259,6 +261,13 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.clearData();
       }
     });
+
+    this.updateDataSub = this.biographyService.updateDataRequested.subscribe(val => {
+      if (val === true) {
+        this.initBiographies();
+        console.log('update called');
+      }
+    });
   }
 
   clearData() {
@@ -273,6 +282,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
     this.biographyGenerationErrorSub ? this.biographyGenerationErrorSub.unsubscribe() : undefined;
+    this.clearDataSub ? this.clearDataSub.unsubscribe() : undefined;
+    this.updateDataSub ? this.updateDataSub.unsubscribe() : undefined;
   }
 
   openDialog(dialogName: string) {
