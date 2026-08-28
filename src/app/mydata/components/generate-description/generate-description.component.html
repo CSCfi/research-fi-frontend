@@ -10,6 +10,7 @@
                 [content]="(savedDraftBiographiesObs$.getValue().fi.length < 1 && savedDraftBiographiesObs$.getValue().en.length < 1 && savedDraftBiographiesObs$.getValue().sv.length < 1) ? selectString : editString"
                 [announce]="hasSelectedItems"
                 [announceText]="data?.label + ' ' + noPublicDataText"
+                [disabled]="(biographyGenerationOngoing$ | async) === true"
                 [svgSymbolName]="'edit'"
                 [svgCssClass]="'open_in_new-icon button-icon'"
                 (click)="openDialog('generate')"

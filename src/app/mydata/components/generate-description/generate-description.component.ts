@@ -287,7 +287,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   initBiographies() {
-    console.log('!!!!! init called');
     const previousVisibleBios = this.savedDraftBiographiesObs$.getValue();
 
     this.savedDraftBiographies = this.savedDraftBiographiesObs$.asObservable();
