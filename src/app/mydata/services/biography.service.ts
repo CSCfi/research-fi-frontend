@@ -39,6 +39,7 @@ export class BiographyService implements OnDestroy {
   public biographyGenerationOngoing = new BehaviorSubject<boolean | undefined>(undefined);
   public translationsRequested = new BehaviorSubject<boolean>(false);
   public clearDataRequested = new BehaviorSubject<boolean>(false);
+  public updateDataRequested = new BehaviorSubject<boolean>(false);
 
   public biographyGenerationError = new BehaviorSubject<any>(undefined);
 
@@ -87,6 +88,10 @@ export class BiographyService implements OnDestroy {
           }
         });
     });
+  }
+
+  public updateData(){
+    this.updateDataRequested.next(true);
   }
 
   public clearData(){

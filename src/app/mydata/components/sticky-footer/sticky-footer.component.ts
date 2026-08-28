@@ -156,6 +156,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     switch (action) {
       case 'publish': {
         this.draftService.publish();
+        this.biographyService.updateData();
         break;
       }
       case 'discard': {
