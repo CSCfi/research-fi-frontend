@@ -265,7 +265,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.updateDataSub = this.biographyService.updateDataRequested.subscribe(val => {
       if (val === true) {
         this.initBiographies();
-        console.log('update called');
       }
     });
   }
