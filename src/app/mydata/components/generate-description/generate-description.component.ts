@@ -172,7 +172,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   ];
 
   useAiBiographyText = $localize`:@@aitta_useDescriptionButtonText:Käytä kuvausta`;
-  useAiBiography = true;
+  useAiBiography = false;
 
   generatingDescriptionInfoText = [$localize`:@@aitta_generatingDescriptionInFinnish:Luodaan kuvausta suomeksi. Tämä voi viedä pari minuuttia.`, $localize`:@@aitta_generatingDescriptionInSwedish:Luodaan kuvausta ruotsiksi. Tämä voi viedä pari minuuttia.`, $localize`:@@aitta_generatingDescriptionInEnglish:Luodaan kuvausta englanniksi. Tämä voi viedä pari minuuttia.`];
 
@@ -187,7 +187,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   keywordsSelectedDraft = false;
   keywordsSourceLocalized = '';
 
-  useMockData = false;
   selectedKeywordsStr = '';
   selectedKeywordsValues = [];
   selectedKeywordsShowItemMetas = [];
@@ -202,10 +201,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   aiBiographiesFromBackend = { fi: '', en: '', sv: '', itemMeta: undefined };
 
-  savedDraftBiographies: Observable<any>;
-
-  savedDraftBiographiesObs$ = new BehaviorSubject({ fi: '', en: '', sv: '', itemMeta: undefined });
-
   isBiographyAiGeneratedObs$ = new BehaviorSubject(false);
 
   finishedGeneratingAiBiographyObs$ = new BehaviorSubject(false);
@@ -213,13 +208,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   userEditableBiographiesObs$ = new BehaviorSubject({ fi: '', en: '', sv: '', itemMeta: undefined });
 
   biographyGenerationOngoing$ = this.biographyService.biographyGenerationOngoing;
-  generateBiographyRequested$ = new BehaviorSubject(false);
-  translationsRequested$ = this.biographyService.translationsRequested;
-
-  langVersionEnUsed$ = new BehaviorSubject(false);
-  langVersionSvUsed$ = new BehaviorSubject(false);
-
-  dropdownLanguageSelection = 0;
 
   initDoneOnce = false;
 
@@ -231,7 +219,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   private updateDataSub: Subscription;
 
   biographyModalTextAreaValue = '';
-  biographyReadyDismissed$ = new BehaviorSubject(false);
 
   constructor(
     public biographyService: BiographyService,
@@ -247,6 +234,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!this.biographyService.isBiographyGenerationOngoing()) {
       this.initBiographies();
+    } else {
+      // Navigated back from outside the component. Need to subscribe to results.
+      this.generateBiography();
     }
 
     // Biography generation finished
@@ -273,7 +263,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   clearData() {
     this.contentCreationStep = 1;
     this.aiBiographiesFromBackend = { fi: '', en: '', sv: '', itemMeta: undefined };
-    this.savedDraftBiographiesObs$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
+    this.biographyService.visibleDraftBiographies$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
     this.userEditableBiographiesObs$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
     this.initBiographies();
     this.initDoneOnce = false;
@@ -290,27 +280,28 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     console.log('openDialog', dialogName);
     if (dialogName === 'review') {
       this.selectDescriptionSource(0);
-      this.biographyReadyDismissed$.next(true);
+      this.biographyService.biographyReadyDismissed$.next(true);
       }
     if (!this.biographyService.isBiographyGenerationOngoing()) {
       if (!this.initDoneOnce) {
+        console.log('init not done once -- initializing...');
         this.initBiographies();
+      } else {
+        console.log('skipping init');
       }
     }
 
     this.showDialog$.next(true);
-    this.selectDescriptionLanguageAi(this.dropdownLanguageSelection);
+    this.selectDescriptionLanguageAi(this.biographyService.dropdownLanguageSelection);
   }
 
   initBiographies() {
-    this.savedDraftBiographies = this.savedDraftBiographiesObs$.asObservable();
 
     this.selectedKeywordsValues = [];
     this.selectedKeywordsShowItemMetas = [];
     this.selectedKeywordsHideItemMetas = [];
 
     this.notAiBiographies = [];
-    this.translationsRequested$.next(false);
     if (this.data && this.data.id === 'researchDescription') {
       this.data?.keywordItems?.items.forEach(item => {
         let kwDataSources = item?.dataSources;
@@ -353,7 +344,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             this.aiBiographiesFromBackend['sv'] = item?.researchDescriptionSv;
             this.aiBiographiesFromBackend['itemMeta'] = item?.itemMeta;
             this.userEditableBiographiesObs$.next(this.aiBiographiesFromBackend);
-            //this.savedDraftBiographiesObs$.next(this.aiBiographiesFromBackend);
+
             if (item.itemMeta.show === true) {
               this.isBiographyAiGeneratedObs$.next(true);
               this.selectDescriptionSource(0);
@@ -387,6 +378,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             }
           }
         }
+
         // Shared for old api and Ai generated
         if (item.itemMeta.show === true) {
           let currentlyVisibleBiography = { fi: '', en: '', sv: '', itemMeta: undefined };
@@ -394,8 +386,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           currentlyVisibleBiography['en'] = item?.researchDescriptionEn;
           currentlyVisibleBiography['sv'] = item?.researchDescriptionSv;
           currentlyVisibleBiography['itemMeta'] = item.itemMeta;
+          console.log('shared is updating');
 
-          this.savedDraftBiographiesObs$.next(currentlyVisibleBiography);
+          this.biographyService.visibleDraftBiographies$.next(currentlyVisibleBiography);
 
           //this.userEditableBiographiesObs$.next(currentlyVisibleBiography);
         }
@@ -409,18 +402,18 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         }
       });
     }
-    //this.userEditableBiographiesObs$.next(this.savedDraftBiographiesObs$.getValue());
+
     this.biographyModalTextAreaValue = this.userEditableBiographiesObs$.getValue().fi;
     this.initLanguageSelectDefaultValue();
     this.initDoneOnce = true;
   };
 
   initLanguageSelectDefaultValue(){
-    if (this.savedDraftBiographiesObs$.getValue().fi.length > 0) {
+    if (this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0) {
       this.selectedLanguageTab = 0;
-    } else if (this.savedDraftBiographiesObs$.getValue().en.length > 0) {
+    } else if (this.biographyService.visibleDraftBiographies$.getValue().en.length > 0) {
       this.selectedLanguageTab = 1;
-    } else if (this.savedDraftBiographiesObs$.getValue().sv.length > 0) {
+    } else if (this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0) {
       this.selectedLanguageTab = 2;
     } else {
       this.selectedLanguageTab = 0;
@@ -428,7 +421,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   generateAndPatchBiographyPayload() {
-    this.translationsRequested$.next(false);
     // Take biography from old api
 
     // Fetch latest saved values from backend
@@ -454,6 +446,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
                 previewItem.value = previewItem.researchDescriptionEn;
               }
 
+              previewItem.value = previewItem.researchDescriptionFi + '\n\n - - - - - \n\n' + previewItem.researchDescriptionEn +  '\n\n - - - - - \n\n' + previewItem.researchDescriptionSv;
+
+              const tempDescFi = previewItem.researchDescriptionFi + '\n\n - - - - - \n\n';
+
               // Hide item with empty text content, otherwise empty section with caption is shown in profile view
               patchItem.itemMeta.show = this.useAiBiography;
               if (previewItem.researchDescriptionFi.length < 1 && previewItem.researchDescriptionEn.length < 1 && previewItem.researchDescriptionSv.length < 1) {
@@ -474,9 +470,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
               // Update visible version in UI for non AI generated
               if (!this.useAiBiography) {
                 if (this.notAiBiographies[this.selectedNotAiBiographyIndex]) {
-                  this.savedDraftBiographiesObs$.next(this.notAiBiographies[this.selectedNotAiBiographyIndex]);
+                  this.biographyService.visibleDraftBiographies$.next(this.notAiBiographies[this.selectedNotAiBiographyIndex]);
                 } else {
-                  this.savedDraftBiographiesObs$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
+                  this.biographyService.visibleDraftBiographies$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
                 }
               }
             }
@@ -497,13 +493,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         }
       });
     this.showDraftSaveSuccessNotification();
-
-    // Data needs to be refetched
-    this.initDoneOnce = false;
   }
 
   showDraftSaveSuccessNotification(): void {
-    this.generateBiographyRequested$.next(false);
+    this.biographyService.generateBiographyRequested$.next(false);
     this.snackbarService.show(
       $localize`:@@draftUpdated:Luonnos päivitetty`,
       'success'
@@ -536,7 +529,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       if (input === 2) {
         this.biographyModalTextAreaValue = this.userEditableBiographiesObs$.getValue().en;
       }
-      this.dropdownLanguageSelection = input;
+      this.biographyService.dropdownLanguageSelection = input;
     }
   }
 
@@ -569,7 +562,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     patchBiographyStub.en = this.userEditableBiographiesObs$.getValue().en;
 
     this.biographyService.updateBiography(patchBiographyStub).then();
-    this.savedDraftBiographiesObs$.next(cloneDeep(patchBiographyStub));
+    this.biographyService.visibleDraftBiographies$.next(cloneDeep(patchBiographyStub));
 
     this.setSelectedNotAiBiographyItem(undefined);
 
@@ -591,14 +584,14 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     let patchBiographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
     patchBiographyStub.itemMeta = this.userEditableBiographiesObs$.getValue().itemMeta;
 
-    this.dropdownLanguageSelection === 0 ? patchBiographyStub.fi = '' : patchBiographyStub.fi = this.userEditableBiographiesObs$.getValue().fi;
-    this.dropdownLanguageSelection === 1 ? patchBiographyStub.sv = '' : patchBiographyStub.sv = this.userEditableBiographiesObs$.getValue().sv;
-    this.dropdownLanguageSelection === 2 ? patchBiographyStub.en = '' : patchBiographyStub.en = this.userEditableBiographiesObs$.getValue().en;
+    this.biographyService.dropdownLanguageSelection === 0 ? patchBiographyStub.fi = '' : patchBiographyStub.fi = this.userEditableBiographiesObs$.getValue().fi;
+    this.biographyService.dropdownLanguageSelection === 1 ? patchBiographyStub.sv = '' : patchBiographyStub.sv = this.userEditableBiographiesObs$.getValue().sv;
+    this.biographyService.dropdownLanguageSelection === 2 ? patchBiographyStub.en = '' : patchBiographyStub.en = this.userEditableBiographiesObs$.getValue().en;
     this.userEditableBiographiesObs$.next(cloneDeep(patchBiographyStub));
 
     this.biographyService.updateBiography(cloneDeep(patchBiographyStub)).then();
-    this.savedDraftBiographiesObs$.next(cloneDeep(patchBiographyStub));
-    this.selectDescriptionLanguageAi(this.dropdownLanguageSelection);
+    this.biographyService.visibleDraftBiographies$.next(cloneDeep(patchBiographyStub));
+    this.selectDescriptionLanguageAi(this.biographyService.dropdownLanguageSelection);
   }
 
   selectDescriptionSource(input: any) {
@@ -618,8 +611,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   async generateBiography() {
-    this.generateBiographyRequested$.next(true);
-    this.biographyReadyDismissed$.next(false);
+    this.biographyService.generateBiographyRequested$.next(true);
+    this.biographyService.biographyReadyDismissed$.next(false);
     this.contentCreationStep = 2;
     this.dialogActions = [...this.dialogActionsCreateDescription];
 
@@ -628,7 +621,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     // Deleting is needed for UI check mark state update
     this.deleteSelectedDescription();
 
-    this.biographyService.generateBiography(this.useMockData, selectedLanguageAbbreviations[this.dropdownLanguageSelection]).then();
+    // Generate only if not already ongoing. In any case subscribe to old ongoing value, if for example navigated back from other page
+    if (this.biographyService.biographyGenerationOngoing.getValue() !== true) {
+      this.biographyService.generateBiography(selectedLanguageAbbreviations[this.biographyService.dropdownLanguageSelection]).then();
+    }
 
     this.biographyGenerationErrorSub = this.biographyService.biographyGenerationError.subscribe(error => {
       if (error) {
@@ -638,27 +634,31 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       }
     });
     this.finishedGeneratingAiBiographyObs$.next(false);
-    if (this.dropdownLanguageSelection === 0) {
+
+    if (this.biographyService.dropdownLanguageSelection === 0) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
         if (onGoing === false) {
-          const generatedBiographyFi = cloneDeep(this.biographyService.generatedBiographyData.getValue());
-          this.userEditableBiographiesObs$.next({
-            fi: generatedBiographyFi,
-            en: this.userEditableBiographiesObs$.getValue().en,
-            sv: this.userEditableBiographiesObs$.getValue().sv,
-            itemMeta: this.userEditableBiographiesObs$.getValue().itemMeta
-          });
-          this.biographyModalTextAreaValue = generatedBiographyFi;
+          setTimeout(() => {
+            const generatedBiographyFi= cloneDeep(this.biographyService.generatedBiographyData.getValue());
+            this.userEditableBiographiesObs$.next({
+              fi: generatedBiographyFi,
+              en: this.userEditableBiographiesObs$.getValue().en,
+              sv: this.userEditableBiographiesObs$.getValue().sv,
+              itemMeta: this.userEditableBiographiesObs$.getValue().itemMeta
+            });
+            this.biographyModalTextAreaValue = generatedBiographyFi;
 
-          this.selectDescriptionLanguageAi(0);
-          this.contentCreationStep = 3;
-          this.finishedGeneratingAiBiographyObs$.next(true);
-          this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+            this.selectDescriptionLanguageAi(0);
+            this.contentCreationStep = 3;
+            this.finishedGeneratingAiBiographyObs$.next(true);
+            this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+          }, 100);
         }
       });
-    } else if (this.dropdownLanguageSelection === 1) {
+    } else if (this.biographyService.dropdownLanguageSelection === 1) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
         if (onGoing === false) {
+          setTimeout(() => {
           const generatedBiographySv = cloneDeep(this.biographyService.generatedBiographyDataSv.getValue());
           this.userEditableBiographiesObs$.next({
             fi: this.userEditableBiographiesObs$.getValue().fi,
@@ -672,11 +672,13 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.contentCreationStep = 3;
           this.finishedGeneratingAiBiographyObs$.next(true);
           this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+          }, 100);
         }
       });
-    } else if (this.dropdownLanguageSelection === 2) {
+    } else if (this.biographyService.dropdownLanguageSelection === 2) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
         if (onGoing === false) {
+          setTimeout(() => {
           const generatedBiographyEn = cloneDeep(this.biographyService.generatedBiographyDataEn.getValue());
 
           this.userEditableBiographiesObs$.next({
@@ -691,6 +693,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.contentCreationStep = 3;
           this.finishedGeneratingAiBiographyObs$.next(true);
           this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+          }, 100);
         }
       });
     }
@@ -725,6 +728,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.descriptionSourceInSavedDraft = 1;
         this.generateAndPatchBiographyPayload();
         this.useAiBiography = false;
+        break;
       }
 
       case 'closeToBackgroundButtonText': {
@@ -747,6 +751,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.showDialog$.next(false);
         this.contentCreationStep = 1;
         this.initDoneOnce = false;
+        console.log('CANCEL GENERATE');
         break;
       }
 
@@ -755,6 +760,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.contentCreationStep = 1;
         this.keywordsSelectedDraft = this.keywordsSelectedFromBackEnd;
         this.initDoneOnce = false;
+        this.useAiBiography = false;
+        console.log('CANCEL');
         break;
       }
 
@@ -762,6 +769,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         //this.biographyService.biographyGenerationOngoing.next(false);
         this.showDialog$.next(false);
         this.contentCreationStep = 1;
+        this.keywordsSelectedDraft = this.keywordsSelectedFromBackEnd;
+        this.initDoneOnce = false;
+        this.useAiBiography = false;
+        console.log('DEFAULT');
         break;
       }
     }

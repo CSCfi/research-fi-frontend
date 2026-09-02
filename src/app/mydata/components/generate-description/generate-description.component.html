@@ -7,7 +7,7 @@
       <div class="d-flex justify-content-end">
         <app-tertiary-button
                 class="switch-choices-button"
-                [content]="(savedDraftBiographiesObs$.getValue().fi.length < 1 && savedDraftBiographiesObs$.getValue().en.length < 1 && savedDraftBiographiesObs$.getValue().sv.length < 1) ? selectString : editString"
+                [content]="(this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1) ? selectString : editString"
                 [announce]="hasSelectedItems"
                 [announceText]="data?.label + ' ' + noPublicDataText"
                 [disabled]="(biographyGenerationOngoing$ | async) === true"
@@ -20,7 +20,7 @@
   </div>
 
   <!-- Content (not modal) -->
-  <div *ngIf="savedDraftBiographiesObs$.getValue().fi.length < 1 && savedDraftBiographiesObs$.getValue().en.length < 1 && savedDraftBiographiesObs$.getValue().sv.length < 1"
+  <div *ngIf="this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1"
        class="row pt-2 pb-3 justify-content-between">
     <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0"
          i18n="@@youHaveNotSelectedAnyPublicData">
@@ -28,29 +28,29 @@
     </div>
   </div>
 
-  <div *ngIf="(savedDraftBiographiesObs$.getValue().fi.length > 0 || savedDraftBiographiesObs$.getValue().en.length > 0 || savedDraftBiographiesObs$.getValue().sv.length > 0)"
+  <div *ngIf="(this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0)"
        class="row">
     <div class="mb-2 d-flex flex-row font-weight-500">{{ languageVersionsTitle }}:
       <div class="lang-tab-button"
-           [ngClass]="{'selected': (selectedLanguageTab === 0), 'disabled': savedDraftBiographiesObs$.getValue().fi.length < 1}"
+           [ngClass]="{'selected': (selectedLanguageTab === 0), 'disabled': this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1}"
            tabindex="0"
            role="button"
-           (keydown.enter)="savedDraftBiographiesObs$.getValue().fi.length > 0 ? setSelectLanguageTab(0) : undefined"
-           (click)="savedDraftBiographiesObs$.getValue().fi.length > 0 ? setSelectLanguageTab(0) : undefined">
+           (keydown.enter)="this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 ? setSelectLanguageTab(0) : undefined"
+           (click)="this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 ? setSelectLanguageTab(0) : undefined">
         FI
       </div>
       <div class="lang-tab-button"
-           [ngClass]="{'selected': (selectedLanguageTab === 1), 'disabled': savedDraftBiographiesObs$.getValue().en.length < 1}"
+           [ngClass]="{'selected': (selectedLanguageTab === 1), 'disabled': this.biographyService.visibleDraftBiographies$.getValue().en.length < 1}"
            role="button"
-           (keydown.enter)="savedDraftBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1) : undefined"
-           (click)="savedDraftBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1) : undefined">
+           (keydown.enter)="this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 ? setSelectLanguageTab(1) : undefined"
+           (click)="this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 ? setSelectLanguageTab(1) : undefined">
         EN
       </div>
       <div class="lang-tab-button"
-           [ngClass]="{'selected': (selectedLanguageTab === 2), 'disabled': savedDraftBiographiesObs$.getValue().sv.length < 1}"
+           [ngClass]="{'selected': (selectedLanguageTab === 2), 'disabled': this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1}"
            role="button"
-           (keydown.enter)="savedDraftBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2) : undefined"
-           (click)="savedDraftBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2) : undefined">
+           (keydown.enter)="this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0 ? setSelectLanguageTab(2) : undefined"
+           (click)="this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0 ? setSelectLanguageTab(2) : undefined">
         SV
       </div>
     </div>
@@ -59,13 +59,13 @@
 
   <div class="row pt-2 pb-3 justify-content-between">
     <div *ngIf="selectedLanguageTab === 0">
-      <div class="biography-text">{{ savedDraftBiographiesObs$.getValue().fi }}</div>
+      <div class="biography-text">{{ this.biographyService.visibleDraftBiographies$.getValue().fi }}</div>
     </div>
     <div *ngIf="selectedLanguageTab === 1">
-      <div class="biography-text">{{ savedDraftBiographiesObs$.getValue().en }}</div>
+      <div class="biography-text">{{ this.biographyService.visibleDraftBiographies$.getValue().en }}</div>
     </div>
     <div *ngIf="selectedLanguageTab === 2">
-      <div class="biography-text">{{ savedDraftBiographiesObs$.getValue().sv }}</div>
+      <div class="biography-text">{{ this.biographyService.visibleDraftBiographies$.getValue().sv }}</div>
     </div>
   </div>
 
@@ -82,10 +82,10 @@
       <app-svg-sprites [iconName]="'create-new-diamond'"
                        cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
     </div>
-    <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[dropdownLanguageSelection] }}</div>
+    <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[biographyService.dropdownLanguageSelection] }}</div>
   </div>
 
-  @if ((((generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((biographyGenerationOngoing$ | async) === false) && ((biographyReadyDismissed$ | async) === false))) {
+  @if ((((this.biographyService.generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((biographyGenerationOngoing$ | async) === false) && ((biographyService.biographyReadyDismissed$ | async) === false))) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
@@ -104,7 +104,7 @@
     </div>
   }
 
-  @if ((((isBiographyAiGeneratedObs$ | async) === true && generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && ((showDialog$ | async) === false) && (savedDraftBiographiesObs$.getValue().fi.length < 1 || savedDraftBiographiesObs$.getValue().en.length < 1 || savedDraftBiographiesObs$.getValue().sv.length < 1)) && (savedDraftBiographiesObs$.getValue().fi.length > 0 || savedDraftBiographiesObs$.getValue().en.length > 0 || savedDraftBiographiesObs$.getValue().sv.length > 0)) {
+  @if ((((isBiographyAiGeneratedObs$ | async) === true && this.biographyService.generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && ((showDialog$ | async) === false) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1)) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0)) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
@@ -121,24 +121,6 @@
       </div>
     </div>
   }
-
-  <!--<div class="language-versions-info-box"
-       *ngIf="(translationsRequested$ | async) === true  && (isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$| async) && !(svTranslationOngoing$ | async) && (userEditableBiographiesObs$.getValue().en.length > 0 && langVersionEnUsed$.getValue() === false) && (userEditableBiographiesObs$.getValue().sv.length > 0 && langVersionSvUsed$.getValue() === false)">
-    <div class="d-flex flex-row additional-info-wrap">
-      <div class="info-circle-wrap d-flex flex-column">
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
-      </div>
-
-      <div>
-        <h3>{{ languageVersionsGenerationDone }}</h3>
-        <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
-        <app-secondary-button (keydown.enter)="openDialog('selectLanguageVersions')"
-                              (click)="openDialog('selectLanguageVersions')"
-                              content="{{selectLanguageVersionsText}}"></app-secondary-button>
-      </div>
-    </div>
-  </div>-->
-
 
   <!-- Editor modal -->
   <ng-template #editorTemplate>
@@ -178,45 +160,39 @@
                     <div class="col-9 d-flex flex-row">
                       <div class="d-flex flex-row font-weight-500 justify-content-start">
                         <div [class.hasContent]="(this.userEditableBiographiesObs$ | async)?.fi?.length > 0"
-                             [class.selected]="this.dropdownLanguageSelection === 0" class="modal-lang-select-button"
-                             [class.disabled]="this.dropdownLanguageSelection !== 0 && biographyGenerationOngoing$ | async"
+                             [class.selected]="this.biographyService.dropdownLanguageSelection === 0" class="modal-lang-select-button"
+                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 0 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(0)" (click)="selectDescriptionLanguageAi(0)">
                           <app-svg-sprites [class.d-none]="(this.userEditableBiographiesObs$ | async)?.fi?.length < 1"
                                            [iconName]="'checked-button-icon'"
-                                           [cssClass]="this.dropdownLanguageSelection === 0 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
+                                           [cssClass]="this.biographyService.dropdownLanguageSelection === 0 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
                           FI
                         </div>
                         <div class="modal-lang-select-button"
                              [class.hasContent]="(this.userEditableBiographiesObs$ | async)?.en?.length > 0"
-                             [class.selected]="this.dropdownLanguageSelection === 2"
-                             [class.disabled]="this.dropdownLanguageSelection !== 2 && biographyGenerationOngoing$ | async"
+                             [class.selected]="this.biographyService.dropdownLanguageSelection === 2"
+                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 2 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(2)" (click)="selectDescriptionLanguageAi(2)">
                           <app-svg-sprites [class.d-none]="(this.userEditableBiographiesObs$ | async)?.en?.length < 1"
                                            [iconName]="'checked-button-icon'"
-                                           [cssClass]="this.dropdownLanguageSelection === 2 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
+                                           [cssClass]="this.biographyService.dropdownLanguageSelection === 2 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
                           EN
                         </div>
                         <div class="modal-lang-select-button"
                              [class.hasContent]="(this.userEditableBiographiesObs$ | async)?.sv?.length > 0"
-                             [class.selected]="this.dropdownLanguageSelection === 1"
-                             [class.disabled]="this.dropdownLanguageSelection !== 1 && biographyGenerationOngoing$ | async"
+                             [class.selected]="this.biographyService.dropdownLanguageSelection === 1"
+                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 1 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(1)" (click)="selectDescriptionLanguageAi(1)">
                           <app-svg-sprites [class.d-none]="(this.userEditableBiographiesObs$ | async)?.sv?.length < 1"
                                            [iconName]="'checked-button-icon'"
-                                           [cssClass]="this.dropdownLanguageSelection === 1 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
+                                           [cssClass]="this.biographyService.dropdownLanguageSelection === 1 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
                           SV
-                        </div>
-                        <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true && translationsRequested$.getValue() === true && (userEditableBiographiesObs$.getValue().fi?.length > 0 || userEditableBiographiesObs$.getValue().en?.length > 0 || userEditableBiographiesObs$.getValue().sv?.length > 0)"
-                             role="button" class="select-language-button"
-                             tabindex="0" (keydown.enter)="openDialog('selectLanguageVersions')"
-                             (click)="openDialog('selectLanguageVersions')">
-                          {{ selectLanguageVersionsText }}
                         </div>
                       </div>
                     </div>
@@ -229,7 +205,7 @@
                     <app-svg-sprites [iconName]="'create-new-diamond'"
                                      cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
                   </div>
-                  <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[dropdownLanguageSelection] }}</div>
+                  <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[biographyService.dropdownLanguageSelection] }}</div>
                 </div>
               </div>
 
@@ -262,7 +238,7 @@
                     <div class="col-9 d-flex flex-column">
                       <textarea aria-labelledby="biography-label" class="bio-textarea ai-text-area" rows="6"
                                 [(ngModel)]="biographyModalTextAreaValue"
-                                (keyup)="biographyFieldTextChange(dropdownLanguageSelection, true)">{{ biographyModalTextAreaValue }}</textarea>
+                                (keyup)="biographyFieldTextChange(biographyService.dropdownLanguageSelection, true)">{{ biographyModalTextAreaValue }}</textarea>
                       <div class="d-flex flex-row textarea-info-bottom">
                         <div class="d-flex flex-column justify-content-center">
                           <app-svg-sprites [iconName]="'info'"
@@ -341,12 +317,6 @@
                              (keydown.enter)="selectDescriptionLanguageNotAi(2)"
                              (click)="selectDescriptionLanguageNotAi(2)">
                           SV
-                        </div>
-                        <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true && translationsRequested$.getValue() === true && (userEditableBiographiesObs$.getValue().fi?.length > 0 || userEditableBiographiesObs$.getValue().en?.length > 0 || userEditableBiographiesObs$.getValue().sv?.length > 0)"
-                             role="button" class="select-language-button"
-                             tabindex="0" (keydown.enter)="openDialog('selectLanguageVersions')"
-                             (click)="openDialog('selectLanguageVersions')">
-                          {{ selectLanguageVersionsText }}
                         </div>
                       </div>
                     </div>
