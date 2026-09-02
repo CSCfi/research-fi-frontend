@@ -28,7 +28,7 @@ export class SimpleDropdownComponent {
   @Input() defaultLabel: string = '';
   @Input() options: string[];
   @Input() selection: number = -1;
-  @Input() activeInOpenMenu: number = 0;
+  @Input() activeInOpenMenu: number = -1;
   @Input() disabled: boolean;
   @Output() onSelected = new EventEmitter();
   @ViewChild('selectButtonRef', { static: true }) selectButtonRef: ElementRef;
@@ -62,11 +62,10 @@ export class SimpleDropdownComponent {
       this.menuOpen = false;
     }
     if (event.code === 'Enter') {
-
       if (!this.menuOpen) {
         this.menuOpen = true;
       } else {
-        this.selection = this.activeInOpenMenu;
+        this.select(this.activeInOpenMenu);
         this.menuOpen = false;
       }
     }

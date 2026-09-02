@@ -454,6 +454,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
                 previewItem.value = previewItem.researchDescriptionEn;
               }
 
+              previewItem.value = previewItem.researchDescriptionFi + '\n\n - - - - - \n\n' + previewItem.researchDescriptionEn +  '\n\n - - - - - \n\n' + previewItem.researchDescriptionSv;
+
               // Hide item with empty text content, otherwise empty section with caption is shown in profile view
               patchItem.itemMeta.show = this.useAiBiography;
               if (previewItem.researchDescriptionFi.length < 1 && previewItem.researchDescriptionEn.length < 1 && previewItem.researchDescriptionSv.length < 1) {
