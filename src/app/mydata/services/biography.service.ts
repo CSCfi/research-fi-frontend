@@ -112,7 +112,7 @@ export class BiographyService implements OnDestroy {
     return new Promise(resolve => setTimeout(resolve, time, val));
   }
 
-  public async generateBiography(angLowerCase: string): Promise<any> {
+  public async generateBiography(langLowerCase: string): Promise<any> {
     const mockBiography = 'Tämä on demotarkoituksiin luotu tutkimustoiminnan kuvaus, joka sisältää tietoja affiliaatioista, tuotoksista, saavutuksista ja aktiviteeteista. Se kuvaa asiantuntijan uraa ja motivaatioita.';
       await this.updateToken();
       this.biographyGenerationOngoing.next(true);
