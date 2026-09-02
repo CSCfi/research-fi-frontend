@@ -147,7 +147,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     this.disableDialogClose = false;
   }
 
-  doDialogAction(action: string) {
+  async doDialogAction(action: string) {
     this.dialog.closeAll();
     this.dialogTitle = '';
     this.showDialog = false;
@@ -155,8 +155,11 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
 
     switch (action) {
       case 'publish': {
-        this.draftService.publish();
-        this.biographyService.updateData();
+        await this.draftService.publish();
+        // Aritificial timeout to mitigate profile not yet updated in back end
+        setTimeout(() => {
+          this.biographyService.updateData();
+        }, 500);
         break;
       }
       case 'discard': {
