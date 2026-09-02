@@ -44,6 +44,9 @@ export class BiographyService implements OnDestroy {
   public biographyGenerationError = new BehaviorSubject<any>(undefined);
 
 
+  public visibleDraftBiographies = new BehaviorSubject<any>({ fi: '', en: '', sv: '', itemMeta: undefined });
+  public generateBiographyRequested$ = new BehaviorSubject<boolean>(false);
+
   /*  setErrorMessage(errorMessage: string) {
       this.errorHandlerService.updateError({
         message: errorMessage,
