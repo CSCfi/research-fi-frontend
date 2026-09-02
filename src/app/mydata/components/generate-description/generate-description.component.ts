@@ -179,6 +179,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   dialogActions = [];
 
   descriptionSource = -1;
+  descriptionSourceInSavedDraft = -1;
   selectedLanguageNotAi = 0;
   selectedLanguageTab = 0;
 
@@ -286,6 +287,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   openDialog(dialogName: string) {
+    console.log('openDialog', dialogName);
     if (dialogName === 'review') {
       this.selectDescriptionSource(0);
       this.biographyReadyDismissed$.next(true);
@@ -301,8 +303,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   initBiographies() {
-    const previousVisibleBios = this.savedDraftBiographiesObs$.getValue();
-
     this.savedDraftBiographies = this.savedDraftBiographiesObs$.asObservable();
 
     this.selectedKeywordsValues = [];
@@ -359,7 +359,11 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
               this.selectDescriptionSource(0);
             } else {
               this.isBiographyAiGeneratedObs$.next(false);
-              this.selectDescriptionSource(-1);
+              if (this.descriptionSourceInSavedDraft !== -1) {
+                  this.selectDescriptionSource(this.descriptionSourceInSavedDraft);
+                } else {
+                this.selectDescriptionSource(-1);
+              }
             }
           }
         } else {
@@ -377,6 +381,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             this.selectDescriptionSource(1);
             this.selectedNotAiBiographyIndex = itemIndex;
             this.selectedNotAiBiographyItem = item;
+          } else {
+            if (this.descriptionSourceInSavedDraft !== -1) {
+              this.selectDescriptionSource(this.descriptionSourceInSavedDraft);
+            }
           }
         }
         // Shared for old api and Ai generated
@@ -575,27 +583,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.showDialog$.next(false);
           this.showDraftSaveSuccessNotification();
         });*/
-  }
-
-  saveLanguageVersions() {
-    let patchBiographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
-
-    patchBiographyStub.fi = this.userEditableBiographiesObs$.getValue().fi;
-    this.langVersionEnUsed$.next(true);
-    patchBiographyStub.en = this.userEditableBiographiesObs$.getValue().en;
-
-    this.langVersionSvUsed$.next(true);
-    patchBiographyStub.sv = this.userEditableBiographiesObs$.getValue().sv;
-    patchBiographyStub.itemMeta = this.userEditableBiographiesObs$.getValue().itemMeta;
-
-
-    // Update biography texts
-    this.biographyService.updateBiography(patchBiographyStub).then();
-    //this.aiGeneratedBiographiesObs$.next(patchBiographyStub);
-    this.savedDraftBiographiesObs$.next(patchBiographyStub);
-
-    // Add to payload
-    this.generateAndPatchBiographyPayload();
+    this.descriptionSourceInSavedDraft = 0;
   }
 
   deleteSelectedDescription() {
@@ -618,6 +606,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     if (this.descriptionSource === 1) {
       this.dialogActions = [...this.dialogActionsAddDescriptionNotAi];
     } else {
+      this.useAiBiography = true;
       if (this.biographyService.isBiographyGenerationOngoing()) {
         this.dialogActions = [...this.dialogActionsCreateDescription];
         this.contentCreationStep = 2;
@@ -733,6 +722,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.showDialog$.next(false);
         this.contentCreationStep = 1;
         this.selectDescriptionSource(1);
+        this.descriptionSourceInSavedDraft = 1;
         this.generateAndPatchBiographyPayload();
         this.useAiBiography = false;
       }
@@ -749,15 +739,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       case 'saveChanges': {
         this.saveAiBioChanges();
         this.isBiographyAiGeneratedObs$.next(true);
-        break;
-      }
-
-      case 'saveLanguageVersions': {
-        this.saveLanguageVersions();
-        this.isBiographyAiGeneratedObs$.next(true);
-        this.showDialog$.next(false);
-        this.contentCreationStep = 1;
-        //TODO: reload data and patched items
         break;
       }
 
