@@ -234,6 +234,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!this.biographyService.isBiographyGenerationOngoing()) {
       this.initBiographies();
+    } else {
+      // Navigated back from outside the component. Need to subscribe to results.
+      this.generateBiography();
     }
 
     // Biography generation finished
@@ -618,7 +621,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     // Deleting is needed for UI check mark state update
     this.deleteSelectedDescription();
 
-    this.biographyService.generateBiography(selectedLanguageAbbreviations[this.biographyService.dropdownLanguageSelection]).then();
+    // Generate only if not already ongoing. In any case subscribe to old ongoing value, if for example navigated back from other page
+    if (this.biographyService.biographyGenerationOngoing.getValue() !== true) {
+      this.biographyService.generateBiography(selectedLanguageAbbreviations[this.biographyService.dropdownLanguageSelection]).then();
+    }
 
     this.biographyGenerationErrorSub = this.biographyService.biographyGenerationError.subscribe(error => {
       if (error) {
@@ -628,27 +634,31 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       }
     });
     this.finishedGeneratingAiBiographyObs$.next(false);
+
     if (this.biographyService.dropdownLanguageSelection === 0) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
         if (onGoing === false) {
-          const generatedBiographyFi = cloneDeep(this.biographyService.generatedBiographyData.getValue());
-          this.userEditableBiographiesObs$.next({
-            fi: generatedBiographyFi,
-            en: this.userEditableBiographiesObs$.getValue().en,
-            sv: this.userEditableBiographiesObs$.getValue().sv,
-            itemMeta: this.userEditableBiographiesObs$.getValue().itemMeta
-          });
-          this.biographyModalTextAreaValue = generatedBiographyFi;
+          setTimeout(() => {
+            const generatedBiographyFi= cloneDeep(this.biographyService.generatedBiographyData.getValue());
+            this.userEditableBiographiesObs$.next({
+              fi: generatedBiographyFi,
+              en: this.userEditableBiographiesObs$.getValue().en,
+              sv: this.userEditableBiographiesObs$.getValue().sv,
+              itemMeta: this.userEditableBiographiesObs$.getValue().itemMeta
+            });
+            this.biographyModalTextAreaValue = generatedBiographyFi;
 
-          this.selectDescriptionLanguageAi(0);
-          this.contentCreationStep = 3;
-          this.finishedGeneratingAiBiographyObs$.next(true);
-          this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+            this.selectDescriptionLanguageAi(0);
+            this.contentCreationStep = 3;
+            this.finishedGeneratingAiBiographyObs$.next(true);
+            this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+          }, 100);
         }
       });
     } else if (this.biographyService.dropdownLanguageSelection === 1) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
         if (onGoing === false) {
+          setTimeout(() => {
           const generatedBiographySv = cloneDeep(this.biographyService.generatedBiographyDataSv.getValue());
           this.userEditableBiographiesObs$.next({
             fi: this.userEditableBiographiesObs$.getValue().fi,
@@ -662,11 +672,13 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.contentCreationStep = 3;
           this.finishedGeneratingAiBiographyObs$.next(true);
           this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+          }, 100);
         }
       });
     } else if (this.biographyService.dropdownLanguageSelection === 2) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
         if (onGoing === false) {
+          setTimeout(() => {
           const generatedBiographyEn = cloneDeep(this.biographyService.generatedBiographyDataEn.getValue());
 
           this.userEditableBiographiesObs$.next({
@@ -681,6 +693,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.contentCreationStep = 3;
           this.finishedGeneratingAiBiographyObs$.next(true);
           this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+          }, 100);
         }
       });
     }
