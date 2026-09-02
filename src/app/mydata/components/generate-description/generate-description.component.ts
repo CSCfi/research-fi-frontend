@@ -187,7 +187,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   keywordsSelectedDraft = false;
   keywordsSourceLocalized = '';
 
-  useMockData = false;
   selectedKeywordsStr = '';
   selectedKeywordsValues = [];
   selectedKeywordsShowItemMetas = [];
@@ -619,7 +618,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     // Deleting is needed for UI check mark state update
     this.deleteSelectedDescription();
 
-    this.biographyService.generateBiography(this.useMockData, selectedLanguageAbbreviations[this.biographyService.dropdownLanguageSelection]).then();
+    this.biographyService.generateBiography(selectedLanguageAbbreviations[this.biographyService.dropdownLanguageSelection]).then();
 
     this.biographyGenerationErrorSub = this.biographyService.biographyGenerationError.subscribe(error => {
       if (error) {

@@ -112,43 +112,19 @@ export class BiographyService implements OnDestroy {
     return new Promise(resolve => setTimeout(resolve, time, val));
   }
 
-  public async generateBiography(isMock: boolean, langLowerCase: string): Promise<any> {
+  public async generateBiography(angLowerCase: string): Promise<any> {
     const mockBiography = 'Tämä on demotarkoituksiin luotu tutkimustoiminnan kuvaus, joka sisältää tietoja affiliaatioista, tuotoksista, saavutuksista ja aktiviteeteista. Se kuvaa asiantuntijan uraa ja motivaatioita.';
-    if (isMock) {
-      this.biographyGenerationOngoing.next(true);
-      return this.artificialDelayResolve(3000, mockBiography).then(() => {
-        this.generatedBiographyData.next(mockBiography);
-        this.biographyGenerationOngoing.next(false);
-      });
-    } else {
       await this.updateToken();
-      if (langLowerCase === 'fi') {
-        this.biographyGenerationOngoing.next(true);
-      } else if (langLowerCase === 'en') {
-        this.biographyGenerationOngoing.next(true);
-      } else if (langLowerCase === 'sv') {
-        this.biographyGenerationOngoing.next(true);
-      }
-
+      this.biographyGenerationOngoing.next(true);
       try {
         await lastValueFrom(this.http.get(this.apiUrl + '/biography/generate/' + langLowerCase, this.httpOptions)).then(async (result: any) => {
-          if (langLowerCase === 'fi') {
-            this.generatedBiographyData.next(result?.contentText);
-            this.biographyGenerationOngoing.next(false);
-          } else if (langLowerCase === 'en') {
-            this.generatedBiographyDataEn.next(result?.contentText);
-            this.biographyGenerationOngoing.next(false);
-          } else if (langLowerCase === 'sv') {
-            this.generatedBiographyDataSv.next(result?.contentText);
-            this.biographyGenerationOngoing.next(false);
-          }
+          this.biographyGenerationOngoing.next(false);
         });
 
       } catch (err) {
         this.biographyGenerationError.next(err);
         this.biographyGenerationError.next(undefined);
       }
-    }
   }
 
   public async getBiographyHttp(): Promise<any> {
