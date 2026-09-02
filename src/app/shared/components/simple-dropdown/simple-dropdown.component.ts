@@ -15,7 +15,10 @@ import { NgClass } from '@angular/common';
     NgClass
   ],
   templateUrl: './simple-dropdown.component.html',
-  styleUrl: './simple-dropdown.component.scss'
+  styleUrl: './simple-dropdown.component.scss',
+  host: {
+    '(keyup)': 'keyFunc($event)',
+  },
 })
 
 export class SimpleDropdownComponent {
@@ -52,7 +55,6 @@ export class SimpleDropdownComponent {
     }
   }
 
-  @HostListener('document:keyup', ['$event'])
   keyFunc(event) {
     event.stopPropagation();
     if (event.code === 'Tab') {
