@@ -10,7 +10,7 @@
                 [content]="(this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1) ? selectString : editString"
                 [announce]="hasSelectedItems"
                 [announceText]="data?.label + ' ' + noPublicDataText"
-                [disabled]="(biographyGenerationOngoing$ | async) === true"
+                [disabled]="(this.biographyService.biographyGenerationOngoing | async) === true"
                 [svgSymbolName]="'edit'"
                 [svgCssClass]="'open_in_new-icon button-icon'"
                 (click)="openDialog('generate')"
@@ -77,7 +77,7 @@
   </div>
 
   <div class="language-versions-info-box"
-       *ngIf="(biographyGenerationOngoing$ | async) === true && ((showDialog$ | async) === false)">
+       *ngIf="(this.biographyService.biographyGenerationOngoing | async) === true && ((showDialog$ | async) === false)">
     <div class="d-flex flex-row justify-content-center mt-2">
       <app-svg-sprites [iconName]="'create-new-diamond'"
                        cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
@@ -85,7 +85,7 @@
     <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[biographyService.dropdownLanguageSelection] }}</div>
   </div>
 
-  @if ((((this.biographyService.generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((biographyGenerationOngoing$ | async) === false) && ((biographyService.biographyReadyDismissed$ | async) === false))) {
+  @if ((((this.biographyService.generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((biographyService.biographyReadyDismissed$ | async) === false))) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
@@ -104,7 +104,7 @@
     </div>
   }
 
-  @if ((((isBiographyAiGeneratedObs$ | async) === true && this.biographyService.generateBiographyRequested$ | async) === false && ((biographyGenerationOngoing$ | async) === false) && ((showDialog$ | async) === false) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1)) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0)) {
+  @if ((((isBiographyAiGeneratedObs$ | async) === true && this.biographyService.generateBiographyRequested$ | async) === false && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((showDialog$ | async) === false) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1)) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0)) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
@@ -142,7 +142,7 @@
                                            (onSelected)="selectDescriptionSource($event)"
                                            aria-labelledby="datasource-label"
                                            [defaultLabel]="selectDefaultLabel"
-                                           [disabled]="biographyGenerationOngoing$ | async"></app-simple-dropdown>
+                                           [disabled]="this.biographyService.biographyGenerationOngoing | async"></app-simple-dropdown>
                     </div>
                     @if (descriptionSource === 0) {
                       <div class="col-3"></div>
@@ -161,7 +161,7 @@
                       <div class="d-flex flex-row font-weight-500 justify-content-start">
                         <div [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.fi?.length > 0"
                              [class.selected]="this.biographyService.dropdownLanguageSelection === 0" class="modal-lang-select-button"
-                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 0 && biographyGenerationOngoing$ | async"
+                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 0 && this.biographyService.biographyGenerationOngoing | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(0)" (click)="selectDescriptionLanguageAi(0)">
@@ -173,7 +173,7 @@
                         <div class="modal-lang-select-button"
                              [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.en?.length > 0"
                              [class.selected]="this.biographyService.dropdownLanguageSelection === 2"
-                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 2 && biographyGenerationOngoing$ | async"
+                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 2 && this.biographyService.biographyGenerationOngoing | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(2)" (click)="selectDescriptionLanguageAi(2)">
@@ -185,7 +185,7 @@
                         <div class="modal-lang-select-button"
                              [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.sv?.length > 0"
                              [class.selected]="this.biographyService.dropdownLanguageSelection === 1"
-                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 1 && biographyGenerationOngoing$ | async"
+                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 1 && this.biographyService.biographyGenerationOngoing | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(1)" (click)="selectDescriptionLanguageAi(1)">
@@ -199,7 +199,7 @@
                   </div>
                 </div>
 
-                <div *ngIf="biographyGenerationOngoing$ | async"
+                <div *ngIf="this.biographyService.biographyGenerationOngoing | async"
                      class="content-container d-flex flex-grow-1 flex-column justify-content-center diamond-container">
                   <div class="d-flex flex-row justify-content-center">
                     <app-svg-sprites [iconName]="'create-new-diamond'"
@@ -210,7 +210,7 @@
               </div>
 
               <div *ngIf="descriptionSource === 0">
-                <div *ngIf="contentCreationStep === 3 && !(biographyGenerationOngoing$ | async)"
+                <div *ngIf="contentCreationStep === 3 && !(this.biographyService.biographyGenerationOngoing | async)"
                      class="content-container">
 
                     <div class="row gx-0 ai-bio-section-wrap" [class.d-none]="((this.biographyService.userEditableBiographies$ | async)?.fi?.length > 0) || ((this.biographyService.userEditableBiographies$ | async)?.en?.length > 0) || ((this.biographyService.userEditableBiographies$ | async)?.sv?.length > 0)">
@@ -223,7 +223,7 @@
                                                 content="{{generateNewDescriptionButtonText}}"
                                                 [svgSymbolName]="'create-new-diamond'"
                                                 [svgCssClass]="'create-new-diamond-icon'"
-                                                [disabled]="biographyGenerationOngoing$ | async"
+                                                [disabled]="this.biographyService.biographyGenerationOngoing | async"
                           ></app-secondary-button>
                         </div>
                       </div>
@@ -260,13 +260,13 @@
                                               content="{{generateNewDescriptionButtonText}}"
                                               [svgSymbolName]="'create-new-diamond'"
                                               [svgCssClass]="'create-new-diamond-icon'"
-                                              [disabled]="biographyGenerationOngoing$ | async"
+                                              [disabled]="this.biographyService.biographyGenerationOngoing | async"
                         ></app-secondary-button>
                         <app-tertiary-button (click)="deleteSelectedDescription()"
                                              content="{{deleteDescriptionButtonText}}"
                                              [svgSymbolName]="'delete'"
                                              [svgCssClass]="'delete-icon-button'"
-                                             [disabled]="(biographyModalTextAreaValue?.length < 1) && (biographyGenerationOngoing$ | async)"
+                                             [disabled]="(biographyModalTextAreaValue?.length < 1) && (this.biographyService.biographyGenerationOngoing | async)"
                                              class="ms-4 d-flex"></app-tertiary-button>
                       </div>
                       <div class="use-description-checkbox-container">

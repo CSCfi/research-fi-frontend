@@ -203,10 +203,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   isBiographyAiGeneratedObs$ = new BehaviorSubject(false);
 
-  finishedGeneratingAiBiographyObs$ = new BehaviorSubject(false);
-
-  biographyGenerationOngoing$ = this.biographyService.biographyGenerationOngoing;
-
   initDoneOnce = false;
 
   private biographyGenerationOngoingSub: Subscription;
@@ -238,7 +234,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     }
 
     // Biography generation finished
-    this.biographyGenerationOngoing$.subscribe(response => {
+    this.biographyService.biographyGenerationOngoing.subscribe(response => {
       if (response === false) {
         this.dialogActions = [...this.dialogActionsCreateNewDescriptionAiFinished];
         this.contentCreationStep = 3;
@@ -512,7 +508,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   selectDescriptionLanguageAi(input) {
-    if (this.biographyGenerationOngoing$.getValue() !== true) {
+    if (this.biographyService.biographyGenerationOngoing.getValue() !== true) {
       if (input === 0) {
         this.biographyModalTextAreaValue = this.biographyService.userEditableBiographies$.getValue().fi;
       }
@@ -626,7 +622,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.biographyGenerationErrorSub.unsubscribe();
       }
     });
-    this.finishedGeneratingAiBiographyObs$.next(false);
 
     if (this.biographyService.dropdownLanguageSelection === 0) {
       this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
@@ -643,7 +638,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
             this.selectDescriptionLanguageAi(0);
             this.contentCreationStep = 3;
-            this.finishedGeneratingAiBiographyObs$.next(true);
             this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
           }, 100);
         }
@@ -663,7 +657,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
           this.selectDescriptionLanguageAi(1);
           this.contentCreationStep = 3;
-          this.finishedGeneratingAiBiographyObs$.next(true);
           this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
           }, 100);
         }
@@ -684,7 +677,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
           this.selectDescriptionLanguageAi(2);
           this.contentCreationStep = 3;
-          this.finishedGeneratingAiBiographyObs$.next(true);
           this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
           }, 100);
         }
