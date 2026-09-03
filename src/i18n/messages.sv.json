@@ -1280,6 +1280,8 @@
         "aitta_selectInformationToDisplayInProfile": "Välj uppgifter att publicera i din profil.",
         "aitta_useDescriptionButtonText": "Använd beskrivning",
         "aitta_youCanGenerateMultipleLanguageVersions": "Du kan skapa flera språkversioner av beskrivningen",
-        "aitta_youHaveNotSelectedAnyPublicData": "Du har ännu inte valt den information som ska publiceras"
+        "aitta_youHaveNotSelectedAnyPublicData": "Du har ännu inte valt den information som ska publiceras",
+        "aitta_error_noinformation": "Din offentliga profil har inte tillräckligt med information för att skapa en beskrivning.",
+        "aitta_error_noinformation_info": "Komplettera din profil och publicera den. Du kan sedan skapa en beskrivning."
     }
 }

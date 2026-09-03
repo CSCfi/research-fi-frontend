@@ -427,15 +427,11 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
               previewItem.researchDescriptionEn = this.biographyService.userEditableBiographies$.getValue().en;
               previewItem.researchDescriptionSv = this.biographyService.userEditableBiographies$.getValue().sv;
 
-              if (this.capitalizedLocale === 'Fi') {
-                previewItem.value = previewItem.researchDescriptionFi;
-              } else if (this.capitalizedLocale === 'Sv') {
-                previewItem.value = previewItem.researchDescriptionSv;
-              } else if (this.capitalizedLocale === 'En') {
-                previewItem.value = previewItem.researchDescriptionEn;
-              }
+              previewItem.value = '';
+              previewItem.researchDescriptionFi.length > 0 ? previewItem.value += (previewItem.researchDescriptionFi + '\n\n - - - - - \n\n') : '';
+              previewItem.researchDescriptionSv.length > 0 ? previewItem.value += (previewItem.researchDescriptionSv + '\n\n - - - - - \n\n') : '';
+              previewItem.researchDescriptionEn.length > 0 ? previewItem.value += previewItem.researchDescriptionEn : '';
 
-              previewItem.value = previewItem.researchDescriptionFi + '\n\n - - - - - \n\n' + previewItem.researchDescriptionEn +  '\n\n - - - - - \n\n' + previewItem.researchDescriptionSv;
 
               const tempDescFi = previewItem.researchDescriptionFi + '\n\n - - - - - \n\n';
 
@@ -492,9 +488,17 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     );
   }
 
-  showBiographyGenerationFailedNotification(): void {
+  showBiographyGenerationTimeoutNotification(): void {
     this.snackbarService.show(
       $localize`:@@aitta_errorTimeout:Tutkimustoiminnan kuvauksen luonti epäonnistui. Yhteys aikakatkaistiin.`,
+      'error'
+    );
+  }
+
+  showBiographyGenerationNotEnoughInfoNotification(): void {
+    this.snackbarService.show(
+      $localize`:@@aitta_error_noinformation:Julkisessa profiilissasi ei ole riittävästi tietoja kuvauksen luomiseksi.` + ' ' +
+      $localize`:@@aitta_error_noinformation_info:Täydennä profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen.`,
       'error'
     );
   }
@@ -617,7 +621,15 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
     this.biographyGenerationErrorSub = this.biographyService.biographyGenerationError.subscribe(error => {
       if (error) {
-        this.showBiographyGenerationFailedNotification();
+        this.biographyService.biographyReadyDismissed$.next(true);
+        console.log('error', error);
+        //TODO: check error codes
+        if (error?.error === 'Profile does not have enough published items.') {
+          this.showBiographyGenerationNotEnoughInfoNotification();
+        }
+        else {
+          this.showBiographyGenerationTimeoutNotification();
+        }
         this.biographyService.biographyGenerationOngoing.next(false);
         this.biographyGenerationErrorSub.unsubscribe();
       }
@@ -639,7 +651,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             this.selectDescriptionLanguageAi(0);
             this.contentCreationStep = 3;
             this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
-          }, 100);
+          }, 500);
         }
       });
     } else if (this.biographyService.dropdownLanguageSelection === 1) {
@@ -658,7 +670,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.selectDescriptionLanguageAi(1);
           this.contentCreationStep = 3;
           this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
-          }, 100);
+          }, 500);
         }
       });
     } else if (this.biographyService.dropdownLanguageSelection === 2) {
@@ -678,7 +690,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.selectDescriptionLanguageAi(2);
           this.contentCreationStep = 3;
           this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
-          }, 100);
+          }, 500);
         }
       });
     }
