@@ -47,6 +47,7 @@ export class BiographyService implements OnDestroy {
   public visibleDraftBiographies$ = new BehaviorSubject<any>({ fi: '', en: '', sv: '', itemMeta: undefined });
   public generateBiographyRequested$ = new BehaviorSubject<boolean>(false);
   public biographyReadyDismissed$ = new BehaviorSubject(false);
+  public userEditableBiographies$ = new BehaviorSubject({ fi: '', en: '', sv: '', itemMeta: undefined });
   public dropdownLanguageSelection = 0;
 
   /*  setErrorMessage(errorMessage: string) {
