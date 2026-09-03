@@ -159,37 +159,37 @@
                     </div>
                     <div class="col-9 d-flex flex-row">
                       <div class="d-flex flex-row font-weight-500 justify-content-start">
-                        <div [class.hasContent]="(this.userEditableBiographiesObs$ | async)?.fi?.length > 0"
+                        <div [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.fi?.length > 0"
                              [class.selected]="this.biographyService.dropdownLanguageSelection === 0" class="modal-lang-select-button"
                              [class.disabled]="this.biographyService.dropdownLanguageSelection !== 0 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(0)" (click)="selectDescriptionLanguageAi(0)">
-                          <app-svg-sprites [class.d-none]="(this.userEditableBiographiesObs$ | async)?.fi?.length < 1"
+                          <app-svg-sprites [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.fi?.length < 1"
                                            [iconName]="'checked-button-icon'"
                                            [cssClass]="this.biographyService.dropdownLanguageSelection === 0 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
                           FI
                         </div>
                         <div class="modal-lang-select-button"
-                             [class.hasContent]="(this.userEditableBiographiesObs$ | async)?.en?.length > 0"
+                             [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.en?.length > 0"
                              [class.selected]="this.biographyService.dropdownLanguageSelection === 2"
                              [class.disabled]="this.biographyService.dropdownLanguageSelection !== 2 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(2)" (click)="selectDescriptionLanguageAi(2)">
-                          <app-svg-sprites [class.d-none]="(this.userEditableBiographiesObs$ | async)?.en?.length < 1"
+                          <app-svg-sprites [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.en?.length < 1"
                                            [iconName]="'checked-button-icon'"
                                            [cssClass]="this.biographyService.dropdownLanguageSelection === 2 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
                           EN
                         </div>
                         <div class="modal-lang-select-button"
-                             [class.hasContent]="(this.userEditableBiographiesObs$ | async)?.sv?.length > 0"
+                             [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.sv?.length > 0"
                              [class.selected]="this.biographyService.dropdownLanguageSelection === 1"
                              [class.disabled]="this.biographyService.dropdownLanguageSelection !== 1 && biographyGenerationOngoing$ | async"
                              role="button"
                              tabindex="0"
                              (keydown.enter)="selectDescriptionLanguageAi(1)" (click)="selectDescriptionLanguageAi(1)">
-                          <app-svg-sprites [class.d-none]="(this.userEditableBiographiesObs$ | async)?.sv?.length < 1"
+                          <app-svg-sprites [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.sv?.length < 1"
                                            [iconName]="'checked-button-icon'"
                                            [cssClass]="this.biographyService.dropdownLanguageSelection === 1 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
                           SV
@@ -213,7 +213,7 @@
                 <div *ngIf="contentCreationStep === 3 && !(biographyGenerationOngoing$ | async)"
                      class="content-container">
 
-                    <div class="row gx-0 ai-bio-section-wrap" [class.d-none]="((this.userEditableBiographiesObs$ | async)?.fi?.length > 0) || ((this.userEditableBiographiesObs$ | async)?.en?.length > 0) || ((this.userEditableBiographiesObs$ | async)?.sv?.length > 0)">
+                    <div class="row gx-0 ai-bio-section-wrap" [class.d-none]="((this.biographyService.userEditableBiographies$ | async)?.fi?.length > 0) || ((this.biographyService.userEditableBiographies$ | async)?.en?.length > 0) || ((this.biographyService.userEditableBiographies$ | async)?.sv?.length > 0)">
                       <div class="col-3 d-flex flex-column font-weight-500">
                         <label class="biography-label mt-2">Luo kuvaus:</label>
                       </div>
@@ -230,7 +230,7 @@
                     </div>
 
                   <!-- Bio text areas -->
-                  <div [class.d-none]="((this.userEditableBiographiesObs$ | async)?.fi?.length < 1) && ((this.userEditableBiographiesObs$ | async)?.en?.length < 1) && ((this.userEditableBiographiesObs$ | async)?.sv?.length < 1)">
+                  <div [class.d-none]="((this.biographyService.userEditableBiographies$ | async)?.fi?.length < 1) && ((this.biographyService.userEditableBiographies$ | async)?.en?.length < 1) && ((this.biographyService.userEditableBiographies$ | async)?.sv?.length < 1)">
                   <div class="row gx-0">
                     <div class="col-3 d-flex flex-column font-weight-500">
                       <label class="biography-label mt-2">{{ editDescriptionLabel }}:</label>
@@ -367,17 +367,17 @@
                   <div class="col-4 d-flex flex-column">
                     <label class="biography-label">{{ editDescriptionLabelFi }}</label>
                     <textarea name="descriptionFi" rows="15" cols="33"
-                              (change)="biographyFieldTextChange(0, false)">{{ userEditableBiographiesObs$.getValue().fi }}</textarea>
+                              (change)="biographyFieldTextChange(0, false)">{{ this.biographyService.userEditableBiographies$.getValue().fi }}</textarea>
                   </div>
                   <div class="col-4 d-flex flex-column">
                     <label class="biography-label">{{ editDescriptionLabelEn }}</label>
                     <textarea name="descriptionEn" rows="5" cols="33"
-                              (change)="biographyFieldTextChange(1, false)">{{ userEditableBiographiesObs$.getValue().en }}</textarea>
+                              (change)="biographyFieldTextChange(1, false)">{{ this.biographyService.userEditableBiographies$.getValue().en }}</textarea>
                   </div>
                   <div class="col-4 d-flex flex-column">
                     <label id="use-keywords-label-sv" class="biography-label">{{ editDescriptionLabelSv }}</label>
                     <textarea name="descriptionSv" rows="5" cols="33"
-                              (change)="biographyFieldTextChange(2, false)">{{ userEditableBiographiesObs$.getValue().sv }}</textarea>
+                              (change)="biographyFieldTextChange(2, false)">{{ this.biographyService.userEditableBiographies$.getValue().sv }}</textarea>
                   </div>
                 </div>
               </div>
