@@ -492,9 +492,17 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     );
   }
 
-  showBiographyGenerationFailedNotification(): void {
+  showBiographyGenerationTimeoutNotification(): void {
     this.snackbarService.show(
       $localize`:@@aitta_errorTimeout:Tutkimustoiminnan kuvauksen luonti epäonnistui. Yhteys aikakatkaistiin.`,
+      'error'
+    );
+  }
+
+  showBiographyGenerationNotEnoughInfoNotification(): void {
+    this.snackbarService.show(
+      $localize`:@@aitta_error_noinformation:Julkisessa profiilissasi ei ole riittävästi tietoja kuvauksen luomiseksi.` + ' ' +
+      $localize`:@@aitta_error_noinformation_info:Täydennä profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen.`,
       'error'
     );
   }
@@ -617,7 +625,14 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
     this.biographyGenerationErrorSub = this.biographyService.biographyGenerationError.subscribe(error => {
       if (error) {
-        this.showBiographyGenerationFailedNotification();
+        console.log('error', error);
+        //TODO: check error codes
+        if (error?.error === 'Profile does not have enough published items.') {
+          this.showBiographyGenerationNotEnoughInfoNotification();
+        }
+        else {
+          this.showBiographyGenerationTimeoutNotification();
+        }
         this.biographyService.biographyGenerationOngoing.next(false);
         this.biographyGenerationErrorSub.unsubscribe();
       }
