@@ -84,8 +84,8 @@
     </div>
     <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[biographyService.dropdownLanguageSelection] }}</div>
   </div>
-
-  @if ((((this.biographyService.generateBiographyRequested$ | async) === true) && ((showDialog$ | async) === false) && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((biographyService.biographyReadyDismissed$ | async) === false))) {
+  
+  @if ((((this.biographyService.generateBiographyFetchedToUi$ | async) === false) && ((showDialog$ | async) === false) && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((biographyService.biographyReadyDismissed$ | async) === false))) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
@@ -104,7 +104,7 @@
     </div>
   }
 
-  @if ((((isBiographyAiGeneratedObs$ | async) === true && this.biographyService.generateBiographyRequested$ | async) === false && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((showDialog$ | async) === false) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1)) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0)) {
+  @if ((((biographyService.isBiographyAiGeneratedObs$ | async) === true && this.biographyService.generateBiographyFetchedToUi$ | async) === true && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((showDialog$ | async) === false) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1)) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0)) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
