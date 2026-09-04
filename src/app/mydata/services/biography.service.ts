@@ -45,10 +45,12 @@ export class BiographyService implements OnDestroy {
 
 
   public visibleDraftBiographies$ = new BehaviorSubject<any>({ fi: '', en: '', sv: '', itemMeta: undefined });
-  public generateBiographyRequested$ = new BehaviorSubject<boolean>(false);
+  public generateBiographyFetchedToUi$ = new BehaviorSubject<boolean>(true);
   public biographyReadyDismissed$ = new BehaviorSubject(false);
   public userEditableBiographies$ = new BehaviorSubject({ fi: '', en: '', sv: '', itemMeta: undefined });
+  public isBiographyAiGeneratedObs$ = new BehaviorSubject(false);
   public dropdownLanguageSelection = 0;
+  public latestGeneratedBiographyText = '';
 
   /*  setErrorMessage(errorMessage: string) {
       this.errorHandlerService.updateError({
@@ -129,6 +131,7 @@ export class BiographyService implements OnDestroy {
             this.generatedBiographyDataSv.next(result?.contentText);
             this.biographyGenerationOngoing.next(false);
           }
+          this.latestGeneratedBiographyText = result?.contentText;
         });
 
       } catch (err) {
