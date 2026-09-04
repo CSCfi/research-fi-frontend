@@ -153,46 +153,62 @@
                   </div>
 
                   <!-- Lang selection AI generated -->
-                  <div *ngIf="descriptionSource !== -1 && descriptionSource !== 1" class="row gx-0 my-3">
+                  <div *ngIf="descriptionSource !== -1 && descriptionSource !== 1" class="row gx-0 mt-3">
                     <div class="col-3 d-flex flex-column justify-content-center font-weight-500">
                       <label>{{ selectDescriptionLanguageTitle }}:</label>
                     </div>
                     <div class="col-9 d-flex flex-row">
-                      <div class="d-flex flex-row font-weight-500 justify-content-start">
-                        <div [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.fi?.length > 0"
-                             [class.selected]="this.biographyService.dropdownLanguageSelection === 0" class="modal-lang-select-button"
-                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 0 && this.biographyService.biographyGenerationOngoing | async"
-                             role="button"
-                             tabindex="0"
-                             (keydown.enter)="selectDescriptionLanguageAi(0)" (click)="selectDescriptionLanguageAi(0)">
-                          <app-svg-sprites [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.fi?.length < 1"
-                                           [iconName]="'checked-button-icon'"
-                                           [cssClass]="this.biographyService.dropdownLanguageSelection === 0 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
-                          FI
+                      <div class="d-flex flex-row justify-content-between w-100">
+                        <div class="d-flex flex-row font-weight-500 justify-content-start">
+                          <div [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.fi?.length > 0"
+                               [class.selected]="this.biographyService.dropdownLanguageSelection === 0"
+                               class="modal-lang-select-button"
+                               [class.disabled]="this.biographyService.dropdownLanguageSelection !== 0 && this.biographyService.biographyGenerationOngoing | async"
+                               role="button"
+                               tabindex="0"
+                               (keydown.enter)="selectDescriptionLanguageAi(0)"
+                               (click)="selectDescriptionLanguageAi(0)">
+                            <app-svg-sprites
+                                    [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.fi?.length < 1"
+                                    [iconName]="'checked-button-icon'"
+                                    [cssClass]="this.biographyService.dropdownLanguageSelection === 0 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
+                            FI
+                          </div>
+                          <div class="modal-lang-select-button"
+                               [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.en?.length > 0"
+                               [class.selected]="this.biographyService.dropdownLanguageSelection === 2"
+                               [class.disabled]="this.biographyService.dropdownLanguageSelection !== 2 && this.biographyService.biographyGenerationOngoing | async"
+                               role="button"
+                               tabindex="0"
+                               (keydown.enter)="selectDescriptionLanguageAi(2)"
+                               (click)="selectDescriptionLanguageAi(2)">
+                            <app-svg-sprites
+                                    [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.en?.length < 1"
+                                    [iconName]="'checked-button-icon'"
+                                    [cssClass]="this.biographyService.dropdownLanguageSelection === 2 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
+                            EN
+                          </div>
+                          <div class="modal-lang-select-button"
+                               [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.sv?.length > 0"
+                               [class.selected]="this.biographyService.dropdownLanguageSelection === 1"
+                               [class.disabled]="this.biographyService.dropdownLanguageSelection !== 1 && this.biographyService.biographyGenerationOngoing | async"
+                               role="button"
+                               tabindex="0"
+                               (keydown.enter)="selectDescriptionLanguageAi(1)"
+                               (click)="selectDescriptionLanguageAi(1)">
+                            <app-svg-sprites
+                                    [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.sv?.length < 1"
+                                    [iconName]="'checked-button-icon'"
+                                    [cssClass]="this.biographyService.dropdownLanguageSelection === 1 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
+                            SV
+                          </div>
                         </div>
-                        <div class="modal-lang-select-button"
-                             [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.en?.length > 0"
-                             [class.selected]="this.biographyService.dropdownLanguageSelection === 2"
-                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 2 && this.biographyService.biographyGenerationOngoing | async"
-                             role="button"
-                             tabindex="0"
-                             (keydown.enter)="selectDescriptionLanguageAi(2)" (click)="selectDescriptionLanguageAi(2)">
-                          <app-svg-sprites [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.en?.length < 1"
-                                           [iconName]="'checked-button-icon'"
-                                           [cssClass]="this.biographyService.dropdownLanguageSelection === 2 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
-                          EN
-                        </div>
-                        <div class="modal-lang-select-button"
-                             [class.hasContent]="(this.biographyService.userEditableBiographies$ | async)?.sv?.length > 0"
-                             [class.selected]="this.biographyService.dropdownLanguageSelection === 1"
-                             [class.disabled]="this.biographyService.dropdownLanguageSelection !== 1 && this.biographyService.biographyGenerationOngoing | async"
-                             role="button"
-                             tabindex="0"
-                             (keydown.enter)="selectDescriptionLanguageAi(1)" (click)="selectDescriptionLanguageAi(1)">
-                          <app-svg-sprites [class.d-none]="(this.biographyService.userEditableBiographies$ | async)?.sv?.length < 1"
-                                           [iconName]="'checked-button-icon'"
-                                           [cssClass]="this.biographyService.dropdownLanguageSelection === 1 ? 'checked-button-icon' : 'checked-button-icon reverse-colors'"></app-svg-sprites>
-                          SV
+                        <div class="use-description-checkbox-container">
+                          <mat-checkbox aria-labelledby="biography-lang-versions-id"
+                                        [checked]="!useAiBiography" color="primary"
+                                        (change)="useAiBiography = !useAiBiography">
+                            {{ hideDescriptionsFromProfile }}
+                          </mat-checkbox>
                         </div>
                       </div>
                     </div>
@@ -213,48 +229,12 @@
                 <div *ngIf="contentCreationStep === 3 && !(this.biographyService.biographyGenerationOngoing | async)"
                      class="content-container">
 
-                    <div class="row gx-0 ai-bio-section-wrap" [class.d-none]="((this.biographyService.userEditableBiographies$ | async)?.fi?.length > 0) || ((this.biographyService.userEditableBiographies$ | async)?.en?.length > 0) || ((this.biographyService.userEditableBiographies$ | async)?.sv?.length > 0)">
-                      <div class="col-3 d-flex flex-column font-weight-500">
-                        <label class="biography-label mt-2">Luo kuvaus:</label>
-                      </div>
-                      <div class="col-9 d-flex flex-column">
-                        <div class="d-flex flex-row justify-content-start">
-                          <app-secondary-button (click)="generateBiography()"
-                                                content="{{generateNewDescriptionButtonText}}"
-                                                [svgSymbolName]="'create-new-diamond'"
-                                                [svgCssClass]="'create-new-diamond-icon'"
-                                                [disabled]="this.biographyService.biographyGenerationOngoing | async"
-                          ></app-secondary-button>
-                        </div>
-                      </div>
-                    </div>
-
-                  <!-- Bio text areas -->
-                  <div [class.d-none]="((this.biographyService.userEditableBiographies$ | async)?.fi?.length < 1) && ((this.biographyService.userEditableBiographies$ | async)?.en?.length < 1) && ((this.biographyService.userEditableBiographies$ | async)?.sv?.length < 1)">
-                  <div class="row gx-0">
+                  <div class="row gx-0 ai-bio-section-wrap"
+                       [class.d-none]="((this.biographyService.userEditableBiographies$ | async)?.fi?.length > 0) || ((this.biographyService.userEditableBiographies$ | async)?.en?.length > 0) || ((this.biographyService.userEditableBiographies$ | async)?.sv?.length > 0)">
                     <div class="col-3 d-flex flex-column font-weight-500">
-                      <label class="biography-label mt-2">{{ editDescriptionLabel }}:</label>
+                      <label class="biography-label mt-2">Luo kuvaus:</label>
                     </div>
                     <div class="col-9 d-flex flex-column">
-                      <textarea aria-labelledby="biography-label" class="bio-textarea ai-text-area" rows="6"
-                                [(ngModel)]="biographyModalTextAreaValue"
-                                (keyup)="biographyFieldTextChange(biographyService.dropdownLanguageSelection, true)">{{ biographyModalTextAreaValue }}</textarea>
-                      <div class="d-flex flex-row textarea-info-bottom">
-                        <div class="d-flex flex-column justify-content-center">
-                          <app-svg-sprites [iconName]="'info'"
-                                           cssClass="info-icon text-area-bottom-info"></app-svg-sprites>
-                        </div>
-                        <div>
-                          <div class="info-text-paragraph">{{ aiGeneratedTextMayContainErrors }}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <br/>
-                  <div class="d-flex flex-row justify-content-between mb-1">
-                    <div class="col-3"></div>
-                    <div class="col-9 d-flex justify-content-between">
                       <div class="d-flex flex-row justify-content-start">
                         <app-secondary-button (click)="generateBiography()"
                                               content="{{generateNewDescriptionButtonText}}"
@@ -262,22 +242,52 @@
                                               [svgCssClass]="'create-new-diamond-icon'"
                                               [disabled]="this.biographyService.biographyGenerationOngoing | async"
                         ></app-secondary-button>
-                        <app-tertiary-button (click)="deleteSelectedDescription()"
-                                             content="{{deleteDescriptionButtonText}}"
-                                             [svgSymbolName]="'delete'"
-                                             [svgCssClass]="'delete-icon-button'"
-                                             [disabled]="(biographyModalTextAreaValue?.length < 1) && (this.biographyService.biographyGenerationOngoing | async)"
-                                             class="ms-4 d-flex"></app-tertiary-button>
-                      </div>
-                      <div class="use-description-checkbox-container">
-                        <mat-checkbox aria-labelledby="biography-lang-versions-id"
-                                      [checked]="useAiBiography" color="primary"
-                                      (change)="useAiBiography = !useAiBiography">
-                          {{ useAiBiographyText }}
-                        </mat-checkbox>
                       </div>
                     </div>
                   </div>
+
+                  <!-- Bio text areas -->
+                  <div [class.d-none]="((this.biographyService.userEditableBiographies$ | async)?.fi?.length < 1) && ((this.biographyService.userEditableBiographies$ | async)?.en?.length < 1) && ((this.biographyService.userEditableBiographies$ | async)?.sv?.length < 1)">
+                    <div class="row gx-0">
+                      <div class="col-3 d-flex flex-column font-weight-500">
+                        <label class="biography-label mt-2">{{ editDescriptionLabel }}:</label>
+                      </div>
+                      <div class="col-9 d-flex flex-column">
+                      <textarea aria-labelledby="biography-label" class="bio-textarea ai-text-area" rows="6"
+                                [(ngModel)]="biographyModalTextAreaValue"
+                                (keyup)="biographyFieldTextChange(biographyService.dropdownLanguageSelection, true)">{{ biographyModalTextAreaValue }}</textarea>
+                        <div class="d-flex flex-row textarea-info-bottom">
+                          <div class="d-flex flex-column justify-content-center">
+                            <app-svg-sprites [iconName]="'info'"
+                                             cssClass="info-icon text-area-bottom-info"></app-svg-sprites>
+                          </div>
+                          <div>
+                            <div class="info-text-paragraph">{{ aiGeneratedTextMayContainErrors }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br/>
+                    <div class="d-flex flex-row justify-content-between mb-1">
+                      <div class="col-3"></div>
+                      <div class="col-9 d-flex justify-content-between">
+                        <div class="d-flex flex-row justify-content-start">
+                          <app-secondary-button (click)="generateBiography()"
+                                                content="{{generateNewDescriptionButtonText}}"
+                                                [svgSymbolName]="'create-new-diamond'"
+                                                [svgCssClass]="'create-new-diamond-icon'"
+                                                [disabled]="this.biographyService.biographyGenerationOngoing | async"
+                          ></app-secondary-button>
+                          <app-tertiary-button (click)="deleteSelectedDescription()"
+                                               content="{{deleteDescriptionButtonText}}"
+                                               [svgSymbolName]="'delete'"
+                                               [svgCssClass]="'delete-icon-button'"
+                                               [disabled]="(biographyModalTextAreaValue?.length < 1) && (this.biographyService.biographyGenerationOngoing | async)"
+                                               class="ms-4 d-flex"></app-tertiary-button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

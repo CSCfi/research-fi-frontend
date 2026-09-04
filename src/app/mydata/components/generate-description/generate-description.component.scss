@@ -112,7 +112,7 @@
     flex-direction: column;
     max-width: 980px;
     width: 100%;
-    min-height: 538px;
+    min-height: 527px;
     background: #E8E8F5;
     border-radius: 6px;
     padding: 0px 16px 16px 16px;
@@ -191,7 +191,11 @@
   }
 
   .use-description-checkbox-container {
-    width: 160px;
+    width: 255px;
+    font-weight: 500;
+    label {
+      padding-left: 0 !important;
+    }
   }
 
   .fade-in-image {
