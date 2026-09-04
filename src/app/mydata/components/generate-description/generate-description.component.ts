@@ -171,7 +171,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     }
   ];
 
-  useAiBiographyText = $localize`:@@aitta_useDescriptionButtonText:Käytä kuvausta`;
+  hideDescriptionsFromProfile = $localize`:@@aitta_hideDescriptionsFromProfile:Piilota kuvaukset profiilista`;
   useAiBiography = false;
 
   generatingDescriptionInfoText = [$localize`:@@aitta_generatingDescriptionInFinnish:Luodaan kuvausta suomeksi. Tämä voi viedä pari minuuttia.`, $localize`:@@aitta_generatingDescriptionInSwedish:Luodaan kuvausta ruotsiksi. Tämä voi viedä pari minuuttia.`, $localize`:@@aitta_generatingDescriptionInEnglish:Luodaan kuvausta englanniksi. Tämä voi viedä pari minuuttia.`];
@@ -286,7 +286,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   initBiographies() {
-
     this.selectedKeywordsValues = [];
     this.selectedKeywordsShowItemMetas = [];
     this.selectedKeywordsHideItemMetas = [];
@@ -326,6 +325,17 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         itemIndex += 1;
         // Ai generated biography exists
         if (item.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
+          if (item.itemMeta.show === true) {
+            this.isBiographyAiGeneratedObs$.next(true);
+            this.selectDescriptionSource(0);
+          } else {
+            this.isBiographyAiGeneratedObs$.next(false);
+            if (this.descriptionSourceInSavedDraft !== -1) {
+              this.selectDescriptionSource(this.descriptionSourceInSavedDraft);
+            } else {
+              this.selectDescriptionSource(-1);
+            }
+          }
           //this.aiGeneratedBiographyExists = true;
           // User has not edited biography yet, so fetch ai generated biography
           if (this.biographyService.userEditableBiographies$.getValue().fi.length < 1 && this.biographyService.userEditableBiographies$.getValue().en.length < 1 && this.biographyService.userEditableBiographies$.getValue().sv.length < 1) {
@@ -334,18 +344,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             this.aiBiographiesFromBackend['sv'] = item?.researchDescriptionSv;
             this.aiBiographiesFromBackend['itemMeta'] = item?.itemMeta;
             this.biographyService.userEditableBiographies$.next(this.aiBiographiesFromBackend);
-
-            if (item.itemMeta.show === true) {
-              this.isBiographyAiGeneratedObs$.next(true);
-              this.selectDescriptionSource(0);
-            } else {
-              this.isBiographyAiGeneratedObs$.next(false);
-              if (this.descriptionSourceInSavedDraft !== -1) {
-                  this.selectDescriptionSource(this.descriptionSourceInSavedDraft);
-                } else {
-                this.selectDescriptionSource(-1);
-              }
-            }
           }
         } else {
           // Add biographies from not ai sources
@@ -392,7 +390,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.biographyModalTextAreaValue = this.biographyService.userEditableBiographies$.getValue().fi;
     this.initLanguageSelectDefaultValue();
     this.initDoneOnce = true;
   };
@@ -635,65 +632,67 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (this.biographyService.dropdownLanguageSelection === 0) {
-      this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
-        if (onGoing === false) {
-          setTimeout(() => {
-            const generatedBiographyFi= cloneDeep(this.biographyService.generatedBiographyData.getValue());
-            this.biographyService.userEditableBiographies$.next({
-              fi: generatedBiographyFi,
-              en: this.biographyService.userEditableBiographies$.getValue().en,
-              sv: this.biographyService.userEditableBiographies$.getValue().sv,
-              itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
-            });
-            this.biographyModalTextAreaValue = generatedBiographyFi;
+    setTimeout(() => {
+      if (this.biographyService.dropdownLanguageSelection === 0) {
+        this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
+          if (onGoing === false) {
+            setTimeout(() => {
+              const generatedBiographyFi= cloneDeep(this.biographyService.generatedBiographyData.getValue());
+              this.biographyService.userEditableBiographies$.next({
+                fi: generatedBiographyFi,
+                en: this.biographyService.userEditableBiographies$.getValue().en,
+                sv: this.biographyService.userEditableBiographies$.getValue().sv,
+                itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
+              });
+              this.biographyModalTextAreaValue = generatedBiographyFi;
 
-            this.selectDescriptionLanguageAi(0);
-            this.contentCreationStep = 3;
-            this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
-          }, 500);
-        }
-      });
-    } else if (this.biographyService.dropdownLanguageSelection === 1) {
-      this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
-        if (onGoing === false) {
-          setTimeout(() => {
-          const generatedBiographySv = cloneDeep(this.biographyService.generatedBiographyDataSv.getValue());
-          this.biographyService.userEditableBiographies$.next({
-            fi: this.biographyService.userEditableBiographies$.getValue().fi,
-            en: this.biographyService.userEditableBiographies$.getValue().en,
-            sv: generatedBiographySv,
-            itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
-          });
-          this.biographyModalTextAreaValue = generatedBiographySv;
+              this.selectDescriptionLanguageAi(0);
+              this.contentCreationStep = 3;
+              this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+            }, 100);
+          }
+        });
+      } else if (this.biographyService.dropdownLanguageSelection === 1) {
+        this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
+          if (onGoing === false) {
+            setTimeout(() => {
+              const generatedBiographySv = cloneDeep(this.biographyService.generatedBiographyDataSv.getValue());
+              this.biographyService.userEditableBiographies$.next({
+                fi: this.biographyService.userEditableBiographies$.getValue().fi,
+                en: this.biographyService.userEditableBiographies$.getValue().en,
+                sv: generatedBiographySv,
+                itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
+              });
+              this.biographyModalTextAreaValue = generatedBiographySv;
 
-          this.selectDescriptionLanguageAi(1);
-          this.contentCreationStep = 3;
-          this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
-          }, 500);
-        }
-      });
-    } else if (this.biographyService.dropdownLanguageSelection === 2) {
-      this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
-        if (onGoing === false) {
-          setTimeout(() => {
-          const generatedBiographyEn = cloneDeep(this.biographyService.generatedBiographyDataEn.getValue());
+              this.selectDescriptionLanguageAi(1);
+              this.contentCreationStep = 3;
+              this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+            }, 100);
+          }
+        });
+      } else if (this.biographyService.dropdownLanguageSelection === 2) {
+        this.biographyGenerationOngoingSub = this.biographyService.biographyGenerationOngoing.subscribe(onGoing => {
+          if (onGoing === false) {
+            setTimeout(() => {
+              const generatedBiographyEn = cloneDeep(this.biographyService.generatedBiographyDataEn.getValue());
 
-          this.biographyService.userEditableBiographies$.next({
-            fi: this.biographyService.userEditableBiographies$.getValue().fi,
-            en: generatedBiographyEn,
-            sv: this.biographyService.userEditableBiographies$.getValue().sv,
-            itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
-          });
-          this.biographyModalTextAreaValue = generatedBiographyEn;
+              this.biographyService.userEditableBiographies$.next({
+                fi: this.biographyService.userEditableBiographies$.getValue().fi,
+                en: generatedBiographyEn,
+                sv: this.biographyService.userEditableBiographies$.getValue().sv,
+                itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
+              });
+              this.biographyModalTextAreaValue = generatedBiographyEn;
 
-          this.selectDescriptionLanguageAi(2);
-          this.contentCreationStep = 3;
-          this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
-          }, 500);
-        }
-      });
-    }
+              this.selectDescriptionLanguageAi(2);
+              this.contentCreationStep = 3;
+              this.biographyGenerationOngoingSub ? this.biographyGenerationOngoingSub.unsubscribe() : undefined;
+            }, 100);
+          }
+        });
+      }
+    }, 100);
   }
 
   setSelectedNotAiBiographyIndex(index: number) {

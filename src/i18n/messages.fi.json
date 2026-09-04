@@ -1282,6 +1282,7 @@
         "aitta_youCanGenerateMultipleLanguageVersions": "Voit luoda kuvauksesta useita kieliversioita",
         "aitta_youHaveNotSelectedAnyPublicData": "Et ole vielä valinnut julkaistavia tietoja",
         "aitta_error_noinformation": "Julkisessa profiilissasi ei ole riittävästi tietoja kuvauksen luomiseksi.",
-        "aitta_error_noinformation_info": "Täydennä profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen."
+        "aitta_error_noinformation_info": "Täydennä profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen.",
+        "aitta_hideDescriptionsFromProfile": "Piilota kuvaukset profiilista"
     }
 }
