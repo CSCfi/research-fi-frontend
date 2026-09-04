@@ -1280,7 +1280,8 @@
         "aitta_youCanGenerateMultipleLanguageVersions": "You can create multiple language versions of the description",
         "aitta_youHaveNotSelectedAnyPublicData": "You haven't selected any information to publish yet",
         "aitta_error_noinformation": "Your public profile doesn't have enough information to create a description.",
-        "aitta_error_noinformation_info": "Complete your profile and publish it. You can then create a description."
+        "aitta_error_noinformation_info": "Complete your profile and publish it. You can then create a description.",
+        "aitta_hideDescriptionsFromProfile": "Hide descriptions from profile"
     }
 }
 
