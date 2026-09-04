@@ -332,8 +332,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             this.isBiographyAiGeneratedObs$.next(false);
             if (this.descriptionSourceInSavedDraft !== -1) {
               this.selectDescriptionSource(this.descriptionSourceInSavedDraft);
-            } else {
-              this.selectDescriptionSource(-1);
             }
           }
           //this.aiGeneratedBiographyExists = true;
@@ -353,6 +351,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             sv: item?.researchDescriptionSv ?? '',
             itemMeta: item?.itemMeta
           };
+
           this.notAiBiographies.push(biographyStub);
 
           // This makes currently active checked in listing
@@ -420,17 +419,23 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
             if (previewItem.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
               let patchItem = cloneDeep(previewItem);
               // Show or hide ai generated
+
+              let previewItems = [];
+
               previewItem.researchDescriptionFi = this.biographyService.userEditableBiographies$.getValue().fi;
               previewItem.researchDescriptionEn = this.biographyService.userEditableBiographies$.getValue().en;
               previewItem.researchDescriptionSv = this.biographyService.userEditableBiographies$.getValue().sv;
 
-              previewItem.value = '';
-              previewItem.researchDescriptionFi.length > 0 ? previewItem.value += (previewItem.researchDescriptionFi + '\n\n - - - - - \n\n') : '';
-              previewItem.researchDescriptionSv.length > 0 ? previewItem.value += (previewItem.researchDescriptionSv + '\n\n - - - - - \n\n') : '';
-              previewItem.researchDescriptionEn.length > 0 ? previewItem.value += previewItem.researchDescriptionEn : '';
-
-
-              const tempDescFi = previewItem.researchDescriptionFi + '\n\n - - - - - \n\n';
+              if (previewItem.researchDescriptionFi.length > 0) {
+                previewItems.push(previewItem.researchDescriptionFi);
+              }
+              if (previewItem.researchDescriptionSv.length > 0) {
+                previewItems.push(previewItem.researchDescriptionSv);
+              }
+              if (previewItem.researchDescriptionEn.length > 0) {
+                previewItems.push(previewItem.researchDescriptionEn);
+              }
+              previewItem.value = previewItems.join('\n\n - - - - - \n\n');
 
               // Hide item with empty text content, otherwise empty section with caption is shown in profile view
               patchItem.itemMeta.show = this.useAiBiography;
@@ -619,7 +624,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.biographyGenerationErrorSub = this.biographyService.biographyGenerationError.subscribe(error => {
       if (error) {
         this.biographyService.biographyReadyDismissed$.next(true);
-        console.log('error', error);
         //TODO: check error codes
         if (error?.error === 'Profile does not have enough published items.') {
           this.showBiographyGenerationNotEnoughInfoNotification();
