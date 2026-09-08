@@ -1,0 +1,23 @@
+.modal-template-wrap {
+  .modal-header {
+    padding: 1rem;
+  }
+
+  .dialog-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+    margin-top: 5px;
+  }
+
+  .visual-dialog .mat-mdc-dialog-content {
+    max-height: 85vh !important;
+  }
+
+  @media (max-width: 991px) {
+    .responsive-dialog .no-actions {
+      max-height: 100vh !important;
+    }
+  }
+
+}
+

@@ -19,10 +19,11 @@ import {
 } from '@mydata/components/automatic-publishing-settings/automatic-publishing-settings.component';
 import { BehaviorSubject } from 'rxjs';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
+import { BiographyService } from '@mydata/services/biography.service';
 
 @Component({
-    selector: 'app-sticky-footer',
-    imports: [
+  selector: 'app-sticky-footer',
+  imports: [
     AsyncPipe,
     MatButton,
     PrimaryActionButtonComponent,
@@ -32,9 +33,9 @@ import { DialogEventsService } from '@shared/services/dialog-events.service';
     RouterLink,
     TertiaryButtonComponent,
     AutomaticPublishingSettingsComponent
-],
-    templateUrl: './sticky-footer.component.html',
-    styleUrl: './sticky-footer.component.scss'
+  ],
+  templateUrl: './sticky-footer.component.html',
+  styleUrl: './sticky-footer.component.scss'
 })
 export class StickyFooterComponent implements OnInit, OnDestroy {
   public accountSettingsFoldOpen = new BehaviorSubject<boolean>(false);
@@ -61,6 +62,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     public profileService: ProfileService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
+    private biographyService: BiographyService,
     public draftService: DraftService,
     public collaborationsService: CollaborationsService,
     private dialogEventService: DialogEventsService
@@ -79,7 +81,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     this.collaborationOptions = this.collaborationsService.confirmedPayload;
     this.highlightOpenness$ = this.draftService.highlightOpennessPayloadSubObs;
     this.automaticPublishing$ = this.draftService.automaticPublishingPayloadSubObs;
-    }
+  }
 
   // Dialog texts
   publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
@@ -145,7 +147,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     this.disableDialogClose = false;
   }
 
-  doDialogAction(action: string) {
+  async doDialogAction(action: string) {
     this.dialog.closeAll();
     this.dialogTitle = '';
     this.showDialog = false;
@@ -153,11 +155,16 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
 
     switch (action) {
       case 'publish': {
-        this.draftService.publish();
+        await this.draftService.publish();
+        // Aritificial timeout to mitigate profile not yet updated in back end
+        setTimeout(() => {
+          this.biographyService.updateData();
+        }, 500);
         break;
       }
       case 'discard': {
         this.draftService.clearDraftData();
+        this.biographyService.clearData();
         break;
       }
       case 'republish': {

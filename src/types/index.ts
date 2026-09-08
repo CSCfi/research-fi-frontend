@@ -84,6 +84,8 @@ export type DialogAction = {
   svgSymbolName?: string;
   svgCssClass?: string;
   iconAfter?: boolean;
+  tertiary?: boolean;
+  disabled?: boolean;
 };
 
 // MyData
