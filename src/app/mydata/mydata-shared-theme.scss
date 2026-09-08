@@ -83,6 +83,14 @@
             margin-right: 5px;
           }
         }
+        @-moz-document url-prefix() {
+          .mdc-button__label {
+            &::after {
+              margin-top: 0px;
+              align-self: center;
+            }
+          }
+        }
       }
     }
     &.error {
@@ -121,6 +129,14 @@
             margin-left: 14px;
             margin-top: 1px;
             margin-right: 5px;
+          }
+        }
+        @-moz-document url-prefix() {
+          .mdc-button__label {
+            &::after {
+              margin-top: 0px;
+              align-self: center;
+            }
           }
         }
       }
