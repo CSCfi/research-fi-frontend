@@ -14,7 +14,7 @@ export class SnackbarService {
     this.zone.run(() => {
       this.snackbar.open(message, $localize`:@@close:Sulje`, {
         panelClass: ['snackbar-container', type],
-        duration: 5000
+        duration: type === 'error' ? 10000 : type === 'warning' ? 10000 : 5000,
       });
     });
   }

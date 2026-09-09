@@ -60,6 +60,15 @@
       height: 25px;
       margin-top: -4px;
     }
+    &.text-area-bottom-info {
+      width: 17px;
+      height: 17px;
+      margin-top: -2px;
+      margin-left: 10px;
+      margin-right: 5px;
+      color: #757575 !important;
+      fill: #757575 !important;
+    }
   }
   .info-icon-transparent {
     width: 19px;
@@ -68,6 +77,19 @@
       margin-right: 7px;
       margin-top: -1px;
       margin-left: -2px;
+    }
+  }
+
+  .checked-button-icon {
+    color: #fff;
+    fill: #fff;
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+    margin-top: 10px;
+    &.reverse-colors {
+      color: #4546b9;
+      fill: #4546b9;
     }
   }
 
@@ -344,8 +366,8 @@
     &.filters-icon {
       color: #000;
       fill: #000;
-      }
     }
+  }
 
   .delete-icon-button {
     width: 18px;

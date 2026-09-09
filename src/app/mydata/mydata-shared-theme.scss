@@ -79,8 +79,16 @@
             height: 13px;
             display: flex;
             margin-left: 14px;
-            align-self: center;
+            margin-top: 1px;
             margin-right: 5px;
+          }
+        }
+        @-moz-document url-prefix() {
+          .mdc-button__label {
+            &::after {
+              margin-top: 0px;
+              align-self: center;
+            }
           }
         }
       }
@@ -119,8 +127,16 @@
             height: 13px;
             display: flex;
             margin-left: 14px;
-            align-self: center;
+            margin-top: 1px;
             margin-right: 5px;
+          }
+        }
+        @-moz-document url-prefix() {
+          .mdc-button__label {
+            &::after {
+              margin-top: 0px;
+              align-self: center;
+            }
           }
         }
       }

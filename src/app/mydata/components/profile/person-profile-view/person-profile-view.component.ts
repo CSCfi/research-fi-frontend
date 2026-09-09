@@ -11,7 +11,7 @@ import {
 import { GenerateDescriptionComponent } from '@mydata/components/generate-description/generate-description.component';
 
 @Component({
-    selector: 'app-person-profile-view',
+  selector: 'app-person-profile-view',
   imports: [
     ProfileSummaryViewComponent,
     EditorModalComponent,
@@ -22,8 +22,8 @@ import { GenerateDescriptionComponent } from '@mydata/components/generate-descri
     JsonPipe,
     GenerateDescriptionComponent
   ],
-    templateUrl: './person-profile-view.component.html',
-    styleUrl: './person-profile-view.component.scss'
+  templateUrl: './person-profile-view.component.html',
+  styleUrl: './person-profile-view.component.scss'
 })
 export class PersonProfileViewComponent {
   @Input() displayData: any;
