@@ -1,13 +1,13 @@
 @if ((contactFields | hasSelectedItems) || isEditorView) {
   <aside class="group-wrapper">
     <app-profile-editor-card-header
-      [label]="label"
-      [displayButton]="(this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems) && isEditorView"
-      (handleOpenDialog)="openDialog($event)"
+            [label]="label"
+            [displayButton]="(this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems) && isEditorView"
+            (handleOpenDialog)="openDialog($event)"
     ></app-profile-editor-card-header>
     @if (!(contactFields | hasSelectedItems) && isEditorView) {
       <app-empty-card
-        (onButtonClick)="openDialog($event)"
+              (onButtonClick)="openDialog($event)"
       ></app-empty-card>
     }
     <div class="d-block px-1 mt-3 ms-1">
@@ -17,8 +17,8 @@
             <div class="col px-0">
               @if (data[0].fields.length > 1) {
                 <span
-                  class="fw-bold d-inline-block pe-3"
-                  >{{ this.publishedFullnameLabel }}
+                        class="fw-bold d-inline-block pe-3"
+                >{{ this.publishedFullnameLabel }}
                 </span>
               }
               <span>{{this.publishedFullname}}</span>
@@ -45,8 +45,8 @@
                           @if (isEmailVisible || isEditorView) {
                             @if (fieldTypes.personEmailAddress) {
                               <a
-                                [href]="'mailto:' + item.value"
-                                >{{ item.value }}
+                                      [href]="'mailto:' + item.value"
+                              >{{ item.value }}
                               </a>
                             }
                           }
@@ -73,58 +73,58 @@
                           <!-- Links -->
                           @case (fieldTypes.personWebLink) {
                             <a
-                              target="_blank"
-                              [attr.href]="item.url"
-                              >{{ item.url }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites></a>
-                            }
+                                    target="_blank"
+                                    [attr.href]="item.url"
+                            >{{ item.url }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites></a>
                           }
-                        </div>
+                        }
                       </div>
-                    }
+                    </div>
                   }
-                </div>
+                }
               </div>
-            }
+            </div>
           }
         }
-        @for (field of contactFields; track field; let i = $index) {
-          @if (field.id === 'name') {
-            @for (item of field.items; track item) {
-              @if (item.itemMeta.show === true) {
-                <div
-                  class="row py-2"
-                  >
-                  <div class="col px-0 contact-row">
-                    @if (data[0].fields.length > 1) {
-                      <span
-                        class="fw-bold d-inline-block pe-3 text-nowrap"
-                        >{{ field.label }}
-                      </span>
-                    }
-                    <span>{{item.value}}</span>
-                  </div>
-                </div>
-              }
-            }
-          }
-          @if (field.id === 'otherNames') {
-            @if ((field.items | filter: checkGroupSelected).length) {
+      }
+      @for (field of contactFields; track field; let i = $index) {
+        @if (field.id === 'name') {
+          @for (item of field.items; track item) {
+            @if (item.itemMeta.show === true) {
               <div
-                class="row py-2"
-                >
+                      class="row py-2"
+              >
                 <div class="col px-0 contact-row">
                   @if (data[0].fields.length > 1) {
                     <span
-                      class="fw-bold d-inline-block pe-3 text-nowrap"
-                      >{{ field.label }}
-                    </span>
+                            class="fw-bold d-inline-block pe-3 text-nowrap"
+                    >{{ field.label }}
+                      </span>
                   }
-                  <span>{{ field.items | joinAllGroupItems }}</span>
+                  <span>{{item.value}}</span>
                 </div>
               </div>
             }
           }
         }
-      </div>
-    </aside>
-  }
+        @if (field.id === 'otherName') {
+          @if ((field.items | filter: checkGroupSelected).length) {
+            <div
+                    class="row py-2"
+            >
+              <div class="col px-0 contact-row">
+                @if (data[0].fields.length > 1) {
+                  <span
+                          class="fw-bold d-inline-block pe-3 text-nowrap"
+                  >{{ field.label }}
+                    </span>
+                }
+                <span>{{ field.items | joinAllGroupItems }}</span>
+              </div>
+            </div>
+          }
+        }
+      }
+    </div>
+  </aside>
+}

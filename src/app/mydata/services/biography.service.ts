@@ -38,12 +38,19 @@ export class BiographyService implements OnDestroy {
 
   public biographyGenerationOngoing = new BehaviorSubject<boolean | undefined>(undefined);
   public translationsRequested = new BehaviorSubject<boolean>(false);
-  public biographyGenerationOngoingEn = new BehaviorSubject<boolean | undefined>(undefined);
-  public biographyGenerationOngoingSv = new BehaviorSubject<boolean | undefined>(undefined);
   public clearDataRequested = new BehaviorSubject<boolean>(false);
+  public updateDataRequested = new BehaviorSubject<boolean>(false);
 
   public biographyGenerationError = new BehaviorSubject<any>(undefined);
 
+
+  public visibleDraftBiographies$ = new BehaviorSubject<any>({ fi: '', en: '', sv: '', itemMeta: undefined });
+  public generateBiographyFetchedToUi$ = new BehaviorSubject<boolean>(true);
+  public biographyReadyDismissed$ = new BehaviorSubject(false);
+  public userEditableBiographies$ = new BehaviorSubject({ fi: '', en: '', sv: '', itemMeta: undefined });
+  public isBiographyAiGeneratedObs$ = new BehaviorSubject(false);
+  public dropdownLanguageSelection = 0;
+  public latestGeneratedBiographyText = '';
 
   /*  setErrorMessage(errorMessage: string) {
       this.errorHandlerService.updateError({
@@ -91,12 +98,14 @@ export class BiographyService implements OnDestroy {
     });
   }
 
+  public updateData(){
+    this.updateDataRequested.next(true);
+  }
+
   public clearData(){
     this.clearDataRequested.next(true);
     this.translationsRequested.next(false);
     this.biographyGenerationOngoing.next(false);
-    this.biographyGenerationOngoingEn.next(false);
-    this.biographyGenerationOngoingSv.next(false);
     this.generatedBiographyData.next('');
     this.generatedBiographyDataEn.next('')
     this.generatedBiographyDataSv.next('');
@@ -106,88 +115,28 @@ export class BiographyService implements OnDestroy {
     return new Promise(resolve => setTimeout(resolve, time, val));
   }
 
-  public async generateBiography(isMock: boolean, langLowerCase: string): Promise<any> {
-    const mockBiography = 'Tämä on demotarkoituksiin luotu tutkimustoiminnan kuvaus, joka sisältää tietoja affiliaatioista, tuotoksista, saavutuksista ja aktiviteeteista. Se kuvaa asiantuntijan uraa ja motivaatioita.';
-    if (isMock) {
-      this.biographyGenerationOngoing.next(true);
-      return this.artificialDelayResolve(3000, mockBiography).then(() => {
-        this.generatedBiographyData.next(mockBiography);
+  public async generateBiography(langLowerCase: string): Promise<any> {
+    await this.updateToken();
+    this.biographyGenerationOngoing.next(true);
+    try {
+      await lastValueFrom(this.http.get(this.apiUrl + '/biography/generate/' + langLowerCase, this.httpOptions)).then(async (result: any) => {
         this.biographyGenerationOngoing.next(false);
-      });
-    } else {
-      await this.updateToken();
-      if (langLowerCase === 'fi') {
-        this.biographyGenerationOngoing.next(true);
-      } else if (langLowerCase === 'en') {
-        this.biographyGenerationOngoing.next(true);
-      } else if (langLowerCase === 'sv') {
-        this.biographyGenerationOngoing.next(true);
-      }
-
-      try {
-        await lastValueFrom(this.http.get(this.apiUrl + '/biography/generate/' + langLowerCase, this.httpOptions)).then(async (result: any) => {
-          if (langLowerCase === 'fi') {
-            this.generatedBiographyData.next(result?.contentText);
-            this.biographyGenerationOngoing.next(false);
-          } else if (langLowerCase === 'en') {
-            this.generatedBiographyDataEn.next(result?.contentText);
-            this.biographyGenerationOngoing.next(false);
-          } else if (langLowerCase === 'sv') {
-            this.generatedBiographyDataSv.next(result?.contentText);
-            this.biographyGenerationOngoing.next(false);
-          }
-        });
-
-      } catch (err) {
-        this.biographyGenerationError.next(err);
-        this.biographyGenerationError.next(undefined);
-      }
-    }
-  }
-
-  public async generateTranslationEn(textToTranslate: string, isMock: boolean): Promise<any> {
-    const enTranslationMock = 'This is a demo-generated description of research activities that includes information about affiliations, outputs, achievements, and activities. It describes the career and motivations of an expert.';
-
-    if (isMock) {
-      this.biographyGenerationOngoingEn.next(true);
-      return this.artificialDelayResolve(3000, enTranslationMock).then(() => {
-        this.generatedBiographyDataEn.next(enTranslationMock);
-        this.biographyGenerationOngoingEn.next(false);
+        if (langLowerCase === 'fi') {
+          this.generatedBiographyData.next(result?.contentText);
+          this.biographyGenerationOngoing.next(false);
+        } else if (langLowerCase === 'en') {
+          this.generatedBiographyDataEn.next(result?.contentText);
+          this.biographyGenerationOngoing.next(false);
+        } else if (langLowerCase === 'sv') {
+          this.generatedBiographyDataSv.next(result?.contentText);
+          this.biographyGenerationOngoing.next(false);
+        }
+        this.latestGeneratedBiographyText = result?.contentText;
       });
 
-    }
-    else {
-      await this.updateToken();
-      this.biographyGenerationOngoingEn.next(true);
-
-      const body = { textToTranslate: textToTranslate, targetLanguage: 'en' };
-
-      return lastValueFrom(this.http.post(this.apiUrl + '/biography/translate/', body, this.httpOptions)).then(result => {
-        this.generatedBiographyDataEn.next(result + '');
-        this.biographyGenerationOngoingEn.next(false);
-      });
-    }
-  }
-
-  public async generateTranslationSv(textToTranslate: string, isMock: boolean): Promise<any> {
-    const svTranslationMock = 'Detta är en beskrivning av forskningsverksamhet skapad för demoändamål som innehåller information om affiliationer, resultat, prestationer och aktiviteter. Den beskriver expertens karriär och motivatio';
-
-    if (isMock) {
-      this.biographyGenerationOngoingSv.next(true);
-      return this.artificialDelayResolve(3000, svTranslationMock).then(() => {
-        this.generatedBiographyDataSv.next(svTranslationMock);
-        this.biographyGenerationOngoingSv.next(false);
-      });
-    } else {
-      await this.updateToken();
-      this.biographyGenerationOngoingSv.next(true);
-
-      const body = { textToTranslate: textToTranslate, targetLanguage: 'sv' };
-
-      return lastValueFrom(this.http.post(this.apiUrl + '/biography/translate/', body, this.httpOptions)).then(result => {
-        this.generatedBiographyDataSv.next(result + '');
-        this.biographyGenerationOngoingSv.next(false);
-      });
+    } catch (err) {
+      this.biographyGenerationError.next(err);
+      this.biographyGenerationError.next(undefined);
     }
   }
 
