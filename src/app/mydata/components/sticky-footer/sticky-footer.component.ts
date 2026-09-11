@@ -156,10 +156,6 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     switch (action) {
       case 'publish': {
         await this.draftService.publish();
-        // Aritificial timeout to mitigate profile not yet updated in back end
-        setTimeout(() => {
-          this.biographyService.updateData();
-        }, 500);
         break;
       }
       case 'discard': {

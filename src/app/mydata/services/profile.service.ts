@@ -16,6 +16,7 @@ import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Constants } from '@mydata/constants';
 import { map, switchMap } from 'rxjs/operators';
+import { BiographyService } from '@mydata/services/biography.service';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,7 @@ export class ProfileService {
    * would overwrite patch payload without the flag.
    */
   profileInitialized = false;
+  public latestDataTimestamp = undefined;
 
   private editorProfileNameSource = new BehaviorSubject<string>('');
   currentEditorProfileName = this.editorProfileNameSource.asObservable();
@@ -78,8 +80,6 @@ export class ProfileService {
       });
     }
   }
-
-
 
   setErrorMessage(errorMessage: string) {
     this.errorHandlerService.updateError({
@@ -236,6 +236,7 @@ export class ProfileService {
     await this.updateToken();
     const profile: any = await firstValueFrom(this.http.get(this.apiUrl + '/profiledata/', this.httpOptions));
     if (profile.success === true) {
+      this.latestDataTimestamp = profile.data.updated;
       const resp = this.profileAdapter.adapt(profile);
       return resp;
     }
