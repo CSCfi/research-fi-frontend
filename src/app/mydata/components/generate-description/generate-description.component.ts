@@ -290,6 +290,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.selectedKeywordsValues = [];
     this.selectedKeywordsShowItemMetas = [];
     this.selectedKeywordsHideItemMetas = [];
+    this.biographyService.visibleDraftBiographies$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
 
     this.notAiBiographies = [];
     if (this.data && this.data.id === 'researchDescription') {

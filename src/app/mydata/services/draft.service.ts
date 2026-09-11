@@ -383,15 +383,15 @@ export class DraftService {
 
   async republish() {
     try {
-      const response = await this.setProfileVisible();
-      await this.pollProfile();
+      await this.setProfileVisible();
+      await this.pollProfileExists();
       this.snackbarService.showPatchMessage('success');
     } catch (error) {
       console.error(`Error in data patching`, error);
     }
   }
 
-  private async pollProfile() {
+  private async pollProfileExists() {
     let response;
     const delays = [2000, 2000, 2000, 2000, 2000, 2000, 5000, 20000];
 
@@ -403,6 +403,36 @@ export class DraftService {
       if (response != null && response?.persons?.length > 0) {
         this.publishingInProgress$.next(false);
         return; }
+    }
+  }
+
+  private async pollProfileDataIsUpdated(){
+    this.profileService.clearCurrentProfileData();
+    const lastUpdated = this.profileService.latestDataTimestamp;
+    let updateDone = false;
+
+    const delays = [50, 500, 1000, 2000, 5000];
+
+    for (const delay of delays) {
+      await lastValueFrom(timer(delay));
+      if (!updateDone) {
+        this.profileService
+          .fetchProfileDataFromBackend()
+          .then(
+            (value) => {
+              if (value) {
+                if (this.profileService.latestDataTimestamp !== lastUpdated) {
+                  this.profileService.setCurrentProfileData(
+                    cloneDeep(value.profileData)
+                  );
+                  console.log('!!!!! timestamps diff', delay);
+                  this.publishingInProgress$.next(false);
+                  this.snackbarService.showPatchMessage('success');
+                  updateDone = true;
+                }
+              }
+            });
+      }
     }
   }
 
@@ -471,20 +501,19 @@ export class DraftService {
       if (response.includes(false)) {
         this.snackbarService.showPatchMessage('error');
       } else {
-        // Wait new data available from back end
-        await this.pollProfile();
         this.clearDraftData();
         this.updatePerson();
         await this.setProfileVisible();
         this.publishingInProgress$.next(false);
-        this.snackbarService.showPatchMessage('success');
+        // Show success snackbar and update profile data, when data has been updated in back end
+        await this.pollProfileDataIsUpdated();
       }
     } catch (error) {
       this.snackbarService.showPatchMessage('error');
       console.error(`Error in data patching`, error);
     }
     //console.log('set draft profile data as current', this.draftProfileData);
-    this.profileService.setCurrentProfileData(this.getDraftProfile());
+    //this.profileService.setCurrentProfileData(this.getDraftProfile());
   }
 
   /*
