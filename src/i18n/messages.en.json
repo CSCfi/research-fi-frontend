@@ -1281,7 +1281,9 @@
         "aitta_youHaveNotSelectedAnyPublicData": "You haven't selected any information to publish yet",
         "aitta_error_noinformation": "Your public profile doesn't have enough information to create a description.",
         "aitta_error_noinformation_info": "Complete your profile and publish it. You can then create a description.",
-        "aitta_hideDescriptionsFromProfile": "Hide descriptions from profile"
+        "aitta_hideDescriptionsFromProfile": "Hide descriptions from profile",
+        "notice": "Notice",
+        "service_break_banner_text_23_9_06": "The research.fi service will undergo maintenance on Tuesday, September 23, starting at 8 am (EET). During this time, the profile tool will not be available, and the information in the portal will not be updated. We expect the maintenance to be completed by 4 pm (EET). We apologize for any inconvenience caused."
     }
 }
 
