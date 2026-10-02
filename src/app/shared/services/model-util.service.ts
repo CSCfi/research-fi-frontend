@@ -59,13 +59,14 @@ export class ModelUtilsService {
         : res;
     return res;
   }
-
-  // Renewed checkTranslation function for renewed data structure
-  checkTranslationFromArray(inputArray: Array<any>): any {
-    function getDescriptiveContent(inputArray, lang: string) {
+  // Renewed checkTranslation function for renewed data structure with custom element name
+  checkTranslationFromArrayToArray(inputArray: Array<any>, elementName?: string): any {
+    function getContentInLang(inputArray, lang: string) {
       if (inputArray && inputArray.length > 0) {
         let ret = inputArray.find(item => item?.language === lang);
-        if (UtilityService.stringHasContent(ret?.descriptiveContent)) {
+        if (elementName && elementName.length > 0 && ret && Object.hasOwn(ret, elementName)) {
+          return ret[elementName];
+        } else if ((!elementName || elementName?.length < 1) && UtilityService.stringHasContent(ret?.descriptiveContent)) {
           return ret?.descriptiveContent;
         }
         else return '';
@@ -73,46 +74,247 @@ export class ModelUtilsService {
       else return '';
     }
 
-    let ret = getDescriptiveContent(inputArray, this.localeId);
+    let ret = getContentInLang(inputArray, this.localeId);
+
     if (ret.length > 0) {
       return ret
     }
-    else {
-      switch (this.localeId) {
-        case 'fi': {
-          ret = getDescriptiveContent(inputArray, 'en');
+    switch (this.localeId) {
+      case 'fi': {
+        ret = getContentInLang(inputArray, 'fi');
+        if (ret.length > 0) {
+          return ret;
+          break;
+        } else {
+          ret = getContentInLang(inputArray, 'en');
           if (ret.length > 0) {
             return ret;
-            break;
-          } else {
-            return getDescriptiveContent(inputArray, 'sv');
             break;
           }
-          break;
+          else {
+            ret = getContentInLang(inputArray, 'sv');
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else return '';
+          }
         }
-        case 'en': {
-          ret = getDescriptiveContent(inputArray, 'fi');
+        break;
+      }
+      case 'sv': {
+        ret = getContentInLang(inputArray, 'sv');
+        if (ret.length > 0) {
+          return ret;
+          break;
+        } else {
+          ret = getContentInLang(inputArray, 'fi');
+          if (ret.length > 0) {
+            return ret;
+            break;
+          }
+          else {
+            ret = getContentInLang(inputArray, 'en');
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else return '';
+          }
+        }
+        break;
+      }
+      case 'en': {
+        ret = getContentInLang(inputArray, 'en');
+        if (ret.length > 0) {
+          return ret;
+          break;
+        } else {
+          ret = getContentInLang(inputArray, 'fi');
+          if (ret.length > 0) {
+            return ret;
+            break;
+          }
+          else {
+            ret = getContentInLang(inputArray, 'ev');
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else return '';
+          }
+        }
+        break;
+      }
+    }
+  }
+  // Renewed checkTranslation function for renewed data structure with custom element name
+  checkTranslationFromArrayToString(inputArray: Array<any>, elementName?: string): any {
+    //console.log('!!!!!!!! test translating', inputArray, elementName);
+    function getContentInLang(inputArray, lang: string) {
+      if (inputArray && inputArray.length > 0) {
+        let ret = inputArray.find(item => item?.language === lang);
+        if (elementName && elementName.length > 0 && ret && Object.hasOwn(ret, elementName)) {
+          return ret[elementName];
+        } else if ((!elementName || elementName?.length < 1) && UtilityService.stringHasContent(ret?.descriptiveContent)) {
+          return ret?.descriptiveContent;
+        }
+        else return '';
+      }
+      else return '';
+    }
+
+    let ret = getContentInLang(inputArray, this.localeId);
+
+    if (ret.length > 0) {
+      return ret
+    }
+      switch (this.localeId) {
+        case 'fi': {
+          ret = getContentInLang(inputArray, 'fi');
           if (ret.length > 0) {
             return ret;
             break;
           } else {
-            return getDescriptiveContent(inputArray, 'sv');
-            break;
+            ret = getContentInLang(inputArray, 'en');
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else {
+              ret = getContentInLang(inputArray, 'sv');
+              if (ret.length > 0) {
+                return ret;
+                break;
+              }
+              else return '';
+            }
           }
           break;
         }
         case 'sv': {
-          ret = getDescriptiveContent(inputArray, 'en');
+          ret = getContentInLang(inputArray, 'sv');
           if (ret.length > 0) {
             return ret;
             break;
           } else {
-            return getDescriptiveContent(inputArray, 'fi');
-            break;
+            ret = getContentInLang(inputArray, 'fi');
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else {
+              ret = getContentInLang(inputArray, 'en');
+              if (ret.length > 0) {
+                return ret;
+                break;
+              }
+              else return '';
+            }
           }
           break;
         }
+        case 'en': {
+          ret = getContentInLang(inputArray, 'en');
+          if (ret.length > 0) {
+            return ret;
+            break;
+          } else {
+            ret = getContentInLang(inputArray, 'fi');
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else {
+              ret = getContentInLang(inputArray, 'ev');
+              if (ret.length > 0) {
+                return ret;
+                break;
+              }
+              else return '';
+            }
+          }
+          break;
+        }
+    }
+  }
+
+  filterTranslationFromElement(inputElement: any): any {
+    let ret = '';
+    if (inputElement) {
+      switch (this.localeId) {
+        case 'fi': {
+          ret = inputElement?.fi ?? '';
+
+          if (ret.length > 0) {
+            return ret;
+            break;
+          } else {
+            ret = inputElement?.en;
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else {
+              ret = inputElement?.sv;
+              if (ret.length > 0) {
+                return ret;
+                break;
+              }
+            }
+          }
+          return ret;
+          break;
+        }
+        case 'sv': {
+          ret = inputElement?.sv ?? '';
+
+          if (ret.length > 0) {
+            return ret;
+            break;
+          } else {
+            ret = inputElement?.fi;
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else {
+              ret = inputElement?.en;
+              if (ret.length > 0) {
+                return ret;
+                break;
+              }
+            }
+          }
+          return ret;
+          break;
+        }
+        case 'en': {
+          ret = inputElement?.eb ?? '';
+
+          if (ret.length > 0) {
+            return ret;
+            break;
+          } else {
+            ret = inputElement?.fi;
+            if (ret.length > 0) {
+              return ret;
+              break;
+            }
+            else {
+              ret = inputElement?.sv;
+              if (ret.length > 0) {
+                return ret;
+                break;
+              }
+            }
+          }
+          return ret;
+          break;
+        }
       }
+      } else {
+    return ret;
     }
   }
 

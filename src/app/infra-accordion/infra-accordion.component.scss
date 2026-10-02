@@ -38,6 +38,16 @@ h3:hover::before {
   left: 0;*/
 }
 
+.infra-service-links {
+  .service-link-row {
+    margin: 15px 0px 0px 0px;
+  }
+  a {
+    font-size: 14px;
+    font-weight: normal;
+  }
+}
+
 
 .accordion-section-wrap {
   //border: 2px solid var(--purple-dark-bg);

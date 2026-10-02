@@ -21,8 +21,7 @@ export class Infrastructure {
     public endYear: string,
     public acronym: string,
     public finlandRoadmap: string,
-    public ESFRICode: string,
-    public merilCode: string,
+    public ESFRICodes: string,
     public contactName: string,
     public contactDescription: string,
     public email: string,
@@ -51,7 +50,6 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     private isa: InfraServiceAdapter,
     private utils: ModelUtilsService
   ) {}
-
 
   adapt(item: any): Infrastructure {
     const capitalizedLocale =
@@ -90,13 +88,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     }
     participantOrganizations = orgList.join(', ');
 
-    // Assign if available
-    const esfriCode =
-      item.ESFRICodes?.length > 0
-        ? item.ESFRICodes.map((x) => x.ESFRICode)[0]
-        : '';
-
-    item.services?.forEach((service) => services.push(this.isa.adapt(service)));
+    item.infraServices?.forEach((service) => services.push(this.isa.adapt(service)));
     item.fieldsOfScience?.forEach((obj) =>
       fieldsOfScience.push(this.utils.checkTranslation('name', obj))
     );
@@ -110,30 +102,29 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     const fieldsOfScienceString = fieldsOfScience?.join(', ');
 
     return new Infrastructure(
-      this.utils.checkTranslationFromArray(item.infraName),
-      this.utils.checkTranslationFromArray(item.infraName),
-      this.utils.checkTranslationFromArray(item.infraDescription),
+      item?.infraKeyIdentifier?.substring(11, item?.infraKeyIdentifier?.length),
+      this.utils.checkTranslationFromArrayToString(item.infraName),
+      this.utils.checkTranslationFromArrayToString(item.infraDescription),
       this.utils.checkTranslation('scientificDescription', item),
       item?.infraStartsOn?.year ?? '',
       item?.infraEndsOn?.year ?? '',
       item?.infraAcronym ?? '',
       item?.finlandRoadmap,
-      item?.ESFRICodes ?? '',
-      item.merilCode,
+      item?.ESFRICodes ? item.ESFRICodes.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)) : [],
       this.utils.checkTranslation('infraConName', item?.infraConPoint),
       this.utils.checkTranslation('infraConDescr', item?.infraConPoint),
       item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.email ?? '' : '',
       item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.phoneNumber ?? '' : '',
       item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.visitingAddress ?? [] : [],
-      item?.infra_homepage ?? '',
+      this.utils.checkTranslationFromArrayToString(item?.infraHomepage, 'weblinkURL'),
       this.utils.checkTranslation('infraConTerms', item?.infraConPoint),
-      item.infraKeyIdentifier ?? '',
-      responsibleOrganization,
-      responsibleOrganizationId,
+      item?.infraKeyIdentifier,
+      this.utils.filterTranslationFromElement(item?.infraResponsibleOrganization.organizationName),
+      item?.infraResponsibleOrganization?.orgNodeId ?? '',
       participantOrganizations,
       item.orgNodeId,
       item.replacingInfraStructure,
-      item?.fieldOfScience ?? '',
+      item?.fieldOfScience ? item.fieldOfScience.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)) : [],
       services,
       keywords,
       fieldsOfScienceString

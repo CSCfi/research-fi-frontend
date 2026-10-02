@@ -3,7 +3,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 :license: MIT -->
 
-@if (!useNewLayoutButton) {
+@if (!useNewLayoutButton && !useTextOnlyLink) {
   <div class="share">
     <app-secondary-button
       [cdkCopyToClipboard]="currentUrl"
@@ -16,10 +16,16 @@ Copyright 2019 Ministry of Education and Culture, Finland
   </div>
 }
 
-@if (useNewLayoutButton) {
+@if (useNewLayoutButton && !useTextOnlyLink) {
   <div>
     <app-tertiary-button class="mx-4" [cdkCopyToClipboard]="currentUrl" content="Jaa profiili" i18n-content="@@shareProfile"
       [svgSymbolName]="'share'" [svgCssClass]="'share-icon button-icon'"
     (click)="openSnackBar()"></app-tertiary-button>
+  </div>
+}
+
+@if (useTextOnlyLink) {
+  <div>
+    <div class="urn-text-link" [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()"><span [class.d-none]="!showUrnTextPrefix">URN: </span><span class="underlined-link">{{currentUrl}}</span><app-svg-sprites [iconName]="'copy'" cssClass="button-icon copy-icon svg-icon"></app-svg-sprites></div>
   </div>
 }

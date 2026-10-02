@@ -176,6 +176,10 @@
       margin-bottom: 4px !important;
       color: #363636;
     }
+    &.tag-weblink-svg {
+      margin-bottom: 4px !important;
+      color: #4546b9;
+    }
     &.contact-icon {
       color: #4546b9;
     }
@@ -397,6 +401,13 @@
     width: 25px;
     height: 25px;
     margin-top: -5px;
+    color: #fff;
+  }
+
+  .tag-link-icon {
+    width: 18px;
+    height: 18px;
+    margin-top: -8px;
     color: #fff;
   }
 

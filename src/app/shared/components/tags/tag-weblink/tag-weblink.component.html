@@ -1,0 +1,11 @@
+@if (linkUrn) {
+  <div class="tag tag-weblink">
+    <div class="tag-id"><app-svg-sprites [iconName]="'link'" cssClass="tag-link-icon"></app-svg-sprites></div>
+    <div class="tag-content-weblink">
+      <a href="{{ linkUrn }} " target="_blank">
+        <span class="doi-text">{{ linkText }}</span>
+        <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon doi-svg"></app-svg-sprites>
+      </a>
+    </div>
+  </div>
+}

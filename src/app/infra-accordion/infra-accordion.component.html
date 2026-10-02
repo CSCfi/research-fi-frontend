@@ -3,7 +3,7 @@
     <div class="accordion-section-wrap">
       <h3>
     <span ngAccordionTrigger class="accordion-section-trigger" [panel]="panel1" #trigger1="ngAccordionTrigger">
-      {{singleService.serviceName}}
+      {{ singleService.serviceName }}
       @if (!trigger1.expanded()) {
         <span class="accordion-section-toggle-switch" aria-hidden="true">
           Avaa
@@ -18,16 +18,132 @@
       }
     </span>
       </h3>
+
       <div ngAccordionPanel #panel1="ngAccordionPanel">
         <ng-template ngAccordionContent>
-          <div class="row px-1">
-            <div class="col-3 col-md-3 fw-bold">
-              Palvelun kuvaus
+          <div class="row px-1 mt-2">
+            <div class="col-9">
+              <div class="row gx-1">
+                @if (singleService.serviceDescription) {
+                <div class="col-3 col-md-3 fw-bold">
+                  Palvelun kuvaus
+                </div>
+                <div class="col-9 col-md-9 mb-3">
+                  {{ singleService.serviceDescription }}
+                </div>
+                }
+              </div>
+              <div class="row gx-1">
+
+                <div class="col-3 col-md-3 fw-bold">
+                  Tunniste (PID)
+                </div>
+                <div class="col-9 col-md-9 mb-3">
+                  <app-share [id]="singleService.servicePid" [useTextOnlyLink]="true"
+                             [showUrnTextPrefix]="false"></app-share>
+                </div>
+              </div>
+
+              @if (singleService.startDate.year || singleService.endDate.year) {
+              <div class="row gx-1">
+                <div class="col-3 col-md-3 fw-bold">
+                  Toiminta
+                </div>
+                @if (singleService.startDate.year){
+                <div class="col-9 col-md-9 mb-3">
+                  Alkanut: <span class="ms-4">{{singleService.startDate.year}}</span>
+                </div>
+                }
+                @if (singleService.startDate.year){
+                  <div class="col-3 col-md-3 fw-bold"></div>
+                  <div class="col-9 col-md-9 mb-3">
+                    Päättynyt: <span class="ms-4">{{singleService.endDate.year}}</span>
+                  </div>
+                }
+              </div>
+              }
+
+              <div class="row gx-1">
+                <div class="col-3 col-md-3 fw-bold">
+                  Kohderyhmä
+                </div>
+                @for (item of singleService.targetAudience; track item) {
+                <div class="col-9 col-md-9 mb-3">
+                    {{item}}
+                </div>
+                }
+              </div>
+
+              <div class="row gx-1">
+                <div class="col-3 col-md-3 fw-bold">
+                  Käyttäjät
+                </div>
+                <div class="col-9 col-md-9 mb-3">
+                  @for (item of singleService.targetSegment; track item) {
+                    <div class="col-9 col-md-9 mb-3">
+                      {{item}}
+                    </div>
+                  }
+                </div>
+              </div>
+
+              @if (singleService.serviceObtain) {
+                <div class="row gx-1">
+                  <div class="col-3 col-md-3 fw-bold">
+                    Kuvaus käyttöönotosta
+                  </div>
+                  <div class="col-9 col-md-9 mb-3">
+                    {{singleService.serviceObtain}}
+                  </div>
+                </div>
+              }
             </div>
-            <div class="col-9 col-md-6">
-              {{singleService.serviceDescription}}
-            </div>
-            <div class="col-6 col-md-3">
+
+            <div class="col-3 row d-flex flex-column infra-service-links">
+              <div class="col-12 fw-bold">Linkit:</div>
+              @if (singleService.homepage) {
+                <div class="col-12 service-link-row">
+                  <a [href]="singleService.homepage" target="_blank">
+                    <ng-container i18n="@@homepage">Verkkosivu
+                    </ng-container
+                    >
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                  </a>
+                </div>
+              }
+
+              @if (singleService.termsOfUse) {
+                <div class="col-12 service-link-row">
+                  <a [href]="singleService.termsOfUse" target="_blank">
+                    <ng-container i18n="@@homepage">Käyttöehdot
+                    </ng-container
+                    >
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                  </a>
+                </div>
+              }
+
+              @if (singleService.privacyPolicy) {
+                <div class="col-12 service-link-row">
+                  <a [href]="singleService.privacyPolicy" target="_blank">
+                    <ng-container i18n="@@homepage">Tietosuoja
+                    </ng-container
+                    >
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                  </a>
+                </div>
+              }
+
+              @if (singleService.instructionsOfUse) {
+                <div class="col-12 service-link-row">
+                  <a [href]="singleService.instructionsOfUse" target="_blank">
+                    <ng-container i18n="@@homepage">Käyttöohje
+                    </ng-container
+                    >
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                  </a>
+                </div>
+              }
             </div>
           </div>
           <br/>

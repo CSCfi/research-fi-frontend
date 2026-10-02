@@ -381,10 +381,10 @@ export class SortService {
       case 'infrastructures': {
         this.yearField = 'infraStartsOn.year';
         switch (this.sortColumn) {
-          case 'acronym': {
+          case 'services': {
             this.sort = [
               {
-                'infraAcronym.keyword': {
+                'services.keyword': {
                   order: this.sortDirection ? 'desc' : 'asc',
                   unmapped_type: 'long',
                 },

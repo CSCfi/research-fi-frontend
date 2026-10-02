@@ -32,45 +32,12 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <div class="result-container">
         @for (infra of resultData?.infrastructures; track infra; let i = $index) {
           <ng-template #infrastructureNameColumns>
-            <a [routerLink]="infra.urn | handleInfrastructureLink">
+            <a [routerLink]="infra.id | handleInfrastructureLink">
               <h4
                 class="result-title"
                 [innerHtml]="infra.name?.trim() | highlight: input"
               ></h4>
             </a>
-            <div class="row">
-              <div class="col ps-0 py-3">
-                <span
-                  tabindex="0"
-                  i18n-tooltip="@@infraServicesAmountTooltip"
-                  tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä."
-                  triggers="focus kedown.escape"
-                  container="body"
-                  placement="top"
-                  #elem
-                  >
-                  <ng-container i18n="@@infraServicesLabel">Palveluita</ng-container
-                    >:
-                    {{ infra.services.length }}
-                  </span>
-                </div>
-                @if (infra.finlandRoadmap) {
-                  <div class="col ps-0 py-3">
-                    <span
-                      tabindex="0"
-                      i18n-tooltip="@@finlandRoadmapTooltip"
-                      tooltip="Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla."
-                      triggers="focus kedown.escape"
-                      container="body"
-                      placement="top"
-                      #elem
-                      >
-                      <ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container
-                        ><app-svg-sprites [iconName]="'fa-check-circle'" cssClass="fa-check-circle" class="check-icon ps-1"></app-svg-sprites>
-                      </span>
-                    </div>
-                  }
-                </div>
               </ng-template>
             }
           </div>

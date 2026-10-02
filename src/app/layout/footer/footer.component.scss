@@ -6,8 +6,16 @@
 // :license: MIT
 
 app-footer {
+  //height: 270px;
+  margin-top: 188px;
+  background: #8c2f2f00 !important;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
   .footer-margin {
-    margin-top: 60px;
+    //margin-top: 60px;
   }
 
   .review-button {

@@ -12,12 +12,36 @@
   --purple-bg: #E8E8F5;
 }
 
+.main-content-bg {
+  background: var(--purple-light-bg, #F7F7FB);
+}
+
 .subtitle {
   cursor: pointer;
 }
 
 .service-name {
   margin-bottom: 1rem;
+}
+
+.bordered-section-single-page {
+  border: 1px solid var(--purple-bg, #E8E8F5);
+  background: var(--White, #FFF);
+  padding: 16px 24px;
+  margin: 40px 0px !important;
+}
+
+h1 {
+  font-size: 28px !important;
+}
+
+h2 {
+  font-size: 22.5px !important;
+}
+
+h3 {
+  font-size: 18px !important;
+  font-weight: 700 !important;
 }
 
 h3.th {
@@ -31,6 +55,35 @@ h3.th {
 
 h4.th.classification {
   padding: 0 !important;
+}
+
+.infra-other-fields {
+  font-size: 14px;
+  margin-top: -10px;
+  .other-fields-heading {
+    font-size: 16px;
+  }
+  .td, .th {
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .td {
+    //justify-content: center;
+  }
+}
+
+.infra-small-text {
+  font-size: 14px !important;
+}
+
+.side-box-heading {
+  font-size: 18px !important;
+  overflow: hidden;
+  font-size: 1.2em;
+  margin-bottom: 0.5rem;
+  line-height: 24px;
+  font-weight: bold;
 }
 
 .subheader {
@@ -69,6 +122,10 @@ h4.th.classification {
   p {
     font-size: 14px;
   }
+}
+
+.infra-card {
+  margin-bottom: 16px !important;
 }
 
 .infra-legend-column {
