@@ -25,12 +25,12 @@
             <div class="col-9">
               <div class="row gx-1">
                 @if (singleService.serviceDescription) {
-                <div class="col-3 col-md-3 fw-bold">
-                  Palvelun kuvaus
-                </div>
-                <div class="col-9 col-md-9 mb-3">
-                  {{ singleService.serviceDescription }}
-                </div>
+                  <div class="col-3 col-md-3 fw-bold">
+                    Palvelun kuvaus
+                  </div>
+                  <div class="col-9 col-md-9 mb-3">
+                    {{ singleService.serviceDescription }}
+                  </div>
                 }
               </div>
               <div class="row gx-1">
@@ -45,47 +45,44 @@
               </div>
 
               @if (singleService.startDate.year || singleService.endDate.year) {
-              <div class="row gx-1">
-                <div class="col-3 col-md-3 fw-bold">
-                  Toiminta
-                </div>
-                @if (singleService.startDate.year){
-                <div class="col-9 col-md-9 mb-3">
-                  Alkanut: <span class="ms-4">{{singleService.startDate.year}}</span>
-                </div>
-                }
-                @if (singleService.startDate.year){
-                  <div class="col-3 col-md-3 fw-bold"></div>
-                  <div class="col-9 col-md-9 mb-3">
-                    Päättynyt: <span class="ms-4">{{singleService.endDate.year}}</span>
+                <div class="row gx-1">
+                  <div class="col-3 col-md-3 fw-bold">
+                    Toiminta
                   </div>
-                }
-              </div>
-              }
-
-              <div class="row gx-1">
-                <div class="col-3 col-md-3 fw-bold">
-                  Kohderyhmä
-                </div>
-                @for (item of singleService.targetAudience; track item) {
-                <div class="col-9 col-md-9 mb-3">
-                    {{item}}
-                </div>
-                }
-              </div>
-
-              <div class="row gx-1">
-                <div class="col-3 col-md-3 fw-bold">
-                  Käyttäjät
-                </div>
-                <div class="col-9 col-md-9 mb-3">
-                  @for (item of singleService.targetSegment; track item) {
+                  @if (singleService.startDate.year){
                     <div class="col-9 col-md-9 mb-3">
-                      {{item}}
+                      Alkanut: <span class="ms-4">{{singleService.startDate.year}}</span>
+                    </div>
+                  }
+                  @if (singleService.startDate.year){
+                    <div class="col-3 col-md-3 fw-bold"></div>
+                    <div class="col-9 col-md-9 mb-3">
+                      Päättynyt: <span class="ms-4">{{singleService.endDate.year}}</span>
                     </div>
                   }
                 </div>
-              </div>
+              }
+
+              @if (singleService.targetAudience){
+                <div class="row gx-1">
+                  <div class="col-3 col-md-3 fw-bold">
+                    Kohderyhmä
+                  </div>
+                  <div class="col-9 col-md-9 mb-3">
+                    {{singleService.targetAudience.join(', ')}}
+                  </div>
+                </div>
+              }
+              @if (singleService.targetSegment){
+                <div class="row gx-1">
+                  <div class="col-3 col-md-3 fw-bold">
+                    Käyttäjät
+                  </div>
+                  <div class="col-9 col-md-9 mb-3">
+                    {{singleService.targetSegment.join(', ')}}
+                  </div>
+                </div>
+              }
 
               @if (singleService.serviceObtain) {
                 <div class="row gx-1">
@@ -94,6 +91,21 @@
                   </div>
                   <div class="col-9 col-md-9 mb-3">
                     {{singleService.serviceObtain}}
+                  </div>
+                </div>
+              }
+              @if (singleService.contacts) {
+                <div class="row gx-1">
+                  <div class="col-3 col-md-3 fw-bold">
+                    Yhteystiedot
+                  </div>
+                  <div class="col-9 col-md-9 mb-3">
+                    @for (contact of singleService.contacts; track contact){
+                      <div> {{contact.contactLabel}}</div>
+                      <div> {{contact.email}}</div>
+                      <div> {{contact.telephone}}</div>
+                      <div> {{contact.address}}</div>
+                    }
                   </div>
                 </div>
               }

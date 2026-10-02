@@ -5,8 +5,8 @@ import { ShareComponent } from '@portal/components/single/share/share.component'
 import { JsonPipe } from '@angular/common';
 
 export interface InfraContact {
-  name?: string;
-  email?: string;
+  contactLabel?: string;
+  email?: string[];
   telephone?: string;
   address?: string;
 }
