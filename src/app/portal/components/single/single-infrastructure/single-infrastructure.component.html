@@ -8,7 +8,8 @@
   <app-search-bar></app-search-bar>
 </aside>
 
-<div class="wrapper" *ngIf="responseData" id="main-content">
+<div class="main-content-bg" *ngIf="responseData" id="main-content">
+  <div class="wrapper">
   <div class="row shared">
     <p class="back col-12" style="padding-bottom: 0.25rem">
       <a
@@ -44,12 +45,12 @@
     <main class="col-12 col-md-8">
       <div *ngFor="let item of [responseData.infrastructures[0]]">
         <h1 class="result-header">{{ item?.name }}</h1>
-        <div id="info">
-          <div class="content">
-            <ng-container *ngFor="let row of infoFields; let i = index">
+        <div id="info" class="bordered-section-single-page">
+          <div class="">
+            <ng-container *ngFor="let row of infoFieldsFirstLevel; let i = index">
               <div class="row" *ngIf="item[row.field]">
-                <h2 class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1">{{ row.label }}</span>
+                <div class="col-12 col-sm-6 col-lg-3 th">
+                  <span class="pe-1 fw-bold">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate
                     >
@@ -65,7 +66,7 @@
                       <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
                   </ng-container>
-                </h2>
+                </div>
                 <div class="col-12 col-sm-6 col-lg-9 td">
                   <p
                           [ngClass]="infoExpand[i] ? 'expand' : 'short'"
@@ -84,6 +85,55 @@
                 </div>
               </div>
             </ng-container>
+
+            <!-- Infra years -->
+            <div class="row" *ngIf="responseData.infrastructures[0]?.startYear || responseData.infrastructures[0]?.endYear ">
+                <div class="col-12 col-sm-6 col-lg-3 th">
+                  <span class="pe-1 fw-bold">Toiminta</span>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-9 td">
+                  <div *ngIf="responseData.infrastructures[0]?.startYear">Alkanut: {{responseData.infrastructures[0]?.startYear}}</div>
+                  <div *ngIf="responseData.infrastructures[0]?.endYear" class="mt-2" >Päättynyt: {{responseData.infrastructures[0]?.endYear}}</div>
+                </div>
+            </div>
+            <hr/>
+
+            <!-- Infra other fields -->
+            <div class="row infra-other-fields" *ngIf="responseData.infrastructures[0]?.fieldsOfScience">
+              <div class="col-12 col-sm-6 col-lg-3 th">
+                <span class="pe-1 fw-bold other-fields-heading">Muut tiedot</span>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-2 th">Yhteystiedot:</div><div class="col-12 col-sm-6 col-lg-7 td"></div>
+              <div class="col-12 col-sm-6 col-lg-3 th"></div><div class="col-12 col-sm-6 col-lg-2 th">Tieteenalat:</div> <div class="col-12 col-sm-6 col-lg-7 td">{{responseData.infrastructures[0]?.fieldsOfScience.join(', ')}}</div>
+
+              <div class="col-12 col-sm-6 col-lg-3 th"></div><div class="col-12 col-sm-6 col-lg-2 th">Luokituksia:</div>
+              <div class="col-12 col-sm-6 col-lg-7 td">
+                <ng-container *ngFor="let row of classificationFields; let i = index">
+                  <div class="d-flex flex-row" *ngIf="item[row.field]">
+                      <span class="pe-1">{{ row.label }}:</span><div class="pe-1">{{item[row.field]}}</div>
+                      <ng-container *ngIf="row.tooltip">
+                        <ng-template #tooltipTemplate
+                        >
+                          <div [innerHtml]="row.tooltip"></div
+                          >
+                        </ng-template>
+                        <span
+                                [tooltip]="tooltipTemplate"
+                                tabindex="0"
+                                placement="top"
+                                #elem
+                        >
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                    </span>
+                      </ng-container>
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="col-12 col-sm-6 col-lg-3 th"></div><div class="col-12 col-sm-6 col-lg-2 th">Tunnisteet:</div><div class="col-12 col-sm-6 col-lg-7 td"></div>
+              {{responseData.infrastructures[0]?.fieldsOfScienceString}}
+
+            </div>
           </div>
           <!--          <div *ngIf="item?.services.length > 0" class="content">
                       <h2 class="subheader trHeader">
@@ -274,58 +324,10 @@
                     </div>-->
 
 
-          <div class="content">
-            <h2 class="subheader trHeader" i18n="@@infraOtherInfo">
-              Tutkimusinfrastruktuurin muut tiedot
-            </h2>
-            <ng-container *ngFor="let row of fieldsOfScience; let i = index">
-              <div class="row" *ngIf="item[row.field]">
-                <h2 class="col-12 col-sm-6 col-lg-3 th">{{ row.label }}</h2>
-                <div class="col-12 col-sm-6 col-lg-9 td">
-                  <p>{{ item[row.field] }}</p>
-                </div>
-              </div>
-            </ng-container>
-            <div *ngIf="classificationFields?.length > 0" class="row">
-              <h2
-                      class="col-12 col-sm-6 col-lg-3 th"
-                      i18n="@@infraClassifications"
-              >
-                Luokituksia
-              </h2>
-              <div
-                      class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
-                      *ngFor="let row of classificationFields; let i = index"
-              >
-                <ng-container *ngIf="item[row.field]">
-                  <h4 class="th classification">
-                    <span class="pe-1">{{ row.label }}</span>
-                    <ng-container *ngIf="row.tooltip">
-                      <ng-template #tooltipTemplate
-                      >
-                        <div [innerHtml]="row.tooltip"></div
-                        >
-                      </ng-template>
-                      <span
-                              [tooltip]="tooltipTemplate"
-                              tabindex="0"
-                              placement="top"
-                              #elem
-                      >
-                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                      </span>
-                    </ng-container>
-                  </h4>
-                  <div>
-                    <p>{{ item[row.field] }}</p>
-                  </div>
-                </ng-container>
-              </div>
-            </div>
+          <div class="">
 
             <!-- Contact -->
-
-            <div *ngIf="contactFields?.length > 0" class="row">
+            <!--<div *ngIf="contactFields?.length > 0" class="row">
               <h2
                       class="col-12 col-sm-6 col-lg-3 pt-0 pb-0 contact th"
                       i18n="@@contactInfo"
@@ -372,34 +374,14 @@
                   </ng-template>
                 </ng-container>
               </div>
-            </div>
-
-            <ng-container *ngFor="let row of otherFields; let i = index">
-              <div class="row" *ngIf="item[row.field]">
-                <h2 class="col-12 col-sm-6 col-lg-3 th">{{ row.label }}</h2>
-                <div class="col-12 col-sm-6 col-lg-9 td">
-                  <p>{{ item[row.field] }}</p>
-                </div>
-              </div>
-            </ng-container>
+            </div>-->
           </div>
         </div>
       </div>
 
       @if (infraServices.length > 0) {
-        <h2 class="ps-1 mb-4"><span i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut </span><span
-                i18n-tooltip="@@infraServicesTooltip"
-                class="ms-2"
-                tooltip="Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu.
-                            Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle.
-                            Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste."
-                tabindex="0"
-                placement="top"
-                #elem
-        >
-                <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-              </span></h2>
-        <h3 class="result-header">Aktiiviset palvelut ({{ infraServices.length }})</h3>
+        <h2 class="ps-1 mb-4"><span i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut </span></h2>
+        <h3 class="ps-1">Aktiiviset palvelut ({{ infraServices.length }})</h3>
         <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
         <br/>
       }
@@ -413,29 +395,25 @@
               class="col-12 col-md-4"
       >
         <aside>
-          <mat-card appearance="outlined">
-            <div class="inner">
+          <mat-card class="infra-card" appearance="outlined">
+            <div class="inner transparent-bg">
               <ng-container *ngIf="item.urn">
-                <mat-card-title><h2>Tunniste</h2></mat-card-title>
-                <div class="row pb-4">
-                  <div>{{ item.urn }}</div>
+                <mat-card-title><div class="side-box-heading">Tunniste</div></mat-card-title>
+                <div class="row gx-0 pb-4">
+                  <app-share [id]="item.urn" [useTextOnlyLink]="true"></app-share>
                 </div>
               </ng-container>
               <mat-card-title
-              ><h2 i18n="@@infraHomePage">
+              ><div class="side-box-heading" i18n="@@infraHomePage">
                 Infrastruktuurin verkkosivu
-              </h2></mat-card-title
+              </div></mat-card-title
               >
 
-              <div *ngIf="linkFields?.length > 0">
-                <app-single-result-link
-                        *ngFor="let row of linkFields"
-                        [icon]="true"
-                        [url]="item[row.field]"
-                ></app-single-result-link>
+              <div class="mb-2">
+                <app-tag-weblink [linkUrn]="item.homepage" [linkText]="item.homepage"></app-tag-weblink>
               </div>
               <div
-                      *ngIf="!linkFields.length"
+                      *ngIf="!item.homepage"
                       class="no-links"
                       i18n="@@noInfraLinks"
               >
@@ -444,18 +422,46 @@
             </div>
           </mat-card>
         </aside>
+
+        @if (infraTreeNodes) {
+          <aside>
+            <mat-card class="infra-card" appearance="outlined">
+              <div class="inner transparent-bg">
+                <mat-card-title
+                >
+                  <div class="side-box-heading">
+                    Infrastruktuuriverkosto
+                  </div>
+                </mat-card-title>
+                <div class="infra-small-text">{{ infraNetworkInfoText }}</div>
+              </div>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-start mt-1 mb-2">
+                  <app-primary-action-button
+                          [content]="'Näytä infrastruktuuriverkosto'"
+                          [svgSymbolName]="'lan'"
+                          [svgCssClass]="'show-as-image-button'"
+                          [disabled]="infraTreeLoading"
+                          (click)="openDialog(0)"
+                  ></app-primary-action-button>
+                </div>
+              </div>
+            </mat-card>
+          </aside>
+        }
+
+        @if (infraTreeNodes) {
         <aside>
-          <mat-card appearance="outlined">
+          <mat-card class="infra-card" appearance="outlined">
             <div class="inner infra-trees-container">
               <mat-card-title
               >
-                <h2>
+                <div class="side-box-heading">
                   <ng-container i18n="@@test"
                   >Lähi-infrastruktuurit
                   </ng-container
                   >
-                </h2>
-                <p>{{ infraTreeInfoText }}</p>
+                </div>
               </mat-card-title
               >
               @if (infraTreeLoading) {
@@ -473,7 +479,7 @@
               }
               @for (subTrees of infraTreeNodes; track subTrees; let i = $index) {
                 @if (infraTreeNodes?.length > 1 && i === 0) {
-                  <div class="fw-bold mb-2">Kohde kuuluu useaan infrastruktuuriverkostoon</div>
+                  <div class="mb-2">{{infraTreeBelongsToManyNetworks}}</div>
                 }
                 @if (!infraTreeLoading) {
                   <hr>
@@ -481,25 +487,15 @@
                 <app-infra-tree class="m" [infraId]="selectedInfraId" [inputNodes]="subTrees"></app-infra-tree>
               }
             </div>
-            <div class="row">
-              <div class="col-12 d-flex justify-content-center mt-4 mb-2">
-                <app-primary-action-button
-                        [content]="'Näytä infrastruktuuriverkosto'"
-                        [svgSymbolName]="'lan'"
-                        [svgCssClass]="'show-as-image-button'"
-                        [disabled]="infraTreeLoading"
-                        (click)="openDialog(0)"
-                ></app-primary-action-button>
-              </div>
-            </div>
           </mat-card>
         </aside>
+        }
         <aside>
-          <mat-card appearance="outlined">
+          <mat-card class="infra-card" appearance="outlined" class="d-none">
             <div class="inner">
               <mat-card-title
               >
-                <h2>
+                <div class="side-box-heading">
                   <ng-container i18n="@@relatedInfrastructures"
                   >Hae infrastruktuuriin liittyvät
                   </ng-container
@@ -507,7 +503,7 @@
                   (
                   <ng-container i18n="@@comingSoon">tulossa</ng-container>
                   )
-                </h2>
+                </div>
               </mat-card-title
               >
               <app-related-links
@@ -517,23 +513,14 @@
             </div>
           </mat-card>
         </aside>
-        <!-- Social icons -->
-        <aside>
-          <mat-card appearance="outlined">
-            <div class="inner">
-              <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
-              <app-share [id]="item.id"></app-share>
-            </div>
-          </mat-card>
-        </aside>
         <!-- Source -->
         <aside>
-          <mat-card appearance="outlined">
-            <div class="inner">
+          <mat-card class="infra-card" appearance="outlined">
+            <div class="inner transparent-bg">
               <mat-card-title
-              ><h2 i18n="@@infraSource">
+              ><div class="side-box-heading" i18n="@@infraSource">
                 Infrastruktuuritiedon lähde
-              </h2></mat-card-title
+              </div></mat-card-title
               >
               <div *ngFor="let source of responseData.infrastructures">
                 <a
@@ -561,6 +548,7 @@
     }
   </div>
 </div>
+</div>
 
 <app-dialog
         *ngIf="(showDialog | async) === true"
@@ -570,7 +558,7 @@
         [actions]="currentDialogActions"
 ></app-dialog>
 
-<!-- Enable or disable automatic publishing modal template (general info) -->
+<!-- Infra network modal -->
 <ng-template #infrastructureNetworkGraph>
   <div class="row vis-container h-100">
   <div class="row mini-modal-width w-100 gx-4">
@@ -584,7 +572,7 @@
     <div class="row position-relative vis-component-container w-100">
 
       <div class="position-absolute vis-component-container top-0 start-0 w-100">
-        <div class="position-absolute vis-legend-container start-0">
+        <div class="position-absolute vis-legend-container start-0  d-none d-sm-block">
           <div class="relations-dropdown-container">
             <div class="relations-heading">Verkosto: <span class="root-infra-text-col">{{ rootNodeName }}</span></div>
             @if (isPartOfLabelsUpper.length > 0) {
@@ -615,7 +603,7 @@
                  [edges]="visibleEdges | async" (selectedNodeId)="infraNodeClick($event)"></app-vis>
       </div>
 
-      <div class="position-absolute vis-legend-container end-0">
+      <div class="position-absolute vis-legend-container end-0 d-none d-sm-block">
         <div class="network-radio-button-container">
           <mat-radio-group
                   aria-labelledby="test"
@@ -737,7 +725,7 @@
               } @else {
                 <span class="fw-bold">{{ modalInfraData?.infrastructures[0]?.acronym }}</span>
               }
-              @if (modalInfraData.infrastructures[0]?.name?.length > 0) {
+              @if (modalInfraData?.infrastructures[0]?.name?.length > 0) {
                 - {{ modalInfraData.infrastructures[0]?.name }}
               }
             </p>
@@ -755,7 +743,7 @@
             <h3>
               <span class="pe-1">{{ infraModalTexts.startYear }}</span>
             </h3>
-            @if (modalInfraData.infrastructures[0]?.startYear?.length > 0) {
+            @if (modalInfraData?.infrastructures[0]?.startYear?.length > 0) {
               <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
             } @else {
               <p>{{ infraModalTexts.dataMissing }}</p>
@@ -768,7 +756,7 @@
             <h3>
               <span class="pe-1">{{ infraModalTexts.description }}</span>
             </h3>
-            @if (modalInfraData.infrastructures[0]?.description?.length > 0) {
+            @if (modalInfraData?.infrastructures[0]?.description?.length > 0) {
               <p>{{ modalInfraData.infrastructures[0]?.description }}</p>
             } @else {
               <p>{{ infraModalTexts.dataMissing }}</p>

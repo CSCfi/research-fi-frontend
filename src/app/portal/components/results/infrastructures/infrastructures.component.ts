@@ -34,6 +34,8 @@ import { TableComponent } from '../../../../shared/components/table/table.compon
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { SingleItemService } from '@portal/services/single-item.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-infrastructures',
@@ -76,6 +78,8 @@ export class InfrastructuresComponent
 
   dataMapped: boolean;
   iconTitleInfrastructures = $localize`:@@iconInfrastructures: Infrastruktuurien tiedon ikoni`;
+  private infraNetworkSub: Subscription;
+  infraNetworkResponseData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -84,7 +88,8 @@ export class InfrastructuresComponent
     public sortService: SortService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearchPipe
+    private highlightPipe: HighlightSearchPipe,
+    private singleService: SingleItemService
   ) {}
 
   ngOnInit() {
@@ -107,7 +112,20 @@ export class InfrastructuresComponent
       this.input = input;
       this.mapData();
       this.cdr.detectChanges();
+      //this.getInfraNetworkData()
     });
+  }
+
+  getInfraNetworkData(id?: string) {
+    if (true) {
+      this.infraNetworkSub = this.singleService.getInfrastructureNetworkData(undefined).subscribe({
+        next: (responseData) => {
+          this.infraNetworkResponseData = responseData;
+          //console.log('##### GOT NETWORK responseData', responseData);
+        },
+        error: (error) => (console.log('error', error))
+      });
+    }
   }
 
   mapData() {
@@ -118,36 +136,38 @@ export class InfrastructuresComponent
     // Use highlight pipe for higlighting search term
     this.tableColumns = [
       {
-        key: 'acronym',
-        label: $localize`:@@infraAcronym:Lyhenne`,
-        tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`,
-        class: 'col-3 col-xl-2 d-none d-lg-block',
-        mobile: false,
-      },
-      {
         key: 'name',
         label: $localize`:@@infraName:Nimi`,
-        class: 'col-lg-4 col-xl-4',
+        class: 'col-lg-3 col-xl-3',
         mobile: true,
       },
       {
         key: 'organization',
         label: $localize`:@@infraOrganization:Organisaatio`,
         tooltip: $localize`:@@infraOrganizationTooltip:Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.`,
-        class: 'col-lg-4 col-xl-4',
+        class: 'col-lg-3 col-xl-3',
+        mobile: true,
+      },
+      {
+        key: 'services',
+        label: $localize`:@@infraServices:Palvelut`,
+        tooltip: $localize`:@@infraServicesTooltip:Placeholder`,
+        class: 'col-lg-3 col-xl-3',
+        mobile: true,
+      },
+      {
+        key: 'networkSize',
+        label: $localize`:@@infraNetworkSize:Verkoston koko`,
+        tooltip: $localize`:@@infraNetworkSizeTooltip:Placeholder`,
+        class: 'col-lg-3 col-xl-3',
         mobile: true,
       },
     ];
+
     this.tableRows = this.resultData.infrastructures.map(
       (infrastructure, index) => ({
-        acronym: {
-          label: this.highlightPipe.transform(
-            infrastructure.acronym,
-            this.input
-          ),
-        },
         name: {
-          label: this.highlightPipe.transform(infrastructure.name, this.input),
+          label: this.highlightPipe.transform(infrastructure.name + ' ' + infrastructure.acronym.toUpperCase(), this.input),
           template: nameColumnArray[index],
           link: `/results/infrastructure/${infrastructure.id}`,
         },
@@ -156,6 +176,12 @@ export class InfrastructuresComponent
             infrastructure.responsibleOrganization,
             this.input
           ),
+        },
+        services: {
+          label: infrastructure.services.length
+        },
+        networkSize: {
+          label: '(N/A)',
         },
       })
     );

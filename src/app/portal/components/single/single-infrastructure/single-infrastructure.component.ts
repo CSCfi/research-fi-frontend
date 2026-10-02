@@ -48,7 +48,7 @@ import {
 } from '../../../../single-infrastructure-renewed/single-infrastructure-renewed.component';
 import { InfraAccordionComponent, InfraService } from '../../../../infra-accordion/infra-accordion.component';
 import { InfraTreeComponent } from '../../../../infra-tree/infra-tree.component';
-import { VisComponent, visualizationData } from '../../../../vis-component/vis-component';
+import VisComponent, { visualizationData } from '../../../../vis-component/vis-component';
 import {
   PrimaryActionButtonComponent
 } from '@shared/components/buttons/primary-action-button/primary-action-button.component';
@@ -67,6 +67,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { cloneDeep, toInteger } from 'lodash-es';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { TagWeblinkComponent } from '@shared/components/tags/tag-weblink/tag-weblink.component';
+import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
 
 type TreeNode = {
   name: string;
@@ -117,7 +119,9 @@ type TreeNode = {
     OverlayModule,
     MatRadioButton,
     MatRadioGroup,
-    MatProgressSpinner
+    MatProgressSpinner,
+    TagWeblinkComponent,
+    TagDoiComponent
   ]
 })
 export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -142,7 +146,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   infraTreeNodes: TreeNode[];
 
   tab = 'infrastructures';
-  infoFields = [
+  infoFieldsFirstLevel = [
     {
       label: $localize`:@@infraAcronym:Lyhenne`,
       field: 'acronym',
@@ -153,6 +157,27 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       field: 'description',
       tooltip: $localize`:@@infraDescriptionTooltip:Kuvaus kertoo yleisesti tutkimusinfrastruktuurista.`
     },
+  ];
+
+  infoFieldsSecondLevel = [
+    {
+      label: $localize`:@@infraStartYear:Toiminta alkanut`,
+      field: 'startYear',
+      tooltip: $localize`:@@infraStartYearTooltip:Koko tutkimusinfrastruktuurin käyttöönottovuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta, jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun`
+    },
+    { label: $localize`:@@infraEndYear:Toiminta päättynyt`, field: 'endYear' },
+    {
+      label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`,
+      field: 'responsibleOrganization',
+      tooltip: $localize`:@@responsibleOrganizationTooltip:Tutkimusinfrastruktuurin kotiorganisaatio, joka vastaa siitä kokonaisuudessaan. Infrastruktuureilla voi olla myös muita organisaatioita, jotka vastaavat joistain palveluista.`
+    },
+    {
+      label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`,
+      field: 'participantOrganizations'
+    },
+  ];
+
+  oldFields = [
     {
       label: $localize`:@@scientificDescription:Tieteellinen kuvaus`,
       field: 'scientificDescription',
@@ -178,9 +203,9 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       field: 'keywordsString',
       tooltip: $localize`:@@infraKeywordsTooltip:Tutkimusinfrastruktuuria, sen palveluita ja toimintaa kuvailevia avainsanoja.`
     }
-  ];
+  ]
 
-  infraTreeInfoText = $localize`:@@infraTreeInfoText:Näet tässä valitun infrastruktuurin osana laajempaa infrastruktuurien verkostoa`;
+  infraNetworkInfoText = $localize`:@@infraNetworkInfoText:Tarkastele infrastruktuuria osana laajempaa infrastruktuurien verkostoa`;
   infraTreeBelongsToManyNetworks = $localize`:@@infraTreeBelongsToManyNetworks:Kohde kuuluu useaan infrastruktuuriverkostoon`;
 
   infraModalTexts = {
@@ -269,8 +294,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       field: 'finlandRoadmap',
       tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`
     },
-    { label: $localize`ESFRI-luokitus`, field: 'ESFRICode' },
-    { label: $localize`MERIL-luokitus`, field: 'merilCode' }
+    { label: $localize`ESFRI-luokitus`, field: 'ESFRICode' }
   ];
 
   contactFields = [
@@ -477,8 +501,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   processInfraNetworkData(data: any) {
-    const tempNodes = data.hits.hits[0]._source.nodes;
-    const tempEdges = data.hits.hits[0]._source.hasPartEdges;
+    const tempNodes = data.hits.hits[0]._source.infraNetworks.nodes;
+    const tempEdges = data.hits.hits[0]._source.infraNetworks.hasPartEdges;
     let tempNodeList = [];
     let tempEdgeList = [];
 
@@ -525,6 +549,125 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     const rootNode = this.nodeList.filter(node => node.id === toInteger(this.rootId));
     this.rootNodeName = rootNode[0].label;
 
+    this.colorizeAndInitNodes();
+    this.colorizeAndInitEdges();
+    this.colorizeNeighborAndToRootEdges();
+  }
+
+  colorizeAndInitNodes(){
+    this.nodeList = this.nodeList.map(node => {
+      if (node.id === this.selectedInfraNodeId) {
+        node.color = {
+          background: '#B9DC9C',
+          border: '#4546B9',
+          highlight: {
+            border: '#4546B9',
+            background: '#B9DC9C',
+            borderWidth: 4
+          },
+          hover: {
+            background: '#9F9FD4',
+            border: '#5852A7'
+          }
+        };
+      } else if (node.id === toInteger(this.rootId)) {
+        node.color = {
+          background: '#B9DC9C',
+          border: '#B9DC9C',
+          highlight: {
+            border: '#4546B9',
+            background: '#B9DC9C',
+            borderWidth: 4
+          },
+          hover: {
+            background: '#9F9FD4',
+            border: '#5852A7'
+          }
+        };
+      }
+      else {
+        node.color = {
+          background: '#EBEBEB',
+          border: '#404040',
+          highlight: {
+            border: '#4546B9',
+            background: '#B9DC9C',
+            borderWidth: 3
+          },
+          hover: {
+            background: '#9F9FD4',
+            border: '#5852A7'
+          }
+        };
+      }
+      return node;
+    });
+    let neighborNodeIds = [];
+
+    if (!this.selectedInfraNodeId) {
+      this.selectedInfraNodeId = toInteger(this.rootId);
+    }
+
+    this.edges.map(edge => {
+      if (edge?.from === this.selectedInfraNodeId) {
+        neighborNodeIds.push(edge.to);
+      }
+      if (edge?.to === this.selectedInfraNodeId) {
+        neighborNodeIds.push(edge.from);
+      }
+    });
+
+
+    this.nodeList = this.nodeList.map(node => {
+      if (neighborNodeIds.some(id => id === node.id)) {
+        node.color = {
+          background: '#C5C5E5',
+          border: '#4546B9',
+          highlight: {
+            border: '#4546B9',
+            background: '#B9DC9C',
+            borderWidth: 5
+          },
+          hover: {
+            background: '#9F9FD4',
+            border: '#5852A7'
+          }
+        };
+      }
+      return node;
+    });
+  }
+
+  colorizeAndInitEdges(){
+    this.edges = this.edges.map(edge => {
+      edge.color = {
+        color:'#000000',
+        highlight:'#000000',
+        hover: '#000000',
+        inherit: 'from',
+        opacity:1.0
+      };
+      edge.width = 2;
+      return edge;
+    });
+  }
+
+  colorizeNeighborAndToRootEdges(){
+    const rootIdInt = toInteger(this.rootId);
+    this.edges = this.edges.map(edge => {
+      if ((edge.from === rootIdInt) || (edge.to === rootIdInt)) {
+        edge.color = {
+          color:'#4546B9',
+          highlight:'#4546B9',
+          hover: '#4546B9',
+          inherit: 'from',
+          opacity:1.0
+        };
+        edge.width = 8;
+      }
+      return edge;
+    });
+
     this.visData.next({
       edges: [...this.edges],
       nodeList: [...this.nodeList],
@@ -548,7 +691,20 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     }
   }
 
-  selectNode(nodeId: number) {
+  populateNeighborNodes(nodeId: number) {
+    let newEdges = this.edges.filter(edge => (edge.from === nodeId || edge.to === nodeId));
+    let newNodes = this.nodeList.filter(node => newEdges.find(edge => edge.from === nodeId || edge.to === nodeId));
+    this.calculateIsPartOf(nodeId, true);
+    this.calculateHasPart(nodeId, true);
+    let oldEdges =  this.visData.getValue().edges;
+    let oldNodes =  this.visData.getValue().nodeList;
+    const mergedEdges = [...new Set([...oldEdges, ...newEdges])];
+    const mergedNodes = [...new Set([...oldNodes, ...newNodes])];
+
+    this.visData.next({ edges: mergedEdges, nodeList: mergedNodes, rootId: '' + this.rootId });
+  }
+
+  selectNodeFromList(nodeId: number) {
     let newVisData = this.visData.getValue();
     newVisData.selectedNodeId = nodeId;
     this.visData.next(cloneDeep(newVisData));
@@ -569,7 +725,6 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         } else {
           // Fetch single infra page data
           this.responseData = responseData;
-          this.modalInfraData = responseData;
           if (this.responseData.infrastructures[0]) {
             switch (this.localeId) {
               case 'fi': {
@@ -619,7 +774,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     };
 
     // Filter all the fields to only include properties with defined data
-    this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
+    this.infoFieldsFirstLevel = this.infoFieldsFirstLevel.filter((item) => checkEmpty(item));
     this.fieldsOfScience = this.fieldsOfScience.filter((item) =>
       checkEmpty(item)
     );
@@ -631,16 +786,16 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.linkFields = this.linkFields.filter((item) => checkEmpty(item));
 
     // Init expand and show lists
-    this.infoFields.forEach((_) => this.infoExpand.push(false));
+    this.infoFieldsFirstLevel.forEach((_) => this.infoExpand.push(false));
     this.serviceFields.forEach((_) => this.serviceExpand.push(false));
     this.infraServices = [];
     this.responseData.infrastructures[0].services.forEach((service, idx) => {
-      this.infraServices.push({ serviceName: service.name, serviceDescription: service.description });
+      this.infraServices.push({ serviceName: service.serviceName, serviceDescription: service.serviceDescription, serviceType: service.serviceType, servicePid: service.servicePid, startDate: service.startDate, endDate:service.endDate, targetSegment: service.targetSegment, targetAudience: service.targetAudience, homepage: service.homepage, infraLinks: service.infraLinks, privacyPolicy:service.privacyPolicy, termsOfUse: service.termsOfUse, instructionsOfUse: service.instructionsOfUse, serviceObtain: service.serviceObtain, contacts: service.contacts  });
       this.showService.push(false);
-      this.showServicePoint.push([]);
+/*      this.showServicePoint.push([]);
       service.servicePoints.forEach((_) =>
         this.showServicePoint[idx].push(false)
-      );
+      );*/
     });
   }
 
@@ -652,21 +807,21 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
     // Filter out empty servicepoints and empty services
     source.services.forEach((service, idx) => {
-      source.services[idx].servicePoints = service.servicePoints
+/*      source.services[idx].servicePoints = service.servicePoints
         .map((servicePoint) =>
           UtilityService.objectHasContent(servicePoint)
             ? servicePoint
             : undefined
         )
-        .filter((x) => x);
+        .filter((x) => x);*/
     });
 
     let openedInd = 0;
 
     source.services = source.services
       .map((service) => {
-          if (service.urn?.length > 11) {
-            if (service.urn.substring(11, service.urn.length) === this.selectedServiceUrn) {
+          if (service?.servicePid?.length > 11) {
+            if (service.servicePid.substring(11, service.servicePid.length) === this.selectedServiceUrn) {
               this.showService[openedInd] = true;
               this.selectedServiceIndex = openedInd;
             }
@@ -834,7 +989,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   infraNodeClickFromList(infra: any) {
     this.selectedInfraNodeId = infra.id;
     this.selectedInfraName = infra.label;
-    this.selectNode(infra.id);
+    this.selectNodeFromList(infra.id);
     this.getData(infra.id, true);
     this.infraNodeClick(infra.id);
   }
@@ -844,9 +999,17 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     let selectedInfraNode = this.nodeList.filter(node => node.id === nodeId);
     this.selectedInfraName = selectedInfraNode[0].label;
     this.selectedInfraId = selectedInfraNode[0].infraId;
+
+    if (this.reducedNetworkSize) {
+      //this.populateNeighborNodes(nodeId);
+    }
+
     this.getData(selectedInfraNode[0].infraId, true);
     this.calculateIsPartOf(nodeId, false);
     this.calculateHasPart(nodeId, false);
+    //this.colorizeAndInitNodes();
+    //this.colorizeAndInitEdges();
+    //this.colorizeNeighborAndToRootEdges();
   }
 
   setNewRootNode(infraAcronym: string) {
@@ -869,6 +1032,10 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       rootId: '' + this.infraRootId.getValue()
     });
     this.reduceNetworkSize(this.reducedNetworkSize);
+
+    this.colorizeAndInitNodes();
+    this.colorizeAndInitEdges();
+    this.colorizeNeighborAndToRootEdges();
   }
 
   navigateToSelectedInfra() {

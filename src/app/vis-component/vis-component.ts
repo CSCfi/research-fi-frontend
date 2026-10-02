@@ -21,7 +21,7 @@ export interface visualizationData {
   ],
   styleUrls: ['./vis-component.scss']
 })
-export class VisComponent implements OnInit, OnDestroy {
+class VisComponent implements OnInit, OnDestroy {
   @ViewChild('viusalizationRef', { static: true }) networkContainer: ElementRef;
   @Input() infraId?: string;
   @Input() visualizationWidth?: number;
@@ -103,10 +103,17 @@ export class VisComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.edges = this.edges.map(edge => {
-      edge.color = '#4546B9';
+/*    this.edges = this.edges.map(edge => {
+      edge.color = {
+        color:'#4546B9',
+          highlight:'#4546B9',
+          hover: '#4546B9',
+          inherit: 'from',
+          opacity:1.0
+      };
+      //edge.color = '#4546B9';
       return edge;
-    });
+    });*/
 
 
     let treeData = this.generateNetworkData();
@@ -154,7 +161,6 @@ export class VisComponent implements OnInit, OnDestroy {
         borderWidth: 2
       },
       edges: {
-        width: 3,
         arrows: {
           to: {
             enabled: true,
@@ -164,7 +170,7 @@ export class VisComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.resizeObserver = new ResizeObserver(entries => {
+/*    this.resizeObserver = new ResizeObserver(entries => {
       entries.forEach(entry => {
         const { width, height } = entry.contentRect;
         that.visTooltipX = (width + 10) / 2 + 'px';
@@ -176,7 +182,7 @@ export class VisComponent implements OnInit, OnDestroy {
     this.container.addEventListener('mousemove', (event: MouseEvent) => {
       that.visTooltipX = event.clientX - 25 + 'px';
       that.visTooltipY = event.clientY - 80 + 'px';
-    });
+    });*/
 
     this.network = new Network(this.container, treedata, options);
     this.network.canvas.body.container.style.cursor = 'drag';
@@ -231,40 +237,6 @@ export class VisComponent implements OnInit, OnDestroy {
     let params = {nodes: []};
     const ret = nodeList.map(node => {
       //console.log('setting node colors', nodeList, this._rootId);
-      if (node.id === toInteger(this._rootId)) {
-        params.nodes.push(toInteger(this._rootId));
-        console.log('params', params);
-        node.color = {
-          border: '#068411',
-          background: '#C5C5E5',
-          highlight: {
-            border: '#068411',
-            background: '#4546B9',
-            borderWidth: 2
-          },
-          hover: {
-            background: '#C5C5E5',
-            border: '#068411'
-          }
-        };
-        //node.font = { size: 20, color: '#068411', borderWidth: 5 };
-        node.borderWidth = 7;
-      } else {
-        node.color = {
-          background: '#E8E8F5',
-          border: '#4546B9',
-          highlight: {
-            border: '#4546B9',
-            background: '#4546B9',
-            borderWidth: 5
-          },
-          hover: {
-            background: '#C5C5E5',
-            border: '#4546B9'
-          }
-        };
-        node.borderWidth = 2;
-      }
       //node.border = '#5852A7';
       return node;
     });
@@ -290,3 +262,5 @@ export class VisComponent implements OnInit, OnDestroy {
   }
 
 }
+
+export default VisComponent;

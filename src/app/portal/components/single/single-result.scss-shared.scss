@@ -169,6 +169,9 @@
         padding: 16px;
         background-color: #fafafa;
         border-radius: 2px;
+        &.transparent-bg {
+          background-color: transparent;
+        }
       }
 
       // Sidebar
