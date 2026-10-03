@@ -48,7 +48,7 @@
     "@angular/platform-browser": "^21.2.9",
     "@angular/platform-browser-dynamic": "^21.2.9",
     "@angular/platform-server": "^21.2.9",
-    "@angular/router": "^21.2.9",
+    "@angular/router": "^21.2.24",
     "@angular/ssr": "^21.2.7",
     "@dotenvx/dotenvx": "^1.6.4",
     "angular-auth-oidc-client": "^14.1.5",
