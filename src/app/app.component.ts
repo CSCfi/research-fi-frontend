@@ -15,6 +15,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { LayoutComponent } from './layout/layout.component';
 import { ScrollingService } from '@portal/services/scrolling.service';
 import { ResizeService } from '@shared/services/resize.service';
+import { RETURN_URL_KEY } from './mydata/services/auth-guard.service';
 
 @Component({
     selector: 'app-root',
@@ -92,7 +93,18 @@ export class AppComponent {
 
           // Start MyData auth process
           if (e.url.includes('/mydata')) {
-            this.oidcSecurityService.checkAuth().subscribe(() => {});
+            this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated }) => {
+              // Set by AuthGuard when login was started from a link with login=1
+              const returnUrl = sessionStorage.getItem(RETURN_URL_KEY);
+              if (isAuthenticated && returnUrl) {
+                sessionStorage.removeItem(RETURN_URL_KEY);
+                // Runs after the library has navigated to postLoginRoute, so this overrides it.
+                // Only internal MyData paths are accepted to avoid an open redirect.
+                if (returnUrl.startsWith('/mydata')) {
+                  this.router.navigateByUrl(returnUrl);
+                }
+              }
+            });
           }
         }
       });
