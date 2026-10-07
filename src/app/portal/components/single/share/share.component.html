@@ -6,7 +6,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 @if (!useNewLayoutButton && !useTextOnlyLink) {
   <div class="share">
     <app-secondary-button
-      [cdkCopyToClipboard]="currentUrl"
+      [cdkCopyToClipboard]="urlToShare"
       (click)="openSnackBar()"
       [content]="copyLink"
       [svgSymbolName]="'copy'"
@@ -18,14 +18,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
 @if (useNewLayoutButton && !useTextOnlyLink) {
   <div>
-    <app-tertiary-button class="mx-4" [cdkCopyToClipboard]="currentUrl" content="Jaa profiili" i18n-content="@@shareProfile"
-      [svgSymbolName]="'share'" [svgCssClass]="'share-icon button-icon'"
-    (click)="openSnackBar()"></app-tertiary-button>
+    <app-tertiary-button class="mx-4" [cdkCopyToClipboard]="urlToShare" content="Jaa profiili" i18n-content="@@shareProfile"
+                         [svgSymbolName]="'share'" [svgCssClass]="'share-icon button-icon'"
+                         (click)="openSnackBar()"></app-tertiary-button>
   </div>
 }
 
 @if (useTextOnlyLink) {
   <div>
-    <div class="urn-text-link" [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()"><span [class.d-none]="!showUrnTextPrefix">URN: </span><span class="underlined-link">{{currentUrl}}</span><app-svg-sprites [iconName]="'copy'" cssClass="button-icon copy-icon svg-icon"></app-svg-sprites></div>
+    <div class="urn-text-link" [cdkCopyToClipboard]="urlToShare" (click)="openSnackBar()"><span [class.d-none]="!showUrnTextPrefix">URN: </span><span class="underlined-link">{{urlToShare}}</span><app-svg-sprites [iconName]="'copy'" cssClass="button-icon copy-icon svg-icon"></app-svg-sprites></div>
   </div>
 }

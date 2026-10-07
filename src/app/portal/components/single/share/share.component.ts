@@ -26,7 +26,7 @@ export class ShareComponent implements OnInit, OnChanges {
   @Input() useTextOnlyLink: boolean;
   @Input() showUrnTextPrefix: boolean = true;
 
-  currentUrl: string;
+  urlToShare: string;
   message: string;
 
   copyLink = $localize`:@@copyLink:Kopioi linkki`;
@@ -54,7 +54,11 @@ export class ShareComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.currentUrl = this.document.location.href;
+    if (this.id) {
+      this.urlToShare = this.id;
+    } else {
+      this.urlToShare = this.document.location.href;
+    }
   }
 
   openSnackBar() {
