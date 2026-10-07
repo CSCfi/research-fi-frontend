@@ -11,6 +11,18 @@ import { InfraService, InfraServiceAdapter } from './infra-service.model';
 import { ModelUtilsService } from '@shared/services/model-util.service';
 import { UtilityService } from '@shared/services/utility.service';
 
+export interface InfraContactInfo {
+  contactLabel?: string | undefined;
+  phone?: string[];
+  email?: string[];
+  street?: string | undefined;
+  premise?: string | undefined;
+  postalCode?: string | undefined;
+  locality?: string | undefined;
+  country?: string | undefined;
+  countryCode?: string | undefined;
+}
+
 export class Infrastructure {
   constructor(
     public id: string,
@@ -22,11 +34,7 @@ export class Infrastructure {
     public acronym: string,
     public finlandRoadmap: string,
     public ESFRICodes: string,
-    public contactName: string,
-    public contactDescription: string,
-    public email: string,
-    public phoneNumber: string,
-    public address: string,
+    public contactInfo: InfraContactInfo[],
     public homepage: string,
     public terms: string,
     public urn: string,
@@ -46,12 +54,14 @@ export class Infrastructure {
   providedIn: 'root',
 })
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
+  infraContactInfo: InfraContactInfo[] = [];
   constructor(@Inject(LOCALE_ID) protected localeId: string,
     private isa: InfraServiceAdapter,
     private utils: ModelUtilsService
   ) {}
 
   adapt(item: any): Infrastructure {
+    this.infraContactInfo = [];
     const capitalizedLocale =
       this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
 
@@ -88,6 +98,22 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     }
     participantOrganizations = orgList.join(', ');
 
+    if (item?.infraContactInformation) {
+      item.infraContactInformation.forEach(contactElement => {
+        let infraContact: InfraContactInfo = {};
+        infraContact.contactLabel = contactElement?.contactLabel ?? '';
+        infraContact.phone = contactElement?.phone ?? [];
+        infraContact.email = contactElement?.email ?? [];
+        infraContact.street = contactElement?.street ?? '';
+        infraContact.premise = contactElement?.premise ?? '';
+        infraContact.postalCode = contactElement?.postalCode ?? '';
+        infraContact.locality = contactElement?.locality ?? '';
+        infraContact.country = contactElement?.country ?? '';
+        infraContact.countryCode = contactElement?.countryCode ?? '';
+        this.infraContactInfo.push(infraContact);
+      })
+    }
+
     item.infraServices?.forEach((service) => services.push(this.isa.adapt(service)));
     item.fieldsOfScience?.forEach((obj) =>
       fieldsOfScience.push(this.utils.checkTranslation('name', obj))
@@ -110,16 +136,12 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
       item?.infraEndsOn?.year ?? '',
       item?.infraAcronym ?? '',
       item?.finlandRoadmap,
-      item?.ESFRICodes ? item.ESFRICodes.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)) : [],
-      this.utils.checkTranslation('infraConName', item?.infraConPoint),
-      this.utils.checkTranslation('infraConDescr', item?.infraConPoint),
-      item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.email ?? '' : '',
-      item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.phoneNumber ?? '' : '',
-      item?.infraContactInformation?.length > 0 ? item?.infraContactInformation[0]?.visitingAddress ?? [] : [],
+      item?.ESFRICodes ? item.ESFRICodes.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)).join(', ') : '',
+      this.infraContactInfo,
       this.utils.checkTranslationFromArrayToString(item?.infraHomepage, 'weblinkURL'),
       this.utils.checkTranslation('infraConTerms', item?.infraConPoint),
       item?.infraKeyIdentifier,
-      this.utils.filterTranslationFromElement(item?.infraResponsibleOrganization.organizationName),
+      this.utils.filterTranslationFromElement(item?.infraResponsibleOrganization?.organizationName),
       item?.infraResponsibleOrganization?.orgNodeId ?? '',
       participantOrganizations,
       item.orgNodeId,

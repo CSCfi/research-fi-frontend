@@ -44,6 +44,27 @@ export class InfrastructureFilterService {
       open: true,
       limitHeight: true,
     },
+    {
+      field: 'ESFRICodes',
+      label: $localize`ESFRI-luokitus`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+    },
+    {
+      field: 'serviceUserRole',
+      label: $localize`:@@serviceTargetSegment:Palvelun kohderyhmä`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+    },
+    {
+      field: 'serviceTargetSegment',
+      label: $localize`:@@serviceTargetSegment:Palvelun käyttäjät`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+    },
   ];
 
   singleFilterData = [
@@ -64,6 +85,9 @@ export class InfrastructureFilterService {
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science
     source.field = this.field(source.infraField.infraFields);
+    source.ESFRICodes = this.field(source.esfri.infraFields);
+    source.serviceTargetSegment = this.field(source.serviceTargetSegment).infraFields;
+    source.serviceUserRole = this.field(source.serviceUserRole.infraFields);
     source.shaped = true;
     return source;
   }

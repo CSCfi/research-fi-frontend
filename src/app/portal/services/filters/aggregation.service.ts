@@ -1759,6 +1759,68 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.serviceTargetSegment = {
+          nested: {
+            path: 'infraServices',
+          },
+          aggs: {
+            infraServices: {
+              terms: {
+                field: 'infraServices.serviceTargetSegment.codeLabel.' + 'en' + '.keyword',
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('infraServices.serviceTargetSegment'),
+                        },
+                      },
+                    },
+                  },
+                },
+                majorId: {
+                  terms: {
+                    field: 'infraServices.serviceTargetSegment.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.serviceUserRole = {
+          nested: {
+            path: 'infraServices.serviceUserRole',
+          },
+          aggs: {
+            infraFields: {
+              terms: {
+                field: 'infraServices.serviceUserRole.codeLabel.' + 'en' + '.keyword',
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('infraServices.serviceUserRole'),
+                        },
+                      },
+                    },
+                  },
+                },
+                majorId: {
+                  terms: {
+                    field: 'infraServices.serviceUserRole.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
         break;
       }
       // Organizations

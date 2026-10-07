@@ -294,7 +294,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       field: 'finlandRoadmap',
       tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`
     },
-    { label: $localize`ESFRI-luokitus`, field: 'ESFRICode' }
+    { label: $localize`ESFRI-luokitus`, field: 'ESFRICodes' }
   ];
 
   contactFields = [
@@ -714,7 +714,6 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     //this.selectedInfraId = id;
     this.dataSub = this.singleService.getSingleInfrastructure(id).subscribe({
       next: (responseData) => {
-
         if (isModalData) {
           // Reload modal data
           this.modalInfraData = responseData;
