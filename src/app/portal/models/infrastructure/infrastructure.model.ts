@@ -110,12 +110,9 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         infraContact.locality = contactElement?.locality ?? '';
         infraContact.country = contactElement?.country ?? '';
         infraContact.countryCode = contactElement?.countryCode ?? '';
-        console.log('infraContact', item, infraContact);
         this.infraContactInfo.push(infraContact);
       })
     }
-
-    console.log('infraContact[', this.infraContactInfo);
 
     item.infraServices?.forEach((service) => services.push(this.isa.adapt(service)));
     item.fieldsOfScience?.forEach((obj) =>
