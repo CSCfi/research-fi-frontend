@@ -384,7 +384,7 @@ export class SortService {
           case 'services': {
             this.sort = [
               {
-                'services.keyword': {
+                'infrasServicesCount': {
                   order: this.sortDirection ? 'desc' : 'asc',
                   unmapped_type: 'long',
                 },
