@@ -92,11 +92,11 @@
                   <span class="pe-1 fw-bold other-fields-heading">Muut tiedot</span>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3 td">Vastuuorganisaatio:</div>
-                <div class="col-12 col-sm-6 col-lg-6 td">{{responseData.infrastructures[0]?.responsibleOrganization?.trim()}}</div>
+                <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.responsibleOrganization?.trim() }}</div>
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
                 @if (responseData.infrastructures[0]?.participantOrganizations?.length > 0) {
                   <div class="col-12 col-sm-6 col-lg-3 td">Osallistuvat organisaatiot:</div>
-                  <div class="col-12 col-sm-6 col-lg-6 td">{{responseData.infrastructures[0]?.participantOrganizations}}</div>
+                  <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participantOrganizations }}</div>
                 }
               </div>
 
@@ -115,30 +115,6 @@
                   </div>
                 </div>
               </div>
-              <div class="row"
-                   *ngIf="responseData.infrastructures[0]?.email">
-                <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold">Yhteyshenkilö ja -tiedot</span>
-                </div>
-                @if (responseData.infrastructures[0]?.contactName) {
-                  <div class="col-12 col-sm-6 col-lg-9 td">
-                    <div>{{responseData.infrastructures[0]?.contactName}}</div>
-                  </div>
-                }
-                @if (responseData.infrastructures[0]?.contactDescription) {
-                  <div class="col-12 col-sm-6 col-lg-9 td">
-                    <div>{{responseData.infrastructures[0]?.contactDescription}}</div>
-                  </div>
-                }
-                <div class="col-12 col-sm-6 col-lg-9 td">
-                  @for (email of responseData.infrastructures[0]?.email; track email){
-                    <div>{{email}}</div>
-                  }
-                </div>
-              </div>
-
-
-
               <hr/>
 
               <!-- Infra other fields -->
@@ -146,19 +122,73 @@
                 <div class="col-12 col-sm-6 col-lg-3 th">
                   <span class="pe-1 fw-bold other-fields-heading">Muut tiedot</span>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-2 td">Yhteystiedot:</div>
-                <div class="col-12 col-sm-6 col-lg-7 td"></div>
-                <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                <div class="col-12 col-sm-6 col-lg-2 td">Tieteenalat:</div>
-                <div class="col-12 col-sm-6 col-lg-7 td">{{ responseData.infrastructures[0]?.fieldsOfScience.join(', ') }}</div>
+
+                @if (responseData.infrastructures[0]?.contactInfo?.length > 0) {
+                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">Yhteystiedot:</div>
+                  <div class="col-12 col-sm-6 col-lg-7 row gx-0">
+                    @for (contact of responseData.infrastructures[0].contactInfo; track contact) {
+                      @if (contact?.contactLabel) {
+                        <div class="col-12 td">
+                          <div>{{ contact?.contactLabel }}</div>
+                        </div>
+                      }
+                      @if (contact?.email?.length > 0) {
+                        <div class="col-12 td">
+                          @for (email of contact?.email; track email) {
+                            <div>{{ email }}</div>
+                          }
+                        </div>
+                      }
+                      @if (contact?.phone?.length > 0) {
+                        <div class="col-12 td">
+                          @for (phone of contact?.phone; track phone) {
+                            <div>{{ phone }}</div>
+                          }
+                        </div>
+                      }
+                      @if (contact?.street) {
+                        <div class="col-12 td">
+                          <div>{{ contact.street }}</div>
+                        </div>
+                      }
+                      @if (contact?.premise) {
+                        <div class="col-12 td">
+                          <div>{{ contact.premise }}</div>
+                        </div>
+                      }
+                      @if (contact?.postalCode) {
+                        <div class="col-12 td">
+                          <div>{{ contact.postalCode }}</div>
+                        </div>
+                      }
+                      @if (contact?.locality) {
+                        <div class="col-12 td">
+                          <div>{{ contact.locality }}</div>
+                        </div>
+                      }
+                      @if (contact?.country) {
+                        <div class="col-12 td">
+                          <div>{{ contact.country }}</div>
+                        </div>
+                      }
+                    }
+                  </div>
+                  <div class="col-12 col-sm-6 col-lg-3 th">
+                    <span class="pe-1 fw-bold other-fields-heading"></span>
+                  </div>
+                }
+
+                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">Tieteenalat:</div>
+                <div class="col-12 td col-lg-7">{{ responseData.infrastructures[0]?.fieldsOfScience.join(', ') }}</div>
+
 
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                <div class="col-12 col-sm-6 col-lg-2 td">Luokituksia:</div>
+                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">Luokituksia:</div>
                 <div class="col-12 col-sm-6 col-lg-7 td">
                   <ng-container *ngFor="let row of classificationFields; let i = index">
-                    <div class="d-flex flex-row" *ngIf="item[row.field]">
-                      <span class="pe-1">{{ row.label }}:</span>
-                      <div class="pe-1">{{ item[row.field] }}</div>
+                    <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
+                      <span class="pe-1">{{ row.label }}: </span>
+                      <span class="pe-2">{{ item[row.field] }}</span>
                       <ng-container *ngIf="row.tooltip">
                         <ng-template #tooltipTemplate
                         >
@@ -178,11 +208,11 @@
                   </ng-container>
                 </div>
 
+                @if (responseData.infrastructures[0]?.urn){
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                <div class="col-12 col-sm-6 col-lg-2 td">Tunnisteet:</div>
-                <div class="col-12 col-sm-6 col-lg-7 td"></div>
-                {{ responseData.infrastructures[0]?.fieldsOfScienceString }}
-
+                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">Tunnisteet:</div>
+                <div class="col-12 col-sm-6 col-lg-7 td">{{ responseData.infrastructures[0]?.urn }}</div>
+                }
               </div>
             </div>
             <!--          <div *ngIf="item?.services.length > 0" class="content">
