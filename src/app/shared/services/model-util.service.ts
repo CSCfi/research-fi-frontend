@@ -246,19 +246,17 @@ export class ModelUtilsService {
         case 'fi': {
           ret = inputElement?.fi ?? '';
 
-          if (ret.length > 0) {
+          if (UtilityService.stringHasContent(ret)) {
             return ret;
             break;
           } else {
-            ret = inputElement?.en;
-            if (ret.length > 0) {
-              return ret;
+            if (UtilityService.stringHasContent(inputElement?.en)) {
+              return inputElement.en;
               break;
             }
             else {
-              ret = inputElement?.sv;
-              if (ret.length > 0) {
-                return ret;
+              if (UtilityService.stringHasContent(inputElement?.sv)) {
+                return inputElement.sv;
                 break;
               }
             }
@@ -269,19 +267,17 @@ export class ModelUtilsService {
         case 'sv': {
           ret = inputElement?.sv ?? '';
 
-          if (ret.length > 0) {
+          if (UtilityService.stringHasContent(ret)) {
             return ret;
             break;
           } else {
-            ret = inputElement?.fi;
-            if (ret.length > 0) {
-              return ret;
+            if (UtilityService.stringHasContent(inputElement?.fi)) {
+              return inputElement.fi;
               break;
             }
             else {
-              ret = inputElement?.en;
-              if (ret.length > 0) {
-                return ret;
+              if (UtilityService.stringHasContent(inputElement?.en)) {
+                return inputElement.en;
                 break;
               }
             }
@@ -290,21 +286,19 @@ export class ModelUtilsService {
           break;
         }
         case 'en': {
-          ret = inputElement?.eb ?? '';
+          ret = inputElement?.en ?? '';
 
-          if (ret.length > 0) {
+          if (UtilityService.stringHasContent(ret)) {
             return ret;
             break;
           } else {
-            ret = inputElement?.fi;
-            if (ret.length > 0) {
-              return ret;
+            if (UtilityService.stringHasContent(inputElement?.fi)) {
+              return inputElement.fi;
               break;
             }
             else {
-              ret = inputElement?.sv;
-              if (ret.length > 0) {
-                return ret;
+              if (UtilityService.stringHasContent(inputElement?.sv)) {
+                return inputElement.sv;
                 break;
               }
             }
