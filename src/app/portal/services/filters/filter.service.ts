@@ -105,6 +105,7 @@ export class FilterService {
   decisionMakerFilter: string[];
   callIdFilter: string[];
   approvalDateFilter: string[];
+  ESFRIFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -559,7 +560,7 @@ export class FilterService {
         const filterString =
           isParticipatingOrganization ? 'infraParticipatingOrganizations.orgNodeId.keyword' : 'infraResponsibleOrganization.orgNodeId.keyword';
         filter.forEach((value) => {
-          //res.push({ term: { [filterString]: value } });
+          res.push({ term: { [filterString]: value } });
         });
         break;
       }
@@ -865,6 +866,15 @@ export class FilterService {
     return res;
   }
 
+  // Sector
+  filterByESFRICode(ESFRICodes: any[]) {
+    const res = [];
+    ESFRICodes.forEach((value) => {
+      res.push({ term: { 'ESFRICodes.codeValue': value } });
+    });
+    return res;
+  }
+
   addMinMatch(min) {
     return { minimum_should_match: min };
   }
@@ -1027,6 +1037,7 @@ export class FilterService {
         this.infraFieldFilter,
         'fieldOfScience'
       ),
+      ...basicFilter('infrastructure', this.ESFRIFilter),
 
       // Organizations
       ...basicFilter('organization', this.sectorFilter),
