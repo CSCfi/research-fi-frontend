@@ -116,9 +116,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   };
 
   fintoLink = {
-    Fi: 'http://finto.fi/cn/fi/',
-    En: 'http://finto.fi/cn/en/',
-    Sv: 'http://finto.fi/cn/sv/',
+    Fi: 'https://finto.fi/finaf/fi/',
+    En: 'https://finto.fi/finaf/en/',
+    Sv: 'https://finto.fi/finaf/sv/',
   };
 
   ytjLink = {
