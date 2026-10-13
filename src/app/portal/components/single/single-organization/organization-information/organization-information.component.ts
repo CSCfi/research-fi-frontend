@@ -28,7 +28,7 @@ export class OrganizationInformationComponent implements OnInit {
   @Input() item: any;
 
   sources = {
-    finto: $localize`:@@fintoSource:Lähde: KANTO - Kansalliset toimijatiedot https://finto.fi/finaf/fi/"`,
+    kanto: $localize`:@@fintoSource:Lähde: KANTO - Kansalliset toimijatiedot https://finto.fi/finaf/fi/"`,
     ytj: $localize`:@@ytjSource:Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi`,
     tk: $localize`:@@tkSource:Lähde: Tilastokeskus www.stat.fi`,
     vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`,
