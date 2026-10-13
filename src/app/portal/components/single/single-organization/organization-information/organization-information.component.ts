@@ -28,7 +28,7 @@ export class OrganizationInformationComponent implements OnInit {
   @Input() item: any;
 
   sources = {
-    finto: $localize`:@@fintoSource:Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi`,
+    finto: $localize`:@@fintoSource:Lähde: KANTO - Kansalliset toimijatiedot https://finto.fi/finaf/fi/"`,
     ytj: $localize`:@@ytjSource:Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi`,
     tk: $localize`:@@tkSource:Lähde: Tilastokeskus www.stat.fi`,
     vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`,
@@ -42,27 +42,27 @@ export class OrganizationInformationComponent implements OnInit {
     {
       label: $localize`:@@otherNames:Muut nimet`,
       field: 'variantNames',
-      tooltip: 'finto',
+      tooltip: 'kanto',
     },
     {
       label: $localize`:@@orgEstablished:Perustettu`,
       field: 'established',
-      tooltip: 'finto',
+      tooltip: 'kanto',
     },
     {
       label: $localize`:@@orgBackground:Lisätietoa`,
       field: 'background',
-      tooltip: 'finto',
+      tooltip: 'kanto',
     },
     {
       label: $localize`:@@orgPredecessor:Edeltävä organisaatio`,
       field: 'predecessors',
-      tooltip: 'finto',
+      tooltip: 'kanto',
     },
     {
       label: $localize`:@@orgRelated:Liittyvä organisaatio`,
       field: 'related',
-      tooltip: 'finto',
+      tooltip: 'kanto',
     },
     {
       label: $localize`:@@orgType:Organisaatiomuoto`,
