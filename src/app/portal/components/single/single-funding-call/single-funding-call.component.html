@@ -413,7 +413,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                                         <div style='margin-bottom: 1rem'></div>
                                       }
                                       <!-- TIK -->
-                                      @if (grouped?.TIK?.length > 0) {
+                                      @if (grouped?.TI?.length > 0) {
                                         <div style='font-weight: bold' i18n>Tutkimusinfrastruktuurikomitea</div>
                                         @for (row of grouped.TIK; track row; let i = $index) {
                                           <div>
@@ -421,6 +421,19 @@ Copyright 2019 Ministry of Education and Culture, Finland
                                               <div style='min-width: 80px; margin-right: 1rem'>{{ row.phase }}</div>
                                               <div style='min-width: 80px; margin-right: 1rem'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
                                               <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "TIK", callId: call.id}' i18n>Näytä myönnöt</a>
+                                            </div>
+                                          </div>
+                                        }
+                                        <div style='margin-bottom: 1rem'></div>
+                                      }
+                                      @if (grouped['TI-tmk']?.length > 0) {
+                                        <div style='font-weight: bold' i18n="@@scientificCouncilForResearchInfrastructures">Tutkimusinfrastruktuuritoimikunta</div>
+                                        @for (row of grouped['TI-tmk']; track row; let i = $index) {
+                                          <div>
+                                            <div style='display: flex; border-bottom: 1rem'>
+                                              <div style='min-width: 80px; margin-right: 1rem'>{{ row.phase }}</div>
+                                              <div style='min-width: 80px; margin-right: 1rem'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                                              <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "TI-tmk", callId: call.id}' i18n>Näytä myönnöt</a>
                                             </div>
                                           </div>
                                         }
