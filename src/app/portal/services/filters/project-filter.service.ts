@@ -11,7 +11,6 @@ import { StaticDataService } from '../static-data.service';
 import { cloneDeep } from 'lodash-es';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { FilterConfigType } from 'src/types';
-import { decisionMakerLabels } from '../../../utility/localization';
 
 @Injectable({
   providedIn: 'root',

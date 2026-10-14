@@ -372,6 +372,14 @@ export class FundingFilterService {
   mapDecisionMaker(data) {
     data.map((item) => {
       item.label = decisionMakerLabels[item.key] || item.key;
+
+      // Quick fix for break word
+      if (item.label === 'Tutkimusinfrastruktuurikomitea') {
+        item.label = 'Tutkimusinfrastruk-tuurikomitea';
+      }
+      if (item.label === 'Tutkimusinfrastruktuuritoimikunta') {
+        item.label = 'Tutkimusinfrastruk-tuuritoimikunta';
+      }
     });
 
     return data;

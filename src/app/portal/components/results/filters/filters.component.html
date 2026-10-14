@@ -124,6 +124,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
           @if (filter.relatedPublications) {
             <div class="row">
               <div class="col py-3">
+                !!!!!!!!!!!!!!!!!
                 <mat-slide-toggle
                   class="slider"
                   (change)="selectionChange('coPublication', true)"
@@ -371,7 +372,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                                           <!--<div class="row d-flex justify-content-around">-->
                                           <div class="row d-flex justify-content-between">
                                             <div class="col-8 pe-0">
-                                              <span class="label pe-2">{{
+                                              <span class="label pe-2" [class.do-not-hide-overflow]="item.label === 'Tutkimusinfrastruk-tuurikomitea' || item.label === 'Tutkimusinfrastruk-tuuritoimikunta'">{{
                                                 item.label ? item.label : item.key
                                               }}</span>
                                             </div>
@@ -517,6 +518,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                                                   <mat-selection-list [attr.aria-label]="filter.field">
                                                     <!-- Select all -->
                                                     @if (item.subData?.length) {
+                                                      ##################
                                                       <mat-list-option disableRipple
                                                         checkboxPosition="before"
                                                         (click)="selectAll(filter.field, item)"
@@ -548,6 +550,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                                                         : defaultOpen
                                                         ); track trackByFn($index,
                                                         field)) {
+                                                        €€€€€€€€€€€€€€€€€
                                                         <mat-list-option disableRipple
                                                           checkboxPosition="before"
                                                           (click)="selectionChange(filter.field, field.key)"
