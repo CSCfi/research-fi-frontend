@@ -43,7 +43,7 @@ function email(strings) {
 export class FooterComponent {
   locale = inject(LOCALE_ID);
   okmUrl = this.translateOkmUrl(this.locale);
-  cscUrl = this.translateOkmUrl(this.locale);
+  cscUrl = this.translateCscUrl(this.locale);
   instructionsUrl = this.translateInstructionUrl(this.locale);
 
   interacted = false;
