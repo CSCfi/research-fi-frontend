@@ -265,6 +265,10 @@
       }
     }
 
+    .do-not-hide-overflow {
+      overflow: visible !important;
+    }
+    
     .row.slider {
       padding-top: 0.5rem;
     }
