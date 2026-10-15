@@ -13,7 +13,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
           <div class="footer-logo-wrap d-flex flex-row gx-0 me-2 my-3">
             <div class="row d-flex justify-content-center flex-column okm-logo-wrap gx-0 me-2">
-              <a [attr.href]="okmUrl" target="_blank">
+              <a [href]="localizedLinks.okm" target="_blank">
                 <img
                         class="logo okm-logo"
                         src="{{ 'assets/img/okm_logo_' + locale + '.png' }}"
@@ -24,7 +24,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             </div>
 
             <div class="row d-flex justify-content-center flex-column">
-              <a href="https://www.csc.fi/" target="_blank">
+              <a [href]="localizedLinks.csc" target="_blank">
                 <img
                         class="logo csc-logo"
                         src="assets/img/csc_logo.png"
