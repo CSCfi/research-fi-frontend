@@ -65,7 +65,7 @@ export class FooterComponent {
     },
   ];
 
-  localizedLinks = { okm: $localize`:@@footerLinkOkm:https://okm.fi/etusivu/`, csc: $localize`:@@footerLinkCsc:https://csc.fi/` };
+  localizedLinks = { okm: $localize`:@@okmLinkFooter:https://okm.fi/etusivu/`, csc: $localize`:@@cscLinkFooter:https://csc.fi/` };
 
   // Dialog variables
   showDialog: boolean;
