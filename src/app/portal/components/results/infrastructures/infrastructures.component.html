@@ -79,10 +79,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
                 @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
                   @if (i === 0) {
-                    asd<div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
+                    <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
                   }
                   @if (!subInfra.infraKeyIdentifier) {
-                    sdf<div>{{getInternationalInfraName(subInfra.infraID)}}</div>
+                    <div>{{getInternationalInfraName(subInfra.infraID)}}</div>
                   }
                 }
               </ng-template>
