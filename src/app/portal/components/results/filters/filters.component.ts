@@ -60,6 +60,7 @@ import { SecondaryButtonComponent } from '../../../../shared/components/buttons/
 import { ProjectFilterService } from '@portal/services/filters/project-filter.service';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { PrimaryActionButtonComponent } from '@shared/components/buttons/primary-action-button/primary-action-button.component';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
     selector: 'app-filters',
@@ -267,9 +268,28 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           break;
         }
         case 'infrastructures': {
+          // Map to make old switch component compatible
+          const finRoadmapCodes = this.responseData.aggregations.finlandRoadmap.finlandRoadmapCodes;
+          const hasRelationToInternationalInfraCodes = this.responseData.aggregations.hasRelationToInternationalInfra.hasRelationToInternationalInfraCodes;
+
+          // Reverse buckets to make the slider to filter true selections instead of false
+          if (hasRelationToInternationalInfraCodes?.buckets) {
+            //TODO: buggy solution, needs to be fixed
+            hasRelationToInternationalInfraCodes.buckets = hasRelationToInternationalInfraCodes?.buckets.reverse();
+          }
+
+          // Prevent hiding the switch with empty results
+          if (finRoadmapCodes?.buckets?.length < 1) {
+            finRoadmapCodes.buckets.push(
+              { key: 1, key_as_string: "true", doc_count: 0 }
+            );
+          }
+
+          this.responseData.aggregations.finlandRoadmap = cloneDeep(finRoadmapCodes);
+          this.responseData.aggregations.hasRelationToInternationalInfra = cloneDeep(hasRelationToInternationalInfraCodes);
+
           this.currentFilter = this.infrastructureFilters.filterData;
-          this.currentSingleFilter =
-            this.infrastructureFilters.singleFilterData;
+          this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
           this.infrastructureFilters.shapeData(this.responseData);
           break;
         }

@@ -744,6 +744,73 @@ export class ActiveFiltersComponent
               }
 
               // Infrastructures
+
+              // Finland roadmap
+              if (val.category === 'finlandRoadmap' && source.finlandRoadmap) {
+                this.activeFilters.find(
+                  (item) => item.category === 'finlandRoadmap'
+                ).translation = $localize`Suomen Akatemian tiekartalla`;
+              }
+
+              // Has relation to international infra
+              if (val.category === 'hasRelationToInternationalInfra' && source.hasRelationToInternationalInfra) {
+                this.activeFilters.find(
+                  (item) => item.category === 'hasRelationToInternationalInfra'
+                ).translation = $localize`:@@hasRelationToInternationalInfra:Kuuluu kansainväliseen infrastruktuuriverkostoon.`;
+              }
+
+              // Service user roles
+              if (val.category === 'serviceUserRole' && source.serviceUserRole) {
+                // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
+                // This might cause some latency and therefore timeout is needed.
+                setTimeout((t) => {
+                  const result = source.serviceUserRole.buckets.find(
+                    ({ key }) => key === val.value
+                  );
+                  const foundIndex = this.activeFilters.findIndex(
+                    (x) => x.value === val.value
+                  );
+                  this.activeFilters[foundIndex].translation = result.label
+                    ? result.label.charAt(0).toUpperCase() + result.label.slice(1)
+                    : '';
+                }, 1);
+              }
+
+              // Service target segment
+              if (val.category === 'serviceTargetSegment' && source.serviceTargetSegment) {
+                // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
+                // This might cause some latency and therefore timeout is needed.
+                setTimeout((t) => {
+
+                  const result = source.serviceTargetSegment.buckets.find(
+                    ({ key }) => key === val.value
+                  );
+                  const foundIndex = this.activeFilters.findIndex(
+                    (x) => x.value === val.value
+                  );
+                  this.activeFilters[foundIndex].translation = result.label
+                    ? result.label.charAt(0).toUpperCase() + result.label.slice(1)
+                    : '';
+                }, 1);
+              }
+
+              // Service ESFRI codes
+              if (val.category === 'ESFRICodes' && source.ESFRICodes) {
+                // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
+                // This might cause some latency and therefore timeout is needed.
+                setTimeout((t) => {
+                  const result = source.ESFRICodes.buckets.find(
+                    ({ key }) => key === val.value
+                  );
+                  const foundIndex = this.activeFilters.findIndex(
+                    (x) => x.value === val.value
+                  );
+                  this.activeFilters[foundIndex].translation = result.label
+                    ? result.label.charAt(0).toUpperCase() + result.label.slice(1)
+                    : '';
+                }, 1);
+              }
+
               // Type
               if (val.category === 'type' && source.type) {
                 // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
@@ -760,6 +827,8 @@ export class ActiveFiltersComponent
                     : '';
                 }, 1);
               }
+
+
 
               // Infrastructure main field of science
               if (

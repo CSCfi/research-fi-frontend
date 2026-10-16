@@ -16,12 +16,11 @@ export class InfrastructureFilterService {
   filterData: FilterConfigType[] = [
     {
       field: 'year',
-      label: $localize`:@@fundingYear:Aloitusvuosi`,
+      label: $localize`:@@inra-activity-heading:Infrastruktuurin toiminta`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
       hideSearch: true,
-      tooltip: $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`,
     },
     {
       field: 'organization',
@@ -30,45 +29,46 @@ export class InfrastructureFilterService {
       open: false,
       limitHeight: true,
     },
-    {
+/*    {
       field: 'participatingOrganizations',
       label: $localize`:@@participatingOrganizations:Osallistuvat organisaatiot`,
       hasSubFields: true,
       open: false,
       limitHeight: true,
-    },
+    },*/
     {
       field: 'field',
       label: $localize`:@@fieldOfScience:Tieteenala`,
       hasSubFields: false,
-      open: true,
+      open: false,
       limitHeight: true,
     },
     {
       field: 'ESFRICodes',
       label: $localize`ESFRI-luokitus`,
       hasSubFields: false,
-      open: true,
-      limitHeight: true,
-    },
-    {
-      field: 'serviceUserRole',
-      label: $localize`:@@serviceTargetSegment:Palvelun kohderyhmä`,
-      hasSubFields: false,
-      open: true,
+      open: false,
       limitHeight: true,
     },
     {
       field: 'serviceTargetSegment',
-      label: $localize`:@@serviceTargetSegment:Palvelun käyttäjät`,
+      label: $localize`:@@serviceTargetSegment:Palvelun kohderyhmä`,
       hasSubFields: false,
-      open: true,
+      open: false,
+      limitHeight: true,
+    },
+    {
+      field: 'serviceUserRole',
+      label: $localize`:@@serviceUserRole:Palvelun käyttäjät`,
+      hasSubFields: false,
+      open: false,
       limitHeight: true,
     },
   ];
 
   singleFilterData = [
-    // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteisjulkaisu'}
+     {field: 'finlandRoadmap', label: $localize`Suomen Akatemian tiekartalla`, tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`},
+     /*{field: 'hasRelationToInternationalInfra', label: $localize`:@@hasRelationToInternationalInfra:Kuuluu kansainväliseen infrastruktuuriverkostoon.`, tooltip: ''}*/
   ];
 
   constructor() {}
@@ -85,11 +85,53 @@ export class InfrastructureFilterService {
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science
     source.field = this.field(source.infraField.infraFields);
-    source.ESFRICodes = this.field(source.esfri.infraFields);
-    source.serviceTargetSegment = this.field(source.serviceTargetSegment).infraFields;
-    source.serviceUserRole = this.field(source.serviceUserRole.infraFields);
+    source.ESFRICodes = this.field(source.esfri.esfriFields);
+    source.serviceTargetSegment = this.field(source.serviceTargetSegment.infraSegments);
+    source.serviceUserRole = this.field(source.serviceUserRole.serviceUserRoles);
     source.shaped = true;
+    //this.isInfraActive(undefined);
     return source;
+  }
+
+  isInfraActive(data) {
+    // Preserve original values to help on doc count calculation when switching
+    // between mobile and desktop resolutions
+    if (data && !data?.originalData) {
+      data.originalData = data.buckets;
+    }
+
+    const now = new Date().toLocaleDateString('sv');
+
+    // Open
+    console.log('!!! now', now);
+
+    const dates = [...data.originalData];
+    let openDocs = 0;
+    let closedDocs = 0;
+
+
+
+    dates
+      .filter((date) => date.key.dueDate >= now)
+      .forEach((date) => (openDocs += date.filtered.doc_count));
+    // Closed
+    dates
+      .filter((date) => date.key.dueDate < now)
+      .forEach((date) => (closedDocs += date.filtered.doc_count));
+
+    const buckets = [
+      {
+        label: $localize`:@@infra-filter-active:Toiminnassa`,
+        key: 'active',
+        doc_count: openDocs,
+      },
+      {
+        label: $localize`:@@infra-filter-discontinued:Päättynyt`,
+        key: 'discontinued',
+        doc_count: closedDocs,
+      },
+    ];
+    return buckets;
   }
 
   mapYear(data) {

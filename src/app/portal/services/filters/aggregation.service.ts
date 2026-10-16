@@ -1615,12 +1615,61 @@ export class AggregationService {
           null,
           false
         );
+        payLoad.aggs.status = {
+          composite: {
+            size: 2000,
+            sources: [
+              {
+                openDate: {
+                  date_histogram: {
+                    field: 'callProgrammeOpenDate',
+                    calendar_interval: '1d',
+                    format: 'yyyy-MM-dd',
+                  },
+                },
+              },
+              {
+                dueDate: {
+                  date_histogram: {
+                    field: 'callProgrammeDueDate',
+                    calendar_interval: '1d',
+                    format: 'yyyy-MM-dd',
+                  },
+                },
+              },
+            ],
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActiveFiltered(),
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.activityYears = {
+          filter: {
+            bool: {
+            },
+          },
+          aggs: {
+            infraStartsOn: {
+              terms: {
+                field: 'infraStartsOn.year',
+              },
+            },
+            infraEndsOn: {
+              terms: {
+                field: 'infraEndsOn.year',
+              },
+            },
+          },
+        };
         payLoad.aggs.organization = {
           filter: {
             bool: {
-              filter: filterActive(
-                'infraResponsibleOrganization.organizationSector.codeValue.keyword'
-              ),
             },
           },
           aggs: {
@@ -1733,7 +1782,7 @@ export class AggregationService {
             path: 'ESFRICodes',
           },
           aggs: {
-            infraFields: {
+            esfriFields: {
               terms: {
                 field: 'ESFRICodes.codeLabel.' + 'en' + '.keyword',
               },
@@ -1761,12 +1810,12 @@ export class AggregationService {
         };
         payLoad.aggs.serviceTargetSegment = {
           nested: {
-            path: 'infraServices',
+            path: 'infraServices.serviceTargetSegment',
           },
           aggs: {
-            infraServices: {
+            infraSegments: {
               terms: {
-                field: 'infraServices.serviceTargetSegment.codeLabel.' + 'en' + '.keyword',
+                field: 'infraServices.serviceTargetSegment.codeLabel.' + this.localeC.toLowerCase() + '.keyword',
               },
               aggs: {
                 filtered: {
@@ -1795,9 +1844,9 @@ export class AggregationService {
             path: 'infraServices.serviceUserRole',
           },
           aggs: {
-            infraFields: {
+            serviceUserRoles: {
               terms: {
-                field: 'infraServices.serviceUserRole.codeLabel.' + 'en' + '.keyword',
+                field: 'infraServices.serviceUserRole.codeLabel.' + this.localeC.toLowerCase() + '.keyword',
               },
               aggs: {
                 filtered: {
@@ -1817,6 +1866,36 @@ export class AggregationService {
                     field: 'infraServices.serviceUserRole.codeValue.keyword',
                   },
                 },
+              },
+            },
+          },
+        };
+        payLoad.aggs.finlandRoadmap = {
+          filter: {
+            bool: {
+              filter: filterActive('finlandRoadmap'),
+            },
+          },
+          aggs: {
+            finlandRoadmapCodes: {
+              terms: {
+                field: 'finlandRoadmap',
+                size: 2,
+              },
+            },
+          },
+        };
+        payLoad.aggs.hasRelationToInternationalInfra = {
+          filter: {
+            bool: {
+              filter: filterActive('hasRelationToInternationalInfra'),
+            },
+          },
+          aggs: {
+            hasRelationToInternationalInfraCodes: {
+              terms: {
+                field: 'hasRelationToInternationalInfra',
+                size: 2,
               },
             },
           },
