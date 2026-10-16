@@ -46,7 +46,10 @@ export class Infrastructure {
     public fieldsOfScience: object[],
     public services: InfraService[],
     public keywordsString: string,
-    public fieldsOfScienceString: string
+    public fieldsOfScienceString: string,
+    public hasRelationToInternationalInfra: string,
+    public isPartOf: any[],
+    public hasPart: any[]
   ) {}
 }
 
@@ -149,7 +152,10 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
       item?.fieldOfScience ? item.fieldOfScience.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)) : [],
       services,
       keywords,
-      fieldsOfScienceString
+      fieldsOfScienceString,
+      item?.hasRelationToInternationalInfra ?? '',
+      item?.isPartOf?.relatedInfraID ? item?.isPartOf?.relatedInfraID : [],
+      item?.hasParts?.relatedInfraID ? item?.hasParts?.relatedInfraID : [],
     );
   }
 }

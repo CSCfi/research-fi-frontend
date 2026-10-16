@@ -30,15 +30,65 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <!-- Templates -->
     @if (resultData) {
       <div class="result-container">
-        @for (infra of resultData?.infrastructures; track infra; let i = $index) {
-          <ng-template #infrastructureNameColumns>
-            <a [routerLink]="infra.id | handleInfrastructureLink">
+        @for (infra of resultData?.infrastructures; track infra.id) {
+          <ng-template #infrastructureNameColumn>
+            <a [routerLink]="infra.id | handleInfrastructureLink :'shortLink'">
               <h4
                 class="result-title"
                 [innerHtml]="infra.name?.trim() | highlight: input"
               ></h4>
             </a>
               </ng-template>
+          <ng-template #infrastructureRelatedInfraColumn>
+            @if (infra.hasPart.length > 0) {
+              <ng-template #hasPartTemplate>
+                @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
+                  @if (i === 0) {
+                    <div class="fw-bold">Tiedejatutkimus.fi</div>
+                  }
+                  @if (subInfra.infraKeyIdentifier) {
+                    <a [routerLink]="subInfra.infraKeyIdentifier | handleInfrastructureLink: 'longLink'">
+                      <div>{{getNationalInfraName(subInfra.infraID)}}</div>
+                    </a>
+                  }
+                }
+                @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
+                  @if (i === 0) {
+                    <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
+                  }
+                  @if (!subInfra.infraKeyIdentifier) {
+                    <div>{{getInternationalInfraName(subInfra.infraID)}}</div>
+                  }
+                }
+              </ng-template>
+
+              <div type="button" [outsideClick]="true" [popover]="hasPartTemplate">On osa <span class="text-underline fw-bold">{{infra.hasPart.length}} infrastruktuuria</span></div>
+            }
+            @if (infra.isPartOf.length > 0) {
+              <ng-template #hasPartTemplate>
+                @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
+                  @if (i === 0) {
+                    <div class="fw-bold">Tiedejatutkimus.fi</div>
+                  }
+                  @if (subInfra.infraKeyIdentifier) {
+                    <a [routerLink]="subInfra.infraKeyIdentifier | handleInfrastructureLink: 'longLink'">
+                      <div>{{getNationalInfraName(subInfra.infraID)}}</div>
+                    </a>
+                  }
+                }
+                @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
+                  @if (i === 0) {
+                    <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
+                  }
+                  @if (!subInfra.infraKeyIdentifier) {
+                    <div>{{getInternationalInfraName(subInfra.infraID)}}</div>
+                  }
+                }
+              </ng-template>
+
+              <div type="button" [outsideClick]="true" [popover]="hasPartTemplate">On osa <span class="text-underline fw-bold">{{infra.hasPart.length}} infrastruktuuria</span></div>
+            }
+          </ng-template>
             }
           </div>
         }

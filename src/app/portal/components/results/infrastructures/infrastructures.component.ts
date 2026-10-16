@@ -16,7 +16,7 @@ import {
   AfterViewInit,
   TemplateRef,
   ViewChildren,
-  QueryList,
+  QueryList, ChangeDetectionStrategy,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
@@ -36,9 +36,12 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { SingleItemService } from '@portal/services/single-item.service';
 import { Subscription } from 'rxjs';
+import { PopoverDirective } from 'ngx-bootstrap/popover';
+import { JsonPipe, SlicePipe } from '@angular/common';
 
 @Component({
     selector: 'app-infrastructures',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './infrastructures.component.html',
     styleUrls: ['./infrastructures.component.scss'],
     imports: [
@@ -50,8 +53,11 @@ import { Subscription } from 'rxjs';
     NoResultsComponent,
     HighlightSearchPipe,
     HandleInfrastructureLinkPipe,
-    SvgSpritesComponent
-]
+    SvgSpritesComponent,
+      PopoverDirective,
+      JsonPipe,
+      SlicePipe
+    ]
 })
 export class InfrastructuresComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -73,13 +79,17 @@ export class InfrastructuresComponent
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRow>[];
 
-  @ViewChildren('infrastructureNameColumns', { read: TemplateRef })
+  @ViewChildren('infrastructureRelatedInfraColumn', { read: TemplateRef })
+  infrastructureRelatedInfraColumns: QueryList<ElementRef>;
+
+  @ViewChildren('infrastructureNameColumn', { read: TemplateRef })
   infrastructureNameColumns: QueryList<ElementRef>;
 
   dataMapped: boolean;
   iconTitleInfrastructures = $localize`:@@iconInfrastructures: Infrastruktuurien tiedon ikoni`;
   private infraNetworkSub: Subscription;
   infraNetworkResponseData: any;
+  infraNodeList = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -112,7 +122,7 @@ export class InfrastructuresComponent
       this.input = input;
       this.mapData();
       this.cdr.detectChanges();
-      //this.getInfraNetworkData()
+      this.getInfraNetworkData()
     });
   }
 
@@ -121,16 +131,43 @@ export class InfrastructuresComponent
       this.infraNetworkSub = this.singleService.getInfrastructureNetworkData(undefined).subscribe({
         next: (responseData) => {
           this.infraNetworkResponseData = responseData;
-          //console.log('##### GOT NETWORK responseData', responseData);
+          this.updateInfraNodeList(this.infraNetworkResponseData);
         },
         error: (error) => (console.log('error', error))
       });
     }
   }
 
+  updateInfraNodeList(networkData: any){
+    if (networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes) {
+      this.infraNodeList = networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes;
+    }
+  }
+
+  getNationalInfraName(infraId: number){
+    let res = undefined;
+    this.infraNodeList.some((item) => {
+      if (item?.internalId === infraId) {
+        res = item?.nodeTypeNational.acronym;
+      };
+    });
+    return res ?? '';
+  }
+
+  getInternationalInfraName(infraId: number){
+    let res = '';
+    this.infraNodeList.some((item) => {
+      if (item?.internalId === infraId) {
+        res = item?.nodeTypeInternational?.internationalInfraName;
+        };
+      });
+    return res ?? '';
+  }
+
   mapData() {
     // Get cell data from template
     const nameColumnArray = this.infrastructureNameColumns.toArray();
+    const relatedInfrasArray = this.infrastructureRelatedInfraColumns.toArray();
 
     // Map data to table
     // Use highlight pipe for higlighting search term
@@ -182,6 +219,7 @@ export class InfrastructuresComponent
         },
         networkSize: {
           label: '(N/A)',
+          template: relatedInfrasArray[index],
         },
       })
     );

@@ -17,6 +17,8 @@ import { StaticDataService } from '../static-data.service';
 import { AggregationService } from './aggregation.service';
 import { TabChangeService } from '../tab-change.service';
 
+
+// This represents the state of visible filters in sidebar filters
 export type Filters = {
   toYear: string[];
   fromYear: string[];
@@ -57,6 +59,11 @@ export type Filters = {
   callId: string[];
   approvalDate: string[];
   identifiedTopic: string[];
+  serviceUserRole: string[],
+  serviceTargetSegment: string[],
+  ESFRICodes: string[],
+  finlandRoadmap: string[],
+  hasRelationToInternationalInfra: string[],
 };
 
 @Injectable({
@@ -106,6 +113,10 @@ export class FilterService {
   callIdFilter: string[];
   approvalDateFilter: string[];
   ESFRIFilter: string[];
+  infraTargetAudienceFilter: string[];
+  infraUserRolesFilter: string[];
+  infraRoadmapFilter: string[];
+  hasRelationToInternationalInfraFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -141,6 +152,11 @@ export class FilterService {
     typeOfFundingId: [],
     approvalYear: [],
     identifiedTopic: [],
+    serviceUserRole: [],
+    serviceTargetSegment: [],
+    ESFRICodes: [],
+    finlandRoadmap: [],
+    hasRelationToInternationalInfra: [],
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -167,7 +183,7 @@ export class FilterService {
       this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
-  // Elements that are looked from query params.
+  // Elements that are looked from query params. Updates active filters box contents
   filterList(source) {
     const mapFilter = (filter) =>
       [filter]
@@ -217,6 +233,13 @@ export class FilterService {
       // Infrastructures
       type: mapFilter(source.type),
       participatingOrganizations: mapFilter(source.participatingOrganizations),
+      serviceUserRole: mapFilter(source.serviceUserRole),
+      serviceTargetSegment: mapFilter(source.serviceTargetSegment),
+      ESFRICodes: mapFilter(source.ESFRICodes),
+      finlandRoadmap: mapFilter(source.finlandRoadmap),
+      hasRelationToInternationalInfra: mapFilter(source.hasRelationToInternationalInfra),
+      isInfraActive: mapFilter(source.isInfraActive),
+
       // Funding calls
       date: mapFilter(source.date),
       status: mapFilter(source.status),
@@ -319,6 +342,7 @@ export class FilterService {
       'accessType.keyword'
     );
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
+
     // Infrastructure
     this.typeFilter = this.basicFilter(
       filter.type,
@@ -328,6 +352,27 @@ export class FilterService {
       filter.field,
       'fieldOfScience.codeValue.keyword'
     );
+    this.infraUserRolesFilter = this.basicFilter(
+      filter.serviceUserRole,
+      'infraServices.serviceUserRole.codeValue.keyword'
+    );
+    this.infraTargetAudienceFilter = this.basicFilter(
+      filter.serviceTargetSegment,
+      'infraServices.serviceTargetSegment.codeValue.keyword'
+    );
+    this.ESFRIFilter = this.basicFilter(
+      filter.ESFRICodes,
+      'ESFRICodes.codeValue.keyword'
+    );
+    this.infraRoadmapFilter = this.basicFilter(
+      filter.finlandRoadmap,
+      'finlandRoadmap'
+    );
+    this.hasRelationToInternationalInfraFilter = this.basicFilter(
+      filter.hasRelationToInternationalInfra,
+      'hasRelationToInternationalInfra'
+    );
+
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
     // FundingCalls
@@ -1037,7 +1082,11 @@ export class FilterService {
         this.infraFieldFilter,
         'fieldOfScience'
       ),
-      ...basicFilter('infrastructure', this.ESFRIFilter),
+      ...nestedFilter('infrastructure', this.ESFRIFilter,'ESFRICodes'),
+      ...nestedFilter('infrastructure', this.infraTargetAudienceFilter, 'infraServices'),
+      ...nestedFilter('infrastructure', this.infraUserRolesFilter, 'infraServices'),
+      ...basicFilter('infrastructure', this.infraRoadmapFilter),
+      ...basicFilter('infrastructure', this.hasRelationToInternationalInfraFilter),
 
       // Organizations
       ...basicFilter('organization', this.sectorFilter),

@@ -5,7 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
     standalone: true,
 })
 export class HandleInfrastructureLinkPipe implements PipeTransform {
-  transform(link: string): string {
+  transform(link: string, format: string): string {
+    if (format === 'longLink') {
+      link = link.substring(11, link.length);
+    }
     return `/results/infrastructure/${link}`;
   }
 }
