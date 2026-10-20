@@ -90,6 +90,8 @@ export class InfrastructuresComponent
   private infraNetworkSub: Subscription;
   infraNetworkResponseData: any;
   infraNodeList = [];
+  nationalNodeList = [];
+  internationalNodeList = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -142,11 +144,41 @@ export class InfrastructuresComponent
     if (networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes) {
       this.infraNodeList = networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes;
     }
+    this.nationalNodeList = this.infraNodeList.filter(infra => infra.nodeTypeNational);
+    this.internationalNodeList = this.infraNodeList.filter(infra => infra.nodeTypeInternational);
+  }
+
+  infraHasNationalParts(hasPart: Array<any>){
+    let res= hasPart.some((item) => {return this.nationalNodeList.some(node =>
+      {return node.internalId === item.infraID}
+    )});
+    return res;
+  }
+
+  infraHasInternationalParts(hasPart: Array<any>){
+    let res= hasPart.some((item) => {return this.internationalNodeList.some(node =>
+      {return node.internalId === item.infraID}
+    )});
+    return res;
+  }
+
+  infraIsPartOfNationalInfra(isPartOf: Array<any>){
+    let res= isPartOf.some((item) => {return this.nationalNodeList.some(node =>
+      {return node.internalId === item.infraID}
+    )});
+    return res;
+  }
+
+  infraIsPartOfInternationalInfra(isPartOf: Array<any>){
+    let res= isPartOf.some((item) => {return this.internationalNodeList.some(node =>
+      {return node.internalId === item.infraID}
+    )});
+    return res;
   }
 
   getNationalInfraName(infraId: number){
     let res = undefined;
-    this.infraNodeList.some((item) => {
+    this.nationalNodeList.some((item) => {
       if (item?.internalId === infraId) {
         res = item?.nodeTypeNational.acronym;
       };
@@ -156,7 +188,7 @@ export class InfrastructuresComponent
 
   getInternationalInfraName(infraId: number){
     let res = '';
-    this.infraNodeList.some((item) => {
+    this.internationalNodeList.some((item) => {
       if (item?.internalId === infraId) {
         res = item?.nodeTypeInternational?.internationalInfraName;
         };
