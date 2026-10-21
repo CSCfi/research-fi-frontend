@@ -38,6 +38,7 @@ export interface InfraService {
   instructionsOfUse?: string;
   serviceObtain?:string
   contacts?: InfraContact[];
+  isDiscontinued?: boolean;
 }
 
 @Component({
@@ -55,7 +56,26 @@ export interface InfraService {
   styleUrl: './infra-accordion.component.scss',
 })
 export class InfraAccordionComponent {
-  @Input({ required: false }) infraData: InfraService[];
+  private _infraData: InfraService[];
+
+  @Input({ required: false })
+  set infraData(value: InfraService[]) {
+    this._infraData = value;
+    this.markDiscontinuedServices();
+  }
+  get infraData(): InfraService[] {
+    return this._infraData;
+  }
+
+  /** Called whenever infraData input receives a value. */
+  markDiscontinuedServices(): void {
+    this._infraData.map((infraService: InfraService) => {
+      if (this.isServiceDiscontinued(infraService)) {
+        console.log('marked discontinued');
+        infraService.isDiscontinued = true;
+      }
+    })
+  }
 
   serviceDescriptionLocalization = $localize`:@@serviceDescription:Palvelun kuvaus`;
   pidIdentifierLocalization = $localize`:@@infra-service-identifier-pid:Tunniste (PID)`;
@@ -72,10 +92,49 @@ export class InfraAccordionComponent {
   targetAudienceLocalization = $localize`:@@infra-service-users:Käyttäjät`;
   serviceObtainLocalization = $localize`:@@infra-service-obtain-description:Kuvaus käyttöönotosta`;
   serviceContactInfoLocalization = $localize`:@@infra-service-contact-info:Yhteyshenkilö ja -tiedot`;
+  serviceIsDiscontinuedHeading = $localize`:@@serviceIsDiscontinuedHeading:Palvelun toiminta on päättynyt.`;
+  serviceIsDiscontinuedInfoText = $localize`:@@serviceIsDiscontinuedInfoText:Sisältöä ei enää päivitetä. Tiedot voivat olla vanhentuneita.`;
+
+  currentDay = 0;
+  currentMonth = 0;
+  currentYear = 0;
 
   constructor() {
     this.infraData = [{serviceName: 'Infra1'}, {serviceName: 'Infra2'}];
+
+    const currentDate = new Date();
+    this.currentDay = currentDate.getDate();
+    this.currentMonth = currentDate.getMonth() + 1;
+    this.currentYear = currentDate.getFullYear();
+  }
+
+  /**
+   * Returns true if the given date is before the current date.
+   * Missing month or day is treated as the whole period, so the date counts
+   * as past only when that year / month has fully passed.
+   */
+  isDateBeforePresent(date: InfraDate): boolean {
+    if (!date?.year) {
+      return false;
+    }
+    if (date.year !== this.currentYear) {
+      return date.year < this.currentYear;
+    }
+    if (!date.month) {
+      return false;
+    }
+    if (date.month !== this.currentMonth) {
+      return date.month < this.currentMonth;
+    }
+    if (!date.day) {
+      return false;
+    }
+    return date.day < this.currentDay;
+  }
+
+  isServiceDiscontinued(service: InfraService) {
+    if (service.endDate) {
+      return this.isDateBeforePresent(service.endDate);
+    }
   }
 }
-
-

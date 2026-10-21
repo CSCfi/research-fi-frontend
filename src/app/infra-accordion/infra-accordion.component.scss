@@ -62,6 +62,29 @@ h3:hover::before {
       text-decoration: underline;
     }
   }
+  &.service-discontinued {
+    outline: 2px solid var(--gray-bg, #BFBFBF);
+    background: var(--gray-light-bg, #EBEBEB);
+  }
+}
+
+.discontinued-service-info {
+  border-radius: 4px;
+  border: 2px solid var(--gray-bg, #BFBFBF);
+  background: #DDD;
+  margin-bottom: 24px;
+  .discontinued-service-inner {
+    padding: 16px;
+    .info-circle-wrapper {
+      width: 32px;
+    }
+    h4 {
+      font-size: 16px;
+    }
+    .dicsontinued-text-content-wrapper {
+      padding: 2px;
+    }
+  }
 }
 
 h3:focus-within::before,

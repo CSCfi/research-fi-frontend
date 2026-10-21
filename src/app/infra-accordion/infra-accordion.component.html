@@ -1,6 +1,6 @@
 <div ngAccordionGroup class="basic-accordion" [multiExpandable]="false">
   @for (singleService of infraData; track singleService; let i = $index) {
-    <div class="accordion-section-wrap">
+    <div class="accordion-section-wrap" [class.service-discontinued]="singleService.isDiscontinued">
       <h3>
     <span ngAccordionTrigger class="accordion-section-trigger" [panel]="panel1" #trigger1="ngAccordionTrigger">
       {{ singleService.serviceName }}
@@ -24,6 +24,20 @@
           <div class="row px-1 mt-2">
             <div class="col-9">
               <div class="row gx-1">
+                @if (singleService.isDiscontinued){
+                  <div class="discontinued-service-info">
+                    <div class="discontinued-service-inner d-flex flex-row">
+                      <div class="info-circle-wrapper">
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                      </div>
+                      <div class="d-flex flex-column dicsontinued-text-content-wrapper">
+                        <h4>{{serviceIsDiscontinuedHeading}}</h4>
+                        <div>{{serviceIsDiscontinuedInfoText}}</div>
+                      </div>
+                    </div>
+                  </div>
+                }
+
                 @if (singleService.serviceDescription) {
                   <div class="col-3 col-md-3 fw-bold">
                     {{serviceDescriptionLocalization}}

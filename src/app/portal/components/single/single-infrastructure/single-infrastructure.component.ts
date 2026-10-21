@@ -211,12 +211,12 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   participatingOrganizationsLocalization = $localize`:@@participatingOrgs:Osallistuvat organisaatiot`;
   responsibleOrganizationLocalizaion = $localize`:@@responsibleOrganization:Vastuuorganisaatio`;
   fieldsOfScienceLocalization= $localize`:@@fieldsOfScience:Tieteenalat`;
-  infraNetworkInfoText = $localize`:@@infraNetworkInfoText:Tarkastele infrastruktuuria osana laajempaa infrastruktuurien verkostoa`;
+  infraNetworkInfoText = $localize`:@@infraNetworkInfoText:Tarkastele infrastruktuuria osana siihen liittyvien infrastruktuurien verkostoa`;
   infraTreeBelongsToManyNetworks = $localize`:@@infraTreeBelongsToManyNetworks:Kohde kuuluu useaan infrastruktuuriverkostoon`;
   otherInfoLocalization = $localize`:@@spOtherInfo:Muut tiedot`;
   contacInfoLocalization = $localize`:@@contacInfo:Yhteystiedot`;
-  neighbourInfrestructuresLocalization = $localize`:@@neighbourInfrestructures:Lähi-infrastruktuurit`;
-  showInfrastructureNetworkLocalization = $localize`:@@showInfrastructureNetwork:Näytä infrastruktuuriverkosto`;
+  neighbourInfrastructuresLocalization = $localize`:@@neighbourInfrastructures:Liittyvät infrastruktuurit`;
+  showInfrastructureNetworkLocalization = $localize`:@@showInfrastructureNetwork:Näytä verkosto`;
   infraNetworkSelectedInfo1 = $localize`:@@infraNetworkSelectedInfo1:Näet kuvasta mihin infrastruktuureihin`;
   infraNetworkSelectedInfo2= $localize`:@@infraNetworkSelectedInfo2:on yhteydessä.`;
   infraNetworkSelectedInfo3= $localize`:@@infraNetworkSelectedInfo3:Saat lisätietoja verkoston infrastruktuureista klikkaamalla.`;
@@ -226,12 +226,12 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     'startYear': $localize`:@infraStartYear:Toiminta alkanut`,
     'description': $localize`:@@infraDescription:Infrastruktuurin kuvaus`,
     'relationToOtherInfras': $localize`:@@relationToOtherInfras:Yhteydet muihin infrastruktuureihin`,
-    'showDirectConnections': $localize`:@@showDirectConnections:Näytä suorat liitokset`,
-    'showFullNetwork': $localize`:@@showFullNetwork:Näytä koko verkosto`,
+    'showDirectConnections': $localize`:@@showImmediateConnections:Näytä lähimmät`,
+    'showFullNetwork': $localize`:@@showAllConnections:Näytä kaikki`,
     'dataMissing': $localize`:@@dataMissing:Tietoja ei ole saatavilla`,
     'goToInfraPage': $localize`:@@moveToInfraPage:Siirry infrastruktuurin sivulle`,
     'includesInfrastructures': $localize`:@@includesInfrastructures:Sisältää infrastruktuurit`,
-    'isPartOfInfrastructures': $localize`:@@includesInfrastructures:On osa infrastruktuureja`,
+    'isPartOfInfrastructures': $localize`:@@isPartOfInfrastructures:Kuuluu infrastruktuureihin`,
     'networkShownInPicture': $localize`:@@networkShownInPicture:Verkosto esitetty kuvassa`,
     'showNetworkGraph': $localize`:@@showNetworkGraph:Näytä verkostokuva`,
     'isPart': $localize`:@@isPart:On osa`,
