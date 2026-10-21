@@ -26,7 +26,7 @@
               <div class="row gx-1">
                 @if (singleService.serviceDescription) {
                   <div class="col-3 col-md-3 fw-bold">
-                    Palvelun kuvaus
+                    {{serviceDescriptionLocalization}}
                   </div>
                   <div class="col-9 col-md-9 mb-3">
                     {{ singleService.serviceDescription }}
@@ -36,7 +36,7 @@
               <div class="row gx-1">
 
                 <div class="col-3 col-md-3 fw-bold">
-                  Tunniste (PID)
+                  {{pidIdentifierLocalization}}
                 </div>
                 <div class="col-9 col-md-9 mb-3">
                   <app-share [id]="singleService.servicePid" [useTextOnlyLink]="true"
@@ -47,17 +47,17 @@
               @if (singleService.startDate.year || singleService.endDate.year) {
                 <div class="row gx-1">
                   <div class="col-3 col-md-3 fw-bold">
-                    Toiminta
+                    {{serviceLocalization}}
                   </div>
                   @if (singleService.startDate.year){
                     <div class="col-9 col-md-9 mb-3">
-                      Alkanut: <span class="ms-4">{{singleService.startDate.year}}</span>
+                      {{hasStartedLocalization}}: <span class="ms-4">{{singleService.startDate.year}}</span>
                     </div>
                   }
                   @if (singleService.endDate.year){
                     <div class="col-3 col-md-3 fw-bold"></div>
                     <div class="col-9 col-md-9 mb-3">
-                      Päättyy: <span class="ms-4">{{singleService.endDate.year}}</span>
+                      {{endsOnLocalization}}: <span class="ms-4">{{singleService.endDate.year}}</span>
                     </div>
                   }
                 </div>
@@ -66,7 +66,7 @@
               @if (singleService.targetAudience){
                 <div class="row gx-1">
                   <div class="col-3 col-md-3 fw-bold">
-                    Kohderyhmä
+                    {{targetAudienceLocalization}}
                   </div>
                   <div class="col-9 col-md-9 mb-3">
                     {{singleService.targetAudience.join(', ')}}
@@ -76,7 +76,7 @@
               @if (singleService.targetSegment){
                 <div class="row gx-1">
                   <div class="col-3 col-md-3 fw-bold">
-                    Käyttäjät
+                    {{targetSegmentLocalization}}
                   </div>
                   <div class="col-9 col-md-9 mb-3">
                     {{singleService.targetSegment.join(', ')}}
@@ -87,7 +87,7 @@
               @if (singleService.serviceObtain) {
                 <div class="row gx-1">
                   <div class="col-3 col-md-3 fw-bold">
-                    Kuvaus käyttöönotosta
+                    {{serviceObtainLocalization}}
                   </div>
                   <div class="col-9 col-md-9 mb-3">
                     {{singleService.serviceObtain}}
@@ -97,7 +97,7 @@
               @if (singleService.contacts) {
                 <div class="row gx-1">
                   <div class="col-3 col-md-3 fw-bold">
-                    Yhteystiedot
+                    {{serviceContactInfoLocalization}}
                   </div>
                   <div class="col-9 col-md-9 mb-3">
                     @for (contact of singleService.contacts; track contact){
@@ -112,13 +112,13 @@
             </div>
 
             <div class="col-3 row d-flex flex-column infra-service-links">
-              <div class="col-12 fw-bold">Linkit:</div>
+              @if (singleService.homepage || singleService.termsOfUse || singleService.privacyPolicy || singleService.instructionsOfUse) {
+              <div class="col-12 fw-bold">{{linksLocalization}}:</div>
+              }
               @if (singleService.homepage) {
                 <div class="col-12 service-link-row">
                   <a [href]="singleService.homepage" target="_blank">
-                    <ng-container i18n="@@homepage">Verkkosivu
-                    </ng-container
-                    >
+                    {{webPageLocalization}}
                     <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
                   </a>
                 </div>
@@ -126,10 +126,7 @@
 
               @if (singleService.termsOfUse) {
                 <div class="col-12 service-link-row">
-                  <a [href]="singleService.termsOfUse" target="_blank">
-                    <ng-container i18n="@@homepage">Käyttöehdot
-                    </ng-container
-                    >
+                  <a [href]="singleService.termsOfUse" target="_blank">{{termsOfUseLocalization}}
                     <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
                   </a>
                 </div>
@@ -137,10 +134,7 @@
 
               @if (singleService.privacyPolicy) {
                 <div class="col-12 service-link-row">
-                  <a [href]="singleService.privacyPolicy" target="_blank">
-                    <ng-container i18n="@@homepage">Tietosuoja
-                    </ng-container
-                    >
+                  <a [href]="singleService.privacyPolicy" target="_blank">{{dataProtectionLocalization}}
                     <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
                   </a>
                 </div>
@@ -148,10 +142,7 @@
 
               @if (singleService.instructionsOfUse) {
                 <div class="col-12 service-link-row">
-                  <a [href]="singleService.instructionsOfUse" target="_blank">
-                    <ng-container i18n="@@homepage">Käyttöohje
-                    </ng-container
-                    >
+                  <a [href]="singleService.instructionsOfUse" target="_blank">{{instructionsOfUseLocalization}}
                     <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
                   </a>
                 </div>

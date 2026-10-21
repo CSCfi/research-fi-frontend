@@ -205,8 +205,21 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     }
   ]
 
+  activeServicesLocalization = $localize`:@@activeServices:Aktiiviset palvelut`;
+  infraServicesLocalization= $localize`:@@infraServices:Tutkimusinfrastruktuurin palvelut`;
+  infraServiceActionLocalization = $localize`:@@infra-service-action:Toiminta`;
+  participatingOrganizationsLocalization = $localize`:@@participatingOrgs:Osallistuvat organisaatiot`;
+  responsibleOrganizationLocalizaion = $localize`:@@responsibleOrganization:Vastuuorganisaatio`;
+  fieldsOfScienceLocalization= $localize`:@@fieldsOfScience:Tieteenalat`;
   infraNetworkInfoText = $localize`:@@infraNetworkInfoText:Tarkastele infrastruktuuria osana laajempaa infrastruktuurien verkostoa`;
   infraTreeBelongsToManyNetworks = $localize`:@@infraTreeBelongsToManyNetworks:Kohde kuuluu useaan infrastruktuuriverkostoon`;
+  otherInfoLocalization = $localize`:@@spOtherInfo:Muut tiedot`;
+  contacInfoLocalization = $localize`:@@contacInfo:Yhteystiedot`;
+  neighbourInfrestructuresLocalization = $localize`:@@neighbourInfrestructures:Lähi-infrastruktuurit`;
+  showInfrastructureNetworkLocalization = $localize`:@@showInfrastructureNetwork:Näytä infrastruktuuriverkosto`;
+  infraNetworkSelectedInfo1 = $localize`:@@infraNetworkSelectedInfo1:Näet kuvasta mihin infrastruktuureihin`;
+  infraNetworkSelectedInfo2= $localize`:@@infraNetworkSelectedInfo2:on yhteydessä.`;
+  infraNetworkSelectedInfo3= $localize`:@@infraNetworkSelectedInfo3:Saat lisätietoja verkoston infrastruktuureista klikkaamalla.`;
 
   infraModalTexts = {
     'acronym': $localize`:@@infraAcronymAndName:Lyhenne ja nimi`,
@@ -314,6 +327,12 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     },
     { label: $localize`Lisätietoja`, field: '?' }
   ];
+
+  identifiersLocalization = $localize`Tunnisteet`;
+  classificationsLocalization = $localize`:@@infraClassifications:Luokituksia`;
+  infraWebPageLocalization = $localize`:@@infraHomePage:Infrastruktuurin verkkosivu`;
+  noInfraLinksLocalization = $localize`:@@infraHomePage:Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa`;
+  infrastructureNetworkLocalization = $localize`:@@infrastructureNetwork:Infrastruktuuriverkosto`;
 
   nodeList = [];
   edges = [];

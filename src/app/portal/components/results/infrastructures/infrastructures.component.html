@@ -42,20 +42,20 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <ng-template #infrastructureRelatedInfraColumn>
             @if (infra.isPartOf.length > 0) {
               <ng-template #isPartOfTemplate>
+                @if (infraIsPartOfNationalInfra(infra.isPartOf)) {
+                  <div class="fw-bold">Tiedejatutkimus.fi</div>
+                }
                 @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
-                  @if (i === 0) {
-                    <div class="fw-bold">Tiedejatutkimus.fi</div>
-                  }
                   @if (subInfra.infraKeyIdentifier) {
                     <a [routerLink]="subInfra.infraKeyIdentifier | handleInfrastructureLink: 'longLink'">
                       <div>{{getNationalInfraName(subInfra.infraID)}}</div>
                     </a>
                   }
                 }
+                @if (infraIsPartOfInternationalInfra(infra.isPartOf)) {
+                  <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
+                }
                 @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
-                  @if (i === 0) {
-                    <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
-                  }
                   @if (!subInfra.infraKeyIdentifier) {
                     <div>{{getInternationalInfraName(subInfra.infraID)}}</div>
                   }
@@ -66,21 +66,20 @@ Copyright 2019 Ministry of Education and Culture, Finland
             }
             @if (infra.hasPart.length > 0) {
               <ng-template #hasPartTemplate>
+                @if (infraHasNationalParts(infra.hasPart)) {
+                  <div class="fw-bold">Tiedejatutkimus.fi</div>
+                }
                 @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
-                  @if (i === 0) {
-                    <div class="fw-bold">Tiedejatutkimus.fi</div>
-                  }
                   @if (subInfra.infraKeyIdentifier) {
                     <a [routerLink]="subInfra.infraKeyIdentifier | handleInfrastructureLink: 'longLink'">
                       <div>{{getNationalInfraName(subInfra.infraID)}}</div>
                     </a>
                   }
                 }
-
+                @if (infraHasInternationalParts(infra.hasPart)) {
+                  <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
+                }
                 @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
-                  @if (i === 0) {
-                    <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
-                  }
                   @if (!subInfra.infraKeyIdentifier) {
                     <div>{{getInternationalInfraName(subInfra.infraID)}}</div>
                   }
