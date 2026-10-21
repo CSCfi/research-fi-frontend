@@ -81,7 +81,6 @@ class VisComponent implements OnInit, OnDestroy {
   }
 
   public network: any;
-  private resizeObserver: ResizeObserver;
   private container: HTMLElement;
 
   constructor() {
@@ -256,7 +255,6 @@ class VisComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.resizeObserver.disconnect();
     this.container.removeEventListener('mousemove', (event: MouseEvent) => {
     });
   }
