@@ -1002,6 +1002,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
   doDialogAction(event: any) {
     this.showDialog.next(false);
+    this.dialog.closeAll();
   }
 
   infraNodeClickFromList(infra: any) {
