@@ -89,13 +89,13 @@
               <!-- Infra organizations -->
               <div class="row">
                 <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold other-fields-heading">Muut tiedot</span>
+                  <span class="pe-1 fw-bold other-fields-heading">{{otherInfoLocalization}}</span>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3 td">Vastuuorganisaatio:</div>
+                <div class="col-12 col-sm-6 col-lg-3 td">{{responsibleOrganizationLocalizaion}}:</div>
                 <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.responsibleOrganization?.trim() }}</div>
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
                 @if (responseData.infrastructures[0]?.participantOrganizations?.length > 0) {
-                  <div class="col-12 col-sm-6 col-lg-3 td">Osallistuvat organisaatiot:</div>
+                  <div class="col-12 col-sm-6 col-lg-3 td">{{participatingOrganizationsLocalization}}:</div>
                   <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participantOrganizations }}</div>
                 }
               </div>
@@ -104,7 +104,7 @@
               <div class="row"
                    *ngIf="responseData.infrastructures[0]?.startYear || responseData.infrastructures[0]?.endYear ">
                 <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold">Toiminta</span>
+                  <span class="pe-1 fw-bold">{{infraServiceActionLocalization}}</span>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-9 td">
                   <div *ngIf="responseData.infrastructures[0]?.startYear">
@@ -120,11 +120,11 @@
               <!-- Infra other fields -->
               <div class="row infra-other-fields" *ngIf="responseData.infrastructures[0]?.fieldsOfScience">
                 <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold other-fields-heading">Muut tiedot</span>
+                  <span class="pe-1 fw-bold other-fields-heading">{{otherInfoLocalization}}</span>
                 </div>
 
                 @if (responseData.infrastructures[0]?.contactInfo?.length > 0) {
-                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">Yhteystiedot:</div>
+                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{contacInfoLocalization}}:</div>
                   <div class="col-12 col-sm-6 col-lg-7 row gx-0">
                     @for (contact of responseData.infrastructures[0].contactInfo; track contact) {
                       @if (contact?.contactLabel) {
@@ -178,12 +178,12 @@
                   </div>
                 }
 
-                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">Tieteenalat:</div>
+                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{fieldsOfScienceLocalization}}</div>
                 <div class="col-12 td col-lg-7">{{ responseData.infrastructures[0]?.fieldsOfScience.join(', ') }}</div>
 
 
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">Luokituksia:</div>
+                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{classificationsLocalization}}:</div>
                 <div class="col-12 col-sm-6 col-lg-7 td">
                   <ng-container *ngFor="let row of classificationFields; let i = index">
                     <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
@@ -210,7 +210,7 @@
 
                 @if (responseData.infrastructures[0]?.urn){
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">Tunnisteet:</div>
+                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{identifiersLocalization}}:</div>
                 <div class="col-12 col-sm-6 col-lg-7 td">{{ responseData.infrastructures[0]?.urn }}</div>
                 }
               </div>
@@ -460,8 +460,8 @@
         </div>
 
         @if (infraServices.length > 0) {
-          <h2 class="ps-1 mb-4"><span i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut </span></h2>
-          <h3 class="ps-1">Aktiiviset palvelut ({{ infraServices.length }})</h3>
+          <h2 class="ps-1 mb-4"><span i18n="@@infraServices">{{infraServicesLocalization}} </span></h2>
+          <h3 class="ps-1">{{activeServicesLocalization}} ({{ infraServices.length }})</h3>
           <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
           <br/>
         }
@@ -479,7 +479,7 @@
               <div class="inner transparent-bg">
                 <ng-container *ngIf="item.urn">
                   <mat-card-title>
-                    <div class="side-box-heading">Tunniste</div>
+                    <div class="side-box-heading" i18n="@@identifier">Tunniste</div>
                   </mat-card-title>
                   <div class="row gx-0 pb-4">
                     <app-share [id]="item.urn" [useTextOnlyLink]="true"></app-share>
@@ -488,7 +488,7 @@
                 <mat-card-title
                 >
                   <div class="side-box-heading" i18n="@@infraHomePage">
-                    Infrastruktuurin verkkosivu
+                    {{infraWebPageLocalization}}
                   </div>
                 </mat-card-title
                 >
@@ -501,7 +501,7 @@
                         class="no-links"
                         i18n="@@noInfraLinks"
                 >
-                  Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa
+                  {{noInfraLinksLocalization}}
                 </div>
               </div>
             </mat-card>
@@ -514,7 +514,7 @@
                   <mat-card-title
                   >
                     <div class="side-box-heading">
-                      Infrastruktuuriverkosto
+                      {{infrastructureNetworkLocalization}}
                     </div>
                   </mat-card-title>
                   <div class="infra-small-text">{{ infraNetworkInfoText }}</div>
@@ -522,7 +522,7 @@
                 <div class="row">
                   <div class="col-12 d-flex justify-content-start mt-1 mb-2">
                     <app-primary-action-button
-                            [content]="'Näytä infrastruktuuriverkosto'"
+                            [content]="showInfrastructureNetworkLocalization"
                             [svgSymbolName]="'lan'"
                             [svgCssClass]="'show-as-image-button'"
                             [disabled]="infraTreeLoading"
@@ -542,7 +542,7 @@
                   >
                     <div class="side-box-heading">
                       <ng-container i18n="@@test"
-                      >Lähi-infrastruktuurit
+                      >{{neighbourInfrestructuresLocalization}}
                       </ng-container
                       >
                     </div>
@@ -639,7 +639,7 @@
 <app-dialog
         *ngIf="(showDialog | async) === true"
         [template]="infrastructureNetworkGraph"
-        [title]="'Infrastruktuuriverkosto'"
+        [title]="infrastructureNetworkLocalization"
         (onActionClick)="doDialogAction($event)"
         [actions]="currentDialogActions"
 ></app-dialog>
@@ -648,12 +648,11 @@
 <ng-template #infrastructureNetworkGraph>
   <div class="row vis-container h-100">
     <div class="row mini-modal-width w-100 gx-4">
-      <p>Näet kuvasta mihin infrastruktuureihin <span
+      <p>{{infraNetworkSelectedInfo1}} <span
               class="fw-bold">{{ rootNodeName }}</span> @if (responseData?.infrastructures[0]?.name) {
         ({{ responseData?.infrastructures[0]?.name }})
       }
-        on yhteydessä.<br/>Saat lisätietoja
-        verkoston infrastruktuureista klikkaamalla.</p>
+        {{infraNetworkSelectedInfo2}}<br/>{{infraNetworkSelectedInfo3}}</p>
     </div>
     <div class="row position-relative vis-component-container w-100">
 

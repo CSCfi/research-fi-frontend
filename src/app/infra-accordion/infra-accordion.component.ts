@@ -57,6 +57,22 @@ export interface InfraService {
 export class InfraAccordionComponent {
   @Input({ required: false }) infraData: InfraService[];
 
+  serviceDescriptionLocalization = $localize`:@@serviceDescription:Palvelun kuvaus`;
+  pidIdentifierLocalization = $localize`:@@infra-service-identifier-pid:Tunniste (PID)`;
+  serviceLocalization = $localize`:@@infra-service-action:Toiminta`;
+  hasStartedLocalization = $localize`:@@has-started:Alkanut`;
+  hasEndedLocalization = $localize`:@@has-ended:Päättynyt`;
+  endsOnLocalization = $localize`:@@ends-on:Päätttyy`;
+  linksLocalization = $localize`:@@links:Linkit`;
+  dataProtectionLocalization = $localize`:@@privacyHeader:Tietosuoja`;
+  termsOfUseLocalization = $localize`:@@termsForTool:Käyttöehdot`;
+  instructionsOfUseLocalization = $localize`:@@instructionsOfUse:Käyttöohje`;
+  webPageLocalization = $localize`:@@webPage:Verkkosivu`;
+  targetSegmentLocalization = $localize`:@@infra-target-segment:Kohderyhmä`;
+  targetAudienceLocalization = $localize`:@@infra-service-users:Käyttäjät`;
+  serviceObtainLocalization = $localize`:@@infra-service-obtain-description:Kuvaus käyttöönotosta`;
+  serviceContactInfoLocalization = $localize`:@@infra-service-contact-info:Yhteyshenkilö ja -tiedot`;
+
   constructor() {
     this.infraData = [{serviceName: 'Infra1'}, {serviceName: 'Infra2'}];
   }
