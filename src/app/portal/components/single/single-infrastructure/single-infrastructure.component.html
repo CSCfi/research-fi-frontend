@@ -108,10 +108,10 @@
                 </div>
                 <div class="col-12 col-sm-6 col-lg-9 td">
                   <div *ngIf="responseData.infrastructures[0]?.startYear">
-                    Alkanut: {{ responseData.infrastructures[0]?.startYear }}
+                    {{hasStartedLocalization}}: {{ responseData.infrastructures[0]?.startYear }}
                   </div>
                   <div *ngIf="responseData.infrastructures[0]?.endYear" class="mt-2">
-                    Päättyy: {{ responseData.infrastructures[0]?.endYear }}
+                    {{endsOnLocalization}}: {{ responseData.infrastructures[0]?.endYear }}
                   </div>
                 </div>
               </div>

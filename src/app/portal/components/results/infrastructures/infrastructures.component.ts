@@ -90,6 +90,12 @@ export class InfrastructuresComponent
   dataMapped: boolean;
   iconTitleInfrastructures = $localize`:@@iconInfrastructures: Infrastruktuurien tiedon ikoni`;
   outsideOfServiceLocalization = $localize`:@@outsideOfService: Ei tarkempia tietoja Tiedejatutkimus.fi:ssä`;
+
+  infraIsPartOfNumberSentenceStart = $localize`:@@infraIsPartOfNumberSentenceStart:Kuuluu`;
+  infraIsPartOfNumberSentenceEnd = $localize`:@@infraIsPartOfNumberSentenceEnd:infrastruktuuriin`;
+  infraHasPartNumberSentenceStart = $localize`:@@infraHasPartNumberSentenceStart:Sisältää`;
+  infraHasPartNumberSentenceEnd = $localize`:@@infraHasPartNumberSentenceEnd:infrastruktuuria`;
+
   portalNameLocalization = $localize`:@@appName:Tiedejatutkimus.fi`;
   private infraNetworkSub: Subscription;
   infraNetworkResponseData: any;

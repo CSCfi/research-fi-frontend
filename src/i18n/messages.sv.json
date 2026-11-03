@@ -1331,6 +1331,12 @@
         "relationToOtherInfras": "Kopplingar till andra infrastrukturer",
         "dataMissing": "Inga uppgifter tillgängliga",
         "networkShownInPicture": "Nätverket visas i bilden",
-        "infraNetwork": "Nätverk"
+        "infraNetwork": "Nätverk",
+        "infraNetworkSize": "Verkoston koko",
+        "infraTreeBelongsToManyNetworks": "Kohde kuuluu useaan infrastruktuuriverkostoon",
+        "infraIsPartOfNumberSentenceStart": "Kuuluu",
+        "infraIsPartOfNumberSentenceEnd": "infrastruktuuriin",
+        "infraHaSPartNumberSentenceStart": "Sisältää",
+        "infraHaSPartNumberSentenceEnd": "infrastruktuurit"
     }
 }

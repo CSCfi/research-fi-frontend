@@ -222,6 +222,9 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   infraNetworkSelectedInfo3= $localize`:@@infraNetworkSelectedInfo3:Saat lisätietoja verkoston infrastruktuureista klikkaamalla.`;
   kvInfraInfo = $localize`:@@kvInfraInfo:Kansainvälinen infrastruktuuri, jota ylläpidetään Suomen ulkopuolella. Sen toimintaan liittyy suomalaisten organisaatioiden ylläpitämiä infrastruktuureja. Ei tarkempia tietoja Tiedejatutkimus.fi:ssä.`;
   networkLocalization = $localize`:@@infraNetwork:Verkosto.`;
+  hasStartedLocalization = $localize`:@@has-started:Alkanut.`;
+  hasEndedLocalization = $localize`:@@has-ended:Päättynyt.`;
+  endsOnLocalization = $localize`:@@ends-on:Päättyy.`;
 
   infraModalTexts = {
     'acronym': $localize`:@@infraAcronymAndName:Lyhenne ja nimi`,

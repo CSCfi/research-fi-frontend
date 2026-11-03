@@ -1330,7 +1330,13 @@
     "relationToOtherInfras": "Connections to other infrastructures",
     "dataMissing": "No information available",
     "networkShownInPicture": "The network is shown in the image",
-    "infraNetwork": "Network"
+    "infraNetwork": "Network",
+    "infraNetworkSize": "Verkoston koko",
+    "infraTreeBelongsToManyNetworks": "Kohde kuuluu useaan infrastruktuuriverkostoon",
+    "infraIsPartOfNumberSentenceStart": "Kuuluu",
+    "infraIsPartOfNumberSentenceEnd": "infrastruktuuriin",
+    "infraHaSPartNumberSentenceStart": "Sisältää",
+    "infraHaSPartNumberSentenceEnd": "infrastruktuuria"
   }
 }
 
