@@ -214,16 +214,18 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   infraNetworkInfoText = $localize`:@@infraNetworkInfoText:Tarkastele infrastruktuuria osana siihen liittyvien infrastruktuurien verkostoa`;
   infraTreeBelongsToManyNetworks = $localize`:@@infraTreeBelongsToManyNetworks:Kohde kuuluu useaan infrastruktuuriverkostoon`;
   otherInfoLocalization = $localize`:@@spOtherInfo:Muut tiedot`;
-  contacInfoLocalization = $localize`:@@contacInfo:Yhteystiedot`;
+  contacInfoLocalization = $localize`:@@contactInfo:Yhteystiedot`;
   neighbourInfrastructuresLocalization = $localize`:@@neighbourInfrastructures:Liittyvät infrastruktuurit`;
   showInfrastructureNetworkLocalization = $localize`:@@showInfrastructureNetwork:Näytä verkosto`;
   infraNetworkSelectedInfo1 = $localize`:@@infraNetworkSelectedInfo1:Näet kuvasta mihin infrastruktuureihin`;
   infraNetworkSelectedInfo2= $localize`:@@infraNetworkSelectedInfo2:on yhteydessä.`;
   infraNetworkSelectedInfo3= $localize`:@@infraNetworkSelectedInfo3:Saat lisätietoja verkoston infrastruktuureista klikkaamalla.`;
+  kvInfraInfo = $localize`:@@kvInfraInfo:Kansainvälinen infrastruktuuri, jota ylläpidetään Suomen ulkopuolella. Sen toimintaan liittyy suomalaisten organisaatioiden ylläpitämiä infrastruktuureja. Ei tarkempia tietoja Tiedejatutkimus.fi:ssä.`;
+  networkLocalization = $localize`:@@infraNetwork:Verkosto.`;
 
   infraModalTexts = {
     'acronym': $localize`:@@infraAcronymAndName:Lyhenne ja nimi`,
-    'startYear': $localize`:@infraStartYear:Toiminta alkanut`,
+    'infraStartYear': $localize`:@@infraStartYear:Toiminta alkanut`,
     'description': $localize`:@@infraDescription:Infrastruktuurin kuvaus`,
     'relationToOtherInfras': $localize`:@@relationToOtherInfras:Yhteydet muihin infrastruktuureihin`,
     'showDirectConnections': $localize`:@@showImmediateConnections:Näytä lähimmät`,
@@ -233,9 +235,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     'includesInfrastructures': $localize`:@@includesInfrastructures:Sisältää infrastruktuurit`,
     'isPartOfInfrastructures': $localize`:@@isPartOfInfrastructures:Kuuluu infrastruktuureihin`,
     'networkShownInPicture': $localize`:@@networkShownInPicture:Verkosto esitetty kuvassa`,
-    'showNetworkGraph': $localize`:@@showNetworkGraph:Näytä verkostokuva`,
-    'isPart': $localize`:@@isPart:On osa`,
-    'ofInfrastructure': $localize`:@@ofInfrastructure:infrastrukuuria`
+    'showNetworkGraph': $localize`:@@showInfrastructureNetwork:Näytä verkosto`,
+    'isPart': $localize`:@@isPartOfInfrastructures:Kuuluu infrastruktuureihin`,
   };
 
   modalInfoFields = [
@@ -444,8 +445,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   ngOnInit() {
     //this.infraTreeLoading = true;
     this.idSub = this.singleService.currentId.subscribe((id) => {
-      this.selectedInfraId = id;
-      this.getData(id, false);
+        this.selectedInfraId = id;
+        this.getData(id, false);
       }
     );
     this.serviceSub = this.route.queryParamMap.subscribe(params => {
@@ -810,10 +811,10 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.responseData.infrastructures[0].services.forEach((service, idx) => {
       this.infraServices.push({ serviceName: service.serviceName, serviceDescription: service.serviceDescription, serviceType: service.serviceType, servicePid: service.servicePid, startDate: service.startDate, endDate:service.endDate, targetSegment: service.targetSegment, targetAudience: service.targetAudience, homepage: service.homepage, infraLinks: service.infraLinks, privacyPolicy:service.privacyPolicy, termsOfUse: service.termsOfUse, instructionsOfUse: service.instructionsOfUse, serviceObtain: service.serviceObtain, contacts: service.contacts  });
       this.showService.push(false);
-/*      this.showServicePoint.push([]);
-      service.servicePoints.forEach((_) =>
-        this.showServicePoint[idx].push(false)
-      );*/
+      /*      this.showServicePoint.push([]);
+            service.servicePoints.forEach((_) =>
+              this.showServicePoint[idx].push(false)
+            );*/
     });
   }
 
@@ -825,13 +826,13 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
     // Filter out empty servicepoints and empty services
     source.services.forEach((service, idx) => {
-/*      source.services[idx].servicePoints = service.servicePoints
-        .map((servicePoint) =>
-          UtilityService.objectHasContent(servicePoint)
-            ? servicePoint
-            : undefined
-        )
-        .filter((x) => x);*/
+      /*      source.services[idx].servicePoints = service.servicePoints
+              .map((servicePoint) =>
+                UtilityService.objectHasContent(servicePoint)
+                  ? servicePoint
+                  : undefined
+              )
+              .filter((x) => x);*/
     });
 
     let openedInd = 0;
@@ -897,7 +898,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.edges.filter(node => node.from === this.infraRootId.getValue()).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.to) {
-         this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
+          this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
         }
         ;
       });
@@ -905,7 +906,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.edges.filter(node => node.to === this.infraRootId.getValue()).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.from) {
-         this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
+          this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
         }
         ;
       });
@@ -1050,11 +1051,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       nodeList: [...this.nodeList],
       rootId: '' + this.infraRootId.getValue()
     });
-    this.reduceNetworkSize(this.reducedNetworkSize);
 
     this.colorizeAndInitNodes();
     this.colorizeAndInitEdges();
     this.colorizeNeighborAndToRootEdges();
+    this.reduceNetworkSize(this.reducedNetworkSize);
   }
 
   navigateToSelectedInfra() {

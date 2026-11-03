@@ -6,9 +6,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
 @if (!resultData) {
   <div class="spinner-center">
     <mat-spinner
-      [diameter]="80"
-      i18n-aria-label="@@loading"
-      aria-label="Ladataan"
+            [diameter]="80"
+            i18n-aria-label="@@loading"
+            aria-label="Ladataan"
     ></mat-spinner>
   </div>
 }
@@ -17,14 +17,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <div>
     @if (dataMapped) {
       <app-table
-        [columns]="tableColumns"
-        [rows]="tableRows"
-        [svgSymbolName]="svgSymbolName"
-        [iconTitle]="iconTitleInfrastructures"
-        iconLinkField="name"
-        [sortColumn]="sortService.sortColumn"
-        [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
-        (onSortChange)="utilityService.sortBy($event.active)"
+              [columns]="tableColumns"
+              [rows]="tableRows"
+              [svgSymbolName]="svgSymbolName"
+              [iconTitle]="iconTitleInfrastructures"
+              iconLinkField="name"
+              [sortColumn]="sortService.sortColumn"
+              [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+              (onSortChange)="utilityService.sortBy($event.active)"
       ></app-table>
     }
     <!-- Templates -->
@@ -34,16 +34,19 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <ng-template #infrastructureNameColumn>
             <a [routerLink]="infra.id | handleInfrastructureLink :'shortLink'">
               <h4
-                class="result-title"
-                [innerHtml]="infra.name?.trim() | highlight: input"
+                      class="result-title"
+                      [innerHtml]="infra.name?.trim() | highlight: input"
               ></h4>
             </a>
-              </ng-template>
+            @if (infra?.acronym?.length > 0) {
+              <div class="infra-acronym-text" [innerHtml]="'(' + infra.acronym?.trim() + ')' | highlight: input"></div>
+            }
+          </ng-template>
           <ng-template #infrastructureRelatedInfraColumn>
             @if (infra.isPartOf.length > 0) {
               <ng-template #isPartOfTemplate>
                 @if (infraIsPartOfNationalInfra(infra.isPartOf)) {
-                  <div class="fw-bold">Tiedejatutkimus.fi</div>
+                  <div class="fw-bold">{{portalNameLocalization}}</div>
                 }
                 @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
                   @if (subInfra.infraKeyIdentifier) {
@@ -53,7 +56,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   }
                 }
                 @if (infraIsPartOfInternationalInfra(infra.isPartOf)) {
-                  <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
+                  <div class="fw-bold mt-2">{{outsideOfServiceLocalization}}</div>
                 }
                 @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
                   @if (!subInfra.infraKeyIdentifier) {
@@ -67,7 +70,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             @if (infra.hasPart.length > 0) {
               <ng-template #hasPartTemplate>
                 @if (infraHasNationalParts(infra.hasPart)) {
-                  <div class="fw-bold">Tiedejatutkimus.fi</div>
+                  <div class="fw-bold">{{portalNameLocalization}}</div>
                 }
                 @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
                   @if (subInfra.infraKeyIdentifier) {
@@ -77,7 +80,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   }
                 }
                 @if (infraHasInternationalParts(infra.hasPart)) {
-                  <div class="fw-bold mt-2">Palvelun ulkopuoliset</div>
+                  <div class="fw-bold mt-2">{{outsideOfServiceLocalization}}</div>
                 }
                 @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
                   @if (!subInfra.infraKeyIdentifier) {
@@ -89,18 +92,18 @@ Copyright 2019 Ministry of Education and Culture, Finland
               <div type="button" [outsideClick]="true" [popover]="hasPartTemplate">Sisältää <span class="text-underline fw-bold">{{infra.hasPart.length}} infrastruktuuria</span></div>
             }
           </ng-template>
-            }
-          </div>
         }
-        <!-- Pagination -->
-        <app-results-pagination [data]="resultData"></app-results-pagination>
       </div>
-    } @else {
-      @if (resultData && resultData.total === 0) {
-        <app-no-results
-          heading="Ei infrastruktuureja"
-          i18n-heading="@@noInfrastructures"
-        ></app-no-results>
-      }
     }
+    <!-- Pagination -->
+    <app-results-pagination [data]="resultData"></app-results-pagination>
+  </div>
+} @else {
+  @if (resultData && resultData.total === 0) {
+    <app-no-results
+            heading="Ei infrastruktuureja"
+            i18n-heading="@@noInfrastructures"
+    ></app-no-results>
+  }
+}
 

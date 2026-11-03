@@ -38,13 +38,14 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { Subscription } from 'rxjs';
 import { PopoverDirective } from 'ngx-bootstrap/popover';
 import { JsonPipe, SlicePipe } from '@angular/common';
+import { SafeUrlPipe } from '@portal/pipes/safe-url.pipe';
 
 @Component({
-    selector: 'app-infrastructures',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './infrastructures.component.html',
-    styleUrls: ['./infrastructures.component.scss'],
-    imports: [
+  selector: 'app-infrastructures',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './infrastructures.component.html',
+  styleUrls: ['./infrastructures.component.scss'],
+  imports: [
     MatProgressSpinner,
     TableComponent,
     RouterLink,
@@ -54,10 +55,11 @@ import { JsonPipe, SlicePipe } from '@angular/common';
     HighlightSearchPipe,
     HandleInfrastructureLinkPipe,
     SvgSpritesComponent,
-      PopoverDirective,
-      JsonPipe,
-      SlicePipe
-    ]
+    PopoverDirective,
+    JsonPipe,
+    SlicePipe,
+    SafeUrlPipe
+  ]
 })
 export class InfrastructuresComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -87,6 +89,8 @@ export class InfrastructuresComponent
 
   dataMapped: boolean;
   iconTitleInfrastructures = $localize`:@@iconInfrastructures: Infrastruktuurien tiedon ikoni`;
+  outsideOfServiceLocalization = $localize`:@@outsideOfService: Ei tarkempia tietoja Tiedejatutkimus.fi:ssä`;
+  portalNameLocalization = $localize`:@@appName:Tiedejatutkimus.fi`;
   private infraNetworkSub: Subscription;
   infraNetworkResponseData: any;
   infraNodeList = [];
@@ -191,8 +195,8 @@ export class InfrastructuresComponent
     this.internationalNodeList.some((item) => {
       if (item?.internalId === infraId) {
         res = item?.nodeTypeInternational?.internationalInfraName;
-        };
-      });
+      };
+    });
     return res ?? '';
   }
 
