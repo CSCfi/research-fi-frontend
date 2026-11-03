@@ -185,7 +185,7 @@
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
                 <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{classificationsLocalization}}:</div>
                 <div class="col-12 col-sm-6 col-lg-7 td">
-                  <ng-container *ngFor="let row of classificationFields; let i = index">
+                  <ng-container *ngFor="let row of classificationFields">
                     <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
                       <span class="pe-1">{{ row.label }}: </span>
                       <span class="pe-2">{{ item[row.field] }}</span>
@@ -575,7 +575,7 @@
             </aside>
           }
           <aside>
-            <mat-card class="infra-card" appearance="outlined" class="d-none">
+            <mat-card class="infra-card d-none" appearance="outlined">
               <div class="inner">
                 <mat-card-title
                 >
@@ -659,11 +659,10 @@
       <div class="position-absolute vis-component-container top-0 start-0 w-100">
         <div class="position-absolute vis-legend-container start-0  d-none d-sm-block">
           <div class="relations-dropdown-container">
-            <div class="relations-heading">Verkosto: <span class="root-infra-text-col">{{ rootNodeName }}</span></div>
+            <div class="relations-heading">{{ networkLocalization }}: <span class="root-infra-text-col">{{ rootNodeName }}</span></div>
             @if (isPartOfLabelsUpper.length > 0) {
               <div class="relations-sub-heading"
-                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}
-                :
+                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}:
               </div>
               @if (isPartOfLabelsVisible) {
                 @for (item of isPartOfLabelsUpper; track item) {
@@ -674,7 +673,7 @@
             }
             @if (hasPartLabelsUpper.length > 0) {
               <div class="relations-sub-heading fw-bold"
-                   (click)="hasPartLabelsVisible = !hasPartLabelsVisible">{{ infraModalTexts.includesInfrastructures }}:
+                   (click)="hasPartLabelsVisible = !hasPartLabelsVisible">{{ infraModalTexts.includesInfrastructures }}
               </div>
               @if (hasPartLabelsVisible) {
                 @for (item of hasPartLabelsUpper; track item) {
@@ -801,7 +800,7 @@
       <div class="infra-network-modal-legend">
         <!--<h2 class="result-header mb-3">Valitun infrastruktuurin tiedot</h2>-->
         <div class="row gx-0 d-flex justify-content-between">
-          <div class="col-3 d-flex infra-legend-column">
+          <div class="col-3 d-flex infra-legend-column" [class.col-3]="modalInfraData?.infrastructures[0]" [class.col-5]="!modalInfraData?.infrastructures[0]">
             <div class="vr"></div>
             <div class="">
               <h3>
@@ -818,18 +817,24 @@
                 }
               </p>
 
-              <a href="javascript:void(0)" (click)="navigateToSelectedInfra()">
-                <p class="fw-bold">
-                  {{ infraModalTexts.goToInfraPage }}
-                </p>
-              </a>
+              @if (!modalInfraData?.infrastructures[0]){
+                <div>{{kvInfraInfo}}</div>
+              }
+              @else {
+                <a href="javascript:void(0)" (click)="navigateToSelectedInfra()">
+                  <p class="fw-bold">
+                    {{ infraModalTexts.goToInfraPage }}
+                  </p>
+                </a>
+              }
             </div>
           </div>
+          @if (modalInfraData?.infrastructures[0]) {
           <div class="col-auto d-flex">
             <div class="vr"></div>
             <div class="">
               <h3>
-                <span class="pe-1">{{ infraModalTexts.startYear }}</span>
+                <span class="pe-1">{{ infraModalTexts.infraStartYear }}</span>
               </h3>
               @if (modalInfraData?.infrastructures[0]?.startYear?.length > 0) {
                 <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
@@ -851,6 +856,7 @@
               }
             </div>
           </div>
+          }
           <div class="col-3 d-flex">
             <div class="vr"></div>
             <div class="">
@@ -868,8 +874,7 @@
                 </h3>
                 @if (isPartOfLabelsBottom.length > 0) {
                   <div class="mt-2 relations-text fw-bold">{{ infraModalTexts.isPart }}
-                    <span>({{ isPartOfLabelsBottom.length }})
-                  </span> {{ infraModalTexts.ofInfrastructure }}
+                    <span>({{ isPartOfLabelsBottom.length }}):</span>
                   </div>
                   @for (item of isPartOfLabelsBottom; track item) {
                     <div class="relations-text"><a (click)="infraNodeClickFromList(item)"
@@ -878,8 +883,7 @@
                 }
                 @if (hasPartLabelsBottom.length > 0) {
                   <div class="mt-1 relations-text fw-bold">{{ infraModalTexts.includesInfrastructures }}
-                    <span>({{ hasPartLabelsBottom.length }})
-                  </span>:
+                    <span>({{ hasPartLabelsBottom.length }}):</span>
                   </div>
                   @for (item of hasPartLabelsBottom; track item) {
                     <div class="relations-text"><a (click)="infraNodeClickFromList(item)"

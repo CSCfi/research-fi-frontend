@@ -31,6 +31,8 @@ export class Infrastructure {
     public scientificDescription: string,
     public startYear: string,
     public endYear: string,
+    public startDate: Date | undefined,
+    public endDate: Date | undefined,
     public acronym: string,
     public finlandRoadmap: string,
     public ESFRICodes: string,
@@ -59,8 +61,8 @@ export class Infrastructure {
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
   infraContactInfo: InfraContactInfo[] = [];
   constructor(@Inject(LOCALE_ID) protected localeId: string,
-    private isa: InfraServiceAdapter,
-    private utils: ModelUtilsService
+              private isa: InfraServiceAdapter,
+              private utils: ModelUtilsService
   ) {}
 
   adapt(item: any): Infrastructure {
@@ -72,6 +74,20 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     const fieldsOfScience: string[] = [];
 
     item.infraConPoint = item.infraConPoint?.shift();
+
+    if (item.infraStartsOn) {
+      const day = item.infraStartsOn.day ?? '0';
+      const month = item.infraStartsOn.month ?? '0';
+      const year = item.infraStartsOn.year ?? '0';
+      item.infraStartDate = new Date(year, month , day);
+    }
+
+    if (item.infraEndsOn) {
+      const day = item.infraEndsOn.day ?? '0';
+      const month = item.infraEndsOn.month ?? '0';
+      const year = item.infraEndsOn.year ?? '0';
+      item.infraEndDate = new Date(year, month , day);
+    }
 
     // Init and assign if available
     let responsibleOrganization = '';
@@ -137,6 +153,8 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
       this.utils.checkTranslation('scientificDescription', item),
       item?.infraStartsOn?.year ?? '',
       item?.infraEndsOn?.year ?? '',
+      item?.infraStartDate ?? undefined,
+      item?.infraEndDate ?? undefined,
       item?.infraAcronym ?? '',
       item?.finlandRoadmap,
       item?.ESFRICodes ? item.ESFRICodes.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)).join(', ') : '',

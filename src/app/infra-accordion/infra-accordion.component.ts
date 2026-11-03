@@ -67,11 +67,9 @@ export class InfraAccordionComponent {
     return this._infraData;
   }
 
-  /** Called whenever infraData input receives a value. */
   markDiscontinuedServices(): void {
     this._infraData.map((infraService: InfraService) => {
       if (this.isServiceDiscontinued(infraService)) {
-        console.log('marked discontinued');
         infraService.isDiscontinued = true;
       }
     })
@@ -88,7 +86,7 @@ export class InfraAccordionComponent {
   termsOfUseLocalization = $localize`:@@termsForTool:Käyttöehdot`;
   instructionsOfUseLocalization = $localize`:@@instructionsOfUse:Käyttöohje`;
   webPageLocalization = $localize`:@@webPage:Verkkosivu`;
-  targetSegmentLocalization = $localize`:@@infra-target-segment:Kohderyhmä`;
+  targetSegmentLocalization = $localize`:@@serviceTargetSegment:Palvelun kohderyhmä`;
   targetAudienceLocalization = $localize`:@@infra-service-users:Käyttäjät`;
   serviceObtainLocalization = $localize`:@@infra-service-obtain-description:Kuvaus käyttöönotosta`;
   serviceContactInfoLocalization = $localize`:@@infra-service-contact-info:Yhteyshenkilö ja -tiedot`;

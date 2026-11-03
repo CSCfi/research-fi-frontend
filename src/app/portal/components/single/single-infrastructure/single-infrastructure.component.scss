@@ -178,7 +178,7 @@ h4.th.classification {
   z-index: 5000;
   font-size: 14px;
   //margin-left: 17px;
-  width: 250px;
+  width: auto;
   //padding: 10px;
   border-top-left-radius: 4px;
   //background-color: #E8E8F5;
@@ -218,13 +218,16 @@ h4.th.classification {
   position: absolute;
   top: 14px;
   right: 32px;
-  width: 219px;
+  //width: 219px;
   z-index: 5000;
   padding: 6px 15px;
   border: 1px solid #4546B9;
   border-radius: 4px;
   background: #F7F7FB;
   font-size: 14px;
+  .mdc-label {
+    text-wrap: nowrap !important;
+  }
 }
 
 .dropdown-container, .relations-text {

@@ -103,7 +103,7 @@ export class InfrastructureFilterService {
     const now = new Date().toLocaleDateString('sv');
 
     // Open
-    console.log('!!! now', now);
+    //console.log('!!! now', now);
 
     const dates = [...data.originalData];
     let openDocs = 0;
