@@ -65,7 +65,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 }
               </ng-template>
 
-              <div type="button" [outsideClick]="true" [popover]="isPartOfTemplate">On osa <span class="text-underline fw-bold">{{infra.isPartOf.length}} infrastruktuuria</span></div>
+              <div type="button" [outsideClick]="true" [popover]="isPartOfTemplate">{{infraIsPartOfNumberSentenceStart}} <span class="text-underline fw-bold">{{infra.isPartOf.length}} {{infraIsPartOfNumberSentenceEnd}}</span></div>
+
             }
             @if (infra.hasPart.length > 0) {
               <ng-template #hasPartTemplate>
@@ -89,7 +90,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 }
               </ng-template>
 
-              <div type="button" [outsideClick]="true" [popover]="hasPartTemplate">Sisältää <span class="text-underline fw-bold">{{infra.hasPart.length}} infrastruktuuria</span></div>
+              <div type="button" [outsideClick]="true" [popover]="hasPartTemplate">{{infraHasPartNumberSentenceStart}} <span class="text-underline fw-bold">{{infra.hasPart.length}} {{infraHasPartNumberSentenceEnd}}</span></div>
             }
           </ng-template>
         }

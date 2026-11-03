@@ -1331,6 +1331,12 @@
         "relationToOtherInfras": "Yhteydet muihin infrastruktuureihin",
         "dataMissing": "Tietoja ei ole saatavilla",
         "networkShownInPicture": "Verkosto esitetty kuvassa",
-        "infraNetwork": "Verkosto"
+        "infraNetwork": "Verkosto",
+        "infraNetworkSize": "Verkoston koko",
+        "infraTreeBelongsToManyNetworks": "Kohde kuuluu useaan infrastruktuuriverkostoon",
+        "infraIsPartOfNumberSentenceStart": "Kuuluu",
+        "infraIsPartOfNumberSentenceEnd": "infrastruktuuriin",
+        "infraHaSPartNumberSentenceStart": "Sisältää",
+        "infraHaSPartNumberSentenceEnd": "infrastruktuurit"
     }
 }
