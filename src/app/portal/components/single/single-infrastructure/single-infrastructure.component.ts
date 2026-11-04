@@ -203,8 +203,9 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       field: 'keywordsString',
       tooltip: $localize`:@@infraKeywordsTooltip:Tutkimusinfrastruktuuria, sen palveluita ja toimintaa kuvailevia avainsanoja.`
     }
-  ]
+  ];
 
+  organizationsLocalization = $localize`:@@navigation.organizations:Organisaatiot`;
   activeServicesLocalization = $localize`:@@activeServices:Aktiiviset palvelut`;
   infraServicesLocalization= $localize`:@@infraServices:Tutkimusinfrastruktuurin palvelut`;
   infraServiceActionLocalization = $localize`:@@infra-service-action:Toiminta`;
