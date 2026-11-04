@@ -563,7 +563,7 @@
                   }
                   @for (subTrees of infraTreeNodes; track subTrees; let i = $index) {
                     @if (infraTreeNodes?.length > 1 && i === 0) {
-                      <div class="mb-2">{{ infraTreeBelongsToManyNetworks }}</div>
+                      <div class="mb-2">{{ infraIsRelatedToOtherInfras }}</div>
                     }
                     @if (!infraTreeLoading) {
                       <hr>
