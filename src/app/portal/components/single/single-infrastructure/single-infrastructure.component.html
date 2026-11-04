@@ -86,20 +86,6 @@
                 </div>
               </ng-container>
 
-              <!-- Infra organizations -->
-              <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold other-fields-heading">{{ otherInfoLocalization }}</span>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3 td">{{ responsibleOrganizationLocalizaion }}:</div>
-                <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.responsibleOrganization?.trim() }}</div>
-                <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                @if (responseData.infrastructures[0]?.participantOrganizations?.length > 0) {
-                  <div class="col-12 col-sm-6 col-lg-3 td">{{ participatingOrganizationsLocalization }}:</div>
-                  <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participantOrganizations }}</div>
-                }
-              </div>
-
               <!-- Infra years -->
               <div class="row"
                    *ngIf="responseData.infrastructures[0]?.startYear || responseData.infrastructures[0]?.endYear ">
@@ -114,6 +100,22 @@
                     {{ endsOnLocalization }}: {{ responseData.infrastructures[0]?.endYear }}
                   </div>
                 </div>
+              </div>
+
+              <!-- Infra organizations -->
+              <div class="row">
+                <div class="col-12 col-sm-6 col-lg-3 th">
+                  <span class="pe-1 fw-bold other-fields-heading">{{ organizationsLocalization }}</span>
+                </div>
+                @if (responseData.infrastructures[0]?.responsibleOrganization?.length > 0) {
+                  <div class="col-12 col-sm-6 col-lg-3 td">{{ responsibleOrganizationLocalizaion }}:</div>
+                  <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.responsibleOrganization?.trim() }}</div>
+                }
+                <div class="col-12 col-sm-6 col-lg-3 th"></div>
+                @if (responseData.infrastructures[0]?.participantOrganizations?.length > 0) {
+                  <div class="col-12 col-sm-6 col-lg-3 td">{{ participatingOrganizationsLocalization }}:</div>
+                  <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participantOrganizations }}</div>
+                }
               </div>
               <hr/>
 
@@ -211,7 +213,10 @@
                   <!-- Identifiers --->
                   @if (responseData.infrastructures[0]?.urn) {
                     <div class="col-6 col-sm-3 td">{{ identifiersLocalization }}:</div>
-                    <div class="col-6 col-sm-8 td">{{ responseData.infrastructures[0]?.urn }}</div>
+                    <div class="col-6 col-sm-8 td">
+                      <app-share [id]="responseData.infrastructures[0]?.urn" [useTextOnlyLink]="true"
+                                 [showUrnTextPrefix]="false"></app-share>
+                    </div>
                   }
                 </div>
               </div>
