@@ -212,7 +212,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   responsibleOrganizationLocalizaion = $localize`:@@responsibleOrganization:Vastuuorganisaatio`;
   fieldsOfScienceLocalization= $localize`:@@fieldsOfScience:Tieteenalat`;
   infraNetworkInfoText = $localize`:@@infraNetworkInfoText:Tarkastele infrastruktuuria osana siihen liittyvien infrastruktuurien verkostoa`;
-  infraTreeBelongsToManyNetworks = $localize`:@@infraTreeBelongsToManyNetworks:Kohde kuuluu useaan infrastruktuuriverkostoon`;
+  infraIsRelatedToOtherInfras = $localize`:@@related-infras-short-description:Infrastruktuuri on mukana muiden infrastruktuurien toiminnassa`;
   otherInfoLocalization = $localize`:@@spOtherInfo:Muut tiedot`;
   contacInfoLocalization = $localize`:@@contactInfo:Yhteystiedot`;
   neighbourInfrastructuresLocalization = $localize`:@@neighbourInfrastructures:Liittyvät infrastruktuurit`;
