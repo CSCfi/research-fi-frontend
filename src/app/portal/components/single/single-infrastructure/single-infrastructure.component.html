@@ -89,13 +89,13 @@
               <!-- Infra organizations -->
               <div class="row">
                 <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold other-fields-heading">{{otherInfoLocalization}}</span>
+                  <span class="pe-1 fw-bold other-fields-heading">{{ otherInfoLocalization }}</span>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3 td">{{responsibleOrganizationLocalizaion}}:</div>
+                <div class="col-12 col-sm-6 col-lg-3 td">{{ responsibleOrganizationLocalizaion }}:</div>
                 <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.responsibleOrganization?.trim() }}</div>
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
                 @if (responseData.infrastructures[0]?.participantOrganizations?.length > 0) {
-                  <div class="col-12 col-sm-6 col-lg-3 td">{{participatingOrganizationsLocalization}}:</div>
+                  <div class="col-12 col-sm-6 col-lg-3 td">{{ participatingOrganizationsLocalization }}:</div>
                   <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participantOrganizations }}</div>
                 }
               </div>
@@ -104,14 +104,14 @@
               <div class="row"
                    *ngIf="responseData.infrastructures[0]?.startYear || responseData.infrastructures[0]?.endYear ">
                 <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold">{{infraServiceActionLocalization}}</span>
+                  <span class="pe-1 fw-bold">{{ infraServiceActionLocalization }}</span>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-9 td">
                   <div *ngIf="responseData.infrastructures[0]?.startYear">
-                    {{hasStartedLocalization}}: {{ responseData.infrastructures[0]?.startYear }}
+                    {{ hasStartedLocalization }}: {{ responseData.infrastructures[0]?.startYear }}
                   </div>
                   <div *ngIf="responseData.infrastructures[0]?.endYear" class="mt-2">
-                    {{endsOnLocalization}}: {{ responseData.infrastructures[0]?.endYear }}
+                    {{ endsOnLocalization }}: {{ responseData.infrastructures[0]?.endYear }}
                   </div>
                 </div>
               </div>
@@ -119,293 +119,105 @@
 
               <!-- Infra other fields -->
               <div class="row infra-other-fields" *ngIf="responseData.infrastructures[0]?.fieldsOfScience">
-                <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold other-fields-heading">{{otherInfoLocalization}}</span>
+                <div class="col-12 col-md-12 col-lg-3 th">
+                  <span class="pe-1 fw-bold other-fields-heading">{{ otherInfoLocalization }}</span>
                 </div>
 
-                @if (responseData.infrastructures[0]?.contactInfo?.length > 0) {
-                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{contacInfoLocalization}}:</div>
-                  <div class="col-12 col-sm-6 col-lg-7 row gx-0">
-                    @for (contact of responseData.infrastructures[0].contactInfo; track contact) {
-                      @if (contact?.contactLabel) {
-                        <div class="col-12 td">
-                          <div>{{ contact?.contactLabel }}</div>
-                        </div>
+                <!-- Contact info --->
+                <div class="row col gx-0">
+                  @if (responseData.infrastructures[0]?.contactInfo?.length > 0) {
+                    <div class="col-6 col-sm-3 td">{{ contacInfoLocalization }}:</div>
+                    <div class="col-6 col-sm-8 row gx-0">
+                      @for (contact of responseData.infrastructures[0].contactInfo; track contact) {
+                        @if (contact?.contactLabel) {
+                          <div class="col-12 td">
+                            <div>{{ contact?.contactLabel }}</div>
+                          </div>
+                        }
+                        @if (contact?.email?.length > 0) {
+                          <div class="col-12 td">
+                            @for (email of contact?.email; track email) {
+                              <div>{{ email }}</div>
+                            }
+                          </div>
+                        }
+                        @if (contact?.phone?.length > 0) {
+                          <div class="col-12 td">
+                            @for (phone of contact?.phone; track phone) {
+                              <div>{{ phone }}</div>
+                            }
+                          </div>
+                        }
+                        @if (contact?.street) {
+                          <div class="col-12 td">
+                            <div>{{ contact.street }}</div>
+                          </div>
+                        }
+                        @if (contact?.premise) {
+                          <div class="col-12 td">
+                            <div>{{ contact.premise }}</div>
+                          </div>
+                        }
+                        @if (contact?.postalCode) {
+                          <div class="col-12 td">
+                            <div>{{ contact.postalCode }}</div>
+                          </div>
+                        }
+                        @if (contact?.locality) {
+                          <div class="col-12 td">
+                            <div>{{ contact.locality }}</div>
+                          </div>
+                        }
+                        @if (contact?.country) {
+                          <div class="col-12 td">
+                            <div>{{ contact.country }}</div>
+                          </div>
+                        }
                       }
-                      @if (contact?.email?.length > 0) {
-                        <div class="col-12 td">
-                          @for (email of contact?.email; track email) {
-                            <div>{{ email }}</div>
-                          }
-                        </div>
-                      }
-                      @if (contact?.phone?.length > 0) {
-                        <div class="col-12 td">
-                          @for (phone of contact?.phone; track phone) {
-                            <div>{{ phone }}</div>
-                          }
-                        </div>
-                      }
-                      @if (contact?.street) {
-                        <div class="col-12 td">
-                          <div>{{ contact.street }}</div>
-                        </div>
-                      }
-                      @if (contact?.premise) {
-                        <div class="col-12 td">
-                          <div>{{ contact.premise }}</div>
-                        </div>
-                      }
-                      @if (contact?.postalCode) {
-                        <div class="col-12 td">
-                          <div>{{ contact.postalCode }}</div>
-                        </div>
-                      }
-                      @if (contact?.locality) {
-                        <div class="col-12 td">
-                          <div>{{ contact.locality }}</div>
-                        </div>
-                      }
-                      @if (contact?.country) {
-                        <div class="col-12 td">
-                          <div>{{ contact.country }}</div>
-                        </div>
-                      }
-                    }
-                  </div>
-                  <div class="col-12 col-sm-6 col-lg-3 th">
-                    <span class="pe-1 fw-bold other-fields-heading"></span>
-                  </div>
-                }
-
-                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{fieldsOfScienceLocalization}}</div>
-                <div class="col-12 td col-lg-7">{{ responseData.infrastructures[0]?.fieldsOfScience.join(', ') }}</div>
-
-
-                <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{classificationsLocalization}}:</div>
-                <div class="col-12 col-sm-6 col-lg-7 td">
-                  <ng-container *ngFor="let row of classificationFields">
-                    <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
-                      <span class="pe-1">{{ row.label }}: </span>
-                      <span class="pe-2">{{ item[row.field] }}</span>
-                      <ng-container *ngIf="row.tooltip">
-                        <ng-template #tooltipTemplate
-                        >
-                          <div [innerHtml]="row.tooltip"></div
-                          >
-                        </ng-template>
-                        <span
-                                [tooltip]="tooltipTemplate"
-                                tabindex="0"
-                                placement="top"
-                                #elem
-                        >
-                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                    </span>
-                      </ng-container>
                     </div>
-                  </ng-container>
-                </div>
+                  }
 
-                @if (responseData.infrastructures[0]?.urn){
-                <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                <div class="col-12 col-sm-6 col-lg-2 td mini-para-heading">{{identifiersLocalization}}:</div>
-                <div class="col-12 col-sm-6 col-lg-7 td">{{ responseData.infrastructures[0]?.urn }}</div>
-                }
-              </div>
-            </div>
-            <!--          <div *ngIf="item?.services.length > 0" class="content">
-                        <h2 class="subheader trHeader">
-                          <span class="pe-1" i18n="@@infraServices"
-                          >Tutkimusinfrastruktuurin palvelut</span
+                  <!-- Fields of science --->
+                  <div class="col-6 col-sm-3 td">{{ fieldsOfScienceLocalization }}:</div>
+                  <div class="col-6 col-sm-8 td">{{ responseData.infrastructures[0]?.fieldsOfScience.join(', ') }}</div>
+
+                  <!-- Classifications --->
+                  <div class="col-6 col-sm-3 td">{{ classificationsLocalization }}:</div>
+
+                  <div class="col-6 col-sm-8 td row gx-0">
+                    <ng-container *ngFor="let row of classificationFields">
+                      <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
+                        <span class="pe-1">{{ row.label }}: </span>
+                        <span class="pe-2">{{ item[row.field] }}</span>
+                        <ng-container *ngIf="row.tooltip">
+                          <ng-template #tooltipTemplate
                           >
+                            <div [innerHtml]="row.tooltip"></div
+                            >
+                          </ng-template>
                           <span
-                                  i18n-tooltip="@@infraServicesTooltip"
-                                  tooltip="Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu.
-                                        Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle.
-                                        Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste."
+                                  [tooltip]="tooltipTemplate"
                                   tabindex="0"
                                   placement="top"
                                   #elem
                           >
-                            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                          </span>
-                        </h2>
-                        <div
-                                class="content"
-                                *ngFor="let service of item.services; let i = index"
-                        >
-                          <ng-container>
-                            <div class="d-flex" (click)="toggleService(i)" #servicesRefs>
-                              <h3
-                                      class="header ms-2 trHeader subtitle service-name"
-                                      [ngClass]="showService[i] ? 'open' : 'closed'"
-                              >
-                                {{
-                                  stringHasContent(service.name)
-                                    ? service.name
-                                    : serviceHeader
-                                }}
-                                {{ service.acronym ? '(' + service.acronym + ')' : '' }}
-                              </h3>
-                              <div class="chevron-wrapper">
-                                <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon single-page"
-                                                 *ngIf="showService[i]"></app-svg-sprites>
-                                <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon single-page"
-                                                 *ngIf="!showService[i]"></app-svg-sprites>
-                              </div>
-                            </div>
-                            <div *ngIf="showService[i]" class="ps-4">
-                              <div
-                                      *ngFor="let row of serviceFields; let j = index"
-                                      class="row"
-                              >
-                                <ng-container *ngIf="stringHasContent(service[row.field])">
-                                  <h4 class="col-12 col-sm-6 col-lg-3 th">
-                                    <span class="pe-1">{{ row.label }}</span>
-                                    <ng-container *ngIf="row.tooltip">
-                                      <ng-template #tooltipTemplate
-                                      >
-                                        <div [innerHtml]="row.tooltip"></div
-                                        >
-                                      </ng-template>
-                                      <span
-                                              [tooltip]="tooltipTemplate"
-                                              tabindex="0"
-                                              placement="top"
-                                              #elem
-                                      >
-                                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                                      </span>
-                                    </ng-container>
-                                  </h4>
-                                  <div class="col-12 col-sm-6 col-lg-9 td">
-                                    <p
-                                            [ngClass]="
-                                        serviceExpand[serviceExpandId(i, j)]
-                                          ? 'expand'
-                                          : 'short'
-                                      "
-                                            #overflow
-                                    >
-                                      {{ service[row.field] }}
-                                    </p>
-                                    <a
-                                            href="javascript:void(0)"
-                                            class="read-more"
-                                            *ngIf="
-                                        checkOverflow(overflow) ||
-                                        serviceExpand[serviceExpandId(i, j)]
-                                      "
-                                            (click)="
-                                        expandServiceDescription(serviceExpandId(i, j))
-                                      "
-                                            [innerHTML]="
-                                        serviceExpand[serviceExpandId(i, j)]
-                                          ? showLess
-                                          : showMore
-                                      "
-                                    ></a>
-                                  </div>
-                                </ng-container>
-                              </div>
-                              <div
-                                      *ngFor="
-                                  let servicePoint of service.servicePoints;
-                                  let j = index
-                                "
-                              >
-                                <div class="row">
-                                  <h4 class="col-12 col-sm-6 col-lg-3 th">
-                                    <span class="pe-1" i18n="@@infraServicePoint"
-                                    >Palvelupiste</span
-                                    >
-                                    <span
-                                            i18n-tooltip="@@contactInfoTooltip"
-                                            tooltip="Kertoo palvelun yhteystiedot ja mahdolliset käyttöehdot.
-                                                            Kuvauksessa voidaan kertoa palvelupisteestä tarkemmin. Joskus palvelu voi olla erilainen eri palvelupisteissä esimerkiksi tarjolla olevan laitteiston kannalta."
-                                            tabindex="0"
-                                            placement="top"
-                                            #elem
-                                    >
-                                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                                    </span>
-                                  </h4>
-                                  <div class="col-12 col-sm-6 col-lg-9 td">
-                                    {{ servicePoint.name }}
-                                  </div>
-                                </div>
-                                <div>
-                                  <div
-                                          *ngFor="let row of servicePointContactFields"
-                                          class="row"
-                                  >
-                                    <ng-container *ngIf="servicePoint[row.field]?.trim()">
-                                      <h5 class="sr-only">{{ row.label }}</h5>
-                                      <div
-                                              class="offset-0 offset-sm-6 offset-lg-3 col-12 col-sm-6 col-lg-9 pt-0 pb-0 td"
-                                      >
-                                        <ng-container
-                                                *ngIf="
-                                            row.field === 'emailAddress';
-                                            else nonEmailAddress
-                                          "
-                                        ><a
-                                                href="javascript:void(0)"
-                                                (click)="
-                                              showEmail($event, servicePoint[row.field])
-                                            "
-                                                i18n="@@showEmailAddress"
-                                        >Näytä sähköpostiosoite</a
-                                        ></ng-container
-                                        >
-                                        <ng-template #nonEmailAddress>{{
-                                            servicePoint[row.field]
-                                          }}
-                                        </ng-template>
-                                      </div>
-                                    </ng-container>
-                                  </div>
-                                  <div
-                                          *ngFor="let row of servicePointInfoFields"
-                                          class="row"
-                                  >
-                                    <ng-container *ngIf="servicePoint[row.field]?.trim()">
-                                      <h5 class="col-12 col-sm-6 col-lg-3 th">
-                                        {{ row.label }}
-                                      </h5>
-                                      <div class="col-12 col-sm-6 col-lg-9 td">
-                                        <a
-                                                [target]="
-                                            row.field === 'infoUrl' ? '_blank' : null
-                                          "
-                                                href="{{ servicePoint[row.field] }}"
-                                        >{{ servicePoint[row.field] }}
-                                          <app-svg-sprites *ngIf="
-                                              row.field === 'infoUrl' ||
-                                              row.field === 'accessPolicyUrl'
-                                            " [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                                        </a>
-                                      </div>
-                                    </ng-container>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </ng-container>
-                          <ng-template #simpleServicePoints>
-                            <p class="header trHeader">
-                              {{ service?.name }}
-                              {{ service?.acronym ? '(' + service.acronym + ')' : '' }}
-                            </p>
-                          </ng-template>
-                        </div>
-                      </div>-->
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                    </span>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
 
+                  <!-- Identifiers --->
+                  @if (responseData.infrastructures[0]?.urn) {
+                    <div class="col-6 col-sm-3 td">{{ identifiersLocalization }}:</div>
+                    <div class="col-6 col-sm-8 td">{{ responseData.infrastructures[0]?.urn }}</div>
+                  }
+                </div>
+              </div>
+            </div>
 
             <div class="">
-
               <!-- Contact -->
               <!--<div *ngIf="contactFields?.length > 0" class="row">
                 <h2
@@ -460,8 +272,8 @@
         </div>
 
         @if (infraServices.length > 0) {
-          <h2 class="ps-1 mb-4"><span i18n="@@infraServices">{{infraServicesLocalization}} </span></h2>
-          <h3 class="ps-1">{{activeServicesLocalization}} ({{ infraServices.length }})</h3>
+          <h2 class="ps-1 mb-4"><span i18n="@@infraServices">{{ infraServicesLocalization }} </span></h2>
+          <h3 class="ps-1">{{ activeServicesLocalization }} ({{ infraServices.length }})</h3>
           <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
           <br/>
         }
@@ -488,7 +300,7 @@
                 <mat-card-title
                 >
                   <div class="side-box-heading" i18n="@@infraHomePage">
-                    {{infraWebPageLocalization}}
+                    {{ infraWebPageLocalization }}
                   </div>
                 </mat-card-title
                 >
@@ -501,7 +313,7 @@
                         class="no-links"
                         i18n="@@noInfraLinks"
                 >
-                  {{noInfraLinksLocalization}}
+                  {{ noInfraLinksLocalization }}
                 </div>
               </div>
             </mat-card>
@@ -514,7 +326,7 @@
                   <mat-card-title
                   >
                     <div class="side-box-heading">
-                      {{infrastructureNetworkLocalization}}
+                      {{ infrastructureNetworkLocalization }}
                     </div>
                   </mat-card-title>
                   <div class="infra-small-text">{{ infraNetworkInfoText }}</div>
@@ -542,7 +354,7 @@
                   >
                     <div class="side-box-heading">
                       <ng-container i18n="@@test"
-                      >{{neighbourInfrastructuresLocalization}}
+                      >{{ neighbourInfrastructuresLocalization }}
                       </ng-container
                       >
                     </div>
@@ -648,21 +460,23 @@
 <ng-template #infrastructureNetworkGraph>
   <div class="row vis-container h-100">
     <div class="row mini-modal-width w-100 gx-4">
-      <p>{{infraNetworkSelectedInfo1}} <span
+      <p>{{ infraNetworkSelectedInfo1 }} <span
               class="fw-bold">{{ rootNodeName }}</span> @if (responseData?.infrastructures[0]?.name) {
         ({{ responseData?.infrastructures[0]?.name }})
       }
-        {{infraNetworkSelectedInfo2}}<br/>{{infraNetworkSelectedInfo3}}</p>
+        {{ infraNetworkSelectedInfo2 }}<br/>{{ infraNetworkSelectedInfo3 }}</p>
     </div>
     <div class="row position-relative vis-component-container w-100">
 
       <div class="position-absolute vis-component-container top-0 start-0 w-100">
         <div class="position-absolute vis-legend-container start-0  d-none d-sm-block">
           <div class="relations-dropdown-container">
-            <div class="relations-heading">{{ networkLocalization }}: <span class="root-infra-text-col">{{ rootNodeName }}</span></div>
+            <div class="relations-heading">{{ networkLocalization }}: <span
+                    class="root-infra-text-col">{{ rootNodeName }}</span></div>
             @if (isPartOfLabelsUpper.length > 0) {
               <div class="relations-sub-heading"
-                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}:
+                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}
+                :
               </div>
               @if (isPartOfLabelsVisible) {
                 @for (item of isPartOfLabelsUpper; track item) {
@@ -800,7 +614,8 @@
       <div class="infra-network-modal-legend">
         <!--<h2 class="result-header mb-3">Valitun infrastruktuurin tiedot</h2>-->
         <div class="row gx-0 d-flex justify-content-between">
-          <div class="col-3 d-flex infra-legend-column" [class.col-3]="modalInfraData?.infrastructures[0]" [class.col-5]="!modalInfraData?.infrastructures[0]">
+          <div class="col-3 d-flex infra-legend-column" [class.col-3]="modalInfraData?.infrastructures[0]"
+               [class.col-5]="!modalInfraData?.infrastructures[0]">
             <div class="vr"></div>
             <div class="">
               <h3>
@@ -817,10 +632,9 @@
                 }
               </p>
 
-              @if (!modalInfraData?.infrastructures[0]){
-                <div>{{kvInfraInfo}}</div>
-              }
-              @else {
+              @if (!modalInfraData?.infrastructures[0]) {
+                <div>{{ kvInfraInfo }}</div>
+              } @else {
                 <a href="javascript:void(0)" (click)="navigateToSelectedInfra()">
                   <p class="fw-bold">
                     {{ infraModalTexts.goToInfraPage }}
@@ -830,32 +644,32 @@
             </div>
           </div>
           @if (modalInfraData?.infrastructures[0]) {
-          <div class="col-auto d-flex">
-            <div class="vr"></div>
-            <div class="">
-              <h3>
-                <span class="pe-1">{{ infraModalTexts.infraStartYear }}</span>
-              </h3>
-              @if (modalInfraData?.infrastructures[0]?.startYear?.length > 0) {
-                <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
-              } @else {
-                <p>{{ infraModalTexts.dataMissing }}</p>
-              }
+            <div class="col-auto d-flex">
+              <div class="vr"></div>
+              <div class="">
+                <h3>
+                  <span class="pe-1">{{ infraModalTexts.infraStartYear }}</span>
+                </h3>
+                @if (modalInfraData?.infrastructures[0]?.startYear?.length > 0) {
+                  <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
+                } @else {
+                  <p>{{ infraModalTexts.dataMissing }}</p>
+                }
+              </div>
             </div>
-          </div>
-          <div class="col-4 d-flex">
-            <div class="vr"></div>
-            <div class="">
-              <h3>
-                <span class="pe-1">{{ infraModalTexts.description }}</span>
-              </h3>
-              @if (modalInfraData?.infrastructures[0]?.description?.length > 0) {
-                <p>{{ modalInfraData.infrastructures[0]?.description }}</p>
-              } @else {
-                <p>{{ infraModalTexts.dataMissing }}</p>
-              }
+            <div class="col-4 d-flex">
+              <div class="vr"></div>
+              <div class="">
+                <h3>
+                  <span class="pe-1">{{ infraModalTexts.description }}</span>
+                </h3>
+                @if (modalInfraData?.infrastructures[0]?.description?.length > 0) {
+                  <p>{{ modalInfraData.infrastructures[0]?.description }}</p>
+                } @else {
+                  <p>{{ infraModalTexts.dataMissing }}</p>
+                }
+              </div>
             </div>
-          </div>
           }
           <div class="col-3 d-flex">
             <div class="vr"></div>

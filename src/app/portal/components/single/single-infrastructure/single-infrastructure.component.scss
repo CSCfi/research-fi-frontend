@@ -25,6 +25,9 @@
 }
 
 .bordered-section-single-page {
+  .th, .td {
+    padding: 0.5rem 0rem !important;
+  }
   border: 1px solid var(--purple-bg, #E8E8F5);
   background: var(--White, #FFF);
   padding: 16px 24px;
