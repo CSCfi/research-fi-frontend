@@ -381,8 +381,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <!--<div class="row d-flex justify-content-around">-->
                     <div class="row d-flex justify-content-between">
                       <div class="col-8 pe-0">
+                                              @let itemLabel = item.label ? item.label : item.key;
                                               <span class="label pe-2">{{
-                                                  (item.label ? item.label : item.key) | capitalizeFirstLetter
+                                                  filterOrigin === 'infrastructures'
+                                                    ? ((filter.field === 'field' ? (itemLabel | lowercase) : itemLabel) | capitalizeFirstLetter)
+                                                    : itemLabel
                                                 }}</span>
                       </div>
                       @if (item.tooltip) {
@@ -644,7 +647,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                               <!--<div class="row d-flex justify-content-around">-->
                               <div class="row d-flex justify-content-between">
                                 <div class="col-9">
-                                  <span class="label">{{ field.label | capitalizeFirstLetter }}</span>
+                                  <span class="label">{{ filterOrigin === 'infrastructures' ? (field.label | capitalizeFirstLetter) : field.label }}</span>
                                 </div>
                                 <div class="col-3 count align-self-center">
                                                               <span

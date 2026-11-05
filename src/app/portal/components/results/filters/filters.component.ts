@@ -285,7 +285,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           const infraIsActiveCodes = this.responseData.aggregations.infraIsActive.infraIsActiveCodes
 
           infraIsActiveCodes.buckets = infraIsActiveCodes.buckets.map(code => {
-            //code.key = code.key.toString();
             if (code.key === 0) {
               code.key = false;
             }
@@ -296,7 +295,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           });
 
           hasRelationToInternationalInfraCodes.buckets = hasRelationToInternationalInfraCodes.buckets.map(code => {
-            //code.key = code.key.toString();
             if (code.key === 0) {
               code.key = false;
             }
@@ -493,6 +491,19 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   yearChangeInfras(event) {
     const obj = {};
     let newFilters = {};
+
+    // No selection ("Ei valintaa"), remove both year parameters from the address bar
+    if (event.value === undefined || event.value === null || event.value === '') {
+      obj['infraStartYear'] = null;
+      obj['infraEndYear'] = null;
+      this.activeFilters = Object.assign({}, this.activeFilters, obj);
+      this.selectedInfraYear = undefined;
+      this.router.navigate([], {
+        queryParams: { ...obj, page: 1 },
+        queryParamsHandling: 'merge',
+      });
+      return;
+    }
 
     if (this.infraFiltersHasStartedSelection === true) {
       obj['infraStartYear'] = null;

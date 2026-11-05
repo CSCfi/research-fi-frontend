@@ -800,10 +800,12 @@ export class ActiveFiltersComponent
               }
 
               // Has relation to international infra
+              // Both true and false can be active at the same time, so translate by value
               if (val.category === 'hasRelationToInternationalInfra' && source.hasRelationToInternationalInfra) {
-                this.activeFilters.find(
-                  (item) => item.category === 'hasRelationToInternationalInfra'
-                ).translation = $localize`:@@hasRelationToInternationalInfra:Kuuluu kansainväliseen infrastruktuuriverkostoon.`;
+                const relationHeading = $localize`:@@hasRelationToInternationalInfra:Kuuluu kansainväliseen infrastruktuuriverkostoon.`;
+                val.translation = val.value === 'false'
+                  ? relationHeading + ': ' + $localize`:@@no:Ei`
+                  : relationHeading + ': ' + $localize`:@@yes:Kyllä`;
               }
 
               // Service user roles
@@ -892,9 +894,13 @@ export class ActiveFiltersComponent
                   const foundIndex = this.activeFilters.findIndex(
                     (x) => x.value === val.value
                   );
-                  this.activeFilters[foundIndex].translation = result.label
-                    ? result.label
-                    : result.key;
+                  // Backend sends field names in capitals, show as lowercase with first letter capitalized
+                  const fieldName = (result.label ? result.label : result.key)
+                    ?.toString()
+                    .toLowerCase();
+                  this.activeFilters[foundIndex].translation = fieldName
+                    ? fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                    : '';
                 }, 1);
               }
 

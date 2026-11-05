@@ -119,7 +119,13 @@ export class InfrastructureFilterService {
     let ret = [];
     data.buckets.forEach(item => {
       if (item) {
-        ret.push({ label:(item.key === 'false' ? $localize`:@@infra-filter-discontinued:Päättynyt` : $localize`:@@infra-filter-active:Toiminnassa`), doc_count: item.doc_count})
+        // Key can be 1/0, boolean or a string depending on whether the buckets have been mapped already
+        const isActive = String(item.key_as_string ?? item.key) === 'true' || item.key === 1;
+        ret.push({
+          label: isActive ? $localize`:@@infra-filter-active:Toiminnassa` : $localize`:@@infra-filter-discontinued:Päättynyt`,
+          key: String(isActive),
+          doc_count: item.doc_count,
+        });
       }
     });
     return ret
@@ -129,7 +135,13 @@ export class InfrastructureFilterService {
     let ret = [];
     data.buckets.forEach(item => {
       if (item) {
-        ret.push({ label:(item.key_as_string === 'false' ? $localize`:@@no:Ei` : $localize`:@@yes:Kyllä`), key: item.key, doc_count: item.doc_count})
+        // Key can be 1/0, boolean or a string depending on whether the buckets have been mapped already
+        const isTrue = String(item.key_as_string ?? item.key) === 'true' || item.key === 1;
+        ret.push({
+          label: isTrue ? $localize`:@@yes:Kyllä` : $localize`:@@no:Ei`,
+          key: String(isTrue),
+          doc_count: item.doc_count,
+        });
       }
     });
     return ret
