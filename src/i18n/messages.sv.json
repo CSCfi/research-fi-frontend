@@ -1332,11 +1332,11 @@
         "dataMissing": "Inga uppgifter tillgängliga",
         "networkShownInPicture": "Nätverket visas i bilden",
         "infraNetwork": "Nätverk",
-        "infraNetworkSize": "Verkoston koko",
-        "infraTreeBelongsToManyNetworks": "Kohde kuuluu useaan infrastruktuuriverkostoon",
-        "infraIsPartOfNumberSentenceStart": "Kuuluu",
-        "infraIsPartOfNumberSentenceEnd": "infrastruktuuriin",
-        "infraHaSPartNumberSentenceStart": "Sisältää",
-        "infraHaSPartNumberSentenceEnd": "infrastruktuurit"
+        "infraNetworkSize": "Nätverkets storlek",
+        "goToInfraPage": "Gå till sidan för infrastruktur",
+        "infraIsPartOfNumberSentenceStart": "Ingår i",
+        "infraIsPartOfNumberSentenceEnd": "infrastrukturer",
+        "infraHasPartNumberSentenceStart": "Innehåller",
+        "infraHasPartNumberSentenceEnd": "infrastrukturer"
     }
 }
