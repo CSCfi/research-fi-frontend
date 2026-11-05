@@ -205,10 +205,10 @@ export class AggregationService {
             filter: filterMethod,
             ...(isDatasetsSection
               ? {
-                  should: {
-                    term: { isLatestVersion: 1 },
-                  },
-                }
+                should: {
+                  term: { isLatestVersion: 1 },
+                },
+              }
               : []),
           },
         },
@@ -228,19 +228,19 @@ export class AggregationService {
     const payLoad: any = {
       ...(searchTerm
         ? {
-            query: {
-              // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
-              // outside path.
-              bool: {
-                should: [
-                  this.settingsService.querySettings(
-                    tab !== 'news' ? tab.slice(0, -1) : tab,
-                    searchTerm
-                  ),
-                ],
-              },
+          query: {
+            // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
+            // outside path.
+            bool: {
+              should: [
+                this.settingsService.querySettings(
+                  tab !== 'news' ? tab.slice(0, -1) : tab,
+                  searchTerm
+                ),
+              ],
             },
-          }
+          },
+        }
         : []),
       size: 0,
       aggs: {},
@@ -1373,35 +1373,37 @@ export class AggregationService {
             },
           }
         },
-        payLoad.aggs.topic = {
-        nested: {
-          path: 'keywords',
-        },
-        aggs: {
-          scheme: {
-            terms: {
-              field: 'keywords.scheme.keyword',
-                exclude: ' ',
-                size: 10,
-                order: {
-                _key: 'asc',
-              },
+          payLoad.aggs.topic = {
+            nested: {
+              path: 'keywords',
             },
             aggs: {
-              keywords: {
+              scheme: {
                 terms: {
-                  field: 'keywords.keyword.keyword',
-                    exclude: ' ',
-                    size: 250,
+                  field: 'keywords.scheme.keyword',
+                  exclude: ' ',
+                  size: 10,
+                  order: {
+                    _key: 'asc',
+                  },
                 },
                 aggs: {
-                  filtered: {
-                    reverse_nested: {},
+                  keywords: {
+                    terms: {
+                      field: 'keywords.keyword.keyword',
+                      exclude: ' ',
+                      size: 250,
+                    },
                     aggs: {
-                      filterCount: {
-                        filter: {
-                          bool: {
-                            filter: filterActiveNested('keywords'),
+                      filtered: {
+                        reverse_nested: {},
+                        aggs: {
+                          filterCount: {
+                            filter: {
+                              bool: {
+                                filter: filterActiveNested('keywords'),
+                              },
+                            },
                           },
                         },
                       },
@@ -1410,10 +1412,8 @@ export class AggregationService {
                 },
               },
             },
-          },
-        },
-      }
-      break;
+          }
+        break;
 
       // Datasets
       case 'datasets':
@@ -1615,40 +1615,6 @@ export class AggregationService {
           null,
           false
         );
-        payLoad.aggs.status = {
-          composite: {
-            size: 2000,
-            sources: [
-              {
-                openDate: {
-                  date_histogram: {
-                    field: 'callProgrammeOpenDate',
-                    calendar_interval: '1d',
-                    format: 'yyyy-MM-dd',
-                  },
-                },
-              },
-              {
-                dueDate: {
-                  date_histogram: {
-                    field: 'callProgrammeDueDate',
-                    calendar_interval: '1d',
-                    format: 'yyyy-MM-dd',
-                  },
-                },
-              },
-            ],
-          },
-          aggs: {
-            filtered: {
-              filter: {
-                bool: {
-                  filter: filterActiveFiltered(),
-                },
-              },
-            },
-          },
-        };
         payLoad.aggs.activityYears = {
           filter: {
             bool: {
@@ -1658,11 +1624,15 @@ export class AggregationService {
             infraStartsOn: {
               terms: {
                 field: 'infraStartsOn.year',
+                order: { _key: 'desc' },
+                size: 100,
               },
             },
             infraEndsOn: {
               terms: {
                 field: 'infraEndsOn.year',
+                order: { _key: 'desc' },
+                size: 100,
               },
             },
           },
@@ -1885,6 +1855,23 @@ export class AggregationService {
             },
           },
         };
+
+        payLoad.aggs.infraIsActive = {
+          filter: {
+            bool: {
+              filter: filterActive('infraIsActive'),
+            },
+          },
+          aggs: {
+            infraIsActiveCodes: {
+              terms: {
+                field: 'infraIsActive',
+                size: 2,
+              },
+            },
+          },
+        };
+
         payLoad.aggs.hasRelationToInternationalInfra = {
           filter: {
             bool: {
