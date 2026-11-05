@@ -1,4 +1,4 @@
-<div ngAccordionGroup class="basic-accordion" [multiExpandable]="false">
+<div ngAccordionGroup class="basic-accordion" [multiExpandable]="true">
   @for (singleService of infraData; track singleService; let i = $index) {
     <div class="accordion-section-wrap" [class.service-discontinued]="singleService.isDiscontinued">
       <h3>

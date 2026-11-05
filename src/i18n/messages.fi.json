@@ -1333,10 +1333,10 @@
         "networkShownInPicture": "Verkosto esitetty kuvassa",
         "infraNetwork": "Verkosto",
         "infraNetworkSize": "Verkoston koko",
-        "infraTreeBelongsToManyNetworks": "Kohde kuuluu useaan infrastruktuuriverkostoon",
+        "goToInfraPage": "Siirry infrastruktuurin sivulle",
         "infraIsPartOfNumberSentenceStart": "Kuuluu",
         "infraIsPartOfNumberSentenceEnd": "infrastruktuuriin",
-        "infraHaSPartNumberSentenceStart": "Sisältää",
-        "infraHaSPartNumberSentenceEnd": "infrastruktuurit"
+        "infraHasPartNumberSentenceStart": "Sisältää",
+        "infraHasPartNumberSentenceEnd": "infrastruktuuria"
     }
 }

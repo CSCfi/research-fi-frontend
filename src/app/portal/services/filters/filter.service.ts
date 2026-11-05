@@ -64,6 +64,10 @@ export type Filters = {
   ESFRICodes: string[],
   finlandRoadmap: string[],
   hasRelationToInternationalInfra: string[],
+  startAndEndYearly: string[],
+  infraStartYear: string[];
+  infraEndYear: string[];
+  infraIsActive: string[];
 };
 
 @Injectable({
@@ -117,6 +121,10 @@ export class FilterService {
   infraUserRolesFilter: string[];
   infraRoadmapFilter: string[];
   hasRelationToInternationalInfraFilter: string[];
+  startAndEndYearly: string[];
+  infraIsActiveFilter: string[];
+  infraStartYearFilter: string[];
+  infraEndYearFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -157,7 +165,12 @@ export class FilterService {
     ESFRICodes: [],
     finlandRoadmap: [],
     hasRelationToInternationalInfra: [],
+    startAndEndYearly: [],
+    infraIsActive: [],
+    infraStartYear: [],
+    infraEndYear: []
   });
+
   filters = this.filterSource.asObservable();
   localeC: string;
   timestamp: string;
@@ -238,7 +251,9 @@ export class FilterService {
       ESFRICodes: mapFilter(source.ESFRICodes),
       finlandRoadmap: mapFilter(source.finlandRoadmap),
       hasRelationToInternationalInfra: mapFilter(source.hasRelationToInternationalInfra),
-      isInfraActive: mapFilter(source.isInfraActive),
+      infraIsActive: mapFilter(source.infraIsActive),
+      infraStartYear: mapFilter(source.infraStartYear),
+      infraEndYear: mapFilter(source.infraEndYear),
 
       // Funding calls
       date: mapFilter(source.date),
@@ -372,6 +387,12 @@ export class FilterService {
       filter.hasRelationToInternationalInfra,
       'hasRelationToInternationalInfra'
     );
+    this.infraIsActiveFilter = this.basicFilter(
+      filter.infraIsActive,
+      'infraIsActive'
+    );
+    this.infraStartYearFilter = this.startOrEndYearFilter(true, filter.infraStartYear);
+    this.infraEndYearFilter = this.startOrEndYearFilter(false, filter.infraEndYear);
 
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
@@ -451,7 +472,7 @@ export class FilterService {
       }
       case 'infrastructures': {
         filter.forEach((value) => {
-          res.push({ term: { 'infraStartsOn.year': value } });
+          //res.push({ term: { 'infraStartsOn.year': value } });
         });
         break;
       }
@@ -477,6 +498,32 @@ export class FilterService {
       res.push({ range: { publicationYear: { lte: t } } });
     }
 
+    return res;
+  }
+
+  infraIsActive(statusCodeArray) {
+    const res = [];
+    statusCodeArray.forEach((value) => {
+      if (value === 'active') {
+        res.push({ range: { 'infraSratsOn.year': { lte: 2000 } } });
+      }
+      if (value === 'discontinued') {
+        res.push({ range: { 'infraSratsOn.year': { lte: 2000 } } });
+      }
+    });
+    return res;
+  }
+
+  startOrEndYearFilter(isStartYear: boolean, years: string[]) {
+    const res = [];
+    years.forEach(year => {
+      if (isStartYear) {
+        res.push({ "term": { "infraStartsOn.year": year } });
+      }
+      else {
+        res.push({ "term": { "infraEndsOn.year": year } });
+      }
+    });
     return res;
   }
 
@@ -1087,6 +1134,10 @@ export class FilterService {
       ...nestedFilter('infrastructure', this.infraUserRolesFilter, 'infraServices'),
       ...basicFilter('infrastructure', this.infraRoadmapFilter),
       ...basicFilter('infrastructure', this.hasRelationToInternationalInfraFilter),
+      ...basicFilter('infrastructure', this.infraStartYearFilter),
+      ...basicFilter('infrastructure', this.infraEndYearFilter),
+
+      ...basicFilter('infrastructure', this.infraIsActiveFilter),
 
       // Organizations
       ...basicFilter('organization', this.sectorFilter),

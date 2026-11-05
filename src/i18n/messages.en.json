@@ -1331,12 +1331,12 @@
     "dataMissing": "No information available",
     "networkShownInPicture": "The network is shown in the image",
     "infraNetwork": "Network",
-    "infraNetworkSize": "Verkoston koko",
-    "infraTreeBelongsToManyNetworks": "Kohde kuuluu useaan infrastruktuuriverkostoon",
-    "infraIsPartOfNumberSentenceStart": "Kuuluu",
-    "infraIsPartOfNumberSentenceEnd": "infrastruktuuriin",
-    "infraHaSPartNumberSentenceStart": "Sisältää",
-    "infraHaSPartNumberSentenceEnd": "infrastruktuuria"
+    "infraNetworkSize": "Network size",
+    "goToInfraPage": "Go to the infrastructure page",
+    "infraIsPartOfNumberSentenceStart": "Belongs to",
+    "infraIsPartOfNumberSentenceEnd": "infrastructures",
+    "infraHasPartNumberSentenceStart": "Includes",
+    "infraHasPartNumberSentenceEnd": "infrastrucutures"
   }
 }
 
