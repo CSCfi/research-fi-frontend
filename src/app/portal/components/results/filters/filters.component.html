@@ -268,6 +268,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   </div>
                 </div>
               }
+
               <!-- Date selector for funding calls -->
               @if (filter.hideSearch && filter.field === 'date') {
                 <div class="row">
@@ -355,7 +356,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
               selectionChange(filter.field, $event.options[0].value)
             "
               >
-                <!-- Options -->
+                <!-- Options. This produces all checkbox lists except single checkboxes-->
                 @for (item of responseData.aggregations[
                   filter.field
                   ]?.buckets?.slice(
@@ -365,6 +366,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     : defaultOpen
                 ); track trackByFn(j,
                   item); let j = $index) {
+
+                  <!-- Field startAndEndYearly has custom radio button implementation so exclude -->
+                  @if (filter.field !== 'startAndEndYearly') {
                   <mat-list-option disableRipple
                                    togglePosition="before"
                                    [value]="item.key"
@@ -373,11 +377,12 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 activeFilters[filter.field].indexOf(item.key.toString()) > -1
               "
                   >
+
                     <!--<div class="row d-flex justify-content-around">-->
                     <div class="row d-flex justify-content-between">
                       <div class="col-8 pe-0">
                                               <span class="label pe-2">{{
-                                                  item.label ? item.label : item.key
+                                                  (item.label ? item.label : item.key) | capitalizeFirstLetter
                                                 }}</span>
                       </div>
                       @if (item.tooltip) {
@@ -405,6 +410,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                       </div>
                     </div>
                   </mat-list-option>
+                  }
                 }
                 @if (!responseData.aggregations[filter.field]?.buckets?.length &&
                 !filter.hideNoResults) {
@@ -459,6 +465,78 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 </div>
               }
             }
+            <!-- Date selector for infrastructures -->
+            @if (filter.field === 'startAndEndYearly') {
+              <div class="row">
+                <div class="col-12">
+                  <mat-radio-group
+                          class="form-group"
+                          required="true"
+                  >
+                    <mat-radio-button
+                            class="radio-button"
+                            [value]="infraFiltersHasStartedLocalization"
+                            [checked]="infraFiltersHasStartedSelection"
+                            (change)="infraHasStartedValueSelection(true)"
+                    >
+                      {{ infraFiltersHasStartedLocalization }}
+                    </mat-radio-button>
+                    <mat-radio-button
+                            class="radio-button"
+                            [value]="infraFiltersHasEndedLocalization"
+                            [checked]="!infraFiltersHasStartedSelection"
+                            (change)="infraHasStartedValueSelection(false)"
+                    >
+                      {{ infraFiltersHasEndedLocalization }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="col-12">
+                  <mat-form-field>
+                    <mat-label i18n="Vuosi@@year"
+                    >Vuosi
+                    </mat-label
+                    >
+                    <mat-select
+                            (selectionChange)="
+                      yearChangeInfras($event)
+                    "
+                            [value]="selectedInfraYear"
+                    >
+                      <mat-option
+                              i18n="
+                        Year range filter no selection@@yearRangeNoSelection"
+                      >Ei valintaa
+                      </mat-option
+                      >
+                      @if (infraFiltersHasStartedSelection === true) {
+                        @for (year of responseData.aggregations?.activityYears?.infraStartsOn?.buckets; track
+                          year) {
+                          <mat-option
+                                  [ngClass]="{ 'd-none': year.key >= toYear }"
+                                  [value]="year.key"
+                          >{{ year.key }}
+                          </mat-option
+                          >
+                        }
+                      }
+                      @if (infraFiltersHasStartedSelection === false) {
+                        @for (year of responseData.aggregations?.activityYears?.infraEndsOn?.buckets; track
+                          year) {
+                          <mat-option
+                                  [ngClass]="{ 'd-none': year.key >= toYear }"
+                                  [value]="year.key"
+                          >{{ year.key }}
+                          </mat-option
+                          >
+                        }
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            }
+
             <!-- Filters with subfields -->
             @if (filter.hasSubFields) {
               <div class="subFields">
@@ -549,8 +627,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                             showMoreCount[item.key]
                               ? showMoreCount[item.key].count
                               : defaultOpen
-                          ); track trackByFn($index,
-                            field)) {
+                          ); track $index) {
                             <mat-list-option disableRipple
                                              checkboxPosition="before"
                                              (click)="selectionChange(filter.field, field.key)"
@@ -567,7 +644,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                               <!--<div class="row d-flex justify-content-around">-->
                               <div class="row d-flex justify-content-between">
                                 <div class="col-9">
-                                  <span class="label">{{ field.label }}</span>
+                                  <span class="label">{{ field.label | capitalizeFirstLetter }}</span>
                                 </div>
                                 <div class="col-3 count align-self-center">
                                                               <span
