@@ -540,12 +540,22 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
           size: this.calculateNodeSize(node)
         });
       } else if (node.nodeTypeInternational) {
-        tempNodeList.push({
-          id: node.internalId,
-          label: node.nodeTypeInternational.internationalInfraName,
-          length: this.edgeLength,
-          size: this.calculateNodeSize(node)
-        });
+        if (node.nodeTypeInternational?.internationalInfraWeblink) {
+          tempNodeList.push({
+            id: node.internalId,
+            label: node.nodeTypeInternational.internationalInfraName,
+            length: this.edgeLength,
+            size: this.calculateNodeSize(node),
+            internationalInfraWeblink: node.nodeTypeInternational.internationalInfraWeblink
+          });
+        } else {
+          tempNodeList.push({
+            id: node.internalId,
+            label: node.nodeTypeInternational.internationalInfraName,
+            length: this.edgeLength,
+            size: this.calculateNodeSize(node),
+          });
+        }
       }
     });
 
@@ -902,7 +912,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.edges.filter(node => node.from === this.infraRootId.getValue()).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.to) {
-          this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
+          if (node?.internationalInfraWeblink){
+            this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId, internationalInfraWeblink: node?.internationalInfraWeblink });
+          } else {
+            this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
+          }
         }
         ;
       });
@@ -910,7 +924,12 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.edges.filter(node => node.to === this.infraRootId.getValue()).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.from) {
-          this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
+          if (node?.internationalInfraWeblink){
+            this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId, internationalInfraWeblink: node?.internationalInfraWeblink });
+          }
+          else {
+            this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
+          }
         }
         ;
       });
@@ -929,6 +948,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         children: [],
         expanded: true,
       }];
+
     let childNodes = [];
     this.hasPartConnectionsForTree.forEach(node => {
       let childNode = {
@@ -937,6 +957,10 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         hasParent: true,
         expanded: true,
         infraId: node.infraId,
+        // Add only when the node has a weblink
+        ...(node.internationalInfraWeblink && {
+          internationalInfraWeblink: node.internationalInfraWeblink
+        }),
       };
       childNodes.push(childNode);
     });
@@ -944,7 +968,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
     let rootTrees = [];
 
-    if (this.isPartOfConnectionsForTree.length > 0){
+    if (this.isPartOfConnectionsForTree.length > 0) {
       this.isPartOfConnectionsForTree.forEach(node => {
         let childNode = {
           name: node.label,
@@ -952,6 +976,9 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
           hasParent: true,
           expanded: true,
           infraId: node.infraId,
+          ...(node.internationalInfraWeblink && {
+            internationalInfraWeblink: node.internationalInfraWeblink
+          }),
           children: []
         };
         childNode.children.push(nodes[0]);

@@ -105,3 +105,22 @@ li[aria-expanded='false'] + ul[role='group'] {
     }
   }
 }
+
+.popover-link-wrap {
+  margin-top: 8px;
+  a {
+    color: #fff;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+:host ::ng-deep .popover {
+  font-weight: normal;
+  --bs-popover-bg: #000;
+  --bs-popover-border-color: #000;
+  --bs-popover-body-color: #fff;
+  --bs-popover-header-bg: #000;
+  --bs-popover-header-color: #fff;
+}
