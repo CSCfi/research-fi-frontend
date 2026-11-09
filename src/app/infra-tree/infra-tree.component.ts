@@ -1,7 +1,11 @@
-import { afterRenderEffect, Component, DOCUMENT, Inject, Input, LOCALE_ID, OnInit, signal } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Tree, TreeItem, TreeItemGroup } from '@angular/aria/tree';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { HandleInfrastructureLinkPipe } from '@portal/pipes/handle-infrastructure-link.pipe';
+import { PopoverDirective } from 'ngx-bootstrap/popover';
+import { cloneDeep } from 'lodash-es';
 
 type TreeNode = {
   name: string;
@@ -12,16 +16,19 @@ type TreeNode = {
   disabled?: boolean;
   expanded?: boolean;
   isCurrent?: boolean;
+  internationalInfraWeblink?: string;
 };
 
 @Component({
   selector: 'app-infra-tree',
-  imports: [Tree, TreeItem, TreeItemGroup, NgTemplateOutlet],
+  imports: [Tree, TreeItem, TreeItemGroup, NgTemplateOutlet, SvgSpritesComponent, HandleInfrastructureLinkPipe, PopoverDirective],
   templateUrl: './infra-tree.component.html',
   styleUrl: './infra-tree.component.scss'
 })
 export class InfraTreeComponent implements OnInit {
   inputReceived = false;
+  kvInfraInfo = $localize`:@@kvInfraInfo:Kansainvälinen infrastruktuuri, jota ylläpidetään Suomen ulkopuolella. Sen toimintaan liittyy suomalaisten organisaatioiden ylläpitämiä infrastruktuureja. Ei tarkempia tietoja Tiedejatutkimus.fi:ssä.`;
+  goToInfraPage = $localize`:@@moveToInfraPage:Siirry infrastruktuurin sivulle`;
 
   @Input() infraId?: string;
   private _inputNodes: TreeNode[] = [];
@@ -34,23 +41,14 @@ export class InfraTreeComponent implements OnInit {
   set inputNodes(nodes: any) {
     if (nodes) {
       this.nodes = [];
-      this.nodes.push(nodes);
+      // Trees can share node objects (the same subtree under several parents). Expanded state is written to the
+      // node objects, so each tree needs its own copy to fold independently
+      this.nodes.push(cloneDeep(nodes));
       this.inputReceived = true;
     }
   }
 
   @Input() hasPartArray?: string;
-
-  imaginaryDemoConnections = [
-    {"id": "ttv-202512000769763", "name": "FIN-ENV-RI", "isPartOf": [], "hasPart": ["ttv-202601000812049", "ttv-202602000823839", "ttv-202603000873597"]},
-    {"id": "research-infras-2016111643", "name": "ESO", "isPartOf": ["ttv-202512000769763"], "hasPart": []},
-    {"id": "research-infras-2016072528", "name": "CTA (Suomi)", "isPartOf": ["ttv-202512000769763"], "hasPart": []},
-    {"id": "ttv-202602000823839", "name": "OULU-CLIM-OBS", "isPartOf": ["ttv-202512000769763"], "hasPart": []},
-    {"id": "ttv-202603000873597", "name": "OULU-CLIM-OBS2", "isPartOf": ["ttv-202512000769763"], "hasPart": ["ttv-202601000812049"]},
-    {"id": "ttv-202601000812049", "name": "OULU-ENV-RI", "isPartOf": ["ttv-202512000769763"], "hasPart": ["ttv-202601000812030"]},
-    {"id": "ttv-202601000812030", "name": "OULU-ARC-RI", "isPartOf": ["ttv-202601000812049"], "hasPart": ["ttv-202601000812058"]},
-    {"id": "ttv-202601000812058", "name": "OULU-MAR-RI", "isPartOf": ["ttv-202601000812030"], "hasPart": []}
-  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -59,22 +57,14 @@ export class InfraTreeComponent implements OnInit {
 
   }
 
-  getRootNodeAndChildren(id: string): TreeNode {
-    let rootNode: TreeNode = {name: 'ROOT', value: 'ROOT', hasParent: false, children: []};
-    let parentConnections = this.imaginaryDemoConnections.filter(connection => connection.hasPart.includes(id)).map(connection => connection);
-    let parentNodes: TreeNode[] = [];
-    parentConnections.forEach(connection => {rootNode.children.push({name: connection.name, value: connection.id, hasParent: true, children: []})});
-    return rootNode;
-  }
-
-  getChildNodes(id: string): any[] {
-    return this.imaginaryDemoConnections.filter(connection => connection.isPartOf.includes(id)).map(connection => connection);
-  }
-
-
   ngOnInit(): void {
-    this.build3LevelTestTree();
-    //this.nodes = this.inputNodes;
+  }
+
+  // The tree toggles an item on any pointerdown inside it. Let only the caret reach the tree
+  onItemPointerdown(event: PointerEvent) {
+    if (!(event.target as HTMLElement).closest('.expand-icon')) {
+      event.stopPropagation();
+    }
   }
 
   navigateToInfraLink(infraId){
@@ -85,87 +75,7 @@ export class InfraTreeComponent implements OnInit {
     }
   }
 
-  build3LevelTestTree(){
-    let rootNode = this.getRootNodeAndChildren(this.infraId);
-      let currentNodeChildren = this.getChildNodes(this.infraId);
-      let currentNode: TreeNode = {name: this.infraId, value: this.infraId, hasChildren: false, children: currentNodeChildren};
+  nodes: TreeNode[] = [];
 
-      // Set last children to be current node
-      if (rootNode.children.length > 0) {
-        let tempNode = rootNode.children[rootNode.children.length - 1];
-        rootNode.children[rootNode.children.length - 1] = currentNode;
-      } else {
-        rootNode.children.push(currentNode);
-      }
-      let testNodes: TreeNode[] = [];
-      testNodes.push(rootNode);
-    }
-
-  nodes: TreeNode[] = [
-    {
-      name: 'INAR RI',
-      value: 'ID_INAR_RI',
-      hasParent: true,
-      children: [
-        {
-          name: 'ACTIRS-FI',
-          value: 'ID_ACTIRS-FI',
-          hasChildren: true
-        },
-        {
-          name: 'ANAEE-FI',
-          value: 'ID_ANAEE-FI',
-          hasChildren: true
-        },
-        {
-          name: 'eLTER-FI',
-          value: 'ID_eLTER-FI',
-          hasChildren: true
-        },
-        {
-          name: 'ICOS Suomi',
-          value: 'ID_ICOS_Suomi',
-          isCurrent: true,
-          expanded: true,
-          children: [
-            {
-              name: 'Lettosuo',
-              value: 'ID_Lettosuo',
-              hasChildren: true
-            },
-            {
-              name: 'PALLAS',
-              value: 'ID_PALLAS',
-              hasChildren: true
-            },
-            {
-              name: 'SMEAR',
-              value: 'ID_SMEAR',
-              expanded: true,
-              children: [
-                { name: 'SMEAR1', value: 'ID_SMEAR1', hasChildren: true},
-                { name: 'SMEAR2', value: 'ID_SMEAR2', hasChildren: true},
-                { name: 'SMEAR3', value: 'ID_SMEAR3', hasChildren: true},
-                { name: 'SMEAR4', value: 'ID_SMEAR4', hasChildren: true},
-              ],
-            },
-            {
-              name: 'SODANKYLÄ',
-              value: 'ID_SODANKYLÄ',
-              hasChildren: true
-            },
-            {
-              name: 'UTÖ',
-              value: 'ID_UTÖ',
-              hasChildren: true
-            },
-          ]
-        },
-
-      ],
-      expanded: true
-    }
-  ];
-  readonly selected = signal(['SubInfra2']);
-
+  selected = signal(['SubInfra2']);
 }
