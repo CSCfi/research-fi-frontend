@@ -28,7 +28,7 @@ type TreeNode = {
 export class InfraTreeComponent implements OnInit {
   inputReceived = false;
   kvInfraInfo = $localize`:@@kvInfraInfo:Kansainvälinen infrastruktuuri, jota ylläpidetään Suomen ulkopuolella. Sen toimintaan liittyy suomalaisten organisaatioiden ylläpitämiä infrastruktuureja. Ei tarkempia tietoja Tiedejatutkimus.fi:ssä.`;
-  goToInfraPage = $localize`:@@moveToInfraPage:Siirry infrastruktuurin sivulle`;
+  goToInfraPage = $localize`:@@goToInfraPage:Siirry infrastruktuurin sivulle`;
 
   @Input() infraId?: string;
   private _inputNodes: TreeNode[] = [];
