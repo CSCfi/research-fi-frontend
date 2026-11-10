@@ -406,34 +406,53 @@ export class DraftService {
     }
   }
 
-  private async pollProfileDataIsUpdated(){
+  /*
+   * Back end save has some delay. Poll profile data until its 'updated' timestamp differs from the
+   * one before publishing, then set it as the current data and refresh the view.
+   */
+  private async pollProfileDataIsUpdated() {
     this.profileService.clearCurrentProfileData();
     const lastUpdated = this.profileService.latestDataTimestamp;
-    let updateDone = false;
-
-    const delays = [50, 500, 1000, 2000, 5000];
+    const delays = [100, 500, 1000, 1500, 2000, 3000, 5000, 5000, 8000, 10000];
+    let latestValue;
 
     for (const delay of delays) {
       await lastValueFrom(timer(delay));
-      if (!updateDone) {
-        this.profileService
-          .fetchProfileDataFromBackend()
-          .then(
-            (value) => {
-              if (value) {
-                if (this.profileService.latestDataTimestamp !== lastUpdated) {
-                  this.profileService.setCurrentProfileData(
-                    cloneDeep(value.profileData)
-                  );
-                  console.log('!!!!! timestamps diff', delay);
-                  this.publishingInProgress$.next(false);
-                  this.snackbarService.showPatchMessage('success');
-                  updateDone = true;
-                }
-              }
-            });
+
+      try {
+        const value = await this.profileService.fetchProfileDataFromBackend();
+        if (value) {
+          latestValue = value;
+          if (this.isTimestampNewer(this.profileService.latestDataTimestamp, lastUpdated)) {
+            break;
+          }
+        }
+      } catch (error) {
+        // Failed request is not final, try again on the next round
+        console.error('Error polling profile data', error);
       }
     }
+
+    // Use the latest data even if the timestamp didn't change, so the view isn't left with stale or empty data
+    if (latestValue) {
+      this.profileService.setCurrentProfileData(cloneDeep(latestValue.profileData));
+      // Notify profile component to show the updated data
+      this.dataHasBeenReset.next(true);
+    }
+    this.publishingInProgress$.next(false);
+    this.snackbarService.showPatchMessage('success');
+  }
+
+  private isTimestampNewer(current: string, previous: string): boolean {
+    if (!previous) {
+      return !!current;
+    }
+    const currentTime = Date.parse(current);
+    const previousTime = Date.parse(previous);
+    if (isNaN(currentTime) || isNaN(previousTime)) {
+      return current !== previous;
+    }
+    return currentTime > previousTime;
   }
 
   public addToHighlightOpennessPayload(value: boolean){
