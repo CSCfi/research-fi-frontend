@@ -460,6 +460,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
               if (previewItem.researchDescriptionFi.length < 1 && previewItem.researchDescriptionEn.length < 1 && previewItem.researchDescriptionSv.length < 1) {
                 patchItem.itemMeta.show = false;
               }
+              // Draft profile needs the same visibility as the patch, otherwise views built from the draft show no description
+              previewItem.itemMeta.show = patchItem.itemMeta.show;
               this.patchService.addToPayload(patchItem.itemMeta);
 
             } else {
@@ -470,6 +472,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
               } else {
                 patchItem.itemMeta.show = false;
               }
+              previewItem.itemMeta.show = patchItem.itemMeta.show;
               this.patchService.addToPayload(patchItem.itemMeta);
 
               // Update visible version in UI for non AI generated
@@ -726,7 +729,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   setSelectedNotAiBiographyItem(biographyData: any) {
-    if (this.selectedNotAiBiographyIndex) {
+    if (this.selectedNotAiBiographyIndex >= 0) {
       this.selectedNotAiBiographyItem = biographyData;
     } else {
       this.selectedNotAiBiographyItem = undefined;

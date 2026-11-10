@@ -411,7 +411,6 @@ export class DraftService {
    * one before publishing, then set it as the current data and refresh the view.
    */
   private async pollProfileDataIsUpdated() {
-    this.profileService.clearCurrentProfileData();
     const lastUpdated = this.profileService.latestDataTimestamp;
     const delays = [100, 500, 1000, 1500, 2000, 3000, 5000, 5000, 8000, 10000];
     let latestValue;
@@ -438,6 +437,9 @@ export class DraftService {
       this.profileService.setCurrentProfileData(cloneDeep(latestValue.profileData));
       // Notify profile component to show the updated data
       this.dataHasBeenReset.next(true);
+    } else {
+      // Nothing was received, force the next view load to fetch data from back end
+      this.profileService.clearCurrentProfileData();
     }
     this.publishingInProgress$.next(false);
     this.snackbarService.showPatchMessage('success');
@@ -520,6 +522,11 @@ export class DraftService {
       if (response.includes(false)) {
         this.snackbarService.showPatchMessage('error');
       } else {
+        // Keep showing the published draft until the updated data has arrived from back end.
+        const publishedDraft = this.getDraftProfile();
+        if (publishedDraft) {
+          this.profileService.setCurrentProfileData(cloneDeep(publishedDraft));
+        }
         this.clearDraftData();
         this.updatePerson();
         await this.setProfileVisible();
