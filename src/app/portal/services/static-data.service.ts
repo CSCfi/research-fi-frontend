@@ -522,25 +522,19 @@ export class StaticDataService {
       }
       case 'infrastructure': {
         res = [
-          'infraName.descriptiveContent',
           'infraAcronym',
-          'infraDescription.descriptiveContent',
+          'infraKeyIdentifier',
           'infraId',
-          'infraStartsOn.year',
+          'infraServices.serviceKeyIdentifier',
+          'infraParticipatingOrganizations.organizationName.fi',
+          'infraParticipatingOrganizations.organizationName.en',
+          'infraParticipatingOrganizations.organizationName.sv',
+          'infraDescription.descriptiveContent',
+          'infraName.descriptiveContent',
           'infraResponsibleOrganization.organizationName.fi',
           'infraResponsibleOrganization.organizationName.en',
-          'infraResponsibleOrganization.organizationName.fv',
-          'keywordsFi.keyword',
-          'keywordsSv.keyword',
-          'keywordsEn.keyword',
+          'infraResponsibleOrganization.organizationName.sv',
           'infraServices.serviceName.descriptiveContent',
-          'infraServices.serviceDescription.descriptiveContent',
-          'services.serviceType',
-          'services.serviceAcronym',
-          'services.servicePointEmailAddress',
-          'infraServices.serviceHomepage.weblinkURL',
-          'services.servicePointPhoneNumber',
-          'services.servicePointVisitingAddress',
         ];
         break;
       }
