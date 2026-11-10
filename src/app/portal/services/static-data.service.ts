@@ -525,7 +525,6 @@ export class StaticDataService {
           'infraAcronym',
           'infraKeyIdentifier',
           'infraId',
-          'infraServices.serviceKeyIdentifier',
           'infraParticipatingOrganizations.organizationName.fi',
           'infraParticipatingOrganizations.organizationName.en',
           'infraParticipatingOrganizations.organizationName.sv',
@@ -534,7 +533,6 @@ export class StaticDataService {
           'infraResponsibleOrganization.organizationName.fi',
           'infraResponsibleOrganization.organizationName.en',
           'infraResponsibleOrganization.organizationName.sv',
-          'infraServices.serviceName.descriptiveContent',
         ];
         break;
       }
@@ -640,6 +638,13 @@ export class StaticDataService {
           'actor.sector.organization.organizationUnit.organizationUnitNameEn',
           'actor.sector.organization.organizationUnit.organizationUnitNameSv',
           'actor.sector.organization.organizationUnit.person.authorFullName',
+        ];
+        break;
+      }
+      case 'infrastructure': {
+        res = [
+          'infraServices.serviceKeyIdentifier',
+          'infraServices.serviceName.descriptiveContent',
         ];
         break;
       }

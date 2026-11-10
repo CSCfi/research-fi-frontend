@@ -806,7 +806,6 @@ function payloadWithSearchKeywords(keywords: string) {
                             'infraAcronym',
                             'infraKeyIdentifier',
                             'infraId',
-                            'infraServices.serviceKeyIdentifier',
                             'infraParticipatingOrganizations.organizationName.fi',
                             'infraParticipatingOrganizations.organizationName.en',
                             'infraParticipatingOrganizations.organizationName.sv',
@@ -815,11 +814,29 @@ function payloadWithSearchKeywords(keywords: string) {
                             'infraResponsibleOrganization.organizationName.fi',
                             'infraResponsibleOrganization.organizationName.en',
                             'infraResponsibleOrganization.organizationName.sv',
-                            'infraServices.serviceName.descriptiveContent',
                           ],
                           "operator": "AND",
                           "lenient": "true",
                           "max_expansions": 1024
+                        }
+                      },
+                      {
+                        "nested": {
+                          "path": "infraServices",
+                          "query": {
+                            "multi_match": {
+                              "query": keywords,
+                              "analyzer": "standard",
+                              "type": "phrase_prefix",
+                              "fields": [
+                                'infraServices.serviceKeyIdentifier',
+                                'infraServices.serviceName.descriptiveContent'
+                              ],
+                              "operator": "AND",
+                              "lenient": "true",
+                              "max_expansions": 1024
+                            }
+                          }
                         }
                       },
                       {
