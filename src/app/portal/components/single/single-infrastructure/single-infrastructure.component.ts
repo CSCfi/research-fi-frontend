@@ -13,13 +13,22 @@ import {
   OnDestroy,
   LOCALE_ID,
   Inject,
-  DOCUMENT, QueryList, ViewChildren, AfterViewInit, inject
+  DOCUMENT,
+  QueryList,
+  ViewChildren,
+  AfterViewInit,
+  inject,
+  viewChild,
+  viewChildren,
+  computed,
+  afterRenderEffect,
+  ChangeDetectionStrategy
 } from '@angular/core';
-import { NgClass, ViewportScroller } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { NgIf, NgFor, NgClass, NgSwitch, ViewportScroller, AsyncPipe, JsonPipe } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
@@ -35,27 +44,88 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
+import { InfraAccordionComponent, InfraService } from '../../../../infra-accordion/infra-accordion.component';
+import { InfraTreeComponent } from '../../../../infra-tree/infra-tree.component';
+import VisComponent, { visualizationData } from '../../../../vis-component/vis-component';
+import {
+  PrimaryActionButtonComponent
+} from '@shared/components/buttons/primary-action-button/primary-action-button.component';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { HandleInfrastructureLinkPipe } from '@portal/pipes/handle-infrastructure-link.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopup,
+  ComboboxPopupContainer
+} from '@angular/aria/combobox';
+import { Listbox, Option } from '@angular/aria/listbox';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { cloneDeep, toInteger } from 'lodash-es';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { TagWeblinkComponent } from '@shared/components/tags/tag-weblink/tag-weblink.component';
+import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
+
+type TreeNode = {
+  name: string;
+  value: string;
+  hasChildren?: boolean;
+  hasParent?: boolean;
+  children?: TreeNode[];
+  disabled?: boolean;
+  expanded?: boolean;
+  isCurrent?: boolean;
+};
+
 @Component({
   selector: 'app-single-infrastructure',
   templateUrl: './single-infrastructure.component.html',
   styleUrls: ['./single-infrastructure.component.scss'],
   imports: [
     SearchBarComponent,
+    NgIf,
     RouterLink,
     BreadcrumbComponent,
+    NgFor,
     TooltipModule,
     NgClass,
+    NgSwitch,
     MatCard,
     MatCardTitle,
     SingleResultLinkComponent,
     RelatedLinksComponent,
     ShareComponent,
-    SvgSpritesComponent
-]
+    SvgSpritesComponent,
+    InfraAccordionComponent,
+    InfraTreeComponent,
+    VisComponent,
+    PrimaryActionButtonComponent,
+    DialogComponent,
+    AsyncPipe,
+    JsonPipe,
+    HandleInfrastructureLinkPipe,
+    HighlightSearchPipe,
+    Combobox,
+    ComboboxInput,
+    ComboboxPopup,
+    ComboboxPopupContainer,
+    Listbox,
+    Option,
+    OverlayModule,
+    MatRadioButton,
+    MatRadioGroup,
+    MatProgressSpinner,
+    TagWeblinkComponent,
+    TagDoiComponent
+  ]
 })
 export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnDestroy {
   public singleId: any;
   responseData: Search;
+  infraNetworkResponseData: any;
+  modalInfraData: Search;
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
@@ -63,9 +133,17 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   private metaTags = MetaTags.singleInfrastructure;
   private commonTags = MetaTags.common;
   viewportScroller = inject(ViewportScroller);
+  reducedNetworkSize = true;
+
+  infraTreeLoading = false;
+
+  isPartOfDropdownVisible = false;
+  hasPartDropdownVisible = false;
+
+  infraTreeNodes: TreeNode[];
 
   tab = 'infrastructures';
-  infoFields = [
+  infoFieldsFirstLevel = [
     {
       label: $localize`:@@infraAcronym:Lyhenne`,
       field: 'acronym',
@@ -76,6 +154,27 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       field: 'description',
       tooltip: $localize`:@@infraDescriptionTooltip:Kuvaus kertoo yleisesti tutkimusinfrastruktuurista.`
     },
+  ];
+
+  infoFieldsSecondLevel = [
+    {
+      label: $localize`:@@infraStartYear:Toiminta alkanut`,
+      field: 'startYear',
+      tooltip: $localize`:@@infraStartYearTooltip:Koko tutkimusinfrastruktuurin käyttöönottovuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta, jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun`
+    },
+    { label: $localize`:@@infraEndYear:Toiminta päättynyt`, field: 'endYear' },
+    {
+      label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`,
+      field: 'responsibleOrganization',
+      tooltip: $localize`:@@responsibleOrganizationTooltip:Tutkimusinfrastruktuurin kotiorganisaatio, joka vastaa siitä kokonaisuudessaan. Infrastruktuureilla voi olla myös muita organisaatioita, jotka vastaavat joistain palveluista.`
+    },
+    {
+      label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`,
+      field: 'participantOrganizations'
+    },
+  ];
+
+  oldFields = [
     {
       label: $localize`:@@scientificDescription:Tieteellinen kuvaus`,
       field: 'scientificDescription',
@@ -100,6 +199,70 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       label: $localize`:@@keywords:Avainsanat`,
       field: 'keywordsString',
       tooltip: $localize`:@@infraKeywordsTooltip:Tutkimusinfrastruktuuria, sen palveluita ja toimintaa kuvailevia avainsanoja.`
+    }
+  ];
+
+  organizationsLocalization = $localize`:@@navigation.organizations:Organisaatiot`;
+  activeServicesLocalization = $localize`:@@activeServices:Aktiiviset palvelut`;
+  infraServicesLocalization= $localize`:@@infraServices:Tutkimusinfrastruktuurin palvelut`;
+  infraServiceActionLocalization = $localize`:@@infra-service-action:Toiminta`;
+  participatingOrganizationsLocalization = $localize`:@@participatingOrgs:Osallistuvat organisaatiot`;
+  responsibleOrganizationLocalizaion = $localize`:@@responsibleOrganization:Vastuuorganisaatio`;
+  fieldsOfScienceLocalization= $localize`:@@fieldsOfScience:Tieteenalat`;
+  infraNetworkInfoText = $localize`:@@infraNetworkInfoText:Tarkastele infrastruktuuria osana siihen liittyvien infrastruktuurien verkostoa`;
+  infraIsRelatedToOtherInfras = $localize`:@@related-infras-short-description:Infrastruktuuri on mukana muiden infrastruktuurien toiminnassa`;
+  otherInfoLocalization = $localize`:@@spOtherInfo:Muut tiedot`;
+  contacInfoLocalization = $localize`:@@contactInfo:Yhteystiedot`;
+  neighbourInfrastructuresLocalization = $localize`:@@neighbourInfrastructures:Liittyvät infrastruktuurit`;
+  showInfrastructureNetworkLocalization = $localize`:@@showInfrastructureNetwork:Näytä verkosto`;
+  infraNetworkSelectedInfo1 = $localize`:@@infraNetworkSelectedInfo1:Näet kuvasta mihin infrastruktuureihin`;
+  infraNetworkSelectedInfo2= $localize`:@@infraNetworkSelectedInfo2:on yhteydessä.`;
+  infraNetworkSelectedInfo3= $localize`:@@infraNetworkSelectedInfo3:Saat lisätietoja verkoston infrastruktuureista klikkaamalla.`;
+  kvInfraInfo = $localize`:@@kvInfraInfo:Kansainvälinen infrastruktuuri, jota ylläpidetään Suomen ulkopuolella. Sen toimintaan liittyy suomalaisten organisaatioiden ylläpitämiä infrastruktuureja. Ei tarkempia tietoja Tiedejatutkimus.fi:ssä.`;
+  networkLocalization = $localize`:@@infraNetwork:Verkosto.`;
+  hasStartedLocalization = $localize`:@@has-started:Alkanut.`;
+  hasEndedLocalization = $localize`:@@has-ended:Päättynyt.`;
+  endsOnLocalization = $localize`:@@ends-on:Päättyy.`;
+
+  infraModalTexts = {
+    'acronym': $localize`:@@infraAcronymAndName:Lyhenne ja nimi`,
+    'infraStartYear': $localize`:@@infraStartYear:Toiminta alkanut`,
+    'description': $localize`:@@infraDescription:Infrastruktuurin kuvaus`,
+    'relationToOtherInfras': $localize`:@@relationToOtherInfras:Yhteydet muihin infrastruktuureihin`,
+    'showDirectConnections': $localize`:@@showImmediateConnections:Näytä lähimmät`,
+    'showFullNetwork': $localize`:@@showAllConnections:Näytä kaikki`,
+    'dataMissing': $localize`:@@dataMissing:Tietoja ei ole saatavilla`,
+    'goToInfraPage': $localize`:@@moveToInfraPage:Siirry infrastruktuurin sivulle`,
+    'includesInfrastructures': $localize`:@@includesInfrastructures:Sisältää infrastruktuurit`,
+    'isPartOfInfrastructures': $localize`:@@isPartOfInfrastructures:Kuuluu infrastruktuureihin`,
+    'networkShownInPicture': $localize`:@@networkShownInPicture:Verkosto esitetty kuvassa`,
+    'showNetworkGraph': $localize`:@@showInfrastructureNetwork:Näytä verkosto`,
+    'isPart': $localize`:@@isPartOfInfrastructures:Kuuluu infrastruktuureihin`,
+  };
+
+  modalInfoFields = [
+    {
+      label: $localize`:@@infraAcronymAndName:Lyhenne ja nimi`,
+      field: 'acronym'
+    },
+    {
+      label: $localize`:@@Name:Nimi`,
+      field: 'name'
+    },
+    {
+      label: $localize`:@@infraStartYear:Toiminta alkanut`,
+      field: 'startYear',
+      tooltip: $localize`:@@infraStartYearTooltip:Koko tutkimusinfrastruktuurin käyttöönottovuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta, jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun`
+    },
+    {
+      label: $localize`:@@infraDescription:Infrastruktuurin kuvaus`,
+      field: 'description',
+      tooltip: $localize`:@@infraDescriptionTooltip:Kuvaus kertoo yleisesti tutkimusinfrastruktuurista.`
+    },
+    { label: $localize`:@@infraEndYear:Toiminta päättynyt`, field: 'endYear' },
+    {
+      label: $localize`:@@relationsToOtherInfrastruictures:hteydet muihin infrastruktuureihin`,
+      field: 'connectionsToOtherInfras'
     }
   ];
 
@@ -146,8 +309,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       field: 'finlandRoadmap',
       tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`
     },
-    { label: $localize`ESFRI-luokitus`, field: 'ESFRICode' },
-    { label: $localize`MERIL-luokitus`, field: 'merilCode' }
+    { label: $localize`ESFRI-luokitus`, field: 'ESFRICodes' }
   ];
 
   contactFields = [
@@ -168,6 +330,20 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     { label: $localize`Lisätietoja`, field: '?' }
   ];
 
+  identifiersLocalization = $localize`Tunnisteet`;
+  classificationsLocalization = $localize`:@@infraClassifications:Luokituksia`;
+  infraWebPageLocalization = $localize`:@@infraHomePage:Infrastruktuurin verkkosivu`;
+  noInfraLinksLocalization = $localize`:@@infraHomePage:Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa`;
+  infrastructureNetworkLocalization = $localize`:@@infrastructureNetwork:Infrastruktuuriverkosto`;
+
+  nodeList = [];
+  edges = [];
+
+  visibleNodes = new BehaviorSubject([]);
+  visibleEdges = new BehaviorSubject([]);
+
+  edgeLength = 500;
+
   linkFields = [{ field: 'homepage' }];
 
   errorMessage = [];
@@ -176,6 +352,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   @ViewChildren('servicesRefs') private servicesRefs: QueryList<ElementRef>;
 
   idSub: Subscription;
+  routeParamsSub: Subscription;
+  serviceSub: Subscription
   servicesRefsSub: Subscription;
   infoExpand: boolean[] = [];
   serviceExpand: boolean[] = [];
@@ -189,9 +367,49 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   relatedData: {};
   focusSub: Subscription;
   dataSub: Subscription;
+  infraNetworkSub: Subscription;
   private selectedServiceUrn: string;
   private positionInitialized = false;
   private selectedServiceIndex: number = undefined;
+  selectedInfraId = '';
+  selectedInfraNodeId: number = undefined;
+  selectedInfraName = '';
+  infraPageLink = '/results/infrastructures/';
+  showDialog = new BehaviorSubject(undefined);
+  infraRootId = new BehaviorSubject(undefined);
+  visData = new BehaviorSubject(undefined);
+
+  infraServices: InfraService[] = [];
+
+  listbox = viewChild<Listbox<string>>(Listbox);
+
+  /** The options available in the listbox. */
+  options = viewChildren<Option<string>>(Option);
+
+  /** A reference to the ng aria combobox. */
+  combobox = viewChild<Combobox<string>>(Combobox);
+
+  /** The string that is displayed in the combobox. */
+  displayValue = computed(() => {
+    const values = this.listbox()?.values() || [];
+    return values.length ? values[0] : 'Select a label';
+  });
+
+  isPartOfConnectionsForTree = [];
+  hasPartConnectionsForTree = [];
+
+
+  isPartOfLabelsUpper = [];
+  hasPartLabelsUpper = [];
+  isPartOfLabelsBottom = [];
+  hasPartLabelsBottom = [];
+
+  isPartOfLabelsVisible = true;
+  hasPartLabelsVisible = true;
+  rootId = '';
+  rootNodeName = '';
+
+  isInited = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -202,9 +420,23 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     public utilityService: UtilityService,
     private settingsService: SettingsService,
     @Inject(DOCUMENT) private document: any,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
+
+    afterRenderEffect(() => {
+      const option = this.options().find((opt) => opt.active());
+      setTimeout(() => option?.element.scrollIntoView({ block: 'nearest' }), 50);
+    });
+
+    // Resets the listbox scroll position when the combobox is closed.
+    afterRenderEffect(() => {
+      if (!this.combobox()?.expanded()) {
+        setTimeout(() => this.listbox()?.element.scrollTo(0, 0), 150);
+      }
+    });
   }
 
   public setTitle(newTitle: string) {
@@ -212,12 +444,22 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngOnInit() {
-    this.idSub = this.singleService.currentId.subscribe((id) =>
-      this.getData(id)
+    //this.infraTreeLoading = true;
+    this.idSub = this.singleService.currentId.subscribe((id) => {
+        this.selectedInfraId = id;
+        this.getData(id, false);
+      }
     );
-    this.route.queryParamMap.subscribe(params => {
+    this.serviceSub = this.route.queryParamMap.subscribe(params => {
       this.selectedServiceUrn = params.get('service');
     });
+
+    this.routeParamsSub = this.route.params.subscribe(params => {
+      this.singleService.updateId(params.id);
+      //this.selectedInfraId = params.id;
+      //this.getData(params.id, false);
+    });
+
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
@@ -249,55 +491,311 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.routeParamsSub?.unsubscribe();
+    this.serviceSub?.unsubscribe();
     this.focusSub?.unsubscribe();
     this.dataSub?.unsubscribe();
     this.servicesRefsSub?.unsubscribe();
     this.settingsService.related = false;
+    this.infraNetworkSub?.unsubscribe();
   }
 
-  getData(id: string) {
+  getInfraNetworkData(id?: string) {
+    if (id) {
+      this.infraNetworkSub = this.singleService.getInfrastructureNetworkData(undefined).subscribe({
+        next: (responseData) => {
+          this.infraNetworkResponseData = responseData;
+          this.processInfraNetworkData(this.infraNetworkResponseData);
+          this.reduceNetworkSize(this.reducedNetworkSize);
+
+        },
+        error: (error) => (this.errorMessage = error as any)
+      });
+    }
+  }
+
+  calculateNodeSize(node: any){
+    const defaultSize = 30;
+    if (false && node?.hasPartMetrics?.hasPartTotal > 0){
+      return node?.hasPartMetrics?.hasPartTotal * 3 + defaultSize;
+    } else return defaultSize;
+  }
+
+  processInfraNetworkData(data: any) {
+    const tempNodes = data.hits.hits[0]._source.infraNetworks.nodes;
+    const tempEdges = data.hits.hits[0]._source.infraNetworks.hasPartEdges;
+    let tempNodeList = [];
+    let tempEdgeList = [];
+
+    tempNodes.forEach((node) => {
+      if (node.nodeTypeNational) {
+        tempNodeList.push({
+          id: node.internalId,
+          label: node.nodeTypeNational?.acronym,
+          infraId: node.nodeTypeNational.infraKeyIdentifier.substring(11),
+          length: this.edgeLength,
+          size: this.calculateNodeSize(node)
+        });
+      } else if (node.nodeTypeInternational) {
+        if (node.nodeTypeInternational?.internationalInfraWeblink) {
+          tempNodeList.push({
+            id: node.internalId,
+            label: node.nodeTypeInternational.internationalInfraName,
+            length: this.edgeLength,
+            size: this.calculateNodeSize(node),
+            internationalInfraWeblink: node.nodeTypeInternational.internationalInfraWeblink
+          });
+        } else {
+          tempNodeList.push({
+            id: node.internalId,
+            label: node.nodeTypeInternational.internationalInfraName,
+            length: this.edgeLength,
+            size: this.calculateNodeSize(node),
+          });
+        }
+      }
+    });
+
+    tempEdges.forEach((edge) => {
+      if (edge?.relationFrom && edge?.relationTo) {
+        tempEdgeList.push({
+          to: edge.relationFrom?.internalId,
+          from: edge.relationTo?.internalId,
+          length: this.edgeLength
+        });
+      }
+    });
+
+    this.nodeList = tempNodeList;
+    this.edges = tempEdgeList;
+    this.visibleNodes.next(tempNodeList);
+    this.visibleEdges.next(tempEdgeList);
+    this.infraRootId.next(this.nodeList.filter(node => node.label === this.responseData.infrastructures[0]?.acronym)[0]?.id);
+    this.calculateIsPartOf(toInteger(this.infraRootId.getValue()), true);
+    this.calculateHasPart(toInteger(this.infraRootId.getValue()), true);
+    this.rootId = this.infraRootId.getValue();
+
+    this.calculateConnectionsForTree();
+
+    const rootNode = this.nodeList.filter(node => node.id === toInteger(this.rootId));
+    this.rootNodeName = rootNode[0].label;
+
+    this.colorizeAndInitNodes();
+    this.colorizeAndInitEdges();
+    this.colorizeNeighborAndToRootEdges();
+  }
+
+  colorizeAndInitNodes(){
+    this.nodeList = this.nodeList.map(node => {
+      if (node.id === this.selectedInfraNodeId) {
+        node.color = {
+          background: '#B9DC9C',
+          border: '#4546B9',
+          highlight: {
+            border: '#4546B9',
+            background: '#B9DC9C',
+            borderWidth: 4
+          },
+          hover: {
+            background: '#9F9FD4',
+            border: '#5852A7'
+          }
+        };
+      } else if (node.id === toInteger(this.rootId)) {
+        node.color = {
+          background: '#B9DC9C',
+          border: '#B9DC9C',
+          highlight: {
+            border: '#4546B9',
+            background: '#B9DC9C',
+            borderWidth: 4
+          },
+          hover: {
+            background: '#9F9FD4',
+            border: '#5852A7'
+          }
+        };
+      }
+      else {
+        node.color = {
+          background: '#EBEBEB',
+          border: '#404040',
+          highlight: {
+            border: '#4546B9',
+            background: '#B9DC9C',
+            borderWidth: 3
+          },
+          hover: {
+            background: '#9F9FD4',
+            border: '#5852A7'
+          }
+        };
+      }
+      return node;
+    });
+    let neighborNodeIds = [];
+
+    if (!this.selectedInfraNodeId) {
+      this.selectedInfraNodeId = toInteger(this.rootId);
+    }
+
+    this.edges.map(edge => {
+      if (edge?.from === this.selectedInfraNodeId) {
+        neighborNodeIds.push(edge.to);
+      }
+      if (edge?.to === this.selectedInfraNodeId) {
+        neighborNodeIds.push(edge.from);
+      }
+    });
+
+
+    this.nodeList = this.nodeList.map(node => {
+      if (neighborNodeIds.some(id => id === node.id)) {
+        node.color = {
+          background: '#C5C5E5',
+          border: '#4546B9',
+          highlight: {
+            border: '#4546B9',
+            background: '#B9DC9C',
+            borderWidth: 5
+          },
+          hover: {
+            background: '#9F9FD4',
+            border: '#5852A7'
+          }
+        };
+      }
+      return node;
+    });
+  }
+
+  colorizeAndInitEdges(){
+    this.edges = this.edges.map(edge => {
+      edge.color = {
+        color:'#000000',
+        highlight:'#000000',
+        hover: '#000000',
+        inherit: 'from',
+        opacity:1.0
+      };
+      edge.width = 2;
+      return edge;
+    });
+  }
+
+  colorizeNeighborAndToRootEdges(){
+    const rootIdInt = toInteger(this.rootId);
+    this.edges = this.edges.map(edge => {
+      if ((edge.from === rootIdInt) || (edge.to === rootIdInt)) {
+        edge.color = {
+          color:'#4546B9',
+          highlight:'#4546B9',
+          hover: '#4546B9',
+          inherit: 'from',
+          opacity:1.0
+        };
+        edge.width = 8;
+      }
+      return edge;
+    });
+
+    this.visData.next({
+      edges: [...this.edges],
+      nodeList: [...this.nodeList],
+      rootId: '' + this.infraRootId.getValue()
+    });
+  }
+
+
+  reduceNetworkSize(isReduced: boolean) {
+    this.reducedNetworkSize = isReduced;
+    if (isReduced) {
+      const visEdges = this.edges.filter(edge => (edge.from === toInteger(this.rootId) || edge.to === toInteger(this.rootId)));
+      const visNodes = this.nodeList.filter(node => visEdges.find(edge => edge.from === node.id || edge.to === node.id));
+      this.calculateIsPartOf(toInteger(this.rootId), true);
+      this.calculateHasPart(toInteger(this.rootId), true);
+      this.visData.next({ edges: visEdges, nodeList: visNodes, rootId: '' + this.rootId });
+    } else {
+      this.calculateIsPartOf(toInteger(this.rootId), true);
+      this.calculateHasPart(toInteger(this.rootId), true);
+      this.visData.next({ edges: [...this.edges], nodeList: [...this.nodeList], rootId: '' + this.rootId });
+    }
+  }
+
+  populateNeighborNodes(nodeId: number) {
+    let newEdges = this.edges.filter(edge => (edge.from === nodeId || edge.to === nodeId));
+    let newNodes = this.nodeList.filter(node => newEdges.find(edge => edge.from === nodeId || edge.to === nodeId));
+    this.calculateIsPartOf(nodeId, true);
+    this.calculateHasPart(nodeId, true);
+    let oldEdges =  this.visData.getValue().edges;
+    let oldNodes =  this.visData.getValue().nodeList;
+    const mergedEdges = [...new Set([...oldEdges, ...newEdges])];
+    const mergedNodes = [...new Set([...oldNodes, ...newNodes])];
+
+    this.visData.next({ edges: mergedEdges, nodeList: mergedNodes, rootId: '' + this.rootId });
+  }
+
+  selectNodeFromList(nodeId: number) {
+    let newVisData = this.visData.getValue();
+    newVisData.selectedNodeId = nodeId;
+    this.visData.next(cloneDeep(newVisData));
+  }
+
+  getData(id: string, isModalData: boolean) {
+    //this.selectedInfraId = id;
     this.dataSub = this.singleService.getSingleInfrastructure(id).subscribe({
       next: (responseData) => {
-        this.responseData = responseData;
-        if (this.responseData.infrastructures[0]) {
-          switch (this.localeId) {
-            case 'fi': {
-              this.setTitle(
-                this.responseData.infrastructures[0].name +
-                ' - Tiedejatutkimus.fi'
-              );
-              break;
+        if (isModalData) {
+          // Reload modal data
+          this.modalInfraData = responseData;
+          //this.infraRootId.next(this.nodeList.filter(node => node.label === this.responseData.infrastructures[0]?.acronym)[0]?.id);
+          //this.shapeData(isModalData);
+          //this.filterData(isModalData);
+          return;
+        } else {
+          // Fetch single infra page data
+          this.responseData = responseData;
+          if (this.responseData.infrastructures[0]) {
+            switch (this.localeId) {
+              case 'fi': {
+                this.setTitle(
+                  this.responseData.infrastructures[0].name +
+                  ' - Tiedejatutkimus.fi'
+                );
+                break;
+              }
+              case 'en': {
+                this.setTitle(
+                  this.responseData.infrastructures[0].name + ' - Research.fi'
+                ); // English name??
+                break;
+              }
+              case 'sv': {
+                this.setTitle(
+                  this.responseData.infrastructures[0].name + ' - Forskning.fi'
+                ); // English name??
+                break;
+              }
             }
-            case 'en': {
-              this.setTitle(
-                this.responseData.infrastructures[0].name + ' - Research.fi'
-              ); // English name??
-              break;
-            }
-            case 'sv': {
-              this.setTitle(
-                this.responseData.infrastructures[0].name + ' - Forskning.fi'
-              ); // English name??
-              break;
-            }
-          }
-          const titleString = this.utilityService.getTitle();
-          this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-          this.utilityService.addMeta(
-            titleString,
-            this.metaTags['description' + this.currentLocale],
-            this.commonTags['imgAlt' + this.currentLocale]
-          );
+            const titleString = this.utilityService.getTitle();
+            //this.srHeader.nativeElement.innerHTML = titleString?.split(' - ', 1) ?? '';
+            this.utilityService.addMeta(
+              titleString,
+              this.metaTags['description' + this.currentLocale],
+              this.commonTags['imgAlt' + this.currentLocale]
+            );
 
-          this.shapeData();
-          this.filterData();
+            this.shapeData(isModalData);
+            this.filterData(isModalData);
+          }
         }
+        this.getInfraNetworkData(id);
       },
       error: (error) => (this.errorMessage = error as any)
     });
   }
 
-  filterData() {
+  filterData(isModalData: boolean) {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: { field: string }) => {
       return UtilityService.stringHasContent(
@@ -306,7 +804,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     };
 
     // Filter all the fields to only include properties with defined data
-    this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
+    this.infoFieldsFirstLevel = this.infoFieldsFirstLevel.filter((item) => checkEmpty(item));
     this.fieldsOfScience = this.fieldsOfScience.filter((item) =>
       checkEmpty(item)
     );
@@ -318,18 +816,20 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.linkFields = this.linkFields.filter((item) => checkEmpty(item));
 
     // Init expand and show lists
-    this.infoFields.forEach((_) => this.infoExpand.push(false));
+    this.infoFieldsFirstLevel.forEach((_) => this.infoExpand.push(false));
     this.serviceFields.forEach((_) => this.serviceExpand.push(false));
+    this.infraServices = [];
     this.responseData.infrastructures[0].services.forEach((service, idx) => {
+      this.infraServices.push({ serviceName: service.serviceName, serviceDescription: service.serviceDescription, serviceType: service.serviceType, servicePid: service.servicePid, startDate: service.startDate, endDate:service.endDate, targetSegment: service.targetSegment, targetAudience: service.targetAudience, homepage: service.homepage, infraLinks: service.infraLinks, privacyPolicy:service.privacyPolicy, termsOfUse: service.termsOfUse, instructionsOfUse: service.instructionsOfUse, serviceObtain: service.serviceObtain, contacts: service.contacts  });
       this.showService.push(false);
-      this.showServicePoint.push([]);
-      service.servicePoints.forEach((_) =>
-        this.showServicePoint[idx].push(false)
-      );
+      /*      this.showServicePoint.push([]);
+            service.servicePoints.forEach((_) =>
+              this.showServicePoint[idx].push(false)
+            );*/
     });
   }
 
-  shapeData() {
+  shapeData(isModalData: boolean) {
     const source = this.responseData.infrastructures[0];
     source.finlandRoadmap = source.finlandRoadmap
       ? $localize`:@@yes:Kyllä`
@@ -337,28 +837,27 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
     // Filter out empty servicepoints and empty services
     source.services.forEach((service, idx) => {
-      source.services[idx].servicePoints = service.servicePoints
-        .map((servicePoint) =>
-          UtilityService.objectHasContent(servicePoint)
-            ? servicePoint
-            : undefined
-        )
-        .filter((x) => x);
+      /*      source.services[idx].servicePoints = service.servicePoints
+              .map((servicePoint) =>
+                UtilityService.objectHasContent(servicePoint)
+                  ? servicePoint
+                  : undefined
+              )
+              .filter((x) => x);*/
     });
 
     let openedInd = 0;
 
     source.services = source.services
-      .map((service) =>
-        {
-          if (service.urn?.length > 11) {
-            if (service.urn.substring(11, service.urn.length) === this.selectedServiceUrn) {
+      .map((service) => {
+          if (service?.servicePid?.length > 11) {
+            if (service.servicePid.substring(11, service.servicePid.length) === this.selectedServiceUrn) {
               this.showService[openedInd] = true;
               this.selectedServiceIndex = openedInd;
             }
           }
           openedInd += 1;
-          return UtilityService.objectHasContent(service) ? service : undefined
+          return UtilityService.objectHasContent(service) ? service : undefined;
         }
       )
       .filter((x) => x);
@@ -398,5 +897,203 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     const span = this.document.createElement('span');
     span.innerHTML = address;
     event.target.replaceWith(span);
+  }
+
+  openDialog(infraNumber: number) {
+    this.showDialog.next(true);
+  }
+
+  calculateConnectionsForTree(){
+    this.isPartOfConnectionsForTree = [];
+    this.hasPartConnectionsForTree = [];
+    this.edges.filter(node => node.from === this.infraRootId.getValue()).forEach(edge => {
+      this.nodeList.filter(node => {
+        if (node.id === edge.to) {
+          if (node?.internationalInfraWeblink){
+            this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId, internationalInfraWeblink: node?.internationalInfraWeblink });
+          } else {
+            this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
+          }
+        }
+        ;
+      });
+    });
+    this.edges.filter(node => node.to === this.infraRootId.getValue()).forEach(edge => {
+      this.nodeList.filter(node => {
+        if (node.id === edge.from) {
+          if (node?.internationalInfraWeblink){
+            this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId, internationalInfraWeblink: node?.internationalInfraWeblink });
+          }
+          else {
+            this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
+          }
+        }
+        ;
+      });
+    });
+    let rootNodeName = this.nodeList.filter(node => node.id === this.infraRootId.getValue())[0].label;
+    this.generateInfraTrees(rootNodeName);
+  }
+
+  generateInfraTrees(rootNodeName: string){
+    let nodes = [
+      {
+        name: rootNodeName,
+        value: this.infraRootId.getValue(),
+        hasParent: false,
+        isCurrent: true,
+        children: [],
+        expanded: true,
+      }];
+
+    let childNodes = [];
+    this.hasPartConnectionsForTree.forEach(node => {
+      let childNode = {
+        name: node.label,
+        value: node.id,
+        hasParent: true,
+        expanded: true,
+        infraId: node.infraId,
+        // Add only when the node has a weblink
+        ...(node.internationalInfraWeblink && {
+          internationalInfraWeblink: node.internationalInfraWeblink
+        }),
+      };
+      childNodes.push(childNode);
+    });
+    nodes[0].children = childNodes;
+
+    let rootTrees = [];
+
+    if (this.isPartOfConnectionsForTree.length > 0) {
+      this.isPartOfConnectionsForTree.forEach(node => {
+        let childNode = {
+          name: node.label,
+          value: node.id + '',
+          hasParent: true,
+          expanded: true,
+          infraId: node.infraId,
+          ...(node.internationalInfraWeblink && {
+            internationalInfraWeblink: node.internationalInfraWeblink
+          }),
+          children: []
+        };
+        childNode.children.push(nodes[0]);
+        rootTrees.push(childNode);
+      });
+    } else {
+      rootTrees.push(nodes[0]);
+    }
+
+    this.infraTreeNodes = rootTrees;
+    this.infraTreeLoading = false;
+  }
+
+  calculateIsPartOf(selectedNodeId: number, isUpperLegend: boolean) {
+    if (isUpperLegend) {
+      this.isPartOfLabelsUpper = [];
+    } else {
+      this.isPartOfLabelsBottom = [];
+    }
+    this.edges.filter(node => node.from === selectedNodeId).forEach(edge => {
+      this.nodeList.filter(node => {
+        if (node.id === edge.to) {
+          if (isUpperLegend) {
+            this.isPartOfLabelsUpper.push({ id: node.id, label: node.label });
+          } else {
+            this.isPartOfLabelsBottom.push({ id: node.id, label: node.label });
+          }
+        }
+        ;
+      });
+    });
+  }
+
+  calculateHasPart(selectedNodeId: number, isUpperLegend: boolean) {
+    if (isUpperLegend) {
+      this.hasPartLabelsUpper = [];
+    } else {
+      this.hasPartLabelsBottom = [];
+    }
+    this.edges.filter(node => node.to === selectedNodeId).forEach(edge => {
+      this.nodeList.filter(node => {
+        if (node.id === edge.from) {
+          if (isUpperLegend) {
+            this.hasPartLabelsUpper.push({ id: node.id, label: node.label });
+          } else {
+            this.hasPartLabelsBottom.push({ id: node.id, label: node.label });
+          }
+        }
+        ;
+      });
+    });
+  }
+
+  doDialogAction(event: any) {
+    this.showDialog.next(false);
+    this.dialog.closeAll();
+  }
+
+  infraNodeClickFromList(infra: any) {
+    this.selectedInfraNodeId = infra.id;
+    this.selectedInfraName = infra.label;
+    this.selectNodeFromList(infra.id);
+    this.getData(infra.id, true);
+    this.infraNodeClick(infra.id);
+  }
+
+  infraNodeClick(nodeId: number) {
+    this.selectedInfraNodeId = nodeId;
+    let selectedInfraNode = this.nodeList.filter(node => node.id === nodeId);
+    this.selectedInfraName = selectedInfraNode[0].label;
+    this.selectedInfraId = selectedInfraNode[0].infraId;
+
+    if (this.reducedNetworkSize) {
+      //this.populateNeighborNodes(nodeId);
+    }
+
+    this.getData(selectedInfraNode[0].infraId, true);
+    this.calculateIsPartOf(nodeId, false);
+    this.calculateHasPart(nodeId, false);
+    //this.colorizeAndInitNodes();
+    //this.colorizeAndInitEdges();
+    //this.colorizeNeighborAndToRootEdges();
+  }
+
+  setNewRootNode(infraAcronym: string) {
+    let rootId = undefined;
+    if (infraAcronym) {
+      rootId = this.nodeList.filter(node => node.label === infraAcronym)[0]?.id;
+    } else {
+      rootId = '' + this.selectedInfraNodeId;
+    }
+    this.infraRootId.next(rootId);
+    this.rootId = rootId;
+
+    const rootNode = this.nodeList.filter(node => node.id === toInteger(rootId));
+    this.rootNodeName = rootNode[0].label;
+
+    // Use unfiltered data
+    this.visData.next({
+      edges: [...this.edges],
+      nodeList: [...this.nodeList],
+      rootId: '' + this.infraRootId.getValue()
+    });
+
+    this.colorizeAndInitNodes();
+    this.colorizeAndInitEdges();
+    this.colorizeNeighborAndToRootEdges();
+    this.reduceNetworkSize(this.reducedNetworkSize);
+  }
+
+  navigateToSelectedInfra() {
+    if (this.selectedInfraId) {
+      this.router.navigateByUrl('/results/infrastructure/' + this.selectedInfraId).then(() => {
+        this.showDialog.next(false);
+        this.dialog.closeAll();
+        //window.location.reload();
+      });;
+      //this.infraServices = [];
+    }
   }
 }

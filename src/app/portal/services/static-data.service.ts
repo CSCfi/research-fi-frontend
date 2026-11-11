@@ -522,38 +522,17 @@ export class StaticDataService {
       }
       case 'infrastructure': {
         res = [
-          'nameFi^2',
-          'nameEn^2',
-          'nameSv^2',
-          'descriptionFi',
-          'descriptionEn',
-          'descriptionSv',
-          'scientificDescriptionFi',
-          'scientificDescriptionSv',
-          'scientificDescriptionEn',
-          'startYear',
-          'acronym',
-          'responsibleOrganizationNameFi',
-          'responsibleOrganizationNameEn',
-          'responsibleOrganizationNameSv',
-          'keywordsFi.keyword',
-          'keywordsSv.keyword',
-          'keywordsEn.keyword',
-          'services.serviceNameFi',
-          'services.serviceNameSv',
-          'services.serviceNameEn',
-          'services.serviceDescriptionFi',
-          'services.serviceDescriptionSv',
-          'services.serviceDescriptionEn',
-          'services.serviceType',
-          'services.servicePointName',
-          'services.serviceAcronym',
-          'services.servicePointEmailAddress',
-          'services.servicePointInfoUrlFi',
-          'services.servicePointInfoUrlEn',
-          'services.servicePointInfoUrlSv',
-          'services.servicePointPhoneNumber',
-          'services.servicePointVisitingAddress',
+          'infraAcronym',
+          'infraKeyIdentifier',
+          'infraId',
+          'infraParticipatingOrganizations.organizationName.fi',
+          'infraParticipatingOrganizations.organizationName.en',
+          'infraParticipatingOrganizations.organizationName.sv',
+          'infraDescription.descriptiveContent',
+          'infraName.descriptiveContent',
+          'infraResponsibleOrganization.organizationName.fi',
+          'infraResponsibleOrganization.organizationName.en',
+          'infraResponsibleOrganization.organizationName.sv',
         ];
         break;
       }
@@ -662,6 +641,13 @@ export class StaticDataService {
         ];
         break;
       }
+      case 'infrastructure': {
+        res = [
+          'infraServices.serviceKeyIdentifier',
+          'infraServices.serviceName.descriptiveContent',
+        ];
+        break;
+      }
     }
     return res;
   }
@@ -686,7 +672,7 @@ export class StaticDataService {
         break;
       }
       case 'infrastructure': {
-        res = ['responsibleOrganization.TKOppilaitosTunnus'];
+        res = ['responsibleOrganization.orgNodeId'];
         break;
       }
       case 'organization': {

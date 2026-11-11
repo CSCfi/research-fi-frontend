@@ -6,9 +6,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
 @if (!resultData) {
   <div class="spinner-center">
     <mat-spinner
-      [diameter]="80"
-      i18n-aria-label="@@loading"
-      aria-label="Ladataan"
+            [diameter]="80"
+            i18n-aria-label="@@loading"
+            aria-label="Ladataan"
     ></mat-spinner>
   </div>
 }
@@ -17,73 +17,94 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <div>
     @if (dataMapped) {
       <app-table
-        [columns]="tableColumns"
-        [rows]="tableRows"
-        [svgSymbolName]="svgSymbolName"
-        [iconTitle]="iconTitleInfrastructures"
-        iconLinkField="name"
-        [sortColumn]="sortService.sortColumn"
-        [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
-        (onSortChange)="utilityService.sortBy($event.active)"
+              [columns]="tableColumns"
+              [rows]="tableRows"
+              [svgSymbolName]="svgSymbolName"
+              [iconTitle]="iconTitleInfrastructures"
+              iconLinkField="name"
+              [sortColumn]="sortService.sortColumn"
+              [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+              (onSortChange)="utilityService.sortBy($event.active)"
       ></app-table>
     }
     <!-- Templates -->
     @if (resultData) {
       <div class="result-container">
-        @for (infra of resultData?.infrastructures; track infra; let i = $index) {
-          <ng-template #infrastructureNameColumns>
-            <a [routerLink]="infra.urn | handleInfrastructureLink">
+        @for (infra of resultData?.infrastructures; track infra.id) {
+          <ng-template #infrastructureNameColumn>
+            <a [routerLink]="infra.id | handleInfrastructureLink :'shortLink'">
               <h4
-                class="result-title"
-                [innerHtml]="infra.name?.trim() | highlight: input"
+                      class="result-title"
+                      [innerHtml]="infra.name?.trim() | highlight: input"
               ></h4>
             </a>
-            <div class="row">
-              <div class="col ps-0 py-3">
-                <span
-                  tabindex="0"
-                  i18n-tooltip="@@infraServicesAmountTooltip"
-                  tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä."
-                  triggers="focus kedown.escape"
-                  container="body"
-                  placement="top"
-                  #elem
-                  >
-                  <ng-container i18n="@@infraServicesLabel">Palveluita</ng-container
-                    >:
-                    {{ infra.services.length }}
-                  </span>
-                </div>
-                @if (infra.finlandRoadmap) {
-                  <div class="col ps-0 py-3">
-                    <span
-                      tabindex="0"
-                      i18n-tooltip="@@finlandRoadmapTooltip"
-                      tooltip="Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla."
-                      triggers="focus kedown.escape"
-                      container="body"
-                      placement="top"
-                      #elem
-                      >
-                      <ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container
-                        ><app-svg-sprites [iconName]="'fa-check-circle'" cssClass="fa-check-circle" class="check-icon ps-1"></app-svg-sprites>
-                      </span>
-                    </div>
-                  }
-                </div>
-              </ng-template>
+            @if (infra?.acronym?.length > 0) {
+              <div class="infra-acronym-text" [innerHtml]="'(' + infra.acronym?.trim() + ')' | highlight: input"></div>
             }
-          </div>
+          </ng-template>
+          <ng-template #infrastructureRelatedInfraColumn>
+            @if (infra.isPartOf.length > 0) {
+              <ng-template #isPartOfTemplate>
+                @if (infraIsPartOfNationalInfra(infra.isPartOf)) {
+                  <div class="fw-bold">{{portalNameLocalization}}</div>
+                }
+                @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
+                  @if (subInfra.infraKeyIdentifier) {
+                    <a [routerLink]="subInfra.infraKeyIdentifier | handleInfrastructureLink: 'longLink'">
+                      <div>{{getNationalInfraName(subInfra.infraID)}}</div>
+                    </a>
+                  }
+                }
+                @if (infraIsPartOfInternationalInfra(infra.isPartOf)) {
+                  <div class="fw-bold mt-2">{{outsideOfServiceLocalization}}</div>
+                }
+                @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
+                  @if (!subInfra.infraKeyIdentifier) {
+                    <div>{{getInternationalInfraName(subInfra.infraID)}}</div>
+                  }
+                }
+              </ng-template>
+
+              <div type="button" [outsideClick]="true" [popover]="isPartOfTemplate">{{infraIsPartOfNumberSentenceStart}} <span class="text-underline fw-bold">{{infra.isPartOf.length}} {{infraIsPartOfNumberSentenceEnd}}</span></div>
+
+            }
+            @if (infra.hasPart.length > 0) {
+              <ng-template #hasPartTemplate>
+                @if (infraHasNationalParts(infra.hasPart)) {
+                  <div class="fw-bold">{{portalNameLocalization}}</div>
+                }
+                @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
+                  @if (subInfra.infraKeyIdentifier) {
+                    <a [routerLink]="subInfra.infraKeyIdentifier | handleInfrastructureLink: 'longLink'">
+                      <div>{{getNationalInfraName(subInfra.infraID)}}</div>
+                    </a>
+                  }
+                }
+                @if (infraHasInternationalParts(infra.hasPart)) {
+                  <div class="fw-bold mt-2">{{outsideOfServiceLocalization}}</div>
+                }
+                @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
+                  @if (!subInfra.infraKeyIdentifier) {
+                    <div>{{getInternationalInfraName(subInfra.infraID)}}</div>
+                  }
+                }
+              </ng-template>
+
+              <div type="button" [outsideClick]="true" [popover]="hasPartTemplate">{{infraHasPartNumberSentenceStart}} <span class="text-underline fw-bold">{{infra.hasPart.length}} {{infraHasPartNumberSentenceEnd}}</span></div>
+            }
+          </ng-template>
         }
-        <!-- Pagination -->
-        <app-results-pagination [data]="resultData"></app-results-pagination>
       </div>
-    } @else {
-      @if (resultData && resultData.total === 0) {
-        <app-no-results
-          heading="Ei infrastruktuureja"
-          i18n-heading="@@noInfrastructures"
-        ></app-no-results>
-      }
     }
+    <!-- Pagination -->
+    <app-results-pagination [data]="resultData"></app-results-pagination>
+  </div>
+} @else {
+  @if (resultData && resultData.total === 0) {
+    <app-no-results
+            heading="Ei infrastruktuureja"
+            i18n-heading="@@noInfrastructures"
+    ></app-no-results>
+  }
+}
 

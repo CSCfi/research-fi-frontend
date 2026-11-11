@@ -110,6 +110,9 @@ export class SettingsService {
                 ...(index === 'dataset'
                   ? [{ bool: { should: this.generateNested('dataset', term) } }]
                   : []),
+                ...(index === 'infrastructure'
+                  ? [{ bool: { should: this.generateNested('infrastructure', term) } }]
+                  : []),
 
 
                 // News content field has umlauts converted to coded characters, query needs to be made with both coded and decoded umlauts
@@ -415,6 +418,10 @@ export class SettingsService {
       }
       case 'dataset': {
         res = query('actor.sector');
+        break;
+      }
+      case 'infrastructure': {
+        res = query('infraServices');
         break;
       }
     }

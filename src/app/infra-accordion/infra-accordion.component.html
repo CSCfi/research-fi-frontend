@@ -1,0 +1,171 @@
+<div ngAccordionGroup class="basic-accordion" [multiExpandable]="true">
+  @for (singleService of infraData; track singleService; let i = $index) {
+    <div class="accordion-section-wrap" [class.service-discontinued]="singleService.isDiscontinued">
+      <h3>
+    <span ngAccordionTrigger class="accordion-section-trigger" [panel]="panel1" #trigger1="ngAccordionTrigger">
+      {{ singleService.serviceName }}
+      @if (!trigger1.expanded()) {
+        <span class="accordion-section-toggle-switch" aria-hidden="true">
+          Avaa
+       <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon theme-color"></app-svg-sprites>
+        </span>
+      }
+      @if (trigger1.expanded()) {
+        <span class="accordion-section-toggle-switch" aria-hidden="true">
+                Sulje
+              <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon theme-color"></app-svg-sprites>
+              </span>
+      }
+    </span>
+      </h3>
+
+      <div ngAccordionPanel #panel1="ngAccordionPanel">
+        <ng-template ngAccordionContent>
+          <div class="row mt-2">
+            <div class="col-12 col-sm-9 accordion-content-margin">
+              <div class="row gx-1 mb-1">
+                @if (singleService.isDiscontinued){
+                  <div class="discontinued-service-info">
+                    <div class="discontinued-service-inner d-flex flex-row">
+                      <div class="info-circle-wrapper">
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                      </div>
+                      <div class="d-flex flex-column dicsontinued-text-content-wrapper">
+                        <h4>{{serviceIsDiscontinuedHeading}}</h4>
+                        <div>{{serviceIsDiscontinuedInfoText}}</div>
+                      </div>
+                    </div>
+                  </div>
+                }
+
+                @if (singleService.serviceDescription) {
+                  <div class="col-6 col-md-3 fw-bold">
+                    {{serviceDescriptionLocalization}}
+                  </div>
+                  <div class="col-6 col-md-9 mb-3">
+                    {{ singleService.serviceDescription }}
+                  </div>
+                }
+              </div>
+              <div class="row gx-1 mb-1">
+
+                <div class="col-6 col-md-3 fw-bold">
+                  {{pidIdentifierLocalization}}
+                </div>
+                <div class="col-6 col-md-9 mb-3">
+                  <app-share [id]="singleService.servicePid" [useTextOnlyLink]="true"
+                             [showUrnTextPrefix]="false"></app-share>
+                </div>
+              </div>
+
+              @if (singleService.startDate.year || singleService.endDate.year) {
+                <div class="row gx-1 mb-1">
+                  <div class="col-6 col-md-3 fw-bold">
+                    {{serviceLocalization}}
+                  </div>
+                  @if (singleService.startDate.year){
+                    <div class="col-6 col-md-9 mb-3">
+                      {{hasStartedLocalization}}: <span class="ms-sm-4">{{singleService.startDate.year}}</span>
+                    </div>
+                  }
+                  @if (singleService.endDate.year){
+                    <div class="col-6 col-md-3 fw-bold"></div>
+                    <div class="col-6 col-md-9 mb-3">
+                      {{endsOnLocalization}}: <span class="ms-sm-4">{{singleService.endDate.year}}</span>
+                    </div>
+                  }
+                </div>
+              }
+
+              @if (singleService.targetAudience){
+                <div class="row gx-1 mb-1">
+                  <div class="col-6 col-md-3 fw-bold">
+                    {{targetAudienceLocalization}}
+                  </div>
+                  <div class="col-6 col-md-9 mb-3">
+                    {{singleService.targetAudience.join(', ')}}
+                  </div>
+                </div>
+              }
+              @if (singleService.targetSegment){
+                <div class="row gx-1 mb-1">
+                  <div class="col-6 col-md-3 fw-bold">
+                    {{targetSegmentLocalization}}
+                  </div>
+                  <div class="col-6 col-md-9 mb-3">
+                    {{singleService.targetSegment.join(', ')}}
+                  </div>
+                </div>
+              }
+
+              @if (singleService.serviceObtain) {
+                <div class="row gx-1 mb-1">
+                  <div class="col-6 col-md-3 fw-bold">
+                    {{serviceObtainLocalization}}
+                  </div>
+                  <div class="col-6 col-md-9 mb-3">
+                    {{singleService.serviceObtain}}
+                  </div>
+                </div>
+              }
+              @if (singleService.contacts) {
+                <div class="row gx-1 mb-1">
+                  <div class="col-6 col-md-3 fw-bold">
+                    {{serviceContactInfoLocalization}}
+                  </div>
+                  <div class="col-6 col-md-9 mb-3">
+                    @for (contact of singleService.contacts; track contact){
+                      <div> {{contact.contactLabel}}</div>
+                      <div> {{contact.email}}</div>
+                      <div> {{contact.telephone}}</div>
+                      <div> {{contact.address}}</div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="col-auto row d-flex flex-column infra-service-links accordion-content-margin">
+              @if (singleService.homepage || singleService.termsOfUse || singleService.privacyPolicy || singleService.instructionsOfUse) {
+              <div class="col-12 gx-0 mb-1 fw-bold service-link-row">{{linksLocalization}}</div>
+              }
+              @if (singleService.homepage) {
+                <div class="col-12 gx-0 mb-1 service-link-row">
+                  <a [href]="singleService.homepage" target="_blank">
+                    {{webPageLocalization}}
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                  </a>
+                </div>
+              }
+
+              @if (singleService.termsOfUse) {
+                <div class="col-12 gx-0 mb-1 service-link-row">
+                  <a [href]="singleService.termsOfUse" target="_blank">{{termsOfUseLocalization}}
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                  </a>
+                </div>
+              }
+
+              @if (singleService.privacyPolicy) {
+                <div class="col-12 gx-0 mb-1 service-link-row">
+                  <a [href]="singleService.privacyPolicy" target="_blank">{{dataProtectionLocalization}}
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                  </a>
+                </div>
+              }
+
+              @if (singleService.instructionsOfUse) {
+                <div class="col-12 gx-0 service-link-row">
+                  <a [href]="singleService.instructionsOfUse" target="_blank">{{instructionsOfUseLocalization}}
+                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                  </a>
+                </div>
+              }
+            </div>
+          </div>
+          <br/>
+        </ng-template>
+      </div>
+    </div>
+  }
+</div>
