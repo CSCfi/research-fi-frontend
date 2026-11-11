@@ -423,13 +423,29 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     }
   }
 
-  generateAndPatchBiographyPayload() {
+  // The first AI biography is not in the profile data fetched right after saving, so a new item is created from it to get the first generated biography into draft summary preview
+
+  generateAndPatchBiographyPayload(createdItemMeta?: any) {
     // Take biography from old api
 
     // Fetch latest saved values from backend
     const newProfileData = this.profileService.fetchProfileDataFromBackend().then(
       (value) => {
         if (value) {
+          const descriptionItems = value.profileData[1].fields[1].items;
+          if (createdItemMeta?.id && !descriptionItems.some(item => item?.itemMeta?.id === createdItemMeta.id)) {
+            descriptionItems.push({
+              researchDescriptionFi: '',
+              researchDescriptionEn: '',
+              researchDescriptionSv: '',
+              value: '',
+              itemMeta: cloneDeep(createdItemMeta),
+              dataSources: [{
+                registeredDataSource: 'Tiedejatutkimus.fi',
+                organization: { nameFi: 'Tiedejatutkimus.fi', nameEn: null, nameSv: null }
+              }]
+            });
+          }
           // Update profile for draft preview
           value.profileData[1].fields[1].items = value.profileData[1].fields[1].items.map(previewItem => {
 
@@ -569,7 +585,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.biographyService.userEditableBiographies$.next(biographyStub);
   }
 
-  saveAiBioChanges() {
+  async saveAiBioChanges() {
     // Clear old language versions after generated new bio in Finnish
     let patchBiographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
     patchBiographyStub.itemMeta = this.biographyService.userEditableBiographies$.getValue().itemMeta;
@@ -577,12 +593,29 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     patchBiographyStub.sv = this.biographyService.userEditableBiographies$.getValue().sv;
     patchBiographyStub.en = this.biographyService.userEditableBiographies$.getValue().en;
 
-    this.biographyService.updateBiography(patchBiographyStub).then();
     this.biographyService.visibleDraftBiographies$.next(cloneDeep(patchBiographyStub));
 
     this.setSelectedNotAiBiographyItem(undefined);
 
-    this.generateAndPatchBiographyPayload();
+    // Back end returns the itemMeta of the saved biography
+    let createdItemMeta;
+    try {
+      const response: any = await this.biographyService.updateBiography(patchBiographyStub);
+      if (response?.id) {
+        createdItemMeta = response;
+        // Following saves update the same item
+        if (!patchBiographyStub.itemMeta) {
+          this.biographyService.userEditableBiographies$.next({
+            ...this.biographyService.userEditableBiographies$.getValue(),
+            itemMeta: cloneDeep(response)
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error saving biography', error);
+    }
+
+    this.generateAndPatchBiographyPayload(createdItemMeta);
     this.showDialog$.next(false);
     this.showDraftSaveSuccessNotification();
     this.initLanguageSelectDefaultValue();
