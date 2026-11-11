@@ -4,10 +4,11 @@ export function suffixer(locale) {
 }
 
 export const decisionMakerLabels = {
-  LT:  $localize`Luonnontieteiden ja tekniikan tutkimuksen toimikunta`,
-  BTY: $localize`Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta`,
-  KY:  $localize`Kulttuurin ja yhteiskunnan tutkimuksen toimikunta`,
-  TIK: $localize`Tutkimusinfrastruktuurikomitea`,
-  STN: $localize`Strategisen tutkimuksen neuvosto`,
-  MUU: $localize`Suomen akatemian muu päättäjä`
+  'LT':  $localize`Luonnontieteiden ja tekniikan tutkimuksen toimikunta`,
+  'BTY': $localize`Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta`,
+  'KY':  $localize`Kulttuurin ja yhteiskunnan tutkimuksen toimikunta`,
+  'TIK': $localize`Tutkimusinfrastruktuurikomitea`,
+  'STN': $localize`Strategisen tutkimuksen neuvosto`,
+  'MUU': $localize`Suomen akatemian muu päättäjä`,
+  'TI-tmk':$localize`:@@scientificCouncilForResearchInfrastructures:Tutkimusinfrastruktuuritoimikunta`
 } as const;

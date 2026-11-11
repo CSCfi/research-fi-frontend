@@ -43,6 +43,7 @@ function email(strings) {
 export class FooterComponent {
   locale = inject(LOCALE_ID);
   okmUrl = this.translateOkmUrl(this.locale);
+  cscUrl = this.translateCscUrl(this.locale);
   instructionsUrl = this.translateInstructionUrl(this.locale);
 
   interacted = false;
@@ -64,6 +65,8 @@ export class FooterComponent {
       method: 'discardChangesAndLogout',
     },
   ];
+
+  localizedLinks = { okm: $localize`:@@okmLinkFooter:https://okm.fi/etusivu/`, csc: $localize`:@@cscLinkFooter:https://csc.fi/` };
 
   // Dialog variables
   showDialog: boolean;
@@ -87,14 +90,28 @@ export class FooterComponent {
   }
 
   translateOkmUrl(locale: string) {
-    let output = 'https://www.minedu.fi';
+    let output = 'https://okm.fi/etusivu/';
 
     if (locale === 'en') {
-      output = 'https://minedu.fi/en/';
+      output = 'https://okm.fi/en/frontpage/';
     }
 
     if (locale === 'sv') {
-      output = 'https://minedu.fi/sv/';
+      output = 'https://okm.fi/sv/framsida/';
+    }
+
+    return output;
+  }
+
+  translateCscUrl(locale: string) {
+    let output = 'https://csc.fi/';
+
+    if (locale === 'en') {
+      output = 'https://csc.fi/en/';
+    }
+
+    if (locale === 'sv') {
+      output = 'https://csc.fi/sv/';
     }
 
     return output;

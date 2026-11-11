@@ -371,7 +371,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                                           <!--<div class="row d-flex justify-content-around">-->
                                           <div class="row d-flex justify-content-between">
                                             <div class="col-8 pe-0">
-                                              <span class="label pe-2">{{
+                                              <span class="label pe-2" [class.do-not-hide-overflow]="item.label === 'Tutkimusinfrastruk-tuurikomitea' || item.label === 'Tutkimusinfrastruk-tuuritoimikunta'">{{
                                                 item.label ? item.label : item.key
                                               }}</span>
                                             </div>

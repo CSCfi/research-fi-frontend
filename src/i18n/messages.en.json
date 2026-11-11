@@ -1248,6 +1248,7 @@
         "art_publication_type_info": "Information on whether the publication is a separate artistic work, a partial implementation of such a work, or an artistic contribution related to a non-artistic publication.",
         "report_switch_text": "Report",
         "contactUs": "Contact us",
+        "scientificCouncilForResearchInfrastructures": "Scientific Council for Research Infrastructures",
         "aitta_aiGeneratedDescription": "AI-generated description",
         "aitta_aiGeneratedTextMayContainErrors": "Text created by artificial intelligence can contain factual errors. Remember to check the text.",
         "aitta_demoDescription": "This is a demo-generated description of research activities that includes information about affiliations, outputs, achievements, and activities. It describes the career and motivations of an expert.",
@@ -1281,7 +1282,9 @@
         "aitta_youHaveNotSelectedAnyPublicData": "You haven't selected any information to publish yet",
         "aitta_error_noinformation": "Your public profile doesn't have enough information to create a description.",
         "aitta_error_noinformation_info": "Complete your profile and publish it. You can then create a description.",
-        "aitta_hideDescriptionsFromProfile": "Hide descriptions from profile"
+        "aitta_hideDescriptionsFromProfile": "Hide descriptions from profile",
+        "notice": "Notice",
+        "service_break_banner_text_23_9_06": "The research.fi service will undergo maintenance on Tuesday, September 23, starting at 8 am (EET). During this time, the profile tool will not be available, and the information in the portal will not be updated. We expect the maintenance to be completed by 4 pm (EET). We apologize for any inconvenience caused."
     }
 }
 
