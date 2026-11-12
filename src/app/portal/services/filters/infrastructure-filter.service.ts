@@ -8,6 +8,7 @@
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { FilterConfigType } from 'src/types';
+import { date } from 'zod';
 
 @Injectable({
   providedIn: 'root',
@@ -15,17 +16,29 @@ import { FilterConfigType } from 'src/types';
 export class InfrastructureFilterService {
   filterData: FilterConfigType[] = [
     {
-      field: 'year',
-      label: $localize`:@@fundingYear:Aloitusvuosi`,
+      field: 'infraIsActive',
+      label: $localize`:@@inra-activity-heading:Infrastruktuurin toiminta`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
-      hideSearch: true,
-      tooltip: $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`,
+    },
+    {
+      field: 'startAndEndYearly',
+      label: $localize`:@@infraFiltersStartAndEndYearlyHeading:Toiminnan aloitus ja päättyminen vuosittain`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
     },
     {
       field: 'organization',
-      label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`,
+      label: $localize`:@@responsibleOrganizations:Vastuuorganisaatiot`,
+      hasSubFields: true,
+      open: false,
+      limitHeight: true,
+    },
+    {
+      field: 'participatingOrganizations',
+      label: $localize`:@@participatingOrganizations:Osallistuvat organisaatiot`,
       hasSubFields: true,
       open: false,
       limitHeight: true,
@@ -34,13 +47,42 @@ export class InfrastructureFilterService {
       field: 'field',
       label: $localize`:@@fieldOfScience:Tieteenala`,
       hasSubFields: false,
+      open: false,
+      limitHeight: true,
+    },
+    {
+      field: 'ESFRICodes',
+      label: $localize`ESFRI-luokitus`,
+      hasSubFields: false,
+      open: false,
+      limitHeight: true,
+    },
+    {
+      field: 'serviceTargetSegment',
+      label: $localize`:@@serviceTargetSegment:Palvelun kohderyhmä`,
+      hasSubFields: false,
+      open: false,
+      limitHeight: true,
+    },
+    {
+      field: 'serviceUserRole',
+      label: $localize`:@@serviceUserRole:Palvelun käyttäjät`,
+      hasSubFields: false,
+      open: false,
+      limitHeight: true,
+    },
+    {
+      field: 'hasRelationToInternationalInfra',
+      label: $localize`:@@hasRelationToInternationalInfra:Kuuluu kansainväliseen infrastruktuuriverkostoon`,
+      hasSubFields: false,
       open: true,
       limitHeight: true,
     },
   ];
 
   singleFilterData = [
-    // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteisjulkaisu'}
+    {field: 'finlandRoadmap', label: $localize`Suomen Akatemian tiekartalla`, tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`},
+    /*{field: 'hasRelationToInternationalInfra', label: $localize`:@@hasRelationToInternationalInfra:Kuuluu kansainväliseen infrastruktuuriverkostoon.`, tooltip: ''}*/
   ];
 
   constructor() {}
@@ -51,12 +93,58 @@ export class InfrastructureFilterService {
     source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
     source.organization.buckets = this.mapOrganizations(source.organization);
+    // Participating organization & sector
+    source.participatingOrganizations.buckets = this.mapOrganizations(source.participatingOrganizations);
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science
     source.field = this.field(source.infraField.infraFields);
+    source.ESFRICodes = this.field(source.esfri.esfriFields);
+    source.serviceTargetSegment = this.field(source.serviceTargetSegment.infraSegments);
+    source.serviceUserRole = this.field(source.serviceUserRole.serviceUserRoles);
+    source.hasRelationToInternationalInfra = {
+      buckets: this.formatIsPartOfInternationalInfra(source.hasRelationToInternationalInfra.hasRelationToInternationalInfraCodes)
+    };
+    source.infraIsActive = {
+      buckets: this.formatInfraIsActive(source.infraIsActive.infraIsActiveCodes)
+    };
+    source.startAndEndYearly = {
+      buckets: this.formatStartAndEndYearly(source.activityYears)
+    };
     source.shaped = true;
     return source;
+  }
+
+  formatInfraIsActive(data) {
+    let ret = [];
+    data.buckets.forEach(item => {
+      if (item) {
+        // Key can be 1/0, boolean or a string depending on whether the buckets have been mapped already
+        const isActive = String(item.key_as_string ?? item.key) === 'true' || item.key === 1;
+        ret.push({
+          label: isActive ? $localize`:@@infra-filter-active:Toiminnassa` : $localize`:@@infra-filter-discontinued:Päättynyt`,
+          key: String(isActive),
+          doc_count: item.doc_count,
+        });
+      }
+    });
+    return ret
+  }
+
+  formatIsPartOfInternationalInfra(data) {
+    let ret = [];
+    data.buckets.forEach(item => {
+      if (item) {
+        // Key can be 1/0, boolean or a string depending on whether the buckets have been mapped already
+        const isTrue = String(item.key_as_string ?? item.key) === 'true' || item.key === 1;
+        ret.push({
+          label: isTrue ? $localize`:@@yes:Kyllä` : $localize`:@@no:Ei`,
+          key: String(isTrue),
+          doc_count: item.doc_count,
+        });
+      }
+    });
+    return ret
   }
 
   mapYear(data) {
@@ -77,6 +165,17 @@ export class InfrastructureFilterService {
         subItem.key = subItem.organizationId.buckets.pop()?.key?.toString();
         // subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
+      // Name variants of the same organization share an id, merge them into one entry
+      const merged = new Map();
+      item.subData.forEach((subItem) => {
+        const existing = merged.get(subItem.key);
+        if (existing) {
+          existing.doc_count += subItem.doc_count;
+        } else {
+          merged.set(subItem.key, subItem);
+        }
+      });
+      item.subData = [...merged.values()];
     });
     // Sort by sector id
     data.buckets.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
@@ -119,5 +218,90 @@ export class InfrastructureFilterService {
       item.doc_count = item.filtered.filterCount.doc_count;
     });
     return data;
+  }
+
+  processZeroDays(dateArray: any[]) {
+    dateArray.map((item) => {
+      if (dateArray[0] === 0 ) {
+        dateArray[0] = '00';
+      }
+      if (dateArray[1] === 0 ) {
+        dateArray[1] = '00';
+      }
+      if (dateArray[2] === 0 ) {
+        dateArray[2] = '00';
+      }
+    });
+    return parseInt(dateArray[0] + '' + dateArray[1] + '' + dateArray[2], 10);
+  }
+
+  formatActivityStatus(data) {
+    // Preserve original values to help on doc count calculation when switching
+    // between mobile and desktop resolutions
+    if (data && !data?.originalData) {
+      data.originalData = data.buckets;
+    }
+
+    const now = new Date().toLocaleDateString('sv');
+
+    // 'sv' locale format is yyyy-mm-dd
+    const [year, month, day] = now.split('-');
+    const dmyNow = parseInt(year + month + day, 10);
+
+    const dates: any[] = [...data.originalData];
+    dates.map(date => {
+      date.processedDate = this.processZeroDays(date.key);
+    });
+
+    let openDocs = 0;
+    let closedDocs = 0;
+
+    dates
+      .filter((date) => date.processedDate >= dmyNow)
+      .forEach((date) => (openDocs += date.doc_count));
+    // Closed
+    dates
+      .filter((date) => date.processedDate < dmyNow)
+      .forEach((date) => (closedDocs += date.doc_count));
+
+    const buckets = [
+      {
+        label: $localize`:@@infra-filter-active:Toiminnassa`,
+        key: 'true',
+        doc_count: openDocs,
+      },
+      {
+        label: $localize`:@@infra-filter-discontinued:Päättynyt`,
+        key: 'false',
+        doc_count: closedDocs,
+      },
+    ];
+    return buckets;
+  }
+
+  formatStartAndEndYearly(data) {
+    const selectedYear = 2020;
+
+    /*    dates
+          .filter((date) => date.processedDate >= dmyNow)
+          .forEach((date) => (openDocs += date.doc_count));
+        // Closed
+        dates
+          .filter((date) => date.processedDate < dmyNow)
+          .forEach((date) => (closedDocs += date.doc_count));*/
+
+    const buckets = [
+      {
+        label: $localize`:@@infraFiltersHasStarted:Toiminta aloitettu`,
+        key: 'start',
+        doc_count: 0,
+      },
+      {
+        label: $localize`:@@infraFiltersHasEnded:Toiminta päättynyt`,
+        key: 'end',
+        doc_count: 0,
+      },
+    ];
+    return buckets;
   }
 }

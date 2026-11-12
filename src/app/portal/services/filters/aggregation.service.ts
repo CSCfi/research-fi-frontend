@@ -205,10 +205,10 @@ export class AggregationService {
             filter: filterMethod,
             ...(isDatasetsSection
               ? {
-                  should: {
-                    term: { isLatestVersion: 1 },
-                  },
-                }
+                should: {
+                  term: { isLatestVersion: 1 },
+                },
+              }
               : []),
           },
         },
@@ -228,19 +228,19 @@ export class AggregationService {
     const payLoad: any = {
       ...(searchTerm
         ? {
-            query: {
-              // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
-              // outside path.
-              bool: {
-                should: [
-                  this.settingsService.querySettings(
-                    tab !== 'news' ? tab.slice(0, -1) : tab,
-                    searchTerm
-                  ),
-                ],
-              },
+          query: {
+            // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
+            // outside path.
+            bool: {
+              should: [
+                this.settingsService.querySettings(
+                  tab !== 'news' ? tab.slice(0, -1) : tab,
+                  searchTerm
+                ),
+              ],
             },
-          }
+          },
+        }
         : []),
       size: 0,
       aggs: {},
@@ -1373,35 +1373,37 @@ export class AggregationService {
             },
           }
         },
-        payLoad.aggs.topic = {
-        nested: {
-          path: 'keywords',
-        },
-        aggs: {
-          scheme: {
-            terms: {
-              field: 'keywords.scheme.keyword',
-                exclude: ' ',
-                size: 10,
-                order: {
-                _key: 'asc',
-              },
+          payLoad.aggs.topic = {
+            nested: {
+              path: 'keywords',
             },
             aggs: {
-              keywords: {
+              scheme: {
                 terms: {
-                  field: 'keywords.keyword.keyword',
-                    exclude: ' ',
-                    size: 250,
+                  field: 'keywords.scheme.keyword',
+                  exclude: ' ',
+                  size: 10,
+                  order: {
+                    _key: 'asc',
+                  },
                 },
                 aggs: {
-                  filtered: {
-                    reverse_nested: {},
+                  keywords: {
+                    terms: {
+                      field: 'keywords.keyword.keyword',
+                      exclude: ' ',
+                      size: 250,
+                    },
                     aggs: {
-                      filterCount: {
-                        filter: {
-                          bool: {
-                            filter: filterActiveNested('keywords'),
+                      filtered: {
+                        reverse_nested: {},
+                        aggs: {
+                          filterCount: {
+                            filter: {
+                              bool: {
+                                filter: filterActiveNested('keywords'),
+                              },
+                            },
                           },
                         },
                       },
@@ -1410,10 +1412,8 @@ export class AggregationService {
                 },
               },
             },
-          },
-        },
-      }
-      break;
+          }
+        break;
 
       // Datasets
       case 'datasets':
@@ -1615,38 +1615,52 @@ export class AggregationService {
           null,
           false
         );
+        payLoad.aggs.activityYears = {
+          filter: {
+            bool: {
+            },
+          },
+          aggs: {
+            infraStartsOn: {
+              terms: {
+                field: 'infraStartsOn.year',
+                order: { _key: 'desc' },
+                size: 100,
+              },
+            },
+            infraEndsOn: {
+              terms: {
+                field: 'infraEndsOn.year',
+                order: { _key: 'desc' },
+                size: 100,
+              },
+            },
+          },
+        };
         payLoad.aggs.organization = {
           filter: {
             bool: {
-              filter: filterActive(
-                'responsibleOrganization.TKOppilaitosTunnus.keyword'
-              ),
             },
           },
           aggs: {
             sector: {
               terms: {
                 field:
-                  'responsibleOrganization.responsibleOrganizationSector' +
-                  this.localeC +
-                  '.keyword',
+                  'infraResponsibleOrganization.organizationSector.codeLabel.' +this.localeC.toLowerCase() +'.keyword',
                 exclude: ' ',
               },
               aggs: {
                 organizations: {
                   terms: {
                     field:
-                      'responsibleOrganization.responsibleOrganizationName' +
-                      this.localeC +
-                      '.keyword',
+                      'infraResponsibleOrganization.organizationName.' + this.localeC.toLowerCase() + '.keyword',
                     exclude: ' ',
                   },
                   aggs: {
                     organizationId: {
                       terms: {
                         field:
-                          'responsibleOrganization.TKOppilaitosTunnus.keyword',
-                        exclude: ' ',
+                          'infraResponsibleOrganization.orgNodeId.keyword',
                       },
                     },
                   },
@@ -1654,7 +1668,48 @@ export class AggregationService {
                 sectorId: {
                   terms: {
                     field:
-                      'responsibleOrganization.responsibleOrganizationSectorId.keyword',
+                      'infraResponsibleOrganization.organizationSector.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.participatingOrganizations = {
+          filter: {
+            bool: {
+              filter: filterActive(
+                'infraParticipatingOrganizations.organizationSector.codeValue.keyword'
+              ),
+            },
+          },
+          aggs: {
+            sector: {
+              terms: {
+                field:
+                  'infraParticipatingOrganizations.organizationSector.codeLabel.' + this.localeC.toLowerCase() +'.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                organizations: {
+                  terms: {
+                    field:
+                      'infraParticipatingOrganizations.organizationName.' + this.localeC.toLowerCase() + '.keyword',
+                    exclude: ' ',
+                  },
+                  aggs: {
+                    organizationId: {
+                      terms: {
+                        field:
+                          'infraParticipatingOrganizations.orgNodeId.keyword',
+                      },
+                    },
+                  },
+                },
+                sectorId: {
+                  terms: {
+                    field:
+                      'infraParticipatingOrganizations.organizationSector.codeValue.keyword',
                   },
                 },
               },
@@ -1663,12 +1718,12 @@ export class AggregationService {
         };
         payLoad.aggs.infraField = {
           nested: {
-            path: 'fieldsOfScience',
+            path: 'fieldOfScience',
           },
           aggs: {
             infraFields: {
               terms: {
-                field: 'fieldsOfScience.name' + this.localeC + '.keyword',
+                field: 'fieldOfScience.codeLabel.' + this.localeC.toLowerCase() + '.keyword',
               },
               aggs: {
                 filtered: {
@@ -1677,7 +1732,7 @@ export class AggregationService {
                     filterCount: {
                       filter: {
                         bool: {
-                          filter: filterActiveNested('fieldsOfScience'),
+                          filter: filterActiveNested('fieldOfScience'),
                         },
                       },
                     },
@@ -1685,9 +1740,149 @@ export class AggregationService {
                 },
                 majorId: {
                   terms: {
-                    field: 'fieldsOfScience.field_id.keyword',
+                    field: 'fieldOfScience.codeValue.keyword',
                   },
                 },
+              },
+            },
+          },
+        };
+        payLoad.aggs.esfri = {
+          nested: {
+            path: 'ESFRICodes',
+          },
+          aggs: {
+            esfriFields: {
+              terms: {
+                field: 'ESFRICodes.codeLabel.' + 'en' + '.keyword',
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('ESFRICodes'),
+                        },
+                      },
+                    },
+                  },
+                },
+                majorId: {
+                  terms: {
+                    field: 'ESFRICodes.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.serviceTargetSegment = {
+          nested: {
+            path: 'infraServices.serviceTargetSegment',
+          },
+          aggs: {
+            infraSegments: {
+              terms: {
+                field: 'infraServices.serviceTargetSegment.codeLabel.' + this.localeC.toLowerCase() + '.keyword',
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('infraServices.serviceTargetSegment'),
+                        },
+                      },
+                    },
+                  },
+                },
+                majorId: {
+                  terms: {
+                    field: 'infraServices.serviceTargetSegment.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.serviceUserRole = {
+          nested: {
+            path: 'infraServices.serviceUserRole',
+          },
+          aggs: {
+            serviceUserRoles: {
+              terms: {
+                field: 'infraServices.serviceUserRole.codeLabel.' + this.localeC.toLowerCase() + '.keyword',
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('infraServices.serviceUserRole'),
+                        },
+                      },
+                    },
+                  },
+                },
+                majorId: {
+                  terms: {
+                    field: 'infraServices.serviceUserRole.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.finlandRoadmap = {
+          filter: {
+            bool: {
+              filter: filterActive('finlandRoadmap'),
+            },
+          },
+          aggs: {
+            finlandRoadmapCodes: {
+              terms: {
+                field: 'finlandRoadmap',
+                size: 2,
+              },
+            },
+          },
+        };
+
+        payLoad.aggs.infraIsActive = {
+          filter: {
+            bool: {
+              filter: filterActive('infraIsActive'),
+            },
+          },
+          aggs: {
+            infraIsActiveCodes: {
+              terms: {
+                field: 'infraIsActive',
+                size: 2,
+              },
+            },
+          },
+        };
+
+        payLoad.aggs.hasRelationToInternationalInfra = {
+          filter: {
+            bool: {
+              filter: filterActive('hasRelationToInternationalInfra'),
+            },
+          },
+          aggs: {
+            hasRelationToInternationalInfraCodes: {
+              terms: {
+                field: 'hasRelationToInternationalInfra',
+                size: 2,
               },
             },
           },

@@ -8,3 +8,12 @@
 .copy {
   padding-right: 5%;
 }
+
+.urn-text-link {
+  color: rgba(0, 0, 0, 0.87);
+  .underlined-link {
+    color: #4546b9;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

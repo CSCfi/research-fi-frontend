@@ -84,7 +84,7 @@
     </div>
     <div class="d-flex justify-content-center">{{ generatingDescriptionInfoText[biographyService.dropdownLanguageSelection] }}</div>
   </div>
-  
+
   @if ((((this.biographyService.generateBiographyFetchedToUi$ | async) === false) && ((showDialog$ | async) === false) && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((biographyService.biographyReadyDismissed$ | async) === false))) {
     <div class="language-versions-info-box">
       <div class="d-flex flex-row additional-info-wrap">

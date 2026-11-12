@@ -11,19 +11,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-share',
     templateUrl: './share.component.html',
     styleUrls: ['./share.component.scss'],
-    imports: [SecondaryButtonComponent, CdkCopyToClipboard, TertiaryButtonComponent]
+    imports: [SecondaryButtonComponent, CdkCopyToClipboard, TertiaryButtonComponent, SvgSpritesComponent]
 })
 export class ShareComponent implements OnInit, OnChanges {
   @Input() big = true;
   @Input() id: string;
   @Input() useNewLayoutButton: boolean;
+  @Input() useTextOnlyLink: boolean;
+  @Input() showUrnTextPrefix: boolean = true;
 
-  currentUrl: string;
+  urlToShare: string;
   message: string;
 
   copyLink = $localize`:@@copyLink:Kopioi linkki`;
@@ -51,7 +54,11 @@ export class ShareComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.currentUrl = this.document.location.href;
+    if (this.id) {
+      this.urlToShare = this.id;
+    } else {
+      this.urlToShare = this.document.location.href;
+    }
   }
 
   openSnackBar() {
