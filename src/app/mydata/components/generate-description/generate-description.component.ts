@@ -113,7 +113,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       flexStart: true
     },
     {
-      label: $localize`:@@closeToBackgroundButtonText:Sulje taustalle`,
+      label: $localize`:@@aitta_closeToBackgroundButtonText:Sulje taustalle`,
       primary: true,
       method: 'closeToBackgroundButtonText'
     }
