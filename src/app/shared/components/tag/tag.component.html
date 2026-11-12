@@ -1,0 +1,23 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="tag" [ngClass]="tag">
+  <ng-container [ngSwitch]="tag">
+    <div class="tag-id">
+      <ng-container *ngSwitchCase="'doi'">DOI</ng-container>
+    </div>
+  </ng-container>
+
+  <div class="tag-content">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<ng-container [ngSwitch]="tag">
+  <div *ngSwitchCase="'open-access'" class="open-access">
+    <img src="assets/img/openaccess.svg" />
+    <span i18n="@@openAccess">Avoin saatavuus</span>
+  </div>
+</ng-container>

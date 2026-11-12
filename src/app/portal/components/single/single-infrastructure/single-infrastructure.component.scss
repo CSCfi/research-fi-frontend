@@ -1,9 +1,20 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+:host {
+  --hot-pink: #FF0080;
+  --senary-contrast: #666666;
+  --quaternary-contrast: #999999;
+  --tertiary-contrast: #4b4b4b;
+  --septenary-contrast: #4b4b4b;
+  --secondary-contrast: #000000;
+  --purple-primary: #4546B9;
+  --pink-to-purple-horizontal-gradient: linear-gradient(to right, var(--vivid-pink), var(--purple-primary));
+
+  --purple-dark-bg: #C5C5E5;
+  --purple-bg: #E8E8F5;
+}
+
+.main-content-bg {
+  background: var(--purple-light-bg, #F7F7FB);
+}
 
 .subtitle {
   cursor: pointer;
@@ -13,8 +24,32 @@
   margin-bottom: 1rem;
 }
 
+.bordered-section-single-page {
+  .th, .td {
+    padding: 0.5rem 0rem !important;
+  }
+  border: 1px solid var(--purple-bg, #E8E8F5);
+  background: var(--White, #FFF);
+  padding: 16px 24px;
+  margin: 40px 0px !important;
+}
+
+h1 {
+  font-size: 28px !important;
+}
+
+h2 {
+  font-size: 22.5px !important;
+}
+
+h3 {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
 h3.th {
   padding: 11px 15px !important;
+
   &.contact {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -23,6 +58,39 @@ h3.th {
 
 h4.th.classification {
   padding: 0 !important;
+}
+
+.mini-para-heading {
+  max-width: 110px;
+}
+
+.infra-other-fields {
+  font-size: 14px;
+  margin-top: -10px;
+  .other-fields-heading {
+    font-size: 16px;
+  }
+  .td, .th {
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .td {
+    //justify-content: center;
+  }
+}
+
+.infra-small-text {
+  font-size: 14px !important;
+}
+
+.side-box-heading {
+  font-size: 18px !important;
+  overflow: hidden;
+  font-size: 1.2em;
+  margin-bottom: 0.5rem;
+  line-height: 24px;
+  font-weight: bold;
 }
 
 .subheader {
@@ -34,4 +102,317 @@ h4.th.classification {
 .chevron-wrapper {
   margin-top: 15px;
   margin-left: 6px;
+}
+
+.visualization-network {
+  width: 1315px;
+  height: 10000px;
+  border: 2px solid #C5C5E5;
+}
+
+.infra-network-modal-legend {
+  padding: 30px 0px;
+
+  h1 {
+    font-size: 1.2rem
+  }
+
+  h2 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: 14px !important;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+.infra-card {
+  margin-bottom: 16px !important;
+}
+
+.infra-legend-column {
+  height: 300px;
+}
+
+.infra-trees-container {
+  hr {
+    opacity: 1;
+    color: #4546b9;
+    margin: 0;
+  }
+}
+
+.vis-network {
+  background-color: #fff;
+  border: 1px solid var(--purple-dark-2, #9F9FD4) !important;
+}
+
+.vis-container {
+  height: 90vh !important;
+  display: flex;
+  justify-content: start;
+  align-content: start;
+  flex-direction: row;
+  max-width: 1400px;
+}
+
+.vis-component-container {
+  height: 440px;
+}
+
+.vis-component {
+  max-height: 50vh;
+}
+
+.vr {
+  height: 100%;
+  width: 1px;
+  border: 1px inset;
+  margin: 0px 20px 0px 0px;
+}
+
+.vis-legend-container {
+  position: absolute;
+  z-index: 5000;
+  font-size: 14px;
+  //margin-left: 17px;
+  width: auto;
+  //padding: 10px;
+  border-top-left-radius: 4px;
+  //background-color: #E8E8F5;
+  //overflow: auto;
+  height: 335px;
+  padding: 0;
+}
+
+.relations-dropdown-container {
+  font-size: 14px;
+  border: 1px solid var(--purple-dark-2, #9F9FD4) !important;
+  //margin-bottom: 16px;
+  width: 250px;
+  padding: 10px;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: #E8E8F5;
+  z-index: 5000;
+  height: auto;
+  max-height: 100%;
+  position: absolute;
+  overflow: auto;
+  left: 16px;
+  .relations-heading {
+    font-weight: bold;
+  }
+  .relations-sub-heading {
+    margin-top: 5px;
+    padding:  0px 0px;
+    font-weight: bold;
+    color: #4546B9;
+    cursor: pointer;
+  }
+}
+
+.network-radio-button-container {
+  position: absolute;
+  top: 14px;
+  right: 32px;
+  //width: 219px;
+  z-index: 5000;
+  padding: 6px 15px;
+  border: 1px solid #4546B9;
+  border-radius: 4px;
+  background: #F7F7FB;
+  font-size: 14px;
+}
+
+::ng-deep .network-radio-button-container .mat-internal-form-field > label {
+  text-wrap: nowrap !important;
+}
+
+.dropdown-container, .relations-text {
+  font-size: 14px;
+}
+
+.selected-infra-text {
+  color: #4546B9;;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.root-infra-text-color {
+  color: #068411;
+}
+
+.infra-inner-frame {
+  height: 90vh;
+}
+
+.is-part-of-select-combobox {
+  //margin-top: -619px;
+  margin-left: 1px;
+  width: 280px;
+  height: auto;
+  z-index: 1000;
+}
+
+.has-part-select-combobox {
+  margin-left: 1px;
+  margin-top: -677px;
+  width: 280px;
+  //height: auto;
+  z-index: 1000;
+}
+
+.select {
+  //margin-top: -610px;
+}
+
+.example-popup-container {
+  //margin-top: -610px;
+  padding: 0px !important;
+}
+
+.select-heading {
+  display: flex;
+  position: relative;
+  background-color: #E8E8F5;
+  border-top-left-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px 16px 8px;
+  margin-top: -37px;
+  margin-left: 0px;
+}
+
+.select {
+  display: flex;
+  position: relative;
+  align-items: center;
+  color: color-mix(in srgb, var(--hot-pink) 90%, var(--primary-contrast));
+  background-color: color-mix(in srgb, var(--hot-pink) 5%, transparent);
+  //border: 1px solid #9F9FD4;;
+  background-color: #E8E8F5;
+}
+
+.select:hover {
+  background-color: #9F9FD4;
+}
+
+.select:has([ngComboboxInput][aria-disabled='true']) {
+  opacity: 0.6;
+  cursor: default;
+}
+
+[ngComboboxInput] {
+  opacity: 0;
+  cursor: pointer;
+  padding: 0 1.5rem;
+  height: 2.5rem;
+  border: none;
+}
+
+[ngCombobox]:focus-within .select {
+  outline: 2px solid color-mix(in srgb, var(--hot-pink) 50%, transparent);
+}
+
+.combobox-label {
+  gap: 1rem;
+  left: 16px;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  pointer-events: none;
+}
+
+.is-part-of-popup-container {
+  //margin-top: -580px;
+}
+
+.has-part-popup-container {
+  //margin-top: -540px;
+}
+
+.example-arrow {
+  right: 1rem;
+  position: absolute;
+  pointer-events: none;
+  transition: transform 150ms ease-in-out;
+}
+
+[ngComboboxInput][aria-expanded='true'] ~ .example-arrow {
+  transform: rotate(180deg);
+}
+
+.example-popup-container {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 8px;
+  border-radius: 0.5rem;
+  background-color: var(--septenary-contrast);
+  font-size: 0.9rem;
+
+  max-height: 11rem;
+  opacity: 1;
+  visibility: visible;
+  transition:
+          max-height 150ms ease-out,
+          visibility 0s,
+          opacity 25ms ease-out;
+}
+
+[ngListbox] {
+  gap: 2px;
+  height: 100%;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+}
+
+[ngCombobox]:has([ngComboboxInput][aria-expanded='false']) .example-popup-container {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+          max-height 150ms ease-in,
+          visibility 0s 150ms,
+          opacity 150ms ease-in;
+}
+
+[ngCombobox]:has([ngComboboxInput][aria-expanded='true']) [ngListbox] {
+  display: flex;
+}
+
+[ngOption] {
+  background-color: #E8E8F5;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  margin: 1px;
+  padding: 0 1rem;
+  min-height: 2.25rem;
+  border-radius: 0.5rem;
+}
+
+[ngOption]:hover {
+  background-color: #E8E8F5;
+  background-color: color-mix(in srgb, var(--primary-contrast) 5%, transparent);
+}
+
+[ngOption][data-active='true'] {
+  outline-offset: -2px;
+  outline: 2px solid color-mix(in srgb, var(--hot-pink) 50%, transparent);
+}
+
+[ngOption][aria-selected='true'] {
+  color: var(--hot-pink);
+  background-color: color-mix(in srgb, var(--hot-pink) 5%, transparent);
+}
+
+[ngOption]:not([aria-selected='true']) .example-option-check {
+  display: none;
 }

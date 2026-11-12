@@ -16,7 +16,7 @@ import {
   AfterViewInit,
   TemplateRef,
   ViewChildren,
-  QueryList,
+  QueryList, ChangeDetectionStrategy,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
@@ -34,12 +34,18 @@ import { TableComponent } from '../../../../shared/components/table/table.compon
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { SingleItemService } from '@portal/services/single-item.service';
+import { Subscription } from 'rxjs';
+import { PopoverDirective } from 'ngx-bootstrap/popover';
+import { JsonPipe, SlicePipe } from '@angular/common';
+import { SafeUrlPipe } from '@portal/pipes/safe-url.pipe';
 
 @Component({
-    selector: 'app-infrastructures',
-    templateUrl: './infrastructures.component.html',
-    styleUrls: ['./infrastructures.component.scss'],
-    imports: [
+  selector: 'app-infrastructures',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './infrastructures.component.html',
+  styleUrls: ['./infrastructures.component.scss'],
+  imports: [
     MatProgressSpinner,
     TableComponent,
     RouterLink,
@@ -48,8 +54,12 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NoResultsComponent,
     HighlightSearchPipe,
     HandleInfrastructureLinkPipe,
-    SvgSpritesComponent
-]
+    SvgSpritesComponent,
+    PopoverDirective,
+    JsonPipe,
+    SlicePipe,
+    SafeUrlPipe
+  ]
 })
 export class InfrastructuresComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -71,11 +81,27 @@ export class InfrastructuresComponent
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRow>[];
 
-  @ViewChildren('infrastructureNameColumns', { read: TemplateRef })
+  @ViewChildren('infrastructureRelatedInfraColumn', { read: TemplateRef })
+  infrastructureRelatedInfraColumns: QueryList<ElementRef>;
+
+  @ViewChildren('infrastructureNameColumn', { read: TemplateRef })
   infrastructureNameColumns: QueryList<ElementRef>;
 
   dataMapped: boolean;
   iconTitleInfrastructures = $localize`:@@iconInfrastructures: Infrastruktuurien tiedon ikoni`;
+  outsideOfServiceLocalization = $localize`:@@outsideOfService: Ei tarkempia tietoja Tiedejatutkimus.fi:ssä`;
+
+  infraIsPartOfNumberSentenceStart = $localize`:@@infraIsPartOfNumberSentenceStart:Kuuluu`;
+  infraIsPartOfNumberSentenceEnd = $localize`:@@infraIsPartOfNumberSentenceEnd:infrastruktuuriin`;
+  infraHasPartNumberSentenceStart = $localize`:@@infraHasPartNumberSentenceStart:Sisältää`;
+  infraHasPartNumberSentenceEnd = $localize`:@@infraHasPartNumberSentenceEnd:infrastruktuuria`;
+
+  portalNameLocalization = $localize`:@@appName:Tiedejatutkimus.fi`;
+  private infraNetworkSub: Subscription;
+  infraNetworkResponseData: any;
+  infraNodeList = [];
+  nationalNodeList = [];
+  internationalNodeList = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -84,7 +110,8 @@ export class InfrastructuresComponent
     public sortService: SortService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearchPipe
+    private highlightPipe: HighlightSearchPipe,
+    private singleService: SingleItemService
   ) {}
 
   ngOnInit() {
@@ -107,47 +134,119 @@ export class InfrastructuresComponent
       this.input = input;
       this.mapData();
       this.cdr.detectChanges();
+      this.getInfraNetworkData()
     });
+  }
+
+  getInfraNetworkData(id?: string) {
+    if (true) {
+      this.infraNetworkSub = this.singleService.getInfrastructureNetworkData(undefined).subscribe({
+        next: (responseData) => {
+          this.infraNetworkResponseData = responseData;
+          this.updateInfraNodeList(this.infraNetworkResponseData);
+        },
+        error: (error) => (console.log('error', error))
+      });
+    }
+  }
+
+  updateInfraNodeList(networkData: any){
+    if (networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes) {
+      this.infraNodeList = networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes;
+    }
+    this.nationalNodeList = this.infraNodeList.filter(infra => infra.nodeTypeNational);
+    this.internationalNodeList = this.infraNodeList.filter(infra => infra.nodeTypeInternational);
+  }
+
+  infraHasNationalParts(hasPart: Array<any>){
+    let res= hasPart.some((item) => {return this.nationalNodeList.some(node =>
+      {return node.internalId === item.infraID}
+    )});
+    return res;
+  }
+
+  infraHasInternationalParts(hasPart: Array<any>){
+    let res= hasPart.some((item) => {return this.internationalNodeList.some(node =>
+      {return node.internalId === item.infraID}
+    )});
+    return res;
+  }
+
+  infraIsPartOfNationalInfra(isPartOf: Array<any>){
+    let res= isPartOf.some((item) => {return this.nationalNodeList.some(node =>
+      {return node.internalId === item.infraID}
+    )});
+    return res;
+  }
+
+  infraIsPartOfInternationalInfra(isPartOf: Array<any>){
+    let res= isPartOf.some((item) => {return this.internationalNodeList.some(node =>
+      {return node.internalId === item.infraID}
+    )});
+    return res;
+  }
+
+  getNationalInfraName(infraId: number){
+    let res = undefined;
+    this.nationalNodeList.some((item) => {
+      if (item?.internalId === infraId) {
+        res = item?.nodeTypeNational.acronym;
+      };
+    });
+    return res ?? '';
+  }
+
+  getInternationalInfraName(infraId: number){
+    let res = '';
+    this.internationalNodeList.some((item) => {
+      if (item?.internalId === infraId) {
+        res = item?.nodeTypeInternational?.internationalInfraName;
+      };
+    });
+    return res ?? '';
   }
 
   mapData() {
     // Get cell data from template
     const nameColumnArray = this.infrastructureNameColumns.toArray();
+    const relatedInfrasArray = this.infrastructureRelatedInfraColumns.toArray();
 
     // Map data to table
     // Use highlight pipe for higlighting search term
     this.tableColumns = [
       {
-        key: 'acronym',
-        label: $localize`:@@infraAcronym:Lyhenne`,
-        tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`,
-        class: 'col-3 col-xl-2 d-none d-lg-block',
-        mobile: false,
-      },
-      {
         key: 'name',
         label: $localize`:@@infraName:Nimi`,
-        class: 'col-lg-4 col-xl-4',
+        class: 'col-lg-3 col-xl-3',
         mobile: true,
       },
       {
         key: 'organization',
         label: $localize`:@@infraOrganization:Organisaatio`,
         tooltip: $localize`:@@infraOrganizationTooltip:Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.`,
-        class: 'col-lg-4 col-xl-4',
+        class: 'col-lg-3 col-xl-3',
+        mobile: true,
+      },
+      {
+        key: 'services',
+        label: $localize`:@@infraServices:Palvelut`,
+        tooltip: $localize`:@@infraServicesTooltip:Placeholder`,
+        class: 'col-lg-3 col-xl-3',
+        mobile: true,
+      },
+      {
+        key: 'networkSize',
+        label: $localize`:@@infraNetworkSize:Verkoston koko`,
+        tooltip: $localize`:@@infraNetworkSizeTooltip:Placeholder`,
+        class: 'col-lg-3 col-xl-3',
         mobile: true,
       },
     ];
+
     this.tableRows = this.resultData.infrastructures.map(
       (infrastructure, index) => ({
-        acronym: {
-          label: this.highlightPipe.transform(
-            infrastructure.acronym,
-            this.input
-          ),
-        },
         name: {
-          label: this.highlightPipe.transform(infrastructure.name, this.input),
+          label: this.highlightPipe.transform(infrastructure.name + ' ' + infrastructure.acronym.toUpperCase(), this.input),
           template: nameColumnArray[index],
           link: `/results/infrastructure/${infrastructure.id}`,
         },
@@ -156,6 +255,13 @@ export class InfrastructuresComponent
             infrastructure.responsibleOrganization,
             this.input
           ),
+        },
+        services: {
+          label: infrastructure.services.length
+        },
+        networkSize: {
+          label: '(N/A)',
+          template: relatedInfrasArray[index],
         },
       })
     );
