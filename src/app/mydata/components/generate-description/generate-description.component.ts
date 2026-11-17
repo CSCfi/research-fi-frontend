@@ -288,7 +288,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     if (this.enoughPublishedDataForAiBio)
     {
       this.clearData();
-      this.descriptionSource = 0;
+      this.selectDescriptionSource(0);
       this.openDialog('generate');
     } else {
     this.infoPopover?.toggle();
