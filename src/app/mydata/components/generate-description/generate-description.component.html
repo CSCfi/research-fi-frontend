@@ -76,7 +76,7 @@
     </div>
   </div>
 
-  <div class="language-versions-info-box"
+  <div class="general-info-box"
        *ngIf="(this.biographyService.biographyGenerationOngoing | async) === true && ((showDialog$ | async) === false)">
     <div class="d-flex flex-row justify-content-center mt-2">
       <app-svg-sprites [iconName]="'create-new-diamond'"
@@ -86,7 +86,7 @@
   </div>
   
   @if ((((this.biographyService.generateBiographyFetchedToUi$ | async) === false) && ((showDialog$ | async) === false) && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((biographyService.biographyReadyDismissed$ | async) === false))) {
-    <div class="language-versions-info-box">
+    <div class="general-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
           <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
@@ -105,7 +105,7 @@
   }
 
   @if ((((biographyService.isBiographyAiGeneratedObs$ | async) === true && this.biographyService.generateBiographyFetchedToUi$ | async) === true && ((this.biographyService.biographyGenerationOngoing | async) === false) && ((showDialog$ | async) === false) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 || this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1)) && (this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0)) {
-    <div class="language-versions-info-box">
+    <div class="general-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
           <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
@@ -117,10 +117,46 @@
           <app-secondary-button (keydown.enter)="openDialog('review')"
                                 (click)="openDialog('review')"
                                 content="{{generateDescriptionButtonText}}"></app-secondary-button>
+
         </div>
       </div>
     </div>
   }
+
+  @if (this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1) {
+  <div class="general-info-box">
+    <div class="d-flex flex-row additional-info-wrap">
+      <div class="info-circle-wrap d-flex flex-column">
+        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+      </div>
+
+
+      <div>
+        <h3>{{ aitta_youCanCreateAiBioInfoTitle }}</h3>
+        <div class="mb-3">{{ aitta_youCanCreateAiBioInfoText }}</div>
+
+        <ng-template #popoverTemplate>
+          <div>{{aitta_updateYouProfileFirst}}</div>
+        </ng-template>
+        <div class="d-flex flex-row justify-content-end mb-1">
+          <div class="create-button-popover-container">
+            <div #infoPopover [popover]="popoverTemplate" placement="top" triggers="" [outsideClick]="true"></div>
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-row justify-content-end">
+            <app-secondary-button (keydown.enter)="createDescriptionAdButtonClick()"
+                                  (click)="createDescriptionAdButtonClick()"
+                                  [svgSymbolName]="'create-new-diamond'"
+                                  [svgCssClass]="'create-new-diamond-icon'"
+                                  content="{{generateDescriptionButtonText}}"></app-secondary-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
 
   <!-- Editor modal -->
   <ng-template #editorTemplate>
