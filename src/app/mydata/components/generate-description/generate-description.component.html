@@ -123,28 +123,38 @@
     </div>
   }
 
-  @if (this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1) {
-  <div class="general-info-box">
-    <div class="d-flex flex-row additional-info-wrap">
-      <div class="info-circle-wrap d-flex flex-column">
-        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+  @if (!hideAiBioAd() && this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1) {
+    <div class="general-info-box">
+      <div class="d-flex flex-row additional-info-wrap">
+        <div class="info-circle-wrap d-flex flex-column">
+          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+        </div>
+
+        <div>
+          <h3 class="mb-3">{{ aitta_youCanCreateAiBioInfoTitle }}</h3>
+          <div class="d-flex flex-column">
+            <div class="mb-3">{{ aitta_youCanCreateAiBioInfoText }}</div>
+          </div>
+        </div>
+
+        <div>
+          <app-close-button
+                  (click)="hideAiBioAdClick()"
+                  (keydown.enter)="hideAiBioAdClick()"
+                  tabindex="-1"
+          ></app-close-button>
+        </div>
       </div>
 
 
-      <div>
-        <h3>{{ aitta_youCanCreateAiBioInfoTitle }}</h3>
-        <div class="mb-3">{{ aitta_youCanCreateAiBioInfoText }}</div>
-
         <ng-template #popoverTemplate>
-          <div>{{aitta_updateYouProfileFirst}}</div>
+          <div>{{ aitta_updateYouProfileFirst }}</div>
         </ng-template>
         <div class="d-flex flex-row justify-content-end mb-1">
-          <div class="create-button-popover-container">
-            <div #infoPopover [popover]="popoverTemplate" placement="top" triggers="" [outsideClick]="true"></div>
-          </div>
-        </div>
-        <div class="d-flex flex-column">
-          <div class="d-flex flex-row justify-content-end">
+          <div class="d-flex flex-column">
+            <div class="create-button-popover-container mb-1">
+              <div #infoPopover [popover]="popoverTemplate" placement="top" triggers="" [outsideClick]="true"></div>
+            </div>
             <app-secondary-button (keydown.enter)="createDescriptionAdButtonClick()"
                                   (click)="createDescriptionAdButtonClick()"
                                   [svgSymbolName]="'create-new-diamond'"
@@ -152,9 +162,7 @@
                                   content="{{generateDescriptionButtonText}}"></app-secondary-button>
           </div>
         </div>
-      </div>
     </div>
-  </div>
   }
 
 

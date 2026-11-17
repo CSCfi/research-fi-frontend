@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { AsyncPipe, isPlatformBrowser, JsonPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 import { CommonStrings } from '@mydata/constants/strings';
@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { PopoverDirective, PopoverModule } from 'ngx-bootstrap/popover';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { countShownItems } from '@mydata/utils';
+import { CloseButtonComponent } from '@shared/components/buttons/close-button/close-button.component';
 
 @Component({
   selector: 'app-generate-description',
@@ -33,7 +34,8 @@ import { countShownItems } from '@mydata/utils';
     FormsModule,
     NgIf,
     NgForOf,
-    PopoverModule
+    PopoverModule,
+    CloseButtonComponent
   ],
   templateUrl: './generate-description.component.html',
   styleUrl: './generate-description.component.scss'
@@ -221,6 +223,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   enoughPublishedDataForAiBio = false;
   biographyModalTextAreaValue = '';
+  hideAiBioAd = signal(false);
 
   constructor(
     public biographyService: BiographyService,
@@ -266,6 +269,19 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.initBiographies();
       }
     });
+
+    if (isPlatformBrowser(this.platformId)) {
+      if (sessionStorage.getItem('hideAiBioAd') === 'true') {
+          this.hideAiBioAd.set(true);
+        }
+      }
+  }
+
+  hideAiBioAdClick(){
+    this.hideAiBioAd.set(true);
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('hideAiBioAd', 'true');
+    }
   }
 
   createDescriptionAdButtonClick(){
