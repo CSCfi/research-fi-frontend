@@ -1280,6 +1280,9 @@
         "aitta_error_noinformation": "Julkisessa profiilissasi ei ole riittävästi tietoja kuvauksen luomiseksi.",
         "aitta_error_noinformation_info": "Täydennä profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen.",
         "aitta_hideDescriptionsFromProfile": "Piilota kuvaukset profiilista",
+        "aitta_youCanCreateAiBioInfoTitle": "Voit nyt luoda kuvauksen tekoälyn avulla!",
+        "aitta_youCanCreateAiBioInfoText": "Tekoäly hyödyntää vain profiilissasi julkaistuja tietoja. Täydennä siis ensin profiilisi tiedot ja julkaise. Palaa sen jälkeen luomaan kuvaus.",
+        "aitta_updateYouProfileFirst":"Täydennä ensin profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen.",
         "infraNetworkInfoText": "Tarkastele infrastruktuuria osana siihen liittyvien infrastruktuurien verkostoa",
         "showInfrastructureNetwork": "Näytä verkosto",
         "neighbourInfrastructures": "Liittyvät infrastruktuurit",
@@ -1333,9 +1336,6 @@
         "infraIsPartOfNumberSentenceEnd": "infrastruktuuriin",
         "infraHasPartNumberSentenceStart": "Sisältää",
         "infraHasPartNumberSentenceEnd": "infrastruktuuria",
-        "aitta_youCanCreateAiBioInfoTitle": "Voit nyt luoda kuvauksen tekoälyn avulla!",
-        "aitta_youCanCreateAiBioInfoText": "Tekoäly hyödyntää vain profiilissasi julkaistuja tietoja. Täydennä siis ensin profiilisi tiedot ja julkaise. Palaa sen jälkeen luomaan kuvaus.",
-        "aitta_updateYouProfileFirst":"Täydennä ensin profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen.",
         "notice": "Huomio",
         "service_break_banner_text_23_9_06": "Tiedejatutkimus.fi-palvelussa suoritetaan päivitystöitä tiistaina 23.9. klo 8 alkaen. Tänä aikana profiilityökalu ei ole käytettävissä ja portaalin tiedot eivät päivity. Arvioitu valmistumisaika on klo 16 mennessä. Pahoittelemme katkosta aiheutuvaa haittaa."
     }
