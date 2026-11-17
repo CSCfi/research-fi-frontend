@@ -260,3 +260,22 @@ export function filterBySource(field, filters) {
     )
   );
 }
+
+/*
+ * Count itemMeta objects with show === true in profile data
+ * received from the profiledata endpoint (accepts the whole response or its data object).
+ */
+export function countShownItems(profileData: any): number {
+  if (!profileData || typeof profileData !== 'object') {
+    return 0;
+  }
+  if (Array.isArray(profileData)) {
+    return profileData.reduce((sum, value) => sum + countShownItems(value), 0);
+  }
+  return Object.entries(profileData).reduce((sum, [key, value]) => {
+    if (key === 'itemMeta') {
+      return sum + ((value as any)?.show === true ? 1 : 0);
+    }
+    return sum + countShownItems(value);
+  }, 0);
+}
