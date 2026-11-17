@@ -57,7 +57,8 @@
     <br/>
   </div>
 
-  <div class="row pt-2 pb-3 justify-content-between">
+  <div *ngIf="this.biographyService.visibleDraftBiographies$.getValue().fi.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().en.length > 0 || this.biographyService.visibleDraftBiographies$.getValue().sv.length > 0"
+       class="row pt-2 pb-3 justify-content-between">
     <div *ngIf="selectedLanguageTab === 0">
       <div class="biography-text">{{ this.biographyService.visibleDraftBiographies$.getValue().fi }}</div>
     </div>
@@ -123,7 +124,7 @@
     </div>
   }
 
-  @if (!hideAiBioAd() && this.biographyService.visibleDraftBiographies$.getValue().fi.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().en.length < 1 && this.biographyService.visibleDraftBiographies$.getValue().sv.length < 1) {
+  @if (!hideAiBioAd() && (biographyService.isBiographyAiGeneratedObs$ | async) === false) {
     <div class="general-info-box">
       <div class="d-flex flex-row additional-info-wrap">
         <div class="info-circle-wrap d-flex flex-column">
@@ -147,21 +148,21 @@
       </div>
 
 
-        <ng-template #popoverTemplate>
-          <div>{{ aitta_updateYouProfileFirst }}</div>
-        </ng-template>
-        <div class="d-flex flex-row justify-content-end mb-1">
-          <div class="d-flex flex-column">
-            <div class="create-button-popover-container mb-1">
-              <div #infoPopover [popover]="popoverTemplate" placement="top" triggers="" [outsideClick]="true"></div>
-            </div>
-            <app-secondary-button (keydown.enter)="createDescriptionAdButtonClick()"
-                                  (click)="createDescriptionAdButtonClick()"
-                                  [svgSymbolName]="'create-new-diamond'"
-                                  [svgCssClass]="'create-new-diamond-icon'"
-                                  content="{{generateDescriptionButtonText}}"></app-secondary-button>
+      <ng-template #popoverTemplate>
+        <div>{{ aitta_updateYouProfileFirst }}</div>
+      </ng-template>
+      <div class="d-flex flex-row justify-content-end mb-1">
+        <div class="d-flex flex-column">
+          <div class="create-button-popover-container mb-1">
+            <div #infoPopover [popover]="popoverTemplate" placement="top" triggers="" [outsideClick]="true"></div>
           </div>
+          <app-secondary-button (keydown.enter)="createDescriptionAdButtonClick()"
+                                (click)="createDescriptionAdButtonClick()"
+                                [svgSymbolName]="'create-new-diamond'"
+                                [svgCssClass]="'create-new-diamond-icon'"
+                                content="{{generateDescriptionButtonText}}"></app-secondary-button>
         </div>
+      </div>
     </div>
   }
 
