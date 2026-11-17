@@ -234,7 +234,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('PROFILE IN GENERATE DESCRIPTION', this.fullProfiledata);
     if (countShownItems(this.fullProfiledata) > 5) {
       this.enoughPublishedDataForAiBio = true;
     } else {
@@ -273,7 +272,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     if (this.enoughPublishedDataForAiBio)
     {
       this.clearData();
-      // Only preselect the dropdown value. selectDescriptionSource() would also change step and dialog actions.
       this.descriptionSource = 0;
       this.openDialog('generate');
     } else {
