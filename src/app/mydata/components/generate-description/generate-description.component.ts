@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { AsyncPipe, isPlatformBrowser, JsonPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 import { CommonStrings } from '@mydata/constants/strings';
@@ -15,7 +15,10 @@ import { Constants } from '@mydata/constants';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { FormsModule } from '@angular/forms';
+import { PopoverDirective, PopoverModule } from 'ngx-bootstrap/popover';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { countShownItems } from '@mydata/utils';
+import { CloseButtonComponent } from '@shared/components/buttons/close-button/close-button.component';
 
 @Component({
   selector: 'app-generate-description',
@@ -30,7 +33,9 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
     NgClass,
     FormsModule,
     NgIf,
-    NgForOf
+    NgForOf,
+    PopoverModule,
+    CloseButtonComponent
   ],
   templateUrl: './generate-description.component.html',
   styleUrl: './generate-description.component.scss'
@@ -41,6 +46,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   @Input() hasSelectedItems: any = false;
   @Input() sectionIndex: number = 0;
   @Output() openDialogCall = new EventEmitter<number>();
+
+  @ViewChild('infoPopover', { read: PopoverDirective }) infoPopover: PopoverDirective;
 
   showDialog$ = new BehaviorSubject(false);
 
@@ -97,6 +104,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   keywordsText = $localize`:@@keywords:Avainsanat`;
 
   aiGeneratedTextMayContainErrors = $localize`:@@aitta_aiGeneratedTextMayContainErrors:Tekoälyn luoma teksti voi sisältää asiavirheitä. Muistathan tarkastaa tekstin.`;
+
+  aitta_youCanCreateAiBioInfoTitle = $localize`:@@aitta_youCanCreateAiBioInfoTitle:Voit nyt luoda kuvauksen tekoälyn avulla!`;
+  aitta_youCanCreateAiBioInfoText = $localize`:@@aitta_youCanCreateAiBioInfoText:Tekoäly hyödyntää vain profiilissasi julkaistuja tietoja. Täydennä siis ensin profiilisi tiedot ja julkaise. Palaa sen jälkeen luomaan kuvaus.`;
+  aitta_updateYouProfileFirst = $localize`:@@aitta_updateYouProfileFirst:Täydennä ensin profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen.`;
 
   dialogActions1 = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
@@ -210,7 +221,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   private clearDataSub: Subscription;
   private updateDataSub: Subscription;
 
+  enoughPublishedDataForAiBio = false;
   biographyModalTextAreaValue = '';
+  hideAiBioAd = signal(false);
 
   constructor(
     public biographyService: BiographyService,
@@ -224,6 +237,12 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (countShownItems(this.fullProfiledata) > 5) {
+      this.enoughPublishedDataForAiBio = true;
+    } else {
+      this.enoughPublishedDataForAiBio = false;
+    }
+
     if (!this.biographyService.isBiographyGenerationOngoing()) {
       this.initBiographies();
     } else {
@@ -250,6 +269,31 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.initBiographies();
       }
     });
+
+    if (isPlatformBrowser(this.platformId)) {
+      if (sessionStorage.getItem('hideAiBioAd') === 'true') {
+          this.hideAiBioAd.set(true);
+        }
+      }
+  }
+
+  hideAiBioAdClick(){
+    this.hideAiBioAd.set(true);
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('hideAiBioAd', 'true');
+    }
+  }
+
+  createDescriptionAdButtonClick(){
+    if (this.enoughPublishedDataForAiBio)
+    {
+      this.clearData();
+      this.descriptionSource = 0;
+      this.openDialog('generate');
+    } else {
+    this.infoPopover?.toggle();
+
+    }
   }
 
   clearData() {

@@ -63,7 +63,7 @@
   }
 }
 
-.language-versions-info-box {
+.general-info-box {
   border-radius: 4px;
   padding: 16px;
   margin: 24px;
@@ -73,6 +73,10 @@
     margin-right: 15px;
     margin-top: 1px;
   }
+}
+
+.create-button-popover-container {
+  width: 175px;
 }
 
 .bio-textarea {
@@ -237,3 +241,15 @@
   }
 }
 
+
+:host ::ng-deep .popover {
+  --bs-popover-bg: #000;
+  --bs-popover-border-color: #000;
+  --bs-popover-body-color: #fff;
+  --bs-popover-header-bg: #000;
+  --bs-popover-header-color: #fff;
+
+  &.bs-popover-top {
+    margin-bottom: 8px;
+  }
+}
