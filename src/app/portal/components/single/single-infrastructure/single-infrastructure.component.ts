@@ -24,7 +24,8 @@ import {
   afterRenderEffect,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { NgIf, NgFor, NgClass, NgSwitch, ViewportScroller, AsyncPipe, JsonPipe } from '@angular/common';
+import { NgIf, NgFor, NgClass, NgSwitch, ViewportScroller, AsyncPipe, JsonPipe, LowerCasePipe } from '@angular/common';
+import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -106,6 +107,8 @@ type TreeNode = {
     DialogComponent,
     AsyncPipe,
     JsonPipe,
+    LowerCasePipe,
+    CapitalizeFirstLetterPipe,
     HandleInfrastructureLinkPipe,
     HighlightSearchPipe,
     Combobox,

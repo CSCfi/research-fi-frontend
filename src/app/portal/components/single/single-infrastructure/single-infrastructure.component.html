@@ -179,7 +179,7 @@
 
                   <!-- Fields of science --->
                   <div class="col-6 col-sm-3 td">{{ fieldsOfScienceLocalization }}:</div>
-                  <div class="col-6 col-sm-8 td">{{ responseData.infrastructures[0]?.fieldsOfScience.join(', ') }}</div>
+                  <div class="col-6 col-sm-8 td">@for (field of responseData.infrastructures[0]?.fieldsOfScience; track $index) {{{ field | lowercase | capitalizeFirstLetter }}@if (!$last) {, }}</div>
 
                   <!-- Classifications --->
                   <div class="col-6 col-sm-3 td">{{ classificationsLocalization }}:</div>
