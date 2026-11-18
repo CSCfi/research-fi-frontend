@@ -34,14 +34,12 @@
             [resultNameField]="'name'"
             [queryParams]="tabQueryParams"
     ></app-breadcrumb>
+  @if (infraNotFound) {
+    <div class="col-12" style="margin: 10px 0 10px 0">
+      <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+    </div>
+  } @else {
     <div class="row shared">
-      <div
-              class="col-12"
-              style="margin: 10px 0 10px 0"
-              *ngIf="responseData.total === 0"
-      >
-        <h2 i18n="@@404">404 - Virheellinen osoite</h2>
-      </div>
       <main class="col-12 col-md-8">
         <div *ngFor="let item of [responseData.infrastructures[0]]">
           <h1 class="result-header">{{ item?.name }}</h1>
@@ -181,7 +179,7 @@
 
                   <!-- Fields of science --->
                   <div class="col-6 col-sm-3 td">{{ fieldsOfScienceLocalization }}:</div>
-                  <div class="col-6 col-sm-8 td">{{ responseData.infrastructures[0]?.fieldsOfScience.join(', ') }}</div>
+                  <div class="col-6 col-sm-8 td">@for (field of responseData.infrastructures[0]?.fieldsOfScience; track $index) {{{ field | lowercase | capitalizeFirstLetter }}@if (!$last) {, }}</div>
 
                   <!-- Classifications --->
                   <div class="col-6 col-sm-3 td">{{ classificationsLocalization }}:</div>
@@ -324,7 +322,7 @@
             </mat-card>
           </aside>
 
-          @if (infraTreeNodes) {
+          @if (infraTreeNodes?.length > 0) {
             <aside>
               <mat-card class="infra-card" appearance="outlined">
                 <div class="inner transparent-bg">
@@ -351,7 +349,7 @@
             </aside>
           }
 
-          @if (infraTreeNodes) {
+          @if (infraTreeNodes?.length > 0) {
             <aside>
               <mat-card class="infra-card" appearance="outlined">
                 <div class="inner infra-trees-container">
@@ -450,6 +448,7 @@
         </div>
       }
     </div>
+  }
   </div>
 </div>
 
@@ -655,7 +654,7 @@
                 <h3>
                   <span class="pe-1">{{ infraModalTexts.infraStartYear }}</span>
                 </h3>
-                @if (modalInfraData?.infrastructures[0]?.startYear?.length > 0) {
+                @if (modalInfraData?.infrastructures[0]?.startYear) {
                   <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
                 } @else {
                   <p>{{ infraModalTexts.dataMissing }}</p>
@@ -686,7 +685,7 @@
                 <p>
                   <app-primary-action-button
                           [content]="infraModalTexts.showNetworkGraph"
-                          (click)="setNewRootNode(modalInfraData?.infrastructures[0]?.acronym)"
+                          (click)="setNewRootNode(modalInfraData?.infrastructures[0]?.id)"
                   ></app-primary-action-button>
                 <h3>
                   <span class="">{{ selectedInfraName }}</span>
