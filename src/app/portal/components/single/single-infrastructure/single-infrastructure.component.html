@@ -324,7 +324,7 @@
             </mat-card>
           </aside>
 
-          @if (infraTreeNodes) {
+          @if (infraTreeNodes?.length > 0) {
             <aside>
               <mat-card class="infra-card" appearance="outlined">
                 <div class="inner transparent-bg">
@@ -351,7 +351,7 @@
             </aside>
           }
 
-          @if (infraTreeNodes) {
+          @if (infraTreeNodes?.length > 0) {
             <aside>
               <mat-card class="infra-card" appearance="outlined">
                 <div class="inner infra-trees-container">

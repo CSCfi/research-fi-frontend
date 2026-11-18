@@ -574,6 +574,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.visibleNodes.next(tempNodeList);
     this.visibleEdges.next(tempEdgeList);
     this.infraRootId.next(this.nodeList.find(node => node.infraId === this.responseData.infrastructures[0]?.id)?.id);
+    this.restrictNetworkToRootComponent(this.infraRootId.getValue());
     this.calculateIsPartOf(toInteger(this.infraRootId.getValue()), true);
     this.calculateHasPart(toInteger(this.infraRootId.getValue()), true);
     this.rootId = this.infraRootId.getValue();
@@ -709,6 +710,32 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     });
   }
 
+
+  // Keep only the nodes and edges connected (directly or through other nodes) to the root infrastructure
+  restrictNetworkToRootComponent(rootNodeId: number) {
+    const connectedIds = new Set<number>();
+    if (rootNodeId !== undefined) {
+      const queue = [rootNodeId];
+      while (queue.length > 0) {
+        const currentId = queue.pop();
+        if (connectedIds.has(currentId)) {
+          continue;
+        }
+        connectedIds.add(currentId);
+        this.edges.forEach(edge => {
+          if (edge.from === currentId) {
+            queue.push(edge.to);
+          } else if (edge.to === currentId) {
+            queue.push(edge.from);
+          }
+        });
+      }
+    }
+    this.nodeList = this.nodeList.filter(node => connectedIds.has(node.id));
+    this.edges = this.edges.filter(edge => connectedIds.has(edge.from) && connectedIds.has(edge.to));
+    this.visibleNodes.next(this.nodeList);
+    this.visibleEdges.next(this.edges);
+  }
 
   reduceNetworkSize(isReduced: boolean) {
     this.reducedNetworkSize = isReduced;
