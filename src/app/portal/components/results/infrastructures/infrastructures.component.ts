@@ -35,6 +35,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { SingleItemService } from '@portal/services/single-item.service';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 import { Subscription } from 'rxjs';
 import { PopoverDirective } from 'ngx-bootstrap/popover';
 import { JsonPipe, SlicePipe } from '@angular/common';
@@ -111,7 +112,8 @@ export class InfrastructuresComponent
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
     private highlightPipe: HighlightSearchPipe,
-    private singleService: SingleItemService
+    private singleService: SingleItemService,
+    private modelUtils: ModelUtilsService
   ) {}
 
   ngOnInit() {
@@ -190,7 +192,7 @@ export class InfrastructuresComponent
     let res = undefined;
     this.nationalNodeList.some((item) => {
       if (item?.internalId === infraId) {
-        res = item?.nodeTypeNational.acronym;
+        res = this.modelUtils.checkTranslationFromArrayToString(item?.nodeTypeNational?.infraName);
       };
     });
     return res ?? '';
