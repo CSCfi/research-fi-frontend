@@ -288,8 +288,19 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     if (this.enoughPublishedDataForAiBio)
     {
       this.clearData();
-      this.descriptionSource = 0;
+      // clearData() refills the texts from the profile data, which can still hold the removed description.
+      // Keep itemMeta so the new description is saved into the same item.
+      this.biographyService.userEditableBiographies$.next({
+        fi: '',
+        en: '',
+        sv: '',
+        itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
+      });
+      this.biographyModalTextAreaValue = '';
       this.openDialog('generate');
+      // Select after openDialog(), because its initBiographies() can change the source from saved draft or not ai descriptions.
+      // Also sets contentCreationStep to 3, which the create button in the modal requires
+      this.selectDescriptionSource(0);
     } else {
     this.infoPopover?.toggle();
 
@@ -367,15 +378,16 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     // Take biography from old api
     if (this.data && this.data.id === 'researchDescription') {
       let itemIndex = -1;
+      let visibleAiBiographyExists = false;
       this.data?.items.forEach(item => {
         itemIndex += 1;
         // Ai generated biography exists
         if (item.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
-          if (item.itemMeta.show === true) {
-            this.biographyService.isBiographyAiGeneratedObs$.next(true);
+          const hasLanguageVersion = !!(item?.researchDescriptionFi || item?.researchDescriptionEn || item?.researchDescriptionSv);
+          if (item.itemMeta.show === true && hasLanguageVersion) {
+            visibleAiBiographyExists = true;
             this.selectDescriptionSource(0);
           } else {
-            this.biographyService.isBiographyAiGeneratedObs$.next(false);
             if (this.descriptionSourceInSavedDraft !== -1) {
               this.selectDescriptionSource(this.descriptionSourceInSavedDraft);
             }
@@ -433,6 +445,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.contentCreationStep = 3;
         }
       });
+      // False also when the ai generated biography is missing or has no language versions left
+      this.biographyService.isBiographyAiGeneratedObs$.next(visibleAiBiographyExists);
     }
 
     // User has exited the page before bio is loaded into ui
@@ -638,6 +652,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     patchBiographyStub.en = this.biographyService.userEditableBiographies$.getValue().en;
 
     this.biographyService.visibleDraftBiographies$.next(cloneDeep(patchBiographyStub));
+    // No ai generated biography left, if all language versions were deleted
+    this.biographyService.isBiographyAiGeneratedObs$.next(!!(patchBiographyStub.fi || patchBiographyStub.en || patchBiographyStub.sv));
 
     this.setSelectedNotAiBiographyItem(undefined);
 
@@ -840,7 +856,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       }
       case 'saveChanges': {
         this.saveAiBioChanges();
-        this.biographyService.isBiographyAiGeneratedObs$.next(true);
         break;
       }
 
