@@ -90,6 +90,7 @@
 }
 
 .profile-tool-modal {
+  max-height: 65vh;
   &.editor-modal {
     textarea {
       min-height: 85px;
