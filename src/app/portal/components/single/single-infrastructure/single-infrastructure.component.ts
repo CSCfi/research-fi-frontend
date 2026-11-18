@@ -137,6 +137,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   reducedNetworkSize = true;
 
   infraTreeLoading = false;
+  infraNotFound = false;
 
   isPartOfDropdownVisible = false;
   hasPartDropdownVisible = false;
@@ -785,6 +786,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         } else {
           // Fetch single infra page data
           this.responseData = responseData;
+          this.infraNotFound = !this.responseData?.infrastructures?.[0];
+          if (this.infraNotFound) {
+            // Nothing to show, so don't load other data
+            return;
+          }
           if (this.responseData.infrastructures[0]) {
             switch (this.localeId) {
               case 'fi': {
