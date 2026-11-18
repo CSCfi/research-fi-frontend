@@ -525,7 +525,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   processInfraNetworkData(data: any) {
-    const tempNodes = data.hits.hits[0]._source.infraNetworks.nodes;
+    // National infrastructures without key identifier are not shown
+    const tempNodes = data.hits.hits[0]._source.infraNetworks.nodes.filter(
+      (node) => !node.nodeTypeNational || node.nodeTypeNational.infraKeyIdentifier
+    );
+    const tempNodeIds = new Set(tempNodes.map((node) => node.internalId));
     const tempEdges = data.hits.hits[0]._source.infraNetworks.hasPartEdges;
     let tempNodeList = [];
     let tempEdgeList = [];
@@ -561,7 +565,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     });
 
     tempEdges.forEach((edge) => {
-      if (edge?.relationFrom && edge?.relationTo) {
+      if (tempNodeIds.has(edge?.relationFrom?.internalId) && tempNodeIds.has(edge?.relationTo?.internalId)) {
         tempEdgeList.push({
           to: edge.relationFrom?.internalId,
           from: edge.relationTo?.internalId,

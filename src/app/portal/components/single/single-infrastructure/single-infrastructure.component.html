@@ -654,7 +654,7 @@
                 <h3>
                   <span class="pe-1">{{ infraModalTexts.infraStartYear }}</span>
                 </h3>
-                @if (modalInfraData?.infrastructures[0]?.startYear?.length > 0) {
+                @if (modalInfraData?.infrastructures[0]?.startYear) {
                   <p>{{ modalInfraData.infrastructures[0]?.startYear }}</p>
                 } @else {
                   <p>{{ infraModalTexts.dataMissing }}</p>

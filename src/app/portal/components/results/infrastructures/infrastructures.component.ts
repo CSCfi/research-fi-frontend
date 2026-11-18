@@ -154,7 +154,9 @@ export class InfrastructuresComponent
 
   updateInfraNodeList(networkData: any){
     if (networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes) {
-      this.infraNodeList = networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes;
+      this.infraNodeList = networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes
+        // National infrastructures without key identifier are not shown
+        .filter(infra => !infra.nodeTypeNational || infra.nodeTypeNational.infraKeyIdentifier);
     }
     this.nationalNodeList = this.infraNodeList.filter(infra => infra.nodeTypeNational);
     this.internationalNodeList = this.infraNodeList.filter(infra => infra.nodeTypeInternational);
