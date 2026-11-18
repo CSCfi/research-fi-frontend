@@ -57,8 +57,7 @@ bs-tooltip-container {
 }
 
 .mat-dialog-content {
-  //max-height: 65vh !important;
-  height: 95vh !important;
+  max-height: 65vh !important;
 }
 
 .cdk-overlay-pane {
@@ -69,7 +68,7 @@ bs-tooltip-container {
   max-width: unset !important;
   max-width: 100%;
   min-width: 100%;
-  overflow-y: scroll !important;
+  overflow-y: auto;
 }
 
 .mdc-dialog__actions {
@@ -87,7 +86,8 @@ bs-tooltip-container {
 }
 
 .profile-tool-modal {
-  //max-width: 864px;
+  max-width: 864px;
+  max-height: 55vh;
 }
 
 // Researchers profile tool search field
