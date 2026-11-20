@@ -77,7 +77,7 @@
                 </div>
               }
 
-              @if (singleService.targetAudience){
+              @if (singleService.targetAudience?.length > 0) {
                 <div class="row gx-1 mb-1">
                   <div class="col-6 col-md-3 fw-bold">
                     {{targetAudienceLocalization}}
@@ -87,7 +87,7 @@
                   </div>
                 </div>
               }
-              @if (singleService.targetSegment){
+              @if (singleService.targetSegment?.length > 0) {
                 <div class="row gx-1 mb-1">
                   <div class="col-6 col-md-3 fw-bold">
                     {{targetSegmentLocalization}}
@@ -116,9 +116,24 @@
                   <div class="col-6 col-md-9 mb-3">
                     @for (contact of singleService.contacts; track contact){
                       <div> {{contact.contactLabel}}</div>
-                      <div> {{contact.email}}</div>
-                      <div> {{contact.telephone}}</div>
-                      <div> {{contact.address}}</div>
+                      @for (email of contact.email; track email) {
+                        <div>
+                          @if (revealedEmails.has(email)) {
+                            {{ email }}
+                          } @else {
+                            <a href="javascript:void(0)" tabindex="0" role="button"
+                               (click)="revealEmail(email)" (keydown.enter)="revealEmail(email)"
+                               i18n="@@showEmailAddress">Näytä sähköpostiosoite</a>
+                          }
+                        </div>
+                      }
+                      @for (phone of contact.phone; track phone) {
+                        <div> {{phone}}</div>
+                      }
+                      <div> {{contact.visitingAddress.street}}</div>
+                      <div> {{contact.visitingAddress.postalCode}}</div>
+                      <div> {{localize(contact.visitingAddress.locality)}}</div>
+                      <div> {{localize(contact.visitingAddress.country?.codeLabel)}}</div>
                     }
                   </div>
                 </div>

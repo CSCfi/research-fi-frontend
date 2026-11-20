@@ -42,7 +42,7 @@ export class Infrastructure {
     public urn: string,
     public responsibleOrganization: string,
     public responsibleOrganizationId: string,
-    public participantOrganizations: string,
+    public participatingOrganizations: string,
     public statCenterId: string,
     public replacingInfraStructure: string,
     public fieldsOfScience: object[],
@@ -67,8 +67,6 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
   adapt(item: any): Infrastructure {
     this.infraContactInfo = [];
-    const capitalizedLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
 
     const services: InfraService[] = [];
     const fieldsOfScience: string[] = [];
@@ -88,34 +86,6 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
       const year = item.infraEndsOn.year ?? '0';
       item.infraEndDate = new Date(year, month , day);
     }
-
-    // Init and assign if available
-    let responsibleOrganization = '';
-    let responsibleOrganizationId = '';
-    if (item.infraResponsibleOrganization) {
-      // TODO: fix to use localized values
-      responsibleOrganization = item.infraResponsibleOrganization?.organizationName?.fi ?? '';
-      responsibleOrganizationId = item.infraResponsibleOrganization?.organizationIdentifier[0]?.pidContent ?? '';
-    }
-
-    let participantOrganization = '';
-    let participantOrganizationId = '';
-    if (item.participantOrganization) {
-      // TODO: fix to use localized values
-      participantOrganization = item.infraParticipantOrganizations?.organizationName?.fi ?? '';
-      participantOrganizationId = item.infraParticipantOrganizations?.organizationIdentifier[0]?.pidContent ?? '';
-    }
-
-    let participantOrganizations = '';
-    const orgList = [];
-    if (item.participantOrganizations) {
-      item.participantOrganizations.forEach((org) => {
-        orgList.push(
-          this.utils.checkTranslation('participantOrganizationName', org).trim()
-        );
-      });
-    }
-    participantOrganizations = orgList.join(', ');
 
     if (item?.infraContactInformation) {
       item.infraContactInformation.forEach(contactElement => {
@@ -164,7 +134,10 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
       item?.infraKeyIdentifier,
       this.utils.filterTranslationFromElement(item?.infraResponsibleOrganization?.organizationName),
       item?.infraResponsibleOrganization?.orgNodeId ?? '',
-      participantOrganizations,
+      (item?.infraParticipatingOrganizations ?? [])
+        .map((org) => this.utils.filterTranslationFromElement(org?.organizationName)?.trim())
+        .filter((name) => name?.length > 0)
+        .join(', '),
       item.orgNodeId,
       item.replacingInfraStructure,
       item?.fieldOfScience ? item.fieldOfScience.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)) : [],

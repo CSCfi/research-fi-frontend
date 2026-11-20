@@ -110,15 +110,16 @@
                   <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.responsibleOrganization?.trim() }}</div>
                 }
                 <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                @if (responseData.infrastructures[0]?.participantOrganizations?.length > 0) {
+                @if (responseData.infrastructures[0]?.participatingOrganizations?.length > 0) {
                   <div class="col-12 col-sm-6 col-lg-3 td">{{ participatingOrganizationsLocalization }}:</div>
-                  <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participantOrganizations }}</div>
+                  <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participatingOrganizations }}</div>
                 }
               </div>
-              <hr/>
-
               <!-- Infra other fields -->
-              <div class="row infra-other-fields" *ngIf="responseData.infrastructures[0]?.fieldsOfScience">
+              @let infra = responseData.infrastructures[0];
+              @if (infra?.contactInfo?.length > 0 || infra?.fieldsOfScience?.length > 0 || classificationFields?.length > 0 || infra?.urn) {
+              <hr/>
+              <div class="row infra-other-fields">
                 <div class="col-12 col-md-12 col-lg-3 th">
                   <span class="pe-1 fw-bold other-fields-heading">{{ otherInfoLocalization }}</span>
                 </div>
@@ -137,7 +138,15 @@
                         @if (contact?.email?.length > 0) {
                           <div class="col-12 td">
                             @for (email of contact?.email; track email) {
-                              <div>{{ email }}</div>
+                              <div>
+                                @if (revealedEmails.has(email)) {
+                                  {{ email }}
+                                } @else {
+                                  <a href="javascript:void(0)" tabindex="0" role="button"
+                                     (click)="revealEmail(email)" (keydown.enter)="revealEmail(email)"
+                                     i18n="@@showEmailAddress">Näytä sähköpostiosoite</a>
+                                }
+                              </div>
                             }
                           </div>
                         }
@@ -178,35 +187,40 @@
                   }
 
                   <!-- Fields of science --->
-                  <div class="col-6 col-sm-3 td">{{ fieldsOfScienceLocalization }}:</div>
-                  <div class="col-6 col-sm-8 td">@for (field of responseData.infrastructures[0]?.fieldsOfScience; track $index) {{{ field | lowercase | capitalizeFirstLetter }}@if (!$last) {, }}</div>
+                  @if (responseData.infrastructures[0]?.fieldsOfScience?.length > 0) {
+                    <div class="col-6 col-sm-3 td">{{ fieldsOfScienceLocalization }}:</div>
+                    <div class="col-6 col-sm-8 td">@for (field of responseData.infrastructures[0]?.fieldsOfScience; track $index) {{{ field | lowercase | capitalizeFirstLetter }}@if (!$last) {, }}</div>
+                  }
+
 
                   <!-- Classifications --->
-                  <div class="col-6 col-sm-3 td">{{ classificationsLocalization }}:</div>
+                  @if (classificationFields?.length > 0) {
+                    <div class="col-6 col-sm-3 td">{{ classificationsLocalization }}:</div>
 
-                  <div class="col-6 col-sm-8 td row gx-0">
-                    <ng-container *ngFor="let row of classificationFields">
-                      <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
-                        <span class="pe-1">{{ row.label }}: </span>
-                        <span class="pe-2">{{ item[row.field] }}</span>
-                        <ng-container *ngIf="row.tooltip">
-                          <ng-template #tooltipTemplate
-                          >
-                            <div [innerHtml]="row.tooltip"></div
+                    <div class="col-6 col-sm-8 td row gx-0">
+                      <ng-container *ngFor="let row of classificationFields">
+                        <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
+                          <span class="pe-1">{{ row.label }}: </span>
+                          <span class="pe-2">{{ item[row.field] }}</span>
+                          <ng-container *ngIf="row.tooltip">
+                            <ng-template #tooltipTemplate
                             >
-                          </ng-template>
-                          <span
-                                  [tooltip]="tooltipTemplate"
-                                  tabindex="0"
-                                  placement="top"
-                                  #elem
-                          >
-                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
-                    </span>
-                        </ng-container>
-                      </div>
-                    </ng-container>
-                  </div>
+                              <div [innerHtml]="row.tooltip"></div
+                              >
+                            </ng-template>
+                            <span
+                                    [tooltip]="tooltipTemplate"
+                                    tabindex="0"
+                                    placement="top"
+                                    #elem
+                            >
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                      </span>
+                          </ng-container>
+                        </div>
+                      </ng-container>
+                    </div>
+                  }
 
                   <!-- Identifiers --->
                   @if (responseData.infrastructures[0]?.urn) {
@@ -218,6 +232,7 @@
                   }
                 </div>
               </div>
+              }
             </div>
 
             <div class="">

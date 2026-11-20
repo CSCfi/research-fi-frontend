@@ -175,7 +175,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     },
     {
       label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`,
-      field: 'participantOrganizations'
+      field: 'participatingOrganizations'
     },
   ];
 
@@ -198,7 +198,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     },
     {
       label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`,
-      field: 'participantOrganizations'
+      field: 'participatingOrganizations'
     },
     {
       label: $localize`:@@keywords:Avainsanat`,
@@ -430,6 +430,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     public dialog: MatDialog,
     private modelUtils: ModelUtilsService
   ) {
+
     this.currentLocale = this.appSettingsService.capitalizedLocale;
 
     afterRenderEffect(() => {
@@ -934,6 +935,12 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
   serviceExpandId(serviceId: number, fieldId: number) {
     return this.serviceFields.length * serviceId + fieldId;
+  }
+
+  revealedEmails = new Set<string>();
+
+  revealEmail(email: string) {
+    this.revealedEmails = new Set(this.revealedEmails).add(email);
   }
 
   showEmail(event, address) {
