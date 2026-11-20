@@ -17,6 +17,7 @@ type TreeNode = {
   expanded?: boolean;
   isCurrent?: boolean;
   internationalInfraWeblink?: string;
+  isInternational?: boolean;
 };
 
 @Component({

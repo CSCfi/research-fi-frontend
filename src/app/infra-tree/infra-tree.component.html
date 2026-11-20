@@ -23,17 +23,19 @@
         }}</span>
         <span class="d-flex justify-content-between w-100">
       <span>
-        @if (node?.internationalInfraWeblink) {
+        @if (node?.isInternational) {
           <ng-template #popoverTemplate>
           <div>{{ kvInfraInfo }}</div>
-            <div class="popover-link-wrap">
-              <a class="d-inline-flex flex-row"
-                 [href]="node.internationalInfraWeblink"
-                 target="_blank"><span>{{ goToInfraPage }}</span>
-                <span class="d-inline-flex"><app-svg-sprites [iconName]="'open_in_new'"
-                                                             cssClass="open_in_new-icon white"></app-svg-sprites></span>
-              </a>
-            </div>
+            @if (node.internationalInfraWeblink) {
+              <div class="popover-link-wrap">
+                <a class="d-inline-flex flex-row"
+                   [href]="node.internationalInfraWeblink"
+                   target="_blank"><span>{{ goToInfraPage }}</span>
+                  <span class="d-inline-flex"><app-svg-sprites [iconName]="'open_in_new'"
+                                                               cssClass="open_in_new-icon white"></app-svg-sprites></span>
+                </a>
+              </div>
+            }
           </ng-template>
 
           <div class="text-padder infra-name" [outsideClick]="true" [popover]="popoverTemplate"
