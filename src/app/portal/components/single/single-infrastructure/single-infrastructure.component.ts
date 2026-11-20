@@ -24,7 +24,8 @@ import {
   afterRenderEffect,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { NgIf, NgFor, NgClass, NgSwitch, ViewportScroller, AsyncPipe, JsonPipe } from '@angular/common';
+import { NgIf, NgFor, NgClass, NgSwitch, ViewportScroller, AsyncPipe, JsonPipe, LowerCasePipe } from '@angular/common';
+import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -32,6 +33,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -105,6 +107,8 @@ type TreeNode = {
     DialogComponent,
     AsyncPipe,
     JsonPipe,
+    LowerCasePipe,
+    CapitalizeFirstLetterPipe,
     HandleInfrastructureLinkPipe,
     HighlightSearchPipe,
     Combobox,
@@ -136,6 +140,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   reducedNetworkSize = true;
 
   infraTreeLoading = false;
+  infraNotFound = false;
 
   isPartOfDropdownVisible = false;
   hasPartDropdownVisible = false;
@@ -170,7 +175,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     },
     {
       label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`,
-      field: 'participantOrganizations'
+      field: 'participatingOrganizations'
     },
   ];
 
@@ -193,7 +198,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     },
     {
       label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`,
-      field: 'participantOrganizations'
+      field: 'participatingOrganizations'
     },
     {
       label: $localize`:@@keywords:Avainsanat`,
@@ -422,8 +427,10 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     @Inject(DOCUMENT) private document: any,
     private appSettingsService: AppSettingsService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private modelUtils: ModelUtilsService
   ) {
+
     this.currentLocale = this.appSettingsService.capitalizedLocale;
 
     afterRenderEffect(() => {
@@ -522,7 +529,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
   processInfraNetworkData(data: any) {
-    const tempNodes = data.hits.hits[0]._source.infraNetworks.nodes;
+    // National infrastructures without key identifier are not shown
+    const tempNodes = data.hits.hits[0]._source.infraNetworks.nodes.filter(
+      (node) => !node.nodeTypeNational || node.nodeTypeNational.infraKeyIdentifier
+    );
+    const tempNodeIds = new Set(tempNodes.map((node) => node.internalId));
     const tempEdges = data.hits.hits[0]._source.infraNetworks.hasPartEdges;
     let tempNodeList = [];
     let tempEdgeList = [];
@@ -531,7 +542,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
       if (node.nodeTypeNational) {
         tempNodeList.push({
           id: node.internalId,
-          label: node.nodeTypeNational?.acronym,
+          // Acronym is optional, so fall back to localized name
+          label: node.nodeTypeNational?.acronym || this.modelUtils.checkTranslationFromArrayToString(node.nodeTypeNational?.infraName),
           infraId: node.nodeTypeNational.infraKeyIdentifier.substring(11),
           length: this.edgeLength,
           size: this.calculateNodeSize(node)
@@ -557,7 +569,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     });
 
     tempEdges.forEach((edge) => {
-      if (edge?.relationFrom && edge?.relationTo) {
+      if (tempNodeIds.has(edge?.relationFrom?.internalId) && tempNodeIds.has(edge?.relationTo?.internalId)) {
         tempEdgeList.push({
           to: edge.relationFrom?.internalId,
           from: edge.relationTo?.internalId,
@@ -570,7 +582,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.edges = tempEdgeList;
     this.visibleNodes.next(tempNodeList);
     this.visibleEdges.next(tempEdgeList);
-    this.infraRootId.next(this.nodeList.filter(node => node.label === this.responseData.infrastructures[0]?.acronym)[0]?.id);
+    this.infraRootId.next(this.nodeList.find(node => node.infraId === this.responseData.infrastructures[0]?.id)?.id);
+    this.restrictNetworkToRootComponent(this.infraRootId.getValue());
     this.calculateIsPartOf(toInteger(this.infraRootId.getValue()), true);
     this.calculateHasPart(toInteger(this.infraRootId.getValue()), true);
     this.rootId = this.infraRootId.getValue();
@@ -578,7 +591,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.calculateConnectionsForTree();
 
     const rootNode = this.nodeList.filter(node => node.id === toInteger(this.rootId));
-    this.rootNodeName = rootNode[0].label;
+    this.rootNodeName = rootNode[0]?.label ?? '';
 
     this.colorizeAndInitNodes();
     this.colorizeAndInitEdges();
@@ -707,6 +720,32 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   }
 
 
+  // Keep only the nodes and edges connected (directly or through other nodes) to the root infrastructure
+  restrictNetworkToRootComponent(rootNodeId: number) {
+    const connectedIds = new Set<number>();
+    if (rootNodeId !== undefined) {
+      const queue = [rootNodeId];
+      while (queue.length > 0) {
+        const currentId = queue.pop();
+        if (connectedIds.has(currentId)) {
+          continue;
+        }
+        connectedIds.add(currentId);
+        this.edges.forEach(edge => {
+          if (edge.from === currentId) {
+            queue.push(edge.to);
+          } else if (edge.to === currentId) {
+            queue.push(edge.from);
+          }
+        });
+      }
+    }
+    this.nodeList = this.nodeList.filter(node => connectedIds.has(node.id));
+    this.edges = this.edges.filter(edge => connectedIds.has(edge.from) && connectedIds.has(edge.to));
+    this.visibleNodes.next(this.nodeList);
+    this.visibleEdges.next(this.edges);
+  }
+
   reduceNetworkSize(isReduced: boolean) {
     this.reducedNetworkSize = isReduced;
     if (isReduced) {
@@ -755,6 +794,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         } else {
           // Fetch single infra page data
           this.responseData = responseData;
+          this.infraNotFound = !this.responseData?.infrastructures?.[0];
+          if (this.infraNotFound) {
+            // Nothing to show, so don't load other data
+            return;
+          }
           if (this.responseData.infrastructures[0]) {
             switch (this.localeId) {
               case 'fi': {
@@ -893,6 +937,12 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     return this.serviceFields.length * serviceId + fieldId;
   }
 
+  revealedEmails = new Set<string>();
+
+  revealEmail(email: string) {
+    this.revealedEmails = new Set(this.revealedEmails).add(email);
+  }
+
   showEmail(event, address) {
     const span = this.document.createElement('span');
     span.innerHTML = address;
@@ -931,8 +981,14 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         ;
       });
     });
-    let rootNodeName = this.nodeList.filter(node => node.id === this.infraRootId.getValue())[0].label;
-    this.generateInfraTrees(rootNodeName);
+    const rootNode = this.nodeList.find(node => node.id === this.infraRootId.getValue());
+    // Root node is missing, if the network data doesn't contain the infrastructure
+    if (!rootNode) {
+      this.infraTreeNodes = [];
+      this.infraTreeLoading = false;
+      return;
+    }
+    this.generateInfraTrees(rootNode.label);
   }
 
   generateInfraTrees(rootNodeName: string){
@@ -1060,10 +1116,10 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     //this.colorizeNeighborAndToRootEdges();
   }
 
-  setNewRootNode(infraAcronym: string) {
+  setNewRootNode(infraId: string) {
     let rootId = undefined;
-    if (infraAcronym) {
-      rootId = this.nodeList.filter(node => node.label === infraAcronym)[0]?.id;
+    if (infraId) {
+      rootId = this.nodeList.find(node => node.infraId === infraId)?.id;
     } else {
       rootId = '' + this.selectedInfraNodeId;
     }
@@ -1071,7 +1127,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.rootId = rootId;
 
     const rootNode = this.nodeList.filter(node => node.id === toInteger(rootId));
-    this.rootNodeName = rootNode[0].label;
+    this.rootNodeName = rootNode[0]?.label ?? '';
 
     // Use unfiltered data
     this.visData.next({

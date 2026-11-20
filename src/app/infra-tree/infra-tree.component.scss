@@ -98,10 +98,10 @@ li[aria-expanded='false'] + ul[role='group'] {
 }
 
 .infra-name {
+  margin: 3px 0px 3px 0px;
   &.clickable-infra {
-    text-decoration: underline;
     &:hover {
-      font-weight: bold;
+      text-decoration: underline;
     }
   }
 }
@@ -110,6 +110,7 @@ li[aria-expanded='false'] + ul[role='group'] {
   margin-top: 8px;
   a {
     color: #fff;
+    margin: 10px 0px 10px 0px;
     &:hover {
       text-decoration: underline;
     }

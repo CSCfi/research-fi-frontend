@@ -1,4 +1,8 @@
 :host {
+  display: block;
+  flex: 1 0 auto;
+  background: var(--purple-light-bg, #F7F7FB);
+
   --hot-pink: #FF0080;
   --senary-contrast: #666666;
   --quaternary-contrast: #999999;

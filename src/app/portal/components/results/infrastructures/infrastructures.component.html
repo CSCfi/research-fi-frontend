@@ -56,7 +56,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   }
                 }
                 @if (infraIsPartOfInternationalInfra(infra.isPartOf)) {
-                  <div class="fw-bold mt-2">{{outsideOfServiceLocalization}}</div>
+                  <div class="fw-bold" [class.mt-2]="infraIsPartOfNationalInfra(infra.isPartOf)">{{outsideOfServiceLocalization}}</div>
                 }
                 @for (subInfra of infra.isPartOf; track subInfra.infraID; let i = $index) {
                   @if (!subInfra.infraKeyIdentifier) {
@@ -81,7 +81,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   }
                 }
                 @if (infraHasInternationalParts(infra.hasPart)) {
-                  <div class="fw-bold mt-2">{{outsideOfServiceLocalization}}</div>
+                  <div class="fw-bold" [class.mt-2]="infraHasNationalParts(infra.hasPart)">{{outsideOfServiceLocalization}}</div>
                 }
                 @for (subInfra of infra.hasPart; track subInfra.infraID; let i = $index) {
                   @if (!subInfra.infraKeyIdentifier) {
