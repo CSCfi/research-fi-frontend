@@ -130,10 +130,20 @@
                       @for (phone of contact.phone; track phone) {
                         <div> {{phone}}</div>
                       }
-                      <div> {{contact.visitingAddress.street}}</div>
-                      <div> {{contact.visitingAddress.postalCode}}</div>
-                      <div> {{localize(contact.visitingAddress.locality)}}</div>
-                      <div> {{localize(contact.visitingAddress.country?.codeLabel)}}</div>
+                      @if (contact.visitingAddress) {
+                        @if (contact.visitingAddress.street) {
+                          <div> {{contact.visitingAddress.street}}</div>
+                        }
+                        @if (contact.visitingAddress.postalCode) {
+                          <div> {{contact.visitingAddress.postalCode}}</div>
+                        }
+                        @if (localize(contact.visitingAddress.locality)) {
+                          <div> {{localize(contact.visitingAddress.locality)}}</div>
+                        }
+                        @if (localize(contact.visitingAddress.country?.codeLabel)) {
+                          <div> {{localize(contact.visitingAddress.country?.codeLabel)}}</div>
+                        }
+                      }
                     }
                   </div>
                 </div>
