@@ -555,6 +555,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
             label: node.nodeTypeInternational.internationalInfraName,
             length: this.edgeLength,
             size: this.calculateNodeSize(node),
+            isInternational: true,
             internationalInfraWeblink: node.nodeTypeInternational.internationalInfraWeblink
           });
         } else {
@@ -563,6 +564,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
             label: node.nodeTypeInternational.internationalInfraName,
             length: this.edgeLength,
             size: this.calculateNodeSize(node),
+            isInternational: true
           });
         }
       }
@@ -959,11 +961,13 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.edges.filter(node => node.from === this.infraRootId.getValue()).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.to) {
-          if (node?.internationalInfraWeblink){
-            this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId, internationalInfraWeblink: node?.internationalInfraWeblink });
-          } else {
-            this.isPartOfConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
-          }
+          this.isPartOfConnectionsForTree.push({
+            id: node.id,
+            label: node.label,
+            infraId: node?.infraId,
+            ...(node?.isInternational && { isInternational: true }),
+            ...(node?.internationalInfraWeblink && { internationalInfraWeblink: node.internationalInfraWeblink })
+          });
         }
         ;
       });
@@ -971,12 +975,13 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.edges.filter(node => node.to === this.infraRootId.getValue()).forEach(edge => {
       this.nodeList.filter(node => {
         if (node.id === edge.from) {
-          if (node?.internationalInfraWeblink){
-            this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId, internationalInfraWeblink: node?.internationalInfraWeblink });
-          }
-          else {
-            this.hasPartConnectionsForTree.push({ id: node.id, label: node.label, infraId: node?.infraId });
-          }
+          this.hasPartConnectionsForTree.push({
+            id: node.id,
+            label: node.label,
+            infraId: node?.infraId,
+            ...(node?.isInternational && { isInternational: true }),
+            ...(node?.internationalInfraWeblink && { internationalInfraWeblink: node.internationalInfraWeblink })
+          });
         }
         ;
       });
@@ -1010,6 +1015,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         hasParent: true,
         expanded: true,
         infraId: node.infraId,
+        ...(node.isInternational && { isInternational: true }),
         // Add only when the node has a weblink
         ...(node.internationalInfraWeblink && {
           internationalInfraWeblink: node.internationalInfraWeblink
@@ -1029,6 +1035,7 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
           hasParent: true,
           expanded: true,
           infraId: node.infraId,
+          ...(node.isInternational && { isInternational: true }),
           ...(node.internationalInfraWeblink && {
             internationalInfraWeblink: node.internationalInfraWeblink
           }),
