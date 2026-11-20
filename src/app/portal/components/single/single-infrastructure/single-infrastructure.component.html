@@ -127,8 +127,8 @@
                 <!-- Contact info --->
                 <div class="row col gx-0">
                   @if (responseData.infrastructures[0]?.contactInfo?.length > 0) {
-                    <div class="col-6 col-sm-3 td">{{ contacInfoLocalization }}:</div>
-                    <div class="col-6 col-sm-8 row gx-0">
+                    <div class="col-6 col-sm-3 col-xl-2 td">{{ contacInfoLocalization }}:</div>
+                    <div class="col-6 col-sm-9 col-xl-10 row gx-0">
                       @for (contact of responseData.infrastructures[0].contactInfo; track contact) {
                         @if (contact?.contactLabel) {
                           <div class="col-12 td">
@@ -142,7 +142,7 @@
                                 @if (revealedEmails.has(email)) {
                                   {{ email }}
                                 } @else {
-                                  <a href="javascript:void(0)" tabindex="0" role="button"
+                                  <a class="show-email-link" href="javascript:void(0)" tabindex="0" role="button"
                                      (click)="revealEmail(email)" (keydown.enter)="revealEmail(email)"
                                      i18n="@@showEmailAddress">Näytä sähköpostiosoite</a>
                                 }
@@ -188,15 +188,15 @@
 
                   <!-- Fields of science --->
                   @if (responseData.infrastructures[0]?.fieldsOfScience?.length > 0) {
-                    <div class="col-6 col-sm-3 td">{{ fieldsOfScienceLocalization }}:</div>
-                    <div class="col-6 col-sm-8 td">@for (field of responseData.infrastructures[0]?.fieldsOfScience; track $index) {{{ field | lowercase | capitalizeFirstLetter }}@if (!$last) {, }}</div>
+                    <div class="col-6 col-sm-3 col-xl-2 td">{{ fieldsOfScienceLocalization }}:</div>
+                    <div class="col-6 col-sm-9 col-xl-10 td row gx-0">@for (field of responseData.infrastructures[0]?.fieldsOfScience; track $index) {{{ field | lowercase | capitalizeFirstLetter }}@if (!$last) {, }}</div>
                   }
 
                   <!-- Classifications --->
                   @if (classificationFields?.length > 0) {
-                    <div class="col-6 col-sm-3 td">{{ classificationsLocalization }}:</div>
+                    <div class="col-6 col-sm-3 col-xl-2 td">{{ classificationsLocalization }}:</div>
 
-                    <div class="col-6 col-sm-8 td row gx-0">
+                    <div class="col-6 col-sm-9 col-xl-10 td row gx-0">
                       <ng-container *ngFor="let row of classificationFields">
                         <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
                           <span class="pe-1">{{ row.label }}: </span>
@@ -223,8 +223,8 @@
 
                   <!-- Identifiers --->
                   @if (responseData.infrastructures[0]?.urn) {
-                    <div class="col-6 col-sm-3 td">{{ identifiersLocalization }}:</div>
-                    <div class="col-6 col-sm-8 td">
+                    <div class="col-6 col-sm-3 col-xl-2 td">{{ identifiersLocalization }}:</div>
+                    <div class="col-6 col-sm-9 col-xl-10 td">
                       <app-share [id]="responseData.infrastructures[0]?.urn" [useTextOnlyLink]="true"
                                  [showUrnTextPrefix]="false"></app-share>
                     </div>

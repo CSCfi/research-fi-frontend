@@ -121,7 +121,7 @@
                           @if (revealedEmails.has(email)) {
                             {{ email }}
                           } @else {
-                            <a href="javascript:void(0)" tabindex="0" role="button"
+                            <a class="show-email-link" href="javascript:void(0)" tabindex="0" role="button"
                                (click)="revealEmail(email)" (keydown.enter)="revealEmail(email)"
                                i18n="@@showEmailAddress">Näytä sähköpostiosoite</a>
                           }

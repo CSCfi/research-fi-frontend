@@ -420,3 +420,7 @@ h4.th.classification {
 [ngOption]:not([aria-selected='true']) .example-option-check {
   display: none;
 }
+
+.show-email-link, a.read-more {
+  font-weight: 400 !important;
+}
