@@ -473,16 +473,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
   login() {
     this.oidcSecurityService.authorize();
   }
-
-  // Alert user if draft data in session storage
-  @HostListener('window:beforeunload', [])
-  public checkForDraftData() {
-    if (
-      !this.appSettingsService.myDataSettings.debug &&
-      this.currentRoute.includes('/mydata/profile') &&
-      (sessionStorage.getItem(Constants.draftPatchPayload) ||
-        sessionStorage.getItem(Constants.draftPublicationPatchPayload))
-    )
-      return false;
-  }
 }

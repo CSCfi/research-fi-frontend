@@ -37,13 +37,13 @@
           </ng-template>
 
           <div class="text-padder infra-name" [outsideClick]="true" [popover]="popoverTemplate"
-               [class.clickable-infra]="true" [class.current-node]="node.isCurrent" ]>
+               [class.clickable-infra]="true" [class.current-node]="node.isCurrent">
             {{ node.name }}
             <app-svg-sprites [iconName]="'globe-icon'" cssClass="globe-icon"></app-svg-sprites>
           </div>
         } @else {
           <div class="text-padder infra-name" [class.clickable-infra]="node.infraId"
-               [class.current-node]="node.isCurrent" ] (click)="navigateToInfraLink(node.infraId)">
+               [class.current-node]="node.isCurrent" (click)="navigateToInfraLink(node.infraId)">
             {{ node.name }}
           </div>
         }
