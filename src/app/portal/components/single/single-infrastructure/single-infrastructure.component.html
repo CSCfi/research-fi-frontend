@@ -483,7 +483,7 @@
   <div class="row vis-container h-100">
     <div class="row mini-modal-width w-100 gx-4">
       <p>{{ infraNetworkSelectedInfo1 }} <span
-              class="fw-bold">{{ rootNodeName }}</span> @if (responseData?.infrastructures[0]?.name) {
+              class="fw-bold">{{ responseData?.infrastructures[0]?.name }}</span> @if (responseData?.infrastructures[0]?.acronym) {
         @if (responseData?.infrastructures[0]?.acronym) {
           ({{ responseData?.infrastructures[0]?.acronym }})
         }
