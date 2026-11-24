@@ -499,8 +499,7 @@
                     class="root-infra-text-col">{{ rootNodeName }}</span></div>
             @if (isPartOfLabelsUpper.length > 0) {
               <div class="relations-sub-heading"
-                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}
-                :
+                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}:
               </div>
               @if (isPartOfLabelsVisible) {
                 @for (item of isPartOfLabelsUpper; track item) {
