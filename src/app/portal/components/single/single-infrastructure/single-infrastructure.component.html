@@ -34,435 +34,439 @@
             [resultNameField]="'name'"
             [queryParams]="tabQueryParams"
     ></app-breadcrumb>
-  @if (infraNotFound) {
-    <div class="col-12" style="margin: 10px 0 10px 0">
-      <h2 i18n="@@404">404 - Virheellinen osoite</h2>
-    </div>
-  } @else {
-    <div class="row shared">
-      <main class="col-12 col-md-8">
-        <div *ngFor="let item of [responseData.infrastructures[0]]">
-          <h1 class="result-header">{{ item?.name }}</h1>
-          <div id="info" class="bordered-section-single-page">
-            <div class="">
-              <ng-container *ngFor="let row of infoFieldsFirstLevel; let i = index">
-                <div class="row" *ngIf="item[row.field]">
-                  <div class="col-12 col-sm-6 col-lg-3 th">
-                    <span class="pe-1 fw-bold">{{ row.label }}</span>
-                    <ng-container *ngIf="row.tooltip">
-                      <ng-template #tooltipTemplate
-                      >
-                        <div [innerHtml]="row.tooltip"></div
+    @if (infraNotFound) {
+      <div class="col-12" style="margin: 10px 0 10px 0">
+        <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+      </div>
+    } @else {
+      <div class="row shared">
+        <main class="col-12 col-md-8">
+          <div *ngFor="let item of [responseData.infrastructures[0]]">
+            <h1 class="result-header">{{ item?.name }}</h1>
+            <div id="info" class="bordered-section-single-page">
+              <div class="">
+                <ng-container *ngFor="let row of infoFieldsFirstLevel; let i = index">
+                  <div class="row" *ngIf="item[row.field]">
+                    <div class="col-12 col-sm-6 col-lg-3 th">
+                      <span class="pe-1 fw-bold">{{ row.label }}</span>
+                      <ng-container *ngIf="row.tooltip">
+                        <ng-template #tooltipTemplate
                         >
-                      </ng-template>
-                      <span
-                              [tooltip]="tooltipTemplate"
-                              tabindex="0"
-                              placement="top"
-                              #elem
-                      >
+                          <div [innerHtml]="row.tooltip"></div
+                          >
+                        </ng-template>
+                        <span
+                                [tooltip]="tooltipTemplate"
+                                tabindex="0"
+                                placement="top"
+                                #elem
+                        >
                       <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
-                    </ng-container>
+                      </ng-container>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-9 td">
+                      <p
+                              [ngClass]="infoExpand[i] ? 'expand' : 'short'"
+                              [ngSwitch]="row.field"
+                              #overflow
+                      >
+                        {{ item[row.field] }}
+                      </p>
+                      <a
+                              href="javascript:void(0)"
+                              class="read-more"
+                              *ngIf="checkOverflow(overflow) || infoExpand[i]"
+                              (click)="expandInfoDescription(i)"
+                              [innerHTML]="infoExpand[i] ? showLess : showMore"
+                      ></a>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <!-- Infra years -->
+                <div class="row"
+                     *ngIf="responseData.infrastructures[0]?.startYear || responseData.infrastructures[0]?.endYear ">
+                  <div class="col-12 col-sm-6 col-lg-3 th">
+                    <span class="pe-1 fw-bold">{{ infraServiceActionLocalization }}</span>
                   </div>
                   <div class="col-12 col-sm-6 col-lg-9 td">
-                    <p
-                            [ngClass]="infoExpand[i] ? 'expand' : 'short'"
-                            [ngSwitch]="row.field"
-                            #overflow
-                    >
-                      {{ item[row.field] }}
-                    </p>
-                    <a
-                            href="javascript:void(0)"
-                            class="read-more"
-                            *ngIf="checkOverflow(overflow) || infoExpand[i]"
-                            (click)="expandInfoDescription(i)"
-                            [innerHTML]="infoExpand[i] ? showLess : showMore"
-                    ></a>
+                    <div *ngIf="responseData.infrastructures[0]?.startYear">
+                      {{ hasStartedLocalization }}: {{ responseData.infrastructures[0]?.startYear }}
+                    </div>
+                    <div *ngIf="responseData.infrastructures[0]?.endYear" class="mt-2">
+                      {{ endsOnLocalization }}: {{ responseData.infrastructures[0]?.endYear }}
+                    </div>
                   </div>
                 </div>
-              </ng-container>
 
-              <!-- Infra years -->
-              <div class="row"
-                   *ngIf="responseData.infrastructures[0]?.startYear || responseData.infrastructures[0]?.endYear ">
-                <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold">{{ infraServiceActionLocalization }}</span>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-9 td">
-                  <div *ngIf="responseData.infrastructures[0]?.startYear">
-                    {{ hasStartedLocalization }}: {{ responseData.infrastructures[0]?.startYear }}
+                <!-- Infra organizations -->
+                <div class="row">
+                  <div class="col-12 col-sm-6 col-lg-3 th">
+                    <span class="pe-1 fw-bold other-fields-heading">{{ organizationsLocalization }}</span>
                   </div>
-                  <div *ngIf="responseData.infrastructures[0]?.endYear" class="mt-2">
-                    {{ endsOnLocalization }}: {{ responseData.infrastructures[0]?.endYear }}
-                  </div>
+                  @if (responseData.infrastructures[0]?.responsibleOrganization?.length > 0) {
+                    <div class="col-12 col-sm-6 col-lg-3 td">{{ responsibleOrganizationLocalizaion }}:</div>
+                    <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.responsibleOrganization?.trim() }}</div>
+                  }
+                  <div class="col-12 col-sm-6 col-lg-3 th"></div>
+                  @if (responseData.infrastructures[0]?.participatingOrganizations?.length > 0) {
+                    <div class="col-12 col-sm-6 col-lg-3 td">{{ participatingOrganizationsLocalization }}:</div>
+                    <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participatingOrganizations }}</div>
+                  }
                 </div>
-              </div>
+                <!-- Infra other fields -->
+                @let infra = responseData.infrastructures[0];
+                @if (infra?.contactInfo?.length > 0 || infra?.fieldsOfScience?.length > 0 || classificationFields?.length > 0 || infra?.urn) {
+                  <hr/>
+                  <div class="row infra-other-fields">
+                    <div class="col-12 col-md-12 col-lg-3 th">
+                      <span class="pe-1 fw-bold other-fields-heading">{{ otherInfoLocalization }}</span>
+                    </div>
 
-              <!-- Infra organizations -->
-              <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pe-1 fw-bold other-fields-heading">{{ organizationsLocalization }}</span>
-                </div>
-                @if (responseData.infrastructures[0]?.responsibleOrganization?.length > 0) {
-                  <div class="col-12 col-sm-6 col-lg-3 td">{{ responsibleOrganizationLocalizaion }}:</div>
-                  <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.responsibleOrganization?.trim() }}</div>
-                }
-                <div class="col-12 col-sm-6 col-lg-3 th"></div>
-                @if (responseData.infrastructures[0]?.participatingOrganizations?.length > 0) {
-                  <div class="col-12 col-sm-6 col-lg-3 td">{{ participatingOrganizationsLocalization }}:</div>
-                  <div class="col-12 col-sm-6 col-lg-6 td">{{ responseData.infrastructures[0]?.participatingOrganizations }}</div>
-                }
-              </div>
-              <!-- Infra other fields -->
-              @let infra = responseData.infrastructures[0];
-              @if (infra?.contactInfo?.length > 0 || infra?.fieldsOfScience?.length > 0 || classificationFields?.length > 0 || infra?.urn) {
-              <hr/>
-              <div class="row infra-other-fields">
-                <div class="col-12 col-md-12 col-lg-3 th">
-                  <span class="pe-1 fw-bold other-fields-heading">{{ otherInfoLocalization }}</span>
-                </div>
-
-                <!-- Contact info --->
-                <div class="row col gx-0">
-                  @if (responseData.infrastructures[0]?.contactInfo?.length > 0) {
-                    <div class="col-6 col-sm-3 col-xl-2 td">{{ contacInfoLocalization }}:</div>
-                    <div class="col-6 col-sm-9 col-xl-10 row gx-0">
-                      @for (contact of responseData.infrastructures[0].contactInfo; track contact) {
-                        @if (contact?.contactLabel) {
-                          <div class="col-12 td">
-                            <div>{{ contact?.contactLabel }}</div>
-                          </div>
-                        }
-                        @if (contact?.email?.length > 0) {
-                          <div class="col-12 td">
-                            @for (email of contact?.email; track email) {
-                              <div>
-                                @if (revealedEmails.has(email)) {
-                                  {{ email }}
-                                } @else {
-                                  <a class="show-email-link" href="javascript:void(0)" tabindex="0" role="button"
-                                     (click)="revealEmail(email)" (keydown.enter)="revealEmail(email)"
-                                     i18n="@@showEmailAddress">Näytä sähköpostiosoite</a>
+                    <!-- Contact info --->
+                    <div class="row col gx-0">
+                      @if (responseData.infrastructures[0]?.contactInfo?.length > 0) {
+                        <div class="col-6 col-sm-3 col-xl-2 td">{{ contacInfoLocalization }}:</div>
+                        <div class="col-6 col-sm-9 col-xl-10 row gx-0">
+                          @for (contact of responseData.infrastructures[0].contactInfo; track contact) {
+                            @if (contact?.contactLabel) {
+                              <div class="col-12 td">
+                                <div>{{ contact?.contactLabel }}</div>
+                              </div>
+                            }
+                            @if (contact?.email?.length > 0) {
+                              <div class="col-12 td">
+                                @for (email of contact?.email; track email) {
+                                  <div>
+                                    @if (revealedEmails.has(email)) {
+                                      {{ email }}
+                                    } @else {
+                                      <a class="show-email-link" href="javascript:void(0)" tabindex="0" role="button"
+                                         (click)="revealEmail(email)" (keydown.enter)="revealEmail(email)"
+                                         i18n="@@showEmailAddress">Näytä sähköpostiosoite</a>
+                                    }
+                                  </div>
                                 }
                               </div>
                             }
-                          </div>
-                        }
-                        @if (contact?.phone?.length > 0) {
-                          <div class="col-12 td">
-                            @for (phone of contact?.phone; track phone) {
-                              <div>{{ phone }}</div>
+                            @if (contact?.phone?.length > 0) {
+                              <div class="col-12 td">
+                                @for (phone of contact?.phone; track phone) {
+                                  <div>{{ phone }}</div>
+                                }
+                              </div>
                             }
-                          </div>
-                        }
-                        @if (contact?.street) {
-                          <div class="col-12 td">
-                            <div>{{ contact.street }}</div>
-                          </div>
-                        }
-                        @if (contact?.premise) {
-                          <div class="col-12 td">
-                            <div>{{ contact.premise }}</div>
-                          </div>
-                        }
-                        @if (contact?.postalCode) {
-                          <div class="col-12 td">
-                            <div>{{ contact.postalCode }}</div>
-                          </div>
-                        }
-                        @if (contact?.locality) {
-                          <div class="col-12 td">
-                            <div>{{ contact.locality }}</div>
-                          </div>
-                        }
-                        @if (contact?.country) {
-                          <div class="col-12 td">
-                            <div>{{ contact.country }}</div>
-                          </div>
-                        }
+                            @if (contact?.street) {
+                              <div class="col-12 td">
+                                <div>{{ contact.street }}</div>
+                              </div>
+                            }
+                            @if (contact?.premise) {
+                              <div class="col-12 td">
+                                <div>{{ contact.premise }}</div>
+                              </div>
+                            }
+                            @if (contact?.postalCode) {
+                              <div class="col-12 td">
+                                <div>{{ contact.postalCode }}</div>
+                              </div>
+                            }
+                            @if (contact?.locality) {
+                              <div class="col-12 td">
+                                <div>{{ contact.locality }}</div>
+                              </div>
+                            }
+                            @if (contact?.country) {
+                              <div class="col-12 td">
+                                <div>{{ contact.country }}</div>
+                              </div>
+                            }
+                          }
+                        </div>
                       }
-                    </div>
-                  }
 
-                  <!-- Fields of science --->
-                  @if (responseData.infrastructures[0]?.fieldsOfScience?.length > 0) {
-                    <div class="col-6 col-sm-3 col-xl-2 td">{{ fieldsOfScienceLocalization }}:</div>
-                    <div class="col-6 col-sm-9 col-xl-10 td row gx-0">@for (field of responseData.infrastructures[0]?.fieldsOfScience; track $index) {{{ field | lowercase | capitalizeFirstLetter }}@if (!$last) {, }}</div>
-                  }
+                      <!-- Fields of science --->
+                      @if (responseData.infrastructures[0]?.fieldsOfScience?.length > 0) {
+                        <div class="col-6 col-sm-3 col-xl-2 td">{{ fieldsOfScienceLocalization }}:</div>
+                        <div class="col-6 col-sm-9 col-xl-10 td row gx-0">@for (field of responseData.infrastructures[0]?.fieldsOfScience; track $index) {
+                          {{ field | lowercase | capitalizeFirstLetter }}@if (!$last) {
+                            ,
+                          }
+                        }</div>
+                      }
 
-                  <!-- Classifications --->
-                  @if (classificationFields?.length > 0) {
-                    <div class="col-6 col-sm-3 col-xl-2 td">{{ classificationsLocalization }}:</div>
+                      <!-- Classifications --->
+                      @if (classificationFields?.length > 0) {
+                        <div class="col-6 col-sm-3 col-xl-2 td">{{ classificationsLocalization }}:</div>
 
-                    <div class="col-6 col-sm-9 col-xl-10 td row gx-0">
-                      <ng-container *ngFor="let row of classificationFields">
-                        <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
-                          <span class="pe-1">{{ row.label }}: </span>
-                          <span class="pe-2">{{ item[row.field] }}</span>
-                          <ng-container *ngIf="row.tooltip">
-                            <ng-template #tooltipTemplate
-                            >
-                              <div [innerHtml]="row.tooltip"></div
-                              >
-                            </ng-template>
-                            <span
-                                    [tooltip]="tooltipTemplate"
-                                    tabindex="0"
-                                    placement="top"
-                                    #elem
-                            >
+                        <div class="col-6 col-sm-9 col-xl-10 td row gx-0">
+                          <ng-container *ngFor="let row of classificationFields">
+                            <div class="d-flex flex-row mb-2" *ngIf="item[row.field]">
+                              <span class="pe-1">{{ row.label }}: </span>
+                              <span class="pe-2">{{ item[row.field] }}</span>
+                              <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate
+                                >
+                                  <div [innerHtml]="row.tooltip"></div
+                                  >
+                                </ng-template>
+                                <span
+                                        [tooltip]="tooltipTemplate"
+                                        tabindex="0"
+                                        placement="top"
+                                        #elem
+                                >
                         <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                       </span>
+                              </ng-container>
+                            </div>
                           </ng-container>
                         </div>
-                      </ng-container>
-                    </div>
-                  }
+                      }
 
-                  <!-- Identifiers --->
-                  @if (responseData.infrastructures[0]?.urn) {
-                    <div class="col-6 col-sm-3 col-xl-2 td">{{ identifiersLocalization }}:</div>
-                    <div class="col-6 col-sm-9 col-xl-10 td">
-                      <app-share [id]="responseData.infrastructures[0]?.urn" [useTextOnlyLink]="true"
-                                 [showUrnTextPrefix]="false"></app-share>
+                      <!-- Identifiers --->
+                      @if (responseData.infrastructures[0]?.urn) {
+                        <div class="col-6 col-sm-3 col-xl-2 td">{{ identifiersLocalization }}:</div>
+                        <div class="col-6 col-sm-9 col-xl-10 td">
+                          <app-share [id]="responseData.infrastructures[0]?.urn" [useTextOnlyLink]="true"
+                                     [showUrnTextPrefix]="false"></app-share>
+                        </div>
+                      }
                     </div>
-                  }
-                </div>
+                  </div>
+                }
               </div>
-              }
-            </div>
 
-            <div class="">
-              <!-- Contact -->
-              <!--<div *ngIf="contactFields?.length > 0" class="row">
-                <h2
-                        class="col-12 col-sm-6 col-lg-3 pt-0 pb-0 contact th"
-                        i18n="@@contactInfo"
-                >
-                  Yhteystiedot
-                </h2>
-                <div
-                        class="col-12 col-sm-6 offset-0 pt-0 pb-0 td"
-                        *ngFor="let row of contactFields.slice(0, 1); let i = index"
-                >
-                  <ng-container *ngIf="item[row.field]">
-                    <ng-container *ngIf="row.field === 'email'; else nonEmail">
-                      <h4 class="th sr-only">{{ row.label }}</h4>
-                      <a
-                              href="javascript:void(0)"
-                              (click)="showEmail($event, item[row.field])"
-                              i18n="@@showEmailAddress"
-                      >Näytä sähköpostiosoite</a
-                      ></ng-container
-                    >
-                    <ng-template #nonEmail>
-                      <h4 class="th sr-only">{{ row.label }}</h4>
-                      <div>{{ item[row.field] }}</div>
-                    </ng-template>
-                  </ng-container>
-                </div>
-                <div
-                        class="col-12 col-sm-6 offset-0 offset-sm-6 offset-lg-3 pt-0 pb-0 td"
-                        *ngFor="let row of contactFields.slice(1); let i = index"
-                >
-                  <ng-container *ngIf="item[row.field]">
-                    <ng-container *ngIf="row.field === 'email'; else nonEmail">
-                      <h4 class="th sr-only">{{ row.label }}</h4>
-                      <a
-                              href="javascript:void(0)"
-                              (click)="showEmail($event, item[row.field])"
-                              i18n="@@showEmailAddress"
-                      >Näytä sähköpostiosoite</a
-                      ></ng-container
-                    >
-                    <ng-template #nonEmail>
-                      <h4 class="th sr-only">{{ row.label }}</h4>
-                      <div>{{ item[row.field] }}</div>
-                    </ng-template>
-                  </ng-container>
-                </div>
-              </div>-->
+              <div class="">
+                <!-- Contact -->
+                <!--<div *ngIf="contactFields?.length > 0" class="row">
+                  <h2
+                          class="col-12 col-sm-6 col-lg-3 pt-0 pb-0 contact th"
+                          i18n="@@contactInfo"
+                  >
+                    Yhteystiedot
+                  </h2>
+                  <div
+                          class="col-12 col-sm-6 offset-0 pt-0 pb-0 td"
+                          *ngFor="let row of contactFields.slice(0, 1); let i = index"
+                  >
+                    <ng-container *ngIf="item[row.field]">
+                      <ng-container *ngIf="row.field === 'email'; else nonEmail">
+                        <h4 class="th sr-only">{{ row.label }}</h4>
+                        <a
+                                href="javascript:void(0)"
+                                (click)="showEmail($event, item[row.field])"
+                                i18n="@@showEmailAddress"
+                        >Näytä sähköpostiosoite</a
+                        ></ng-container
+                      >
+                      <ng-template #nonEmail>
+                        <h4 class="th sr-only">{{ row.label }}</h4>
+                        <div>{{ item[row.field] }}</div>
+                      </ng-template>
+                    </ng-container>
+                  </div>
+                  <div
+                          class="col-12 col-sm-6 offset-0 offset-sm-6 offset-lg-3 pt-0 pb-0 td"
+                          *ngFor="let row of contactFields.slice(1); let i = index"
+                  >
+                    <ng-container *ngIf="item[row.field]">
+                      <ng-container *ngIf="row.field === 'email'; else nonEmail">
+                        <h4 class="th sr-only">{{ row.label }}</h4>
+                        <a
+                                href="javascript:void(0)"
+                                (click)="showEmail($event, item[row.field])"
+                                i18n="@@showEmailAddress"
+                        >Näytä sähköpostiosoite</a
+                        ></ng-container
+                      >
+                      <ng-template #nonEmail>
+                        <h4 class="th sr-only">{{ row.label }}</h4>
+                        <div>{{ item[row.field] }}</div>
+                      </ng-template>
+                    </ng-container>
+                  </div>
+                </div>-->
+              </div>
             </div>
           </div>
-        </div>
 
-        @if (infraServices.length > 0) {
-          <h2 class="ps-1 mb-4"><span i18n="@@infraServices">{{ infraServicesLocalization }} </span></h2>
-          <h3 class="ps-1">{{ activeServicesLocalization }} ({{ infraServices.length }})</h3>
-          <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
-          <br/>
-        }
-      </main>
+          @if (infraServices.length > 0) {
+            <h2 class="ps-1 mb-4"><span i18n="@@infraServices">{{ infraServicesLocalization }} </span></h2>
+            <h3 class="ps-1">{{ activeServicesLocalization }} ({{ infraServices.length }})</h3>
+            <app-infra-accordion [infraData]="this.infraServices"></app-infra-accordion>
+            <br/>
+          }
+        </main>
 
-      <!-- Sidebar -->
+        <!-- Sidebar -->
 
-      @if (responseData?.infrastructures[0]) {
-        <div
-                *ngFor="let item of [responseData.infrastructures[0]]"
-                class="col-12 col-md-4"
-        >
-          <aside>
-            <mat-card class="infra-card" appearance="outlined">
-              <div class="inner transparent-bg">
-                <ng-container *ngIf="item.urn">
-                  <mat-card-title>
-                    <div class="side-box-heading" i18n="@@identifier">Tunniste</div>
-                  </mat-card-title>
-                  <div class="row gx-0 pb-4">
-                    <app-share [id]="item.urn" [useTextOnlyLink]="true"></app-share>
+        @if (responseData?.infrastructures[0]) {
+          <div
+                  *ngFor="let item of [responseData.infrastructures[0]]"
+                  class="col-12 col-md-4"
+          >
+            <aside>
+              <mat-card class="infra-card" appearance="outlined">
+                <div class="inner transparent-bg">
+                  <ng-container *ngIf="item.urn">
+                    <mat-card-title>
+                      <div class="side-box-heading" i18n="@@identifier">Tunniste</div>
+                    </mat-card-title>
+                    <div class="row gx-0 pb-4">
+                      <app-share [id]="item.urn" [useTextOnlyLink]="true"></app-share>
+                    </div>
+                  </ng-container>
+                  <mat-card-title
+                  >
+                    <div class="side-box-heading" i18n="@@infraHomePage">
+                      {{ infraWebPageLocalization }}
+                    </div>
+                  </mat-card-title
+                  >
+
+                  <div class="mb-2">
+                    <app-tag-weblink [linkUrn]="item.homepage" [linkText]="item.homepage"></app-tag-weblink>
                   </div>
-                </ng-container>
-                <mat-card-title
-                >
-                  <div class="side-box-heading" i18n="@@infraHomePage">
-                    {{ infraWebPageLocalization }}
+                  <div
+                          *ngIf="!item.homepage"
+                          class="no-links"
+                          i18n="@@noInfraLinks"
+                  >
+                    {{ noInfraLinksLocalization }}
                   </div>
-                </mat-card-title
-                >
-
-                <div class="mb-2">
-                  <app-tag-weblink [linkUrn]="item.homepage" [linkText]="item.homepage"></app-tag-weblink>
                 </div>
-                <div
-                        *ngIf="!item.homepage"
-                        class="no-links"
-                        i18n="@@noInfraLinks"
-                >
-                  {{ noInfraLinksLocalization }}
-                </div>
-              </div>
-            </mat-card>
-          </aside>
+              </mat-card>
+            </aside>
 
-          @if (infraTreeNodes?.length > 0) {
+            @if (infraTreeNodes?.length > 0) {
+              <aside>
+                <mat-card class="infra-card" appearance="outlined">
+                  <div class="inner transparent-bg">
+                    <mat-card-title
+                    >
+                      <div class="side-box-heading">
+                        {{ infrastructureNetworkLocalization }}
+                      </div>
+                    </mat-card-title>
+                    <div class="infra-small-text">{{ infraNetworkInfoText }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 d-flex justify-content-start mt-1 mb-2">
+                      <app-primary-action-button
+                              [content]="showInfrastructureNetworkLocalization"
+                              [svgSymbolName]="'lan'"
+                              [svgCssClass]="'show-as-image-button'"
+                              [disabled]="infraTreeLoading"
+                              (click)="openDialog(0)"
+                      ></app-primary-action-button>
+                    </div>
+                  </div>
+                </mat-card>
+              </aside>
+            }
+
+            @if (infraTreeNodes?.length > 0) {
+              <aside>
+                <mat-card class="infra-card" appearance="outlined">
+                  <div class="inner infra-trees-container">
+                    <mat-card-title
+                    >
+                      <div class="side-box-heading">
+                        <ng-container i18n="@@test"
+                        >{{ neighbourInfrastructuresLocalization }}
+                        </ng-container
+                        >
+                      </div>
+                    </mat-card-title
+                    >
+                    @if (infraTreeLoading) {
+                      <div
+                              class="row justify-content-center main-loader"
+                      >
+                        <div class="col-auto align-self-center">
+                          <mat-spinner
+                                  [diameter]="80"
+                                  i18n-aria-label="@@loading"
+                                  aria-label="Ladataan"
+                          ></mat-spinner>
+                        </div>
+                      </div>
+                    }
+                    @for (subTrees of infraTreeNodes; track subTrees; let i = $index) {
+                      @if (infraTreeNodes?.length > 1 && i === 0) {
+                        <div class="mb-2">{{ infraIsRelatedToOtherInfras }}</div>
+                      }
+                      @if (!infraTreeLoading) {
+                        <hr>
+                      }
+                      <app-infra-tree class="m" [infraId]="selectedInfraId" [inputNodes]="subTrees"></app-infra-tree>
+                    }
+                  </div>
+                </mat-card>
+              </aside>
+            }
+            <aside>
+              <mat-card class="infra-card d-none" appearance="outlined">
+                <div class="inner">
+                  <mat-card-title
+                  >
+                    <div class="side-box-heading">
+                      <ng-container i18n="@@relatedInfrastructures"
+                      >Hae infrastruktuuriin liittyvät
+                      </ng-container
+                      >
+                      (
+                      <ng-container i18n="@@comingSoon">tulossa</ng-container>
+                      )
+                    </div>
+                  </mat-card-title
+                  >
+                  <app-related-links
+                          [id]=""
+                          [relatedData]="relatedData"
+                  ></app-related-links>
+                </div>
+              </mat-card>
+            </aside>
+            <!-- Source -->
             <aside>
               <mat-card class="infra-card" appearance="outlined">
                 <div class="inner transparent-bg">
                   <mat-card-title
                   >
-                    <div class="side-box-heading">
-                      {{ infrastructureNetworkLocalization }}
-                    </div>
-                  </mat-card-title>
-                  <div class="infra-small-text">{{ infraNetworkInfoText }}</div>
-                </div>
-                <div class="row">
-                  <div class="col-12 d-flex justify-content-start mt-1 mb-2">
-                    <app-primary-action-button
-                            [content]="showInfrastructureNetworkLocalization"
-                            [svgSymbolName]="'lan'"
-                            [svgCssClass]="'show-as-image-button'"
-                            [disabled]="infraTreeLoading"
-                            (click)="openDialog(0)"
-                    ></app-primary-action-button>
-                  </div>
-                </div>
-              </mat-card>
-            </aside>
-          }
-
-          @if (infraTreeNodes?.length > 0) {
-            <aside>
-              <mat-card class="infra-card" appearance="outlined">
-                <div class="inner infra-trees-container">
-                  <mat-card-title
-                  >
-                    <div class="side-box-heading">
-                      <ng-container i18n="@@test"
-                      >{{ neighbourInfrastructuresLocalization }}
-                      </ng-container
-                      >
+                    <div class="side-box-heading" i18n="@@infraSource">
+                      Infrastruktuuritiedon lähde
                     </div>
                   </mat-card-title
                   >
-                  @if (infraTreeLoading) {
-                    <div
-                            class="row justify-content-center main-loader"
-                    >
-                      <div class="col-auto align-self-center">
-                        <mat-spinner
-                                [diameter]="80"
-                                i18n-aria-label="@@loading"
-                                aria-label="Ladataan"
-                        ></mat-spinner>
-                      </div>
-                    </div>
-                  }
-                  @for (subTrees of infraTreeNodes; track subTrees; let i = $index) {
-                    @if (infraTreeNodes?.length > 1 && i === 0) {
-                      <div class="mb-2">{{ infraIsRelatedToOtherInfras }}</div>
-                    }
-                    @if (!infraTreeLoading) {
-                      <hr>
-                    }
-                    <app-infra-tree class="m" [infraId]="selectedInfraId" [inputNodes]="subTrees"></app-infra-tree>
-                  }
-                </div>
-              </mat-card>
-            </aside>
-          }
-          <aside>
-            <mat-card class="infra-card d-none" appearance="outlined">
-              <div class="inner">
-                <mat-card-title
-                >
-                  <div class="side-box-heading">
-                    <ng-container i18n="@@relatedInfrastructures"
-                    >Hae infrastruktuuriin liittyvät
-                    </ng-container
-                    >
-                    (
-                    <ng-container i18n="@@comingSoon">tulossa</ng-container>
-                    )
-                  </div>
-                </mat-card-title
-                >
-                <app-related-links
-                        [id]=""
-                        [relatedData]="relatedData"
-                ></app-related-links>
-              </div>
-            </mat-card>
-          </aside>
-          <!-- Source -->
-          <aside>
-            <mat-card class="infra-card" appearance="outlined">
-              <div class="inner transparent-bg">
-                <mat-card-title
-                >
-                  <div class="side-box-heading" i18n="@@infraSource">
-                    Infrastruktuuritiedon lähde
-                  </div>
-                </mat-card-title
-                >
-                <div *ngFor="let source of responseData.infrastructures">
-                  <a
-                          *ngIf="
+                  <div *ngFor="let source of responseData.infrastructures">
+                    <a
+                            *ngIf="
                   source?.responsibleOrganization?.trim().length > 0;
                   else noSource
                 "
-                          routerLink="/results/organization/{{
+                            routerLink="/results/organization/{{
                   source.responsibleOrganizationId
                 }}"
-                  >
-                    {{ source.responsibleOrganization }}
-                  </a>
-                  <ng-template #noSource>
-                    <p class="fst-italic m-0" i18n="@@missingInfraSource">
-                      Infrastruktuuritiedon lähde puuttuu.
-                    </p>
-                  </ng-template>
+                    >
+                      {{ source.responsibleOrganization }}
+                    </a>
+                    <ng-template #noSource>
+                      <p class="fst-italic m-0" i18n="@@missingInfraSource">
+                        Infrastruktuuritiedon lähde puuttuu.
+                      </p>
+                    </ng-template>
+                  </div>
+                  <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
-              </div>
-            </mat-card>
-          </aside>
-        </div>
-      }
-    </div>
-  }
+              </mat-card>
+            </aside>
+          </div>
+        }
+      </div>
+    }
   </div>
 </div>
 
@@ -480,7 +484,9 @@
     <div class="row mini-modal-width w-100 gx-4">
       <p>{{ infraNetworkSelectedInfo1 }} <span
               class="fw-bold">{{ rootNodeName }}</span> @if (responseData?.infrastructures[0]?.name) {
-        ({{ responseData?.infrastructures[0]?.name }})
+        @if (responseData?.infrastructures[0]?.acronym) {
+          ({{ responseData?.infrastructures[0]?.acronym }})
+        }
       }
         {{ infraNetworkSelectedInfo2 }}<br/>{{ infraNetworkSelectedInfo3 }}</p>
     </div>
@@ -519,7 +525,8 @@
         <app-vis class="vis-component" [infraId]="selectedInfraId" [rootId]="infraRootId | async"
                  [nodeList]="visibleNodes | async"
                  [visData]="visData | async"
-                 [edges]="visibleEdges | async" (selectedNodeId)="infraNodeClick($event)"></app-vis>
+                 [edges]="visibleEdges | async" (selectedNodeId)="infraNodeClick($event)"
+                 (networkRendered)="onNetworkRendered()"></app-vis>
       </div>
 
       <div class="position-absolute vis-legend-container end-0 d-none d-sm-block">
@@ -635,20 +642,27 @@
           <div class="col-3 d-flex infra-legend-column" [class.col-3]="modalInfraData?.infrastructures[0]"
                [class.col-5]="!modalInfraData?.infrastructures[0]">
             <div class="vr"></div>
+
             <div class="">
-              <h3>
-                <span class="pe-1">{{ infraModalTexts.acronym }}</span>
-              </h3>
-              <p>
-                @if (selectedInfraName?.length > 0) {
-                  <span class="fw-bold">{{ selectedInfraName }}</span>
-                } @else {
-                  <span class="fw-bold">{{ modalInfraData?.infrastructures[0]?.acronym }}</span>
+              @if (modalInfraData?.infrastructures[0]?.acronym?.length > 0) {
+                <h3>
+                  <span class="pe-1">{{ infraModalTexts.acronymAndName }}</span>
+                </h3>
+                <p>
+                  <span class="">{{ modalInfraData.infrastructures[0].acronym }}</span>
+                  @if (modalInfraData.infrastructures[0]?.name?.length > 0) {
+                    <span class=""> - {{ modalInfraData.infrastructures[0]?.name }}</span>
+                  }
+                </p>
+
+              } @else {
+                @if (modalInfraData?.infrastructures?.[0]?.name?.length > 0) {
+                <h3>
+                  <span class="pe-1">{{ infraModalTexts.infraName }}</span>
+                </h3>
+                  <span>{{ modalInfraData?.infrastructures?.[0]?.name }}</span>
                 }
-                @if (modalInfraData?.infrastructures[0]?.name?.length > 0) {
-                  - {{ modalInfraData.infrastructures[0]?.name }}
-                }
-              </p>
+              }
 
               @if (!modalInfraData?.infrastructures[0]) {
                 <div>{{ kvInfraInfo }}</div>
