@@ -732,12 +732,14 @@ export class StaticDataService {
         funding: ['projectNameFi', 'projectNameSv', 'projectNameEn', 'projectAcronym'],
         dataset: ['nameFi', 'nameSv', 'nameEn'],
         infrastructure: [
+          'infraKeyIdentifier',
           'nameFi',
           'nameSv',
           'nameEn',
           'acronym',
           'services.serviceName',
-          'services.serviceAcronym'
+          'services.serviceAcronym',
+          'services.keyIdentifier',
         ],
         organization: [''],
         project: ['nameFi']

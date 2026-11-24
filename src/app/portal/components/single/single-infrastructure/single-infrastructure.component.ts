@@ -137,10 +137,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   private metaTags = MetaTags.singleInfrastructure;
   private commonTags = MetaTags.common;
   viewportScroller = inject(ViewportScroller);
-  reducedNetworkSize = true;
+  reducedNetworkSize = false;
 
   infraTreeLoading = false;
   infraNotFound = false;
+  modalDataLoading = false;
 
   isPartOfDropdownVisible = false;
   hasPartDropdownVisible = false;
@@ -230,7 +231,8 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
   endsOnLocalization = $localize`:@@ends-on:Päättyy.`;
 
   infraModalTexts = {
-    'acronym': $localize`:@@infraAcronymAndName:Lyhenne ja nimi`,
+    'infraName': $localize`:@@infraName:Nimi`,
+    'acronymAndName': $localize`:@@infraAcronymAndName:Lyhenne ja nimi`,
     'infraStartYear': $localize`:@@infraStartYear:Toiminta alkanut`,
     'description': $localize`:@@infraDescription:Infrastruktuurin kuvaus`,
     'relationToOtherInfras': $localize`:@@relationToOtherInfras:Yhteydet muihin infrastruktuureihin`,
@@ -595,6 +597,11 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     const rootNode = this.nodeList.filter(node => node.id === toInteger(this.rootId));
     this.rootNodeName = rootNode[0]?.label ?? '';
 
+    // Load the modal data of the root infrastructure for the first network data
+    if (rootNode[0]) {
+      this.infraNodeClick(rootNode[0].id);
+    }
+
     this.colorizeAndInitNodes();
     this.colorizeAndInitEdges();
     this.colorizeNeighborAndToRootEdges();
@@ -784,10 +791,14 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
 
   getData(id: string, isModalData: boolean) {
     //this.selectedInfraId = id;
+    if (isModalData) {
+      this.modalDataLoading = true;
+    }
     this.dataSub = this.singleService.getSingleInfrastructure(id).subscribe({
       next: (responseData) => {
         if (isModalData) {
           // Reload modal data
+          this.modalDataLoading = false;
           this.modalInfraData = responseData;
           //this.infraRootId.next(this.nodeList.filter(node => node.label === this.responseData.infrastructures[0]?.acronym)[0]?.id);
           //this.shapeData(isModalData);
@@ -837,7 +848,10 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
         }
         this.getInfraNetworkData(id);
       },
-      error: (error) => (this.errorMessage = error as any)
+      error: (error) => {
+        this.modalDataLoading = false;
+        this.errorMessage = error as any;
+      }
     });
   }
 
@@ -1103,6 +1117,14 @@ export class SingleInfrastructureComponent implements OnInit, AfterViewInit, OnD
     this.selectNodeFromList(infra.id);
     this.getData(infra.id, true);
     this.infraNodeClick(infra.id);
+  }
+
+  // Modal data might not be loaded yet, when the network is rendered for the first time
+  onNetworkRendered() {
+    const rootNodeId = this.infraRootId.getValue();
+    if (!this.modalInfraData && !this.modalDataLoading && rootNodeId !== undefined && this.nodeList.some(node => node.id === rootNodeId)) {
+      this.infraNodeClick(rootNodeId);
+    }
   }
 
   infraNodeClick(nodeId: number) {

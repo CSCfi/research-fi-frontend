@@ -117,8 +117,9 @@
                   </div>
                   <div class="col-6 col-md-9 mb-3">
                     @for (contact of singleService.contacts; track contact){
+                      <div class="mb-4">
                       @if (contact?.contactLabel) {
-                        <div> {{contact.contactLabel}}</div>
+                        <div class="infra-contact-label"> {{contact.contactLabel}}</div>
                       }
                       @for (email of contact.email; track email) {
                         <div>
@@ -139,15 +140,17 @@
                           <div> {{contact.visitingAddress.street}}</div>
                         }
                         @if (contact.visitingAddress.postalCode) {
-                          <div> {{contact.visitingAddress.postalCode}}</div>
-                        }
-                        @if (localize(contact.visitingAddress.locality)) {
-                          <div> {{localize(contact.visitingAddress.locality)}}</div>
+                          <div> {{contact.visitingAddress.postalCode}}
+                            @if (localize(contact.visitingAddress.locality)) {
+                              {{localize(contact.visitingAddress.locality)}}
+                            }
+                          </div>
                         }
                         @if (localize(contact.visitingAddress.country?.codeLabel)) {
                           <div> {{localize(contact.visitingAddress.country?.codeLabel)}}</div>
                         }
                       }
+                      </div>
                     }
                   </div>
                 </div>

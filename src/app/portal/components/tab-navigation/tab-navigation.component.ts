@@ -844,6 +844,7 @@ function payloadWithSearchKeywords(keywords: string) {
                           "query": keywords,
                           "type": "cross_fields",
                           "fields": [
+                            "keyIdentifier",
                             "nameFi^2",
                             "nameEn^2",
                             "nameSv^2",
@@ -861,6 +862,7 @@ function payloadWithSearchKeywords(keywords: string) {
                             "keywordsFi.keyword",
                             "keywordsSv.keyword",
                             "keywordsEn.keyword",
+                            "services.keyIdentifier",
                             "services.serviceNameFi",
                             "services.serviceNameSv",
                             "services.serviceNameEn",
