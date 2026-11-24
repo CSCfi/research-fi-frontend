@@ -484,7 +484,7 @@
   <div class="row vis-container h-100">
     <div class="row mini-modal-width w-100 gx-4">
       <p>{{ infraNetworkSelectedInfo1 }} <span
-              class="fw-bold">{{ rootNodeName }}</span> @if (responseData?.infrastructures[0]?.name) {
+              class="fw-bold">{{ responseData?.infrastructures[0]?.name }}</span> @if (responseData?.infrastructures[0]?.acronym) {
         @if (responseData?.infrastructures[0]?.acronym) {
           ({{ responseData?.infrastructures[0]?.acronym }})
         }
@@ -500,8 +500,7 @@
                     class="root-infra-text-col">{{ rootNodeName }}</span></div>
             @if (isPartOfLabelsUpper.length > 0) {
               <div class="relations-sub-heading"
-                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}
-                :
+                   (click)="isPartOfLabelsVisible = !isPartOfLabelsVisible">{{ infraModalTexts.isPartOfInfrastructures }}:
               </div>
               @if (isPartOfLabelsVisible) {
                 @for (item of isPartOfLabelsUpper; track item) {
