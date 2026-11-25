@@ -53,6 +53,7 @@ h3:hover::before {
 }
 
 .accordion-section-wrap {
+  word-wrap: break-word;
   //border: 2px solid var(--purple-dark-bg);
   outline:  2px solid var(--purple-dark-bg);
   outline-offset: -2px;
