@@ -36,7 +36,6 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgClass, DatePipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
-import { OwsRelatedPieChartComponent } from '@shared/components/ows-related-pie-chart/ows-related-pie-chart.component';
 
 @Component({
     selector: 'app-single-funding',
@@ -56,9 +55,8 @@ import { OwsRelatedPieChartComponent } from '@shared/components/ows-related-pie-
     ShareComponent,
     DatePipe,
     ThousandSeparatorPipe,
-    SvgSpritesComponent,
-    OwsRelatedPieChartComponent
-  ]
+    SvgSpritesComponent
+]
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;

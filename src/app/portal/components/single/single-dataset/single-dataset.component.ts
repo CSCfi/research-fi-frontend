@@ -37,7 +37,6 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgClass } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
-import { OwsRelatedPieChartComponent } from '@shared/components/ows-related-pie-chart/ows-related-pie-chart.component';
 
 @Component({
     selector: 'app-single-dataset',
@@ -61,9 +60,8 @@ import { OwsRelatedPieChartComponent } from '@shared/components/ows-related-pie-
     ShareComponent,
     MatProgressSpinner,
     SafeUrlPipe,
-    SvgSpritesComponent,
-    OwsRelatedPieChartComponent
-  ]
+    SvgSpritesComponent
+]
 })
 export class SingleDatasetComponent implements OnInit {
   public singleId: any;
