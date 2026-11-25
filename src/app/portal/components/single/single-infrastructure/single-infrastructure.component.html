@@ -639,7 +639,7 @@
       <div class="infra-network-modal-legend">
         <!--<h2 class="result-header mb-3">Valitun infrastruktuurin tiedot</h2>-->
         <div class="row gx-0 d-flex justify-content-between">
-          <div class="col-3 d-flex infra-legend-column" [class.col-3]="modalInfraData?.infrastructures[0]"
+          <div class="col-12 col-md-3 d-flex infra-legend-column" [class.col-3]="modalInfraData?.infrastructures[0]"
                [class.col-5]="!modalInfraData?.infrastructures[0]">
             <div class="vr"></div>
 
@@ -665,7 +665,7 @@
               }
 
               @if (!modalInfraData?.infrastructures[0]) {
-                <div>{{ kvInfraInfo }}</div>
+                <div class="mb-3">{{ kvInfraInfo }}</div>
               } @else {
                 <a href="javascript:void(0)" (click)="navigateToSelectedInfra()">
                   <p class="fw-bold">
@@ -689,7 +689,7 @@
                 }
               </div>
             </div>
-            <div class="col-4 d-flex">
+            <div class="col-12 col-md-4 d-flex">
               <div class="vr"></div>
               <div class="">
                 <h3>
@@ -703,7 +703,7 @@
               </div>
             </div>
           }
-          <div class="col-3 d-flex">
+          <div class="col-12 col-md-3 d-flex">
             <div class="vr"></div>
             <div class="">
               <h3>
