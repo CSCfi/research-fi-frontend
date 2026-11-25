@@ -240,6 +240,7 @@ export class InfrastructuresComponent
         key: 'networkSize',
         label: $localize`:@@infraNetworkSize:Verkoston koko`,
         tooltip: $localize`:@@infraNetworkSizeTooltip:Placeholder`,
+        sortDisabled: true,
         class: 'col-lg-3 col-xl-3',
         mobile: false,
       },
