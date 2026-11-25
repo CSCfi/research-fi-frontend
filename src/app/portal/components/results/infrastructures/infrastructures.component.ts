@@ -234,14 +234,14 @@ export class InfrastructuresComponent
         label: $localize`:@@infraServices:Palvelut`,
         tooltip: $localize`:@@infraServicesTooltip:Placeholder`,
         class: 'col-lg-3 col-xl-3',
-        mobile: true,
+        mobile: false,
       },
       {
         key: 'networkSize',
         label: $localize`:@@infraNetworkSize:Verkoston koko`,
         tooltip: $localize`:@@infraNetworkSizeTooltip:Placeholder`,
         class: 'col-lg-3 col-xl-3',
-        mobile: true,
+        mobile: false,
       },
     ];
 
