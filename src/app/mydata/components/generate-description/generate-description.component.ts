@@ -272,9 +272,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
     if (isPlatformBrowser(this.platformId)) {
       if (sessionStorage.getItem('hideAiBioAd') === 'true') {
-          this.hideAiBioAd.set(true);
-        }
+        this.hideAiBioAd.set(true);
       }
+    }
   }
 
   hideAiBioAdClick(){
@@ -302,7 +302,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       // Also sets contentCreationStep to 3, which the create button in the modal requires
       this.selectDescriptionSource(0);
     } else {
-    this.infoPopover?.toggle();
+      this.infoPopover?.toggle();
 
     }
   }
@@ -327,7 +327,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     if (dialogName === 'review') {
       this.selectDescriptionSource(0);
       this.biographyService.biographyReadyDismissed$.next(true);
-      }
+    }
     if (!this.biographyService.isBiographyGenerationOngoing()) {
       if (!this.initDoneOnce) {
         this.initBiographies();
@@ -459,12 +459,12 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   };
 
   handleUnfinishedBiographyFetch(){
-      this.biographyService.userEditableBiographies$.next({
-        fi: this.biographyService.dropdownLanguageSelection === 0 ? this.biographyService.latestGeneratedBiographyText : this.biographyService.userEditableBiographies$.getValue().fi,
-        sv: this.biographyService.dropdownLanguageSelection === 1 ? this.biographyService.latestGeneratedBiographyText : this.biographyService.userEditableBiographies$.getValue().sv,
-        en: this.biographyService.dropdownLanguageSelection === 2 ? this.biographyService.latestGeneratedBiographyText : this.biographyService.userEditableBiographies$.getValue().en,
-        itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
-      });
+    this.biographyService.userEditableBiographies$.next({
+      fi: this.biographyService.dropdownLanguageSelection === 0 ? this.biographyService.latestGeneratedBiographyText : this.biographyService.userEditableBiographies$.getValue().fi,
+      sv: this.biographyService.dropdownLanguageSelection === 1 ? this.biographyService.latestGeneratedBiographyText : this.biographyService.userEditableBiographies$.getValue().sv,
+      en: this.biographyService.dropdownLanguageSelection === 2 ? this.biographyService.latestGeneratedBiographyText : this.biographyService.userEditableBiographies$.getValue().en,
+      itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
+    });
     this.biographyService.generateBiographyFetchedToUi$.next(true);
     this.selectDescriptionSource(0);
   }

@@ -134,7 +134,7 @@ export class ActiveFiltersComponent
         break;
       case 'infrastructures':
         this.filtersConfig = this.infrastructureFilters.filterData;
-        this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
+        this.yearRange = $localize`:@@year:Vuosi` + ': ';
         break;
       // case 'persons':
       //   this.filtersConfig = this.personFilters.filterData;
@@ -337,6 +337,12 @@ export class ActiveFiltersComponent
                 if (val.value === 'open') {
                   val.translation = $localize`:@@openCalls:Avoimet haut`;
                 }
+                if (tab === 'infrastructures' && val.value === 'active') {
+                  val.translation = $localize`:@@infra-filter-active:Toiminnassa`;
+                }
+                if (tab === 'infrastructures' && val.value === 'discontinued') {
+                  val.translation = $localize`:@@infra-filter-discontinued:Päättynyt`;
+                }
               }
 
               // Field of science
@@ -500,6 +506,33 @@ export class ActiveFiltersComponent
                 ).translation = $localize`:@@okmDataCollectionShort:Kuuluu OKM:n tiedonkeruuseen`;
               }
 
+              // Infrastructure participating organization names
+              if (
+                val.category === 'participatingOrganizations' &&
+                tab === 'infrastructures' &&
+                source.participatingOrganizations
+              ) {
+                setTimeout(() => {
+                  source.participatingOrganizations.sector?.buckets?.forEach(
+                    (sector) => {
+                      const org = sector.subData.find(
+                        (x) => x.key === val.value
+                      );
+                      if (org) {
+                        const found = this.activeFilters.find(
+                          (x) =>
+                            x.category === 'participatingOrganizations' &&
+                            x.value === val.value
+                        );
+                        if (found) {
+                          found.translation = org.label.trim();
+                        }
+                      }
+                    }
+                  );
+                }, 1);
+              }
+
               // Organization filter
               if (val.category === 'organization' && source.organization) {
                 // Funding organization name
@@ -521,6 +554,7 @@ export class ActiveFiltersComponent
                       );
                     }
                   }, 1);
+
                   // Dataset & persons organization name
                 } else if (tab === 'datasets' || tab === 'persons') {
                   setTimeout(() => {
@@ -540,7 +574,8 @@ export class ActiveFiltersComponent
                       );
                     }
                   }, 1);
-                  // Infrastructure organization name
+
+                  // Infrastructure organization names
                 } else if (tab === 'infrastructures') {
                   setTimeout(() => {
                     if (source.organization.sector.buckets) {
@@ -728,6 +763,103 @@ export class ActiveFiltersComponent
               }
 
               // Infrastructures
+
+              // Infra activity
+              if (val.category === 'infraIsActive' && (val.value === 'true' || val.value?.includes('true'))) {
+                this.activeFilters.find(
+                  (item) => item.category === 'infraIsActive'  && item.value === 'true'
+                ).translation = $localize`:@@infra-filter-active:Toiminnassa`;
+              }
+
+              // Infra activity
+              if (val.category === 'infraIsActive' && (val.value === 'false' || val.value?.includes('false'))) {
+                this.activeFilters.find(
+                  (item) => item.category === 'infraIsActive' && item.value === 'false'
+                ).translation = $localize`:@@infra-filter-discontinued:Päättynyt`;
+              }
+
+              // Infra start year
+              if (val.category === 'infraStartYear') {
+                this.activeFilters.find(
+                  (item) => item.category === 'infraStartYear'
+                ).translation = ($localize`:@@infraFiltersHasStarted:Toiminta on aloitettu`) + ' ' + val.value;
+              }
+
+              // Infra end year:@@infraFiltersHasEnded:Toiminta on lopetettu
+              if (val.category === 'infraEndYear') {
+                this.activeFilters.find(
+                  (item) => item.category === 'infraEndYear'
+                ).translation = ($localize`:@@infraFiltersHasEnded:Toiminta on lopetettu`) + ' ' + val.value;
+              }
+
+              // Finland roadmap
+              if (val.category === 'finlandRoadmap' && source.finlandRoadmap) {
+                this.activeFilters.find(
+                  (item) => item.category === 'finlandRoadmap'
+                ).translation = $localize`Suomen Akatemian tiekartalla`;
+              }
+
+              // Has relation to international infra
+              // Both true and false can be active at the same time, so translate by value
+              if (val.category === 'hasRelationToInternationalInfra' && source.hasRelationToInternationalInfra) {
+                const relationHeading = $localize`:@@hasRelationToInternationalInfra:Kuuluu kansainväliseen infrastruktuuriverkostoon.`;
+                val.translation = val.value === 'false'
+                  ? relationHeading + ': ' + $localize`:@@no:Ei`
+                  : relationHeading + ': ' + $localize`:@@yes:Kyllä`;
+              }
+
+              // Service user roles
+              if (val.category === 'serviceUserRole' && source.serviceUserRole) {
+                // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
+                // This might cause some latency and therefore timeout is needed.
+                setTimeout((t) => {
+                  const result = source.serviceUserRole.buckets.find(
+                    ({ key }) => key === val.value
+                  );
+                  const foundIndex = this.activeFilters.findIndex(
+                    (x) => x.value === val.value
+                  );
+                  this.activeFilters[foundIndex].translation = result.label
+                    ? result.label.charAt(0).toUpperCase() + result.label.slice(1)
+                    : '';
+                }, 1);
+              }
+
+              // Service target segment
+              if (val.category === 'serviceTargetSegment' && source.serviceTargetSegment) {
+                // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
+                // This might cause some latency and therefore timeout is needed.
+                setTimeout((t) => {
+
+                  const result = source.serviceTargetSegment.buckets.find(
+                    ({ key }) => key === val.value
+                  );
+                  const foundIndex = this.activeFilters.findIndex(
+                    (x) => x.value === val.value
+                  );
+                  this.activeFilters[foundIndex].translation = result.label
+                    ? result.label.charAt(0).toUpperCase() + result.label.slice(1)
+                    : '';
+                }, 1);
+              }
+
+              // Service ESFRI codes
+              if (val.category === 'ESFRICodes' && source.ESFRICodes) {
+                // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
+                // This might cause some latency and therefore timeout is needed.
+                setTimeout((t) => {
+                  const result = source.ESFRICodes.buckets.find(
+                    ({ key }) => key === val.value
+                  );
+                  const foundIndex = this.activeFilters.findIndex(
+                    (x) => x.value === val.value
+                  );
+                  this.activeFilters[foundIndex].translation = result.label
+                    ? result.label.charAt(0).toUpperCase() + result.label.slice(1)
+                    : '';
+                }, 1);
+              }
+
               // Type
               if (val.category === 'type' && source.type) {
                 // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
@@ -762,9 +894,13 @@ export class ActiveFiltersComponent
                   const foundIndex = this.activeFilters.findIndex(
                     (x) => x.value === val.value
                   );
-                  this.activeFilters[foundIndex].translation = result.label
-                    ? result.label
-                    : result.key;
+                  // Backend sends field names in capitals, show as lowercase with first letter capitalized
+                  const fieldName = (result.label ? result.label : result.key)
+                    ?.toString()
+                    .toLowerCase();
+                  this.activeFilters[foundIndex].translation = fieldName
+                    ? fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                    : '';
                 }, 1);
               }
 
