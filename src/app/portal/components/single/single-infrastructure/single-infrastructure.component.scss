@@ -1,4 +1,8 @@
 :host {
+  display: block;
+  flex: 1 0 auto;
+  background: var(--purple-light-bg, #F7F7FB);
+
   --hot-pink: #FF0080;
   --senary-contrast: #666666;
   --quaternary-contrast: #999999;
@@ -65,6 +69,7 @@ h4.th.classification {
 }
 
 .infra-other-fields {
+  word-wrap: break-word;
   font-size: 14px;
   margin-top: -10px;
   .other-fields-heading {
@@ -136,7 +141,7 @@ h4.th.classification {
 }
 
 .infra-legend-column {
-  height: 300px;
+  //height: 300px;
 }
 
 .infra-trees-container {
@@ -415,4 +420,8 @@ h4.th.classification {
 
 [ngOption]:not([aria-selected='true']) .example-option-check {
   display: none;
+}
+
+.show-email-link, a.read-more {
+  font-weight: 400 !important;
 }

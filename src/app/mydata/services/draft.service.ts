@@ -383,15 +383,15 @@ export class DraftService {
 
   async republish() {
     try {
-      const response = await this.setProfileVisible();
-      await this.pollProfile();
+      await this.setProfileVisible();
+      await this.pollProfileExists();
       this.snackbarService.showPatchMessage('success');
     } catch (error) {
       console.error(`Error in data patching`, error);
     }
   }
 
-  private async pollProfile() {
+  private async pollProfileExists() {
     let response;
     const delays = [2000, 2000, 2000, 2000, 2000, 2000, 5000, 20000];
 
@@ -404,6 +404,57 @@ export class DraftService {
         this.publishingInProgress$.next(false);
         return; }
     }
+  }
+
+  /*
+   * Back end save has some delay. Poll profile data until its 'updated' timestamp differs from the
+   * one before publishing, then set it as the current data and refresh the view.
+   */
+  private async pollProfileDataIsUpdated() {
+    const lastUpdated = this.profileService.latestDataTimestamp;
+    const delays = [100, 500, 1000, 1500, 2000, 3000, 5000, 5000, 8000, 10000];
+    let latestValue;
+
+    for (const delay of delays) {
+      await lastValueFrom(timer(delay));
+
+      try {
+        const value = await this.profileService.fetchProfileDataFromBackend();
+        if (value) {
+          latestValue = value;
+          if (this.isTimestampNewer(this.profileService.latestDataTimestamp, lastUpdated)) {
+            break;
+          }
+        }
+      } catch (error) {
+        // Failed request is not final, try again on the next round
+        console.error('Error polling profile data', error);
+      }
+    }
+
+    // Use the latest data even if the timestamp didn't change, so the view isn't left with stale or empty data
+    if (latestValue) {
+      this.profileService.setCurrentProfileData(cloneDeep(latestValue.profileData));
+      // Notify profile component to show the updated data
+      this.dataHasBeenReset.next(true);
+    } else {
+      // Nothing was received, force the next view load to fetch data from back end
+      this.profileService.clearCurrentProfileData();
+    }
+    this.publishingInProgress$.next(false);
+    this.snackbarService.showPatchMessage('success');
+  }
+
+  private isTimestampNewer(current: string, previous: string): boolean {
+    if (!previous) {
+      return !!current;
+    }
+    const currentTime = Date.parse(current);
+    const previousTime = Date.parse(previous);
+    if (isNaN(currentTime) || isNaN(previousTime)) {
+      return current !== previous;
+    }
+    return currentTime > previousTime;
   }
 
   public addToHighlightOpennessPayload(value: boolean){
@@ -471,20 +522,24 @@ export class DraftService {
       if (response.includes(false)) {
         this.snackbarService.showPatchMessage('error');
       } else {
-        // Wait new data available from back end
-        await this.pollProfile();
+        // Keep showing the published draft until the updated data has arrived from back end.
+        const publishedDraft = this.getDraftProfile();
+        if (publishedDraft) {
+          this.profileService.setCurrentProfileData(cloneDeep(publishedDraft));
+        }
         this.clearDraftData();
         this.updatePerson();
         await this.setProfileVisible();
         this.publishingInProgress$.next(false);
-        this.snackbarService.showPatchMessage('success');
+        // Show success snackbar and update profile data, when data has been updated in back end
+        await this.pollProfileDataIsUpdated();
       }
     } catch (error) {
       this.snackbarService.showPatchMessage('error');
       console.error(`Error in data patching`, error);
     }
     //console.log('set draft profile data as current', this.draftProfileData);
-    this.profileService.setCurrentProfileData(this.getDraftProfile());
+    //this.profileService.setCurrentProfileData(this.getDraftProfile());
   }
 
   /*

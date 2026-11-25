@@ -17,7 +17,7 @@ export interface BannerContent {
   link2Text?: string;
   link2ButtonType?: 'text'| 'primary' | 'secondary' | 'tertiary',
   rememberDismissed: boolean;
-  bannerType: 'portal-banner' | 'profile-tool-banner',
+  bannerType: 'portal-banner' | 'profile-tool-banner' | 'portal-banner-no-link',
   bannerTheme: 'blue' | 'yellow';
 }
 

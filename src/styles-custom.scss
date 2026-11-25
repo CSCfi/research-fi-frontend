@@ -696,6 +696,7 @@ app-single-dataset, app-single-funding, app-single-funding-call, app-single-infr
 .dialog-header {
   padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  min-height: 75px;
 }
 
 .mat-mdc-dialog-content {

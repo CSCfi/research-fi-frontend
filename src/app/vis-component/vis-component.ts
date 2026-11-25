@@ -27,6 +27,7 @@ class VisComponent implements OnInit, OnDestroy {
   @Input() visualizationWidth?: number;
   @Input() visualizationHeight?: number;
   @Output() selectedNodeId = new EventEmitter<string>();
+  @Output() networkRendered = new EventEmitter<void>();
 
   private _nodeList: any[] = [];
   @Input() set nodeList(value: any[]) {
@@ -185,6 +186,8 @@ class VisComponent implements OnInit, OnDestroy {
 
     this.network = new Network(this.container, treedata, options);
     this.network.canvas.body.container.style.cursor = 'drag';
+    // Notify when the network has been drawn for the first time
+    this.network.once('afterDrawing', () => this.networkRendered.emit());
 
     let that = this;
 /*    this.network.on('hoverEdge', function(params) {

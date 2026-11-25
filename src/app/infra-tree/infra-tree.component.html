@@ -23,27 +23,29 @@
         }}</span>
         <span class="d-flex justify-content-between w-100">
       <span>
-        @if (node?.internationalInfraWeblink) {
+        @if (node?.isInternational) {
           <ng-template #popoverTemplate>
           <div>{{ kvInfraInfo }}</div>
-            <div class="popover-link-wrap">
-              <a class="d-inline-flex flex-row"
-                 [href]="node.internationalInfraWeblink"
-                 target="_blank"><span>{{ goToInfraPage }}</span>
-                <span class="d-inline-flex"><app-svg-sprites [iconName]="'open_in_new'"
-                                                             cssClass="open_in_new-icon white"></app-svg-sprites></span>
-              </a>
-            </div>
+            @if (node.internationalInfraWeblink) {
+              <div class="popover-link-wrap">
+                <a class="d-inline-flex flex-row"
+                   [href]="node.internationalInfraWeblink"
+                   target="_blank"><span>{{ goToInfraPage }}</span>
+                  <span class="d-inline-flex"><app-svg-sprites [iconName]="'open_in_new'"
+                                                               cssClass="open_in_new-icon white"></app-svg-sprites></span>
+                </a>
+              </div>
+            }
           </ng-template>
 
           <div class="text-padder infra-name" [outsideClick]="true" [popover]="popoverTemplate"
-               [class.clickable-infra]="true" [class.current-node]="node.isCurrent" ]>
+               [class.clickable-infra]="true" [class.current-node]="node.isCurrent">
             {{ node.name }}
             <app-svg-sprites [iconName]="'globe-icon'" cssClass="globe-icon"></app-svg-sprites>
           </div>
         } @else {
           <div class="text-padder infra-name" [class.clickable-infra]="node.infraId"
-               [class.current-node]="node.isCurrent" ] (click)="navigateToInfraLink(node.infraId)">
+               [class.current-node]="node.isCurrent" (click)="navigateToInfraLink(node.infraId)">
             {{ node.name }}
           </div>
         }

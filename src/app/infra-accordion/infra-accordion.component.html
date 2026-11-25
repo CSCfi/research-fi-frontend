@@ -47,37 +47,39 @@
                   </div>
                 }
               </div>
-              <div class="row gx-1 mb-1">
+              @if (singleService.servicePid) {
+                <div class="row gx-1 mb-1">
 
-                <div class="col-6 col-md-3 fw-bold">
-                  {{pidIdentifierLocalization}}
+                  <div class="col-6 col-md-3 fw-bold">
+                    {{pidIdentifierLocalization}}
+                  </div>
+                  <div class="col-6 col-md-9 mb-3">
+                    <app-share [id]="singleService.servicePid" [useTextOnlyLink]="true"
+                               [showUrnTextPrefix]="false"></app-share>
+                  </div>
                 </div>
-                <div class="col-6 col-md-9 mb-3">
-                  <app-share [id]="singleService.servicePid" [useTextOnlyLink]="true"
-                             [showUrnTextPrefix]="false"></app-share>
-                </div>
-              </div>
+              }
 
-              @if (singleService.startDate.year || singleService.endDate.year) {
+              @if (singleService.startDate?.year || singleService.endDate?.year) {
                 <div class="row gx-1 mb-1">
                   <div class="col-6 col-md-3 fw-bold">
                     {{serviceLocalization}}
                   </div>
-                  @if (singleService.startDate.year){
+                  @if (singleService.startDate?.year){
                     <div class="col-6 col-md-9 mb-3">
-                      {{hasStartedLocalization}}: <span class="ms-sm-4">{{singleService.startDate.year}}</span>
+                      {{hasStartedLocalization}}: <span class="ms-sm-4">{{singleService.startDate?.year}}</span>
                     </div>
                   }
-                  @if (singleService.endDate.year){
+                  @if (singleService.endDate?.year){
                     <div class="col-6 col-md-3 fw-bold"></div>
                     <div class="col-6 col-md-9 mb-3">
-                      {{endsOnLocalization}}: <span class="ms-sm-4">{{singleService.endDate.year}}</span>
+                      {{endsOnLocalization}}: <span class="ms-sm-4">{{singleService.endDate?.year}}</span>
                     </div>
                   }
                 </div>
               }
 
-              @if (singleService.targetAudience){
+              @if (singleService.targetAudience?.length > 0) {
                 <div class="row gx-1 mb-1">
                   <div class="col-6 col-md-3 fw-bold">
                     {{targetAudienceLocalization}}
@@ -87,7 +89,7 @@
                   </div>
                 </div>
               }
-              @if (singleService.targetSegment){
+              @if (singleService.targetSegment?.length > 0) {
                 <div class="row gx-1 mb-1">
                   <div class="col-6 col-md-3 fw-bold">
                     {{targetSegmentLocalization}}
@@ -108,17 +110,47 @@
                   </div>
                 </div>
               }
-              @if (singleService.contacts) {
+              @if (singleService.contacts?.length > 0) {
                 <div class="row gx-1 mb-1">
                   <div class="col-6 col-md-3 fw-bold">
                     {{serviceContactInfoLocalization}}
                   </div>
                   <div class="col-6 col-md-9 mb-3">
                     @for (contact of singleService.contacts; track contact){
-                      <div> {{contact.contactLabel}}</div>
-                      <div> {{contact.email}}</div>
-                      <div> {{contact.telephone}}</div>
-                      <div> {{contact.address}}</div>
+                      <div class="mb-4">
+                      @if (contact?.contactLabel) {
+                        <div class="infra-contact-label"> {{contact.contactLabel}}</div>
+                      }
+                      @for (email of contact.email; track email) {
+                        <div>
+                          @if (revealedEmails.has(email)) {
+                            {{ email }}
+                          } @else {
+                            <a class="show-email-link" href="javascript:void(0)" tabindex="0" role="button"
+                               (click)="revealEmail(email)" (keydown.enter)="revealEmail(email)"
+                               i18n="@@showEmailAddress">Näytä sähköpostiosoite</a>
+                          }
+                        </div>
+                      }
+                      @for (phone of contact.phone; track phone) {
+                        <div> {{phone}}</div>
+                      }
+                      @if (contact?.visitingAddress) {
+                        @if (contact.visitingAddress.street) {
+                          <div> {{contact.visitingAddress.street}}</div>
+                        }
+                        @if (contact.visitingAddress.postalCode) {
+                          <div> {{contact.visitingAddress.postalCode}}
+                            @if (localize(contact.visitingAddress.locality)) {
+                              {{localize(contact.visitingAddress.locality)}}
+                            }
+                          </div>
+                        }
+                        @if (localize(contact.visitingAddress.country?.codeLabel)) {
+                          <div> {{localize(contact.visitingAddress.country?.codeLabel)}}</div>
+                        }
+                      }
+                      </div>
                     }
                   </div>
                 </div>

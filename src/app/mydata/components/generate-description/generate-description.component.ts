@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { AsyncPipe, isPlatformBrowser, JsonPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 import { CommonStrings } from '@mydata/constants/strings';
@@ -15,7 +15,10 @@ import { Constants } from '@mydata/constants';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { FormsModule } from '@angular/forms';
+import { PopoverDirective, PopoverModule } from 'ngx-bootstrap/popover';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { countShownItems } from '@mydata/utils';
+import { CloseButtonComponent } from '@shared/components/buttons/close-button/close-button.component';
 
 @Component({
   selector: 'app-generate-description',
@@ -30,7 +33,9 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
     NgClass,
     FormsModule,
     NgIf,
-    NgForOf
+    NgForOf,
+    PopoverModule,
+    CloseButtonComponent
   ],
   templateUrl: './generate-description.component.html',
   styleUrl: './generate-description.component.scss'
@@ -42,6 +47,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   @Input() sectionIndex: number = 0;
   @Output() openDialogCall = new EventEmitter<number>();
 
+  @ViewChild('infoPopover', { read: PopoverDirective }) infoPopover: PopoverDirective;
+
   showDialog$ = new BehaviorSubject(false);
 
   editString = CommonStrings.reselect;
@@ -51,7 +58,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   descriptionOfResearchText = $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`;
 
-  aitta_modalIntroText = $localize`:@@aitta_infoText:Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja. Tietojasi ei käytetä kielimallin kouluttamiseen eikä niitä säilytetä CSC:n Aitta-palvelussa.`;
+  aitta_modalIntroText = $localize`:@@aitta_modalIntroText:Voit luoda itsellesi tutkimustoiminnan kuvauksen tekoälyn avulla. Kuvauksen luomiseen käytetään vain Tiedejatutkimus.fi:ssä julkaistun profiilisi tietoja. Tietojasi ei käytetä kielimallin kouluttamiseen eikä niitä säilytetä CSC:n Aitta-palvelussa.`;
 
   selectInformationToDisplayInProfile = $localize`:@@aitta_selectInformationToDisplayInProfile:Valitse profiilissasi näytettävät tiedot`;
   noPublicDataText = $localize`:@@aitta_youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
@@ -98,6 +105,10 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
 
   aiGeneratedTextMayContainErrors = $localize`:@@aitta_aiGeneratedTextMayContainErrors:Tekoälyn luoma teksti voi sisältää asiavirheitä. Muistathan tarkastaa tekstin.`;
 
+  aitta_youCanCreateAiBioInfoTitle = $localize`:@@aitta_youCanCreateAiBioInfoTitle:Voit nyt luoda kuvauksen tekoälyn avulla!`;
+  aitta_youCanCreateAiBioInfoText = $localize`:@@aitta_youCanCreateAiBioInfoText:Tekoäly hyödyntää vain profiilissasi julkaistuja tietoja. Täydennä siis ensin profiilisi tiedot ja julkaise. Palaa sen jälkeen luomaan kuvaus.`;
+  aitta_updateYouProfileFirst = $localize`:@@aitta_updateYouProfileFirst:Täydennä ensin profiiliasi ja julkaise se. Voit sen jälkeen luoda kuvauksen.`;
+
   dialogActions1 = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
     { label: $localize`:@@aitta_useDescriptionButtonText:Käytä kuvausta`, primary: true, method: 'save' }
@@ -113,7 +124,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       flexStart: true
     },
     {
-      label: $localize`:@@closeToBackgroundButtonText:Sulje taustalle`,
+      label: $localize`:@@aitta_closeToBackgroundButtonText:Sulje taustalle`,
       primary: true,
       method: 'closeToBackgroundButtonText'
     }
@@ -210,7 +221,9 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   private clearDataSub: Subscription;
   private updateDataSub: Subscription;
 
+  enoughPublishedDataForAiBio = false;
   biographyModalTextAreaValue = '';
+  hideAiBioAd = signal(false);
 
   constructor(
     public biographyService: BiographyService,
@@ -224,6 +237,12 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (countShownItems(this.fullProfiledata) > 5) {
+      this.enoughPublishedDataForAiBio = true;
+    } else {
+      this.enoughPublishedDataForAiBio = false;
+    }
+
     if (!this.biographyService.isBiographyGenerationOngoing()) {
       this.initBiographies();
     } else {
@@ -250,6 +269,42 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
         this.initBiographies();
       }
     });
+
+    if (isPlatformBrowser(this.platformId)) {
+      if (sessionStorage.getItem('hideAiBioAd') === 'true') {
+        this.hideAiBioAd.set(true);
+      }
+    }
+  }
+
+  hideAiBioAdClick(){
+    this.hideAiBioAd.set(true);
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('hideAiBioAd', 'true');
+    }
+  }
+
+  createDescriptionAdButtonClick(){
+    if (this.enoughPublishedDataForAiBio)
+    {
+      this.clearData();
+      // clearData() refills the texts from the profile data, which can still hold the removed description.
+      // Keep itemMeta so the new description is saved into the same item.
+      this.biographyService.userEditableBiographies$.next({
+        fi: '',
+        en: '',
+        sv: '',
+        itemMeta: this.biographyService.userEditableBiographies$.getValue().itemMeta
+      });
+      this.biographyModalTextAreaValue = '';
+      this.openDialog('generate');
+      // Select after openDialog(), because its initBiographies() can change the source from saved draft or not ai descriptions.
+      // Also sets contentCreationStep to 3, which the create button in the modal requires
+      this.selectDescriptionSource(0);
+    } else {
+      this.infoPopover?.toggle();
+
+    }
   }
 
   clearData() {
@@ -290,6 +345,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.selectedKeywordsValues = [];
     this.selectedKeywordsShowItemMetas = [];
     this.selectedKeywordsHideItemMetas = [];
+    this.biographyService.visibleDraftBiographies$.next({ fi: '', en: '', sv: '', itemMeta: undefined });
 
     this.notAiBiographies = [];
     if (this.data && this.data.id === 'researchDescription') {
@@ -322,15 +378,16 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     // Take biography from old api
     if (this.data && this.data.id === 'researchDescription') {
       let itemIndex = -1;
+      let visibleAiBiographyExists = false;
       this.data?.items.forEach(item => {
         itemIndex += 1;
         // Ai generated biography exists
         if (item.dataSources[0].registeredDataSource === 'Tiedejatutkimus.fi') {
-          if (item.itemMeta.show === true) {
-            this.biographyService.isBiographyAiGeneratedObs$.next(true);
+          const hasLanguageVersion = !!(item?.researchDescriptionFi || item?.researchDescriptionEn || item?.researchDescriptionSv);
+          if (item.itemMeta.show === true && hasLanguageVersion) {
+            visibleAiBiographyExists = true;
             this.selectDescriptionSource(0);
           } else {
-            this.biographyService.isBiographyAiGeneratedObs$.next(false);
             if (this.descriptionSourceInSavedDraft !== -1) {
               this.selectDescriptionSource(this.descriptionSourceInSavedDraft);
             }
@@ -388,6 +445,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
           this.contentCreationStep = 3;
         }
       });
+      // False also when the ai generated biography is missing or has no language versions left
+      this.biographyService.isBiographyAiGeneratedObs$.next(visibleAiBiographyExists);
     }
 
     // User has exited the page before bio is loaded into ui
@@ -422,13 +481,29 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     }
   }
 
-  generateAndPatchBiographyPayload() {
+  // The first AI biography is not in the profile data fetched right after saving, so a new item is created from it to get the first generated biography into draft summary preview
+
+  generateAndPatchBiographyPayload(createdItemMeta?: any) {
     // Take biography from old api
 
     // Fetch latest saved values from backend
     const newProfileData = this.profileService.fetchProfileDataFromBackend().then(
       (value) => {
         if (value) {
+          const descriptionItems = value.profileData[1].fields[1].items;
+          if (createdItemMeta?.id && !descriptionItems.some(item => item?.itemMeta?.id === createdItemMeta.id)) {
+            descriptionItems.push({
+              researchDescriptionFi: '',
+              researchDescriptionEn: '',
+              researchDescriptionSv: '',
+              value: '',
+              itemMeta: cloneDeep(createdItemMeta),
+              dataSources: [{
+                registeredDataSource: 'Tiedejatutkimus.fi',
+                organization: { nameFi: 'Tiedejatutkimus.fi', nameEn: null, nameSv: null }
+              }]
+            });
+          }
           // Update profile for draft preview
           value.profileData[1].fields[1].items = value.profileData[1].fields[1].items.map(previewItem => {
 
@@ -459,6 +534,8 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
               if (previewItem.researchDescriptionFi.length < 1 && previewItem.researchDescriptionEn.length < 1 && previewItem.researchDescriptionSv.length < 1) {
                 patchItem.itemMeta.show = false;
               }
+              // Draft profile needs the same visibility as the patch, otherwise views built from the draft show no description
+              previewItem.itemMeta.show = patchItem.itemMeta.show;
               this.patchService.addToPayload(patchItem.itemMeta);
 
             } else {
@@ -469,6 +546,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
               } else {
                 patchItem.itemMeta.show = false;
               }
+              previewItem.itemMeta.show = patchItem.itemMeta.show;
               this.patchService.addToPayload(patchItem.itemMeta);
 
               // Update visible version in UI for non AI generated
@@ -565,7 +643,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     this.biographyService.userEditableBiographies$.next(biographyStub);
   }
 
-  saveAiBioChanges() {
+  async saveAiBioChanges() {
     // Clear old language versions after generated new bio in Finnish
     let patchBiographyStub = { fi: '', en: '', sv: '', itemMeta: undefined };
     patchBiographyStub.itemMeta = this.biographyService.userEditableBiographies$.getValue().itemMeta;
@@ -573,12 +651,31 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
     patchBiographyStub.sv = this.biographyService.userEditableBiographies$.getValue().sv;
     patchBiographyStub.en = this.biographyService.userEditableBiographies$.getValue().en;
 
-    this.biographyService.updateBiography(patchBiographyStub).then();
     this.biographyService.visibleDraftBiographies$.next(cloneDeep(patchBiographyStub));
+    // No ai generated biography left, if all language versions were deleted
+    this.biographyService.isBiographyAiGeneratedObs$.next(!!(patchBiographyStub.fi || patchBiographyStub.en || patchBiographyStub.sv));
 
     this.setSelectedNotAiBiographyItem(undefined);
 
-    this.generateAndPatchBiographyPayload();
+    // Back end returns the itemMeta of the saved biography
+    let createdItemMeta;
+    try {
+      const response: any = await this.biographyService.updateBiography(patchBiographyStub);
+      if (response?.id) {
+        createdItemMeta = response;
+        // Following saves update the same item
+        if (!patchBiographyStub.itemMeta) {
+          this.biographyService.userEditableBiographies$.next({
+            ...this.biographyService.userEditableBiographies$.getValue(),
+            itemMeta: cloneDeep(response)
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error saving biography', error);
+    }
+
+    this.generateAndPatchBiographyPayload(createdItemMeta);
     this.showDialog$.next(false);
     this.showDraftSaveSuccessNotification();
     this.initLanguageSelectDefaultValue();
@@ -725,7 +822,7 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
   }
 
   setSelectedNotAiBiographyItem(biographyData: any) {
-    if (this.selectedNotAiBiographyIndex) {
+    if (this.selectedNotAiBiographyIndex >= 0) {
       this.selectedNotAiBiographyItem = biographyData;
     } else {
       this.selectedNotAiBiographyItem = undefined;
@@ -759,7 +856,6 @@ export class GenerateDescriptionComponent implements OnInit, OnDestroy {
       }
       case 'saveChanges': {
         this.saveAiBioChanges();
-        this.biographyService.isBiographyAiGeneratedObs$.next(true);
         break;
       }
 

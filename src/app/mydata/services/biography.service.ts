@@ -116,28 +116,28 @@ export class BiographyService implements OnDestroy {
   }
 
   public async generateBiography(langLowerCase: string): Promise<any> {
-    await this.updateToken();
-    this.biographyGenerationOngoing.next(true);
-    try {
-      await lastValueFrom(this.http.get(this.apiUrl + '/biography/generate/' + langLowerCase, this.httpOptions)).then(async (result: any) => {
-        this.biographyGenerationOngoing.next(false);
-        if (langLowerCase === 'fi') {
-          this.generatedBiographyData.next(result?.contentText);
+      await this.updateToken();
+      this.biographyGenerationOngoing.next(true);
+      try {
+        await lastValueFrom(this.http.get(this.apiUrl + '/biography/generate/' + langLowerCase, this.httpOptions)).then(async (result: any) => {
           this.biographyGenerationOngoing.next(false);
-        } else if (langLowerCase === 'en') {
-          this.generatedBiographyDataEn.next(result?.contentText);
-          this.biographyGenerationOngoing.next(false);
-        } else if (langLowerCase === 'sv') {
-          this.generatedBiographyDataSv.next(result?.contentText);
-          this.biographyGenerationOngoing.next(false);
-        }
-        this.latestGeneratedBiographyText = result?.contentText;
-      });
+          if (langLowerCase === 'fi') {
+            this.generatedBiographyData.next(result?.contentText);
+            this.biographyGenerationOngoing.next(false);
+          } else if (langLowerCase === 'en') {
+            this.generatedBiographyDataEn.next(result?.contentText);
+            this.biographyGenerationOngoing.next(false);
+          } else if (langLowerCase === 'sv') {
+            this.generatedBiographyDataSv.next(result?.contentText);
+            this.biographyGenerationOngoing.next(false);
+          }
+          this.latestGeneratedBiographyText = result?.contentText;
+        });
 
-    } catch (err) {
-      this.biographyGenerationError.next(err);
-      this.biographyGenerationError.next(undefined);
-    }
+      } catch (err) {
+        this.biographyGenerationError.next(err);
+        this.biographyGenerationError.next(undefined);
+      }
   }
 
   public async getBiographyHttp(): Promise<any> {
