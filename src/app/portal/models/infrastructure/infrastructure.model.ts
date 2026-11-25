@@ -5,10 +5,23 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { InfraService, InfraServiceAdapter } from './infra-service.model';
 import { ModelUtilsService } from '@shared/services/model-util.service';
+import { UtilityService } from '@shared/services/utility.service';
+
+export interface InfraContactInfo {
+  contactLabel?: string | undefined;
+  phone?: string[];
+  email?: string[];
+  street?: string | undefined;
+  premise?: string | undefined;
+  postalCode?: string | undefined;
+  locality?: string | undefined;
+  country?: string | undefined;
+  countryCode?: string | undefined;
+}
 
 export class Infrastructure {
   constructor(
@@ -18,27 +31,27 @@ export class Infrastructure {
     public scientificDescription: string,
     public startYear: string,
     public endYear: string,
+    public startDate: Date | undefined,
+    public endDate: Date | undefined,
     public acronym: string,
     public finlandRoadmap: string,
-    public ESFRICode: string,
-    public merilCode: string,
-    public contactName: string,
-    public contactDescription: string,
-    public email: string,
-    public phoneNumber: string,
-    public address: string,
+    public ESFRICodes: string,
+    public contactInfo: InfraContactInfo[],
     public homepage: string,
     public terms: string,
     public urn: string,
     public responsibleOrganization: string,
     public responsibleOrganizationId: string,
-    public participantOrganizations: string,
+    public participatingOrganizations: string,
     public statCenterId: string,
     public replacingInfraStructure: string,
     public fieldsOfScience: object[],
     public services: InfraService[],
     public keywordsString: string,
-    public fieldsOfScienceString: string
+    public fieldsOfScienceString: string,
+    public hasRelationToInternationalInfra: string,
+    public isPartOf: any[],
+    public hasPart: any[]
   ) {}
 }
 
@@ -46,46 +59,51 @@ export class Infrastructure {
   providedIn: 'root',
 })
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
-  constructor(
-    private isa: InfraServiceAdapter,
-    private utils: ModelUtilsService
+  infraContactInfo: InfraContactInfo[] = [];
+  constructor(@Inject(LOCALE_ID) protected localeId: string,
+              private isa: InfraServiceAdapter,
+              private utils: ModelUtilsService
   ) {}
+
   adapt(item: any): Infrastructure {
+    this.infraContactInfo = [];
+
     const services: InfraService[] = [];
     const fieldsOfScience: string[] = [];
 
     item.infraConPoint = item.infraConPoint?.shift();
 
-    // Init and assign if available
-    let responsibleOrganization = '';
-    let responsibleOrganizationId = '';
-    if (item.responsibleOrganization) {
-      responsibleOrganization = this.utils.checkTranslation(
-        'responsibleOrganizationName',
-        item.responsibleOrganization[0]
-      );
-      responsibleOrganizationId =
-        item.responsibleOrganization[0]?.TKOppilaitosTunnus;
+    if (item.infraStartsOn) {
+      const day = item.infraStartsOn.day ?? '0';
+      const month = item.infraStartsOn.month ?? '0';
+      const year = item.infraStartsOn.year ?? '0';
+      item.infraStartDate = new Date(year, month , day);
     }
 
-    let participantOrganizations = '';
-    const orgList = [];
-    if (item.participantOrganizations) {
-      item.participantOrganizations.forEach((org) => {
-        orgList.push(
-          this.utils.checkTranslation('participantOrganizationName', org).trim()
-        );
-      });
+    if (item.infraEndsOn) {
+      const day = item.infraEndsOn.day ?? '0';
+      const month = item.infraEndsOn.month ?? '0';
+      const year = item.infraEndsOn.year ?? '0';
+      item.infraEndDate = new Date(year, month , day);
     }
-    participantOrganizations = orgList.join(', ');
 
-    // Assign if available
-    const esfriCode =
-      item.ESFRICodes?.length > 0
-        ? item.ESFRICodes.map((x) => x.ESFRICode)[0]
-        : '';
+    if (item?.infraContactInformation) {
+      item.infraContactInformation.forEach(contactElement => {
+        let infraContact: InfraContactInfo = {};
+        infraContact.contactLabel = contactElement?.contactLabel ?? '';
+        infraContact.phone = contactElement?.phone ?? [];
+        infraContact.email = contactElement?.email ?? [];
+        infraContact.street = contactElement?.street ?? '';
+        infraContact.premise = contactElement?.premise ?? '';
+        infraContact.postalCode = contactElement?.postalCode ?? '';
+        infraContact.locality = contactElement?.locality ?? '';
+        infraContact.country = contactElement?.country ?? '';
+        infraContact.countryCode = contactElement?.countryCode ?? '';
+        this.infraContactInfo.push(infraContact);
+      })
+    }
 
-    item.services?.forEach((service) => services.push(this.isa.adapt(service)));
+    item.infraServices?.forEach((service) => services.push(this.isa.adapt(service)));
     item.fieldsOfScience?.forEach((obj) =>
       fieldsOfScience.push(this.utils.checkTranslation('name', obj))
     );
@@ -99,33 +117,36 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     const fieldsOfScienceString = fieldsOfScience?.join(', ');
 
     return new Infrastructure(
-      item.nameFi,
-      this.utils.checkTranslation('name', item),
-      this.utils.checkTranslation('description', item),
+      item?.infraKeyIdentifier?.substring(11, item?.infraKeyIdentifier?.length),
+      this.utils.checkTranslationFromArrayToString(item.infraName),
+      this.utils.checkTranslationFromArrayToString(item.infraDescription),
       this.utils.checkTranslation('scientificDescription', item),
-      item.startYear,
-      item.endYear,
-      item.acronym,
-      item.finlandRoadmap,
-      esfriCode,
-      item.merilCode,
-      this.utils.checkTranslation('infraConName', item?.infraConPoint),
-      this.utils.checkTranslation('infraConDescr', item?.infraConPoint),
-      item?.infraConPoint?.infraConEmail,
-      item?.infraConPoint?.infraConPhone,
-      item?.infraConPoint?.infraConPost,
-      this.utils.checkTranslation('infraConInfo', item?.infraConPoint),
+      item?.infraStartsOn?.year ?? '',
+      item?.infraEndsOn?.year ?? '',
+      item?.infraStartDate ?? undefined,
+      item?.infraEndDate ?? undefined,
+      item?.infraAcronym ?? '',
+      item?.finlandRoadmap,
+      item?.ESFRICodes ? item.ESFRICodes.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)).join(', ') : '',
+      this.infraContactInfo,
+      this.utils.checkTranslationFromArrayToString(item?.infraHomepage, 'weblinkURL'),
       this.utils.checkTranslation('infraConTerms', item?.infraConPoint),
-      item.urn,
-      responsibleOrganization,
-      responsibleOrganizationId,
-      participantOrganizations,
-      item.TKOppilaitosTunnus,
+      item?.infraKeyIdentifier,
+      this.utils.filterTranslationFromElement(item?.infraResponsibleOrganization?.organizationName),
+      item?.infraResponsibleOrganization?.orgNodeId ?? '',
+      (item?.infraParticipatingOrganizations ?? [])
+        .map((org) => this.utils.filterTranslationFromElement(org?.organizationName)?.trim())
+        .filter((name) => name?.length > 0)
+        .join(', '),
+      item.orgNodeId,
       item.replacingInfraStructure,
-      item.fieldsOfScience,
+      item?.fieldOfScience ? item.fieldOfScience.map(item => this.utils.filterTranslationFromElement(item?.codeLabel)) : [],
       services,
       keywords,
-      fieldsOfScienceString
+      fieldsOfScienceString,
+      item?.hasRelationToInternationalInfra ?? '',
+      item?.isPartOf?.relatedInfraID ? item?.isPartOf?.relatedInfraID : [],
+      item?.hasParts?.relatedInfraID ? item?.hasParts?.relatedInfraID : [],
     );
   }
 }

@@ -5,6 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
+import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
 import {
   Component,
   OnInit,
@@ -35,7 +36,7 @@ import { DatasetFilterService } from 'src/app/portal/services/filters/dataset-fi
 import { InfrastructureFilterService } from 'src/app/portal/services/filters/infrastructure-filter.service';
 import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
-import { isPlatformBrowser, NgTemplateOutlet, NgClass, JsonPipe } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet, NgClass, JsonPipe, LowerCasePipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -60,13 +61,15 @@ import { SecondaryButtonComponent } from '../../../../shared/components/buttons/
 import { ProjectFilterService } from '@portal/services/filters/project-filter.service';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { PrimaryActionButtonComponent } from '@shared/components/buttons/primary-action-button/primary-action-button.component';
+import { cloneDeep } from 'lodash-es';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 
 @Component({
-    selector: 'app-filters',
-    templateUrl: './filters.component.html',
-    styleUrls: ['./filters.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    imports: [
+  selector: 'app-filters',
+  templateUrl: './filters.component.html',
+  styleUrls: ['./filters.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  imports: [
     SecondaryButtonComponent,
     NgTemplateOutlet,
     MatProgressSpinner,
@@ -93,13 +96,17 @@ import { PrimaryActionButtonComponent } from '@shared/components/buttons/primary
     RouterLink,
     DialogComponent,
     ThousandSeparatorPipe,
+    CapitalizeFirstLetterPipe,
+    LowerCasePipe,
     FilterItemPipe,
     ReplaceSpacePipe,
     ConvertToArrayPipe,
     JsonPipe,
     SvgSpritesComponent,
-    PrimaryActionButtonComponent
-]
+    PrimaryActionButtonComponent,
+    MatRadioButton,
+    MatRadioGroup
+  ]
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;
@@ -153,6 +160,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   dialogTemplate: TemplateRef<any>;
   dialogTitle: string;
   filterHeading: string;
+
+  infraFiltersHasStartedLocalization = $localize`:@@infraFiltersHasStarted:Toiminta on aloitettu`;
+  infraFiltersHasEndedLocalization = $localize`:@@infraFiltersHasEnded:Toiminta on lopetettu`;
+  infraFiltersHasStartedSelection = true;
+  selectedInfraYear = '';
 
   constructor(
     private router: Router,
@@ -267,9 +279,42 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           break;
         }
         case 'infrastructures': {
+          // Map to make old switch component compatible
+          const finRoadmapCodes = this.responseData.aggregations.finlandRoadmap.finlandRoadmapCodes;
+          const hasRelationToInternationalInfraCodes = this.responseData.aggregations.hasRelationToInternationalInfra.hasRelationToInternationalInfraCodes;
+          const infraIsActiveCodes = this.responseData.aggregations.infraIsActive.infraIsActiveCodes
+
+          infraIsActiveCodes.buckets = infraIsActiveCodes.buckets.map(code => {
+            if (code.key === 0) {
+              code.key = false;
+            }
+            else {
+              code.key = true;
+            }
+            return code;
+          });
+
+          hasRelationToInternationalInfraCodes.buckets = hasRelationToInternationalInfraCodes.buckets.map(code => {
+            if (code.key === 0) {
+              code.key = false;
+            }
+            if (code.key === 1) {
+              code.key = true;
+            }
+            return code;
+          });
+
+          // Prevent hiding the switch with empty results
+          if (finRoadmapCodes?.buckets?.length < 1) {
+            finRoadmapCodes.buckets.push(
+              { key: 1, key_as_string: "true", doc_count: 0 }
+            );
+          }
+
+          this.responseData.aggregations.finlandRoadmap = cloneDeep(finRoadmapCodes);
+
           this.currentFilter = this.infrastructureFilters.filterData;
-          this.currentSingleFilter =
-            this.infrastructureFilters.singleFilterData;
+          this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
           this.infrastructureFilters.shapeData(this.responseData);
           break;
         }
@@ -317,6 +362,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  infraHasStartedValueSelection(value: boolean) {
+    this.infraFiltersHasStartedSelection = value;
+    this.selectedInfraYear = undefined;
+  }
+
   clearFundingCallFilters() {
     // Merge selection with active filters and navigate
     let selectedFilters: any = {};
@@ -335,7 +385,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   selectionChange(filterName, key, forceOn = false) {
     let selectedFilters: any = {};
-    // Reset selected filters
+    // Reset selected filter
     if (!this.activeFilters[filterName]) {
       selectedFilters[filterName] = [];
     }
@@ -436,6 +486,39 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     obj[dir] = event.value ? dir.slice(0, 1) + event.value : null;
     newFilters = Object.assign({}, this.activeFilters, obj);
     this.activeFilters = newFilters;
+  }
+
+  yearChangeInfras(event) {
+    const obj = {};
+    let newFilters = {};
+
+    // No selection ("Ei valintaa"), remove both year parameters from the address bar
+    if (event.value === undefined || event.value === null || event.value === '') {
+      obj['infraStartYear'] = null;
+      obj['infraEndYear'] = null;
+      this.activeFilters = Object.assign({}, this.activeFilters, obj);
+      this.selectedInfraYear = undefined;
+      this.router.navigate([], {
+        queryParams: { ...obj, page: 1 },
+        queryParamsHandling: 'merge',
+      });
+      return;
+    }
+
+    if (this.infraFiltersHasStartedSelection === true) {
+      obj['infraStartYear'] = null;
+      obj['infraEndYear'] = null;
+      newFilters = Object.assign({}, this.activeFilters, obj);
+      this.activeFilters = newFilters;
+      this.selectionChange('infraStartYear', event.value);
+    } else {
+      obj['infraStartYear'] = null;
+      obj['infraEndYear'] = null;
+      newFilters = Object.assign({}, this.activeFilters, obj);
+      this.activeFilters = newFilters;
+      this.selectionChange('infraEndYear', event.value);
+    }
+    this.selectedInfraYear = event.value;
   }
 
   range(event, dir) {

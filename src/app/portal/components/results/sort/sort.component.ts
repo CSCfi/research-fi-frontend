@@ -59,13 +59,12 @@ export class SortComponent implements OnInit, OnDestroy {
     },
   ];
   infraFields = [
-    { label: $localize`:@@sortAcronymAsc:Lyhenne (A-Ö)`, value: 'acronym' },
     {
       label: $localize`:@@sortInfraNameAsc:Infrastruktuuri (A-Ö)`,
       value: 'name',
     },
     {
-      label: $localize`:@@sortOrgNameAsc:Organisaatio (A-Ö)`,
+      label: $localize`:@@infraSortResponsibleOrganization:Organisaatio (A-Ö)`,
       value: 'organization',
     },
   ];

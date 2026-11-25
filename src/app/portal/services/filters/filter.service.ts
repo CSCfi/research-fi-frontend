@@ -17,6 +17,8 @@ import { StaticDataService } from '../static-data.service';
 import { AggregationService } from './aggregation.service';
 import { TabChangeService } from '../tab-change.service';
 
+
+// This represents the state of visible filters in sidebar filters
 export type Filters = {
   toYear: string[];
   fromYear: string[];
@@ -42,6 +44,7 @@ export type Filters = {
   topic: string[];
   sector: string[];
   organization: string[];
+  participatingOrganizations: string[];
   keyword: string[];
   position: string[];
   dataSource: string[];
@@ -56,6 +59,15 @@ export type Filters = {
   callId: string[];
   approvalDate: string[];
   identifiedTopic: string[];
+  serviceUserRole: string[],
+  serviceTargetSegment: string[],
+  ESFRICodes: string[],
+  finlandRoadmap: string[],
+  hasRelationToInternationalInfra: string[],
+  startAndEndYearly: string[],
+  infraStartYear: string[];
+  infraEndYear: string[];
+  infraIsActive: string[];
 };
 
 @Injectable({
@@ -88,6 +100,7 @@ export class FilterService {
   topicFilterProjects: string[];
   topicFilterPublications: string[];
   organizationFilter: string[];
+  participatingOrganizationsFilter: string[];
   keywordFilterPersons: string[];
   positionFilter: string[];
   dataSourceFilter: string[];
@@ -103,6 +116,15 @@ export class FilterService {
   decisionMakerFilter: string[];
   callIdFilter: string[];
   approvalDateFilter: string[];
+  ESFRIFilter: string[];
+  infraTargetAudienceFilter: string[];
+  infraUserRolesFilter: string[];
+  infraRoadmapFilter: string[];
+  hasRelationToInternationalInfraFilter: string[];
+  startAndEndYearly: string[];
+  infraIsActiveFilter: string[];
+  infraStartYearFilter: string[];
+  infraEndYearFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -138,7 +160,17 @@ export class FilterService {
     typeOfFundingId: [],
     approvalYear: [],
     identifiedTopic: [],
+    serviceUserRole: [],
+    serviceTargetSegment: [],
+    ESFRICodes: [],
+    finlandRoadmap: [],
+    hasRelationToInternationalInfra: [],
+    startAndEndYearly: [],
+    infraIsActive: [],
+    infraStartYear: [],
+    infraEndYear: []
   });
+
   filters = this.filterSource.asObservable();
   localeC: string;
   timestamp: string;
@@ -164,7 +196,7 @@ export class FilterService {
       this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
-  // Elements that are looked from query params.
+  // Elements that are looked from query params. Updates active filters box contents
   filterList(source) {
     const mapFilter = (filter) =>
       [filter]
@@ -213,6 +245,16 @@ export class FilterService {
       accessType: mapFilter(source.accessType),
       // Infrastructures
       type: mapFilter(source.type),
+      participatingOrganizations: mapFilter(source.participatingOrganizations),
+      serviceUserRole: mapFilter(source.serviceUserRole),
+      serviceTargetSegment: mapFilter(source.serviceTargetSegment),
+      ESFRICodes: mapFilter(source.ESFRICodes),
+      finlandRoadmap: mapFilter(source.finlandRoadmap),
+      hasRelationToInternationalInfra: mapFilter(source.hasRelationToInternationalInfra),
+      infraIsActive: mapFilter(source.infraIsActive),
+      infraStartYear: mapFilter(source.infraStartYear),
+      infraEndYear: mapFilter(source.infraEndYear),
+
       // Funding calls
       date: mapFilter(source.date),
       status: mapFilter(source.status),
@@ -227,7 +269,8 @@ export class FilterService {
   createFilters(filter: Filters) {
     // Global
     this.yearFilter = this.filterByYear(filter.year);
-    this.organizationFilter = this.filterByOrganization(filter.organization);
+    this.organizationFilter = this.filterByOrganization(filter.organization, false);
+    this.participatingOrganizationsFilter = this.filterByOrganization(filter.participatingOrganizations, true);
     this.keywordFilterPersons = this.filterByPersonsKeyword(filter.keyword);
 
     this.positionFilter = this.filterByPosition(filter.position);
@@ -314,6 +357,7 @@ export class FilterService {
       'accessType.keyword'
     );
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
+
     // Infrastructure
     this.typeFilter = this.basicFilter(
       filter.type,
@@ -321,8 +365,35 @@ export class FilterService {
     );
     this.infraFieldFilter = this.basicFilter(
       filter.field,
-      'fieldsOfScience.field_id.keyword'
+      'fieldOfScience.codeValue.keyword'
     );
+    this.infraUserRolesFilter = this.basicFilter(
+      filter.serviceUserRole,
+      'infraServices.serviceUserRole.codeValue.keyword'
+    );
+    this.infraTargetAudienceFilter = this.basicFilter(
+      filter.serviceTargetSegment,
+      'infraServices.serviceTargetSegment.codeValue.keyword'
+    );
+    this.ESFRIFilter = this.basicFilter(
+      filter.ESFRICodes,
+      'ESFRICodes.codeValue.keyword'
+    );
+    this.infraRoadmapFilter = this.basicFilter(
+      filter.finlandRoadmap,
+      'finlandRoadmap'
+    );
+    this.hasRelationToInternationalInfraFilter = this.basicFilter(
+      filter.hasRelationToInternationalInfra,
+      'hasRelationToInternationalInfra'
+    );
+    this.infraIsActiveFilter = this.basicFilter(
+      filter.infraIsActive,
+      'infraIsActive'
+    );
+    this.infraStartYearFilter = this.startOrEndYearFilter(true, filter.infraStartYear);
+    this.infraEndYearFilter = this.startOrEndYearFilter(false, filter.infraEndYear);
+
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
     // FundingCalls
@@ -401,7 +472,7 @@ export class FilterService {
       }
       case 'infrastructures': {
         filter.forEach((value) => {
-          res.push({ term: { startYear: value } });
+          //res.push({ term: { 'infraStartsOn.year': value } });
         });
         break;
       }
@@ -427,6 +498,32 @@ export class FilterService {
       res.push({ range: { publicationYear: { lte: t } } });
     }
 
+    return res;
+  }
+
+  infraIsActive(statusCodeArray) {
+    const res = [];
+    statusCodeArray.forEach((value) => {
+      if (value === 'active') {
+        res.push({ range: { 'infraSratsOn.year': { lte: 2000 } } });
+      }
+      if (value === 'discontinued') {
+        res.push({ range: { 'infraSratsOn.year': { lte: 2000 } } });
+      }
+    });
+    return res;
+  }
+
+  startOrEndYearFilter(isStartYear: boolean, years: string[]) {
+    const res = [];
+    years.forEach(year => {
+      if (isStartYear) {
+        res.push({ "term": { "infraStartsOn.year": year } });
+      }
+      else {
+        res.push({ "term": { "infraEndsOn.year": year } });
+      }
+    });
     return res;
   }
 
@@ -504,7 +601,7 @@ export class FilterService {
     return res;
   }
 
-  filterByOrganization(filter: any[]) {
+  filterByOrganization(filter: any[], isParticipatingOrganization: boolean) {
     const res = [];
     const currentTab = this.tabChangeService.tab;
     switch (currentTab) {
@@ -553,7 +650,7 @@ export class FilterService {
       }
       case 'infrastructures': {
         const filterString =
-          'responsibleOrganization.TKOppilaitosTunnus.keyword';
+          isParticipatingOrganization ? 'infraParticipatingOrganizations.orgNodeId.keyword' : 'infraResponsibleOrganization.orgNodeId.keyword';
         filter.forEach((value) => {
           res.push({ term: { [filterString]: value } });
         });
@@ -861,6 +958,15 @@ export class FilterService {
     return res;
   }
 
+  // Sector
+  filterByESFRICode(ESFRICodes: any[]) {
+    const res = [];
+    ESFRICodes.forEach((value) => {
+      res.push({ term: { 'ESFRICodes.codeValue': value } });
+    });
+    return res;
+  }
+
   addMinMatch(min) {
     return { minimum_should_match: min };
   }
@@ -1017,11 +1123,21 @@ export class FilterService {
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),
       ...basicFilter('infrastructure', this.organizationFilter),
+      ...basicFilter('infrastructure', this.participatingOrganizationsFilter),
       ...nestedFilter(
         'infrastructure',
         this.infraFieldFilter,
-        'fieldsOfScience'
+        'fieldOfScience'
       ),
+      ...nestedFilter('infrastructure', this.ESFRIFilter,'ESFRICodes'),
+      ...nestedFilter('infrastructure', this.infraTargetAudienceFilter, 'infraServices'),
+      ...nestedFilter('infrastructure', this.infraUserRolesFilter, 'infraServices'),
+      ...basicFilter('infrastructure', this.infraRoadmapFilter),
+      ...basicFilter('infrastructure', this.hasRelationToInternationalInfraFilter),
+      ...basicFilter('infrastructure', this.infraStartYearFilter),
+      ...basicFilter('infrastructure', this.infraEndYearFilter),
+
+      ...basicFilter('infrastructure', this.infraIsActiveFilter),
 
       // Organizations
       ...basicFilter('organization', this.sectorFilter),

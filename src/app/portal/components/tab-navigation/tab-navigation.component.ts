@@ -803,38 +803,17 @@ function payloadWithSearchKeywords(keywords: string) {
                           "analyzer": "standard",
                           "type": "phrase_prefix",
                           "fields": [
-                            "nameFi^2",
-                            "nameEn^2",
-                            "nameSv^2",
-                            "descriptionFi",
-                            "descriptionEn",
-                            "descriptionSv",
-                            "scientificDescriptionFi",
-                            "scientificDescriptionSv",
-                            "scientificDescriptionEn",
-                            "startYear",
-                            "acronym",
-                            "responsibleOrganizationNameFi",
-                            "responsibleOrganizationNameEn",
-                            "responsibleOrganizationNameSv",
-                            "keywordsFi.keyword",
-                            "keywordsSv.keyword",
-                            "keywordsEn.keyword",
-                            "services.serviceNameFi",
-                            "services.serviceNameSv",
-                            "services.serviceNameEn",
-                            "services.serviceDescriptionFi",
-                            "services.serviceDescriptionSv",
-                            "services.serviceDescriptionEn",
-                            "services.serviceType",
-                            "services.servicePointName",
-                            "services.serviceAcronym",
-                            "services.servicePointEmailAddress",
-                            "services.servicePointInfoUrlFi",
-                            "services.servicePointInfoUrlEn",
-                            "services.servicePointInfoUrlSv",
-                            "services.servicePointPhoneNumber",
-                            "services.servicePointVisitingAddress"
+                            'infraAcronym',
+                            'infraKeyIdentifier',
+                            'infraId',
+                            'infraParticipatingOrganizations.organizationName.fi',
+                            'infraParticipatingOrganizations.organizationName.en',
+                            'infraParticipatingOrganizations.organizationName.sv',
+                            'infraDescription.descriptiveContent',
+                            'infraName.descriptiveContent',
+                            'infraResponsibleOrganization.organizationName.fi',
+                            'infraResponsibleOrganization.organizationName.en',
+                            'infraResponsibleOrganization.organizationName.sv',
                           ],
                           "operator": "AND",
                           "lenient": "true",
@@ -842,10 +821,30 @@ function payloadWithSearchKeywords(keywords: string) {
                         }
                       },
                       {
+                        "nested": {
+                          "path": "infraServices",
+                          "query": {
+                            "multi_match": {
+                              "query": keywords,
+                              "analyzer": "standard",
+                              "type": "phrase_prefix",
+                              "fields": [
+                                'infraServices.serviceKeyIdentifier',
+                                'infraServices.serviceName.descriptiveContent'
+                              ],
+                              "operator": "AND",
+                              "lenient": "true",
+                              "max_expansions": 1024
+                            }
+                          }
+                        }
+                      },
+                      {
                         "multi_match": {
                           "query": keywords,
                           "type": "cross_fields",
                           "fields": [
+                            "keyIdentifier",
                             "nameFi^2",
                             "nameEn^2",
                             "nameSv^2",
@@ -863,6 +862,7 @@ function payloadWithSearchKeywords(keywords: string) {
                             "keywordsFi.keyword",
                             "keywordsSv.keyword",
                             "keywordsEn.keyword",
+                            "services.keyIdentifier",
                             "services.serviceNameFi",
                             "services.serviceNameSv",
                             "services.serviceNameEn",
