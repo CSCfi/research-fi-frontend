@@ -18,10 +18,10 @@ import { ResizeService } from '@shared/services/resize.service';
 import { RETURN_URL_KEY } from './mydata/services/auth-guard.service';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [LayoutComponent, RouterOutlet, JsonPipe]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  imports: [LayoutComponent, RouterOutlet, JsonPipe]
 })
 export class AppComponent {
   title = 'research-fi-portal';

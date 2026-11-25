@@ -26,9 +26,9 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
 import { ModalTemplateComponent } from '@shared/components/dialog/modal-template/modal-template.component';
 
 @Component({
-    selector: 'app-dialog',
-    templateUrl: './dialog.component.html',
-    standalone: true,
+  selector: 'app-dialog',
+  templateUrl: './dialog.component.html',
+  standalone: true,
 })
 export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() title: string;

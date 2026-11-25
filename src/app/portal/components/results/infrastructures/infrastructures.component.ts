@@ -35,6 +35,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { SingleItemService } from '@portal/services/single-item.service';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 import { Subscription } from 'rxjs';
 import { PopoverDirective } from 'ngx-bootstrap/popover';
 import { JsonPipe, SlicePipe } from '@angular/common';
@@ -111,7 +112,8 @@ export class InfrastructuresComponent
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
     private highlightPipe: HighlightSearchPipe,
-    private singleService: SingleItemService
+    private singleService: SingleItemService,
+    private modelUtils: ModelUtilsService
   ) {}
 
   ngOnInit() {
@@ -152,7 +154,9 @@ export class InfrastructuresComponent
 
   updateInfraNodeList(networkData: any){
     if (networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes) {
-      this.infraNodeList = networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes;
+
+     this.infraNodeList = networkData?.hits?.hits[0]?._source?.infraNetworks?.nodes.filter(infra => !infra.nodeTypeNational || infra.nodeTypeNational.infraKeyIdentifier);
+
     }
     this.nationalNodeList = this.infraNodeList.filter(infra => infra.nodeTypeNational);
     this.internationalNodeList = this.infraNodeList.filter(infra => infra.nodeTypeInternational);
@@ -190,7 +194,7 @@ export class InfrastructuresComponent
     let res = undefined;
     this.nationalNodeList.some((item) => {
       if (item?.internalId === infraId) {
-        res = item?.nodeTypeNational.acronym;
+        res = this.modelUtils.checkTranslationFromArrayToString(item?.nodeTypeNational?.infraName);
       };
     });
     return res ?? '';
@@ -232,14 +236,15 @@ export class InfrastructuresComponent
         label: $localize`:@@infraServices:Palvelut`,
         tooltip: $localize`:@@infraServicesTooltip:Placeholder`,
         class: 'col-lg-3 col-xl-3',
-        mobile: true,
+        mobile: false,
       },
       {
         key: 'networkSize',
         label: $localize`:@@infraNetworkSize:Verkoston koko`,
         tooltip: $localize`:@@infraNetworkSizeTooltip:Placeholder`,
+        sortDisabled: true,
         class: 'col-lg-3 col-xl-3',
-        mobile: true,
+        mobile: false,
       },
     ];
 

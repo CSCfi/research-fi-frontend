@@ -16,6 +16,8 @@ import { SecondaryButtonComponent } from '../../../shared/components/buttons/sec
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import { map, take } from 'rxjs/operators';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { BannerContent, GeneralInfoBannerComponent } from '@shared/components/general-info-banner/general-info-banner.component';
 
 
 @Component({
@@ -26,7 +28,9 @@ import { map, take } from 'rxjs/operators';
         PrimaryActionButtonComponent,
         RouterLink,
         SecondaryButtonComponent,
-        BannerDividerComponent
+        BannerDividerComponent,
+      SvgSpritesComponent,
+      GeneralInfoBannerComponent
     ]
 })
 export class HomeComponent implements OnInit {
@@ -50,6 +54,19 @@ export class HomeComponent implements OnInit {
   suomiFiAutheticationProblemSnackbarText = $localize`:@@suomiFiAutheticationProblemSnackbarText:Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla "Kirjaudu sisään" -painiketta sivun ylälaidassa.`;
 
   locale: string;
+
+  serviceBreakBannerContent: BannerContent = {
+    bannerId: 'service_break_banner',
+    bannerType: 'portal-banner-no-link',
+    iconType: 'info',
+    bannerTheme: 'yellow',
+    heading: $localize`:@@notice:Huomio`,
+    textContent: $localize`:@@service_break_banner_text_23_9_06:Tiedejatutkimus.fi-palvelussa suoritetaan päivitystöitä tiistaina 23.9. klo 8 alkaen. Tänä aikana profiilityökalu ei ole käytettävissä ja portaalin tiedot eivät päivity. Arvioitu valmistumisaika on klo 16 mennessä. Pahoittelemme katkosta aiheutuvaa haittaa.`,
+    link1Target: 'internal',
+    link1Text: '',
+    link1Url: '',
+    rememberDismissed: false
+  }
 
   constructor(
     public oidcSecurityService: OidcSecurityService,

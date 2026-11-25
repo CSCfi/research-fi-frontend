@@ -3,12 +3,26 @@ import { AccordionContent, AccordionGroup, AccordionPanel, AccordionTrigger } fr
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { ShareComponent } from '@portal/components/single/share/share.component';
 import { JsonPipe } from '@angular/common';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export interface InfraContact {
   contactLabel?: string;
   email?: string[];
-  telephone?: string;
-  address?: string;
+  phone?: string[];
+  visitingAddress?: InfraAddress;
+}
+
+export interface LocaleStrings {
+  fi?: string;
+  en?: string;
+  sv?: string;
+}
+
+export interface InfraAddress {
+  street?: string;
+  postalCode?: string;
+  locality?: LocaleStrings;
+  country?: { codeLabel?: LocaleStrings; codeValue?: string };
 }
 
 export interface InfraLink {
@@ -90,15 +104,27 @@ export class InfraAccordionComponent {
   targetAudienceLocalization = $localize`:@@infra-service-users:Käyttäjät`;
   serviceObtainLocalization = $localize`:@@infra-service-obtain-description:Kuvaus käyttöönotosta`;
   serviceContactInfoLocalization = $localize`:@@infra-service-contact-info:Yhteyshenkilö ja -tiedot`;
+
   serviceIsDiscontinuedHeading = $localize`:@@serviceIsDiscontinuedHeading:Palvelun toiminta on päättynyt.`;
   serviceIsDiscontinuedInfoText = $localize`:@@serviceIsDiscontinuedInfoText:Sisältöä ei enää päivitetä. Tiedot voivat olla vanhentuneita.`;
+
+  revealedEmails = new Set<string>();
+
+  revealEmail(email: string) {
+    this.revealedEmails = new Set(this.revealedEmails).add(email);
+  }
+
+  // Picks the text in the current ui locale, falls back to other languages
+  localize(text: LocaleStrings): string {
+    return this.modelUtils.filterTranslationFromElement(text);
+  }
 
   currentDay = 0;
   currentMonth = 0;
   currentYear = 0;
 
-  constructor() {
-    this.infraData = [{serviceName: 'Infra1'}, {serviceName: 'Infra2'}];
+  constructor(private modelUtils: ModelUtilsService) {
+    this.infraData = [];
 
     const currentDate = new Date();
     this.currentDay = currentDate.getDate();
